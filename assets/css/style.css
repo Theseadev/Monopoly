@@ -256,21 +256,27 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 /* VINTAGE DELUXE MONOPOLI NUSANTARA BOARD STYLES     */
 /* =================================================== */
 
+#inGameBoardScreen {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
 .monopoly-board {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) repeat(9, minmax(0, 1fr)) minmax(0, 1.35fr);
   grid-template-rows: minmax(0, 1.35fr) repeat(9, minmax(0, 1fr)) minmax(0, 1.35fr);
-  width: min(calc(100vh - 64px), calc(100vw - 520px), 620px);
-  height: min(calc(100vh - 64px), calc(100vw - 520px), 620px);
-  max-width: 100%;
-  max-height: calc(100vh - 60px);
+  width: min(calc(100vh - 86px), calc(100vw - 530px), 560px);
+  height: min(calc(100vh - 86px), calc(100vw - 530px), 560px);
+  max-width: calc(100vh - 86px);
+  max-height: calc(100vh - 86px);
   aspect-ratio: 1 / 1;
   background: #cbaf75;
-  border: 3.5px solid #4a2c0c;
+  border: 3px solid #4a2c0c;
   border-radius: 12px;
   box-shadow: 
-    0 12px 30px -6px rgba(0, 0, 0, 0.75), 
-    0 0 14px rgba(74, 44, 12, 0.35),
+    0 10px 25px -5px rgba(0, 0, 0, 0.75), 
+    0 0 12px rgba(74, 44, 12, 0.35),
     inset 0 0 10px rgba(0, 0, 0, 0.15);
   position: relative;
   overflow: hidden;
@@ -279,31 +285,34 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   box-sizing: border-box;
 }
 
-@media (max-height: 800px) {
+@media (max-height: 900px) {
   .monopoly-board {
-    width: min(calc(100vh - 56px), calc(100vw - 500px), 540px);
-    height: min(calc(100vh - 56px), calc(100vw - 500px), 540px);
-    max-height: calc(100vh - 52px);
-    border-width: 3px;
+    width: min(calc(100vh - 80px), calc(100vw - 500px), 520px);
+    height: min(calc(100vh - 80px), calc(100vw - 500px), 520px);
+    max-width: calc(100vh - 80px);
+    max-height: calc(100vh - 80px);
+    border-width: 2.5px;
     border-radius: 10px;
   }
 }
 
-@media (max-height: 700px) {
+@media (max-height: 780px) {
   .monopoly-board {
-    width: min(calc(100vh - 50px), calc(100vw - 460px), 480px);
-    height: min(calc(100vh - 50px), calc(100vw - 460px), 480px);
-    max-height: calc(100vh - 46px);
-    border-width: 2.5px;
+    width: min(calc(100vh - 74px), calc(100vw - 470px), 470px);
+    height: min(calc(100vh - 74px), calc(100vw - 470px), 470px);
+    max-width: calc(100vh - 74px);
+    max-height: calc(100vh - 74px);
+    border-width: 2px;
     border-radius: 8px;
   }
 }
 
-@media (max-height: 600px) {
+@media (max-height: 650px) {
   .monopoly-board {
-    width: min(calc(100vh - 42px), calc(100vw - 420px), 420px);
-    height: min(calc(100vh - 42px), calc(100vw - 420px), 420px);
-    max-height: calc(100vh - 40px);
+    width: min(calc(100vh - 64px), calc(100vw - 420px), 410px);
+    height: min(calc(100vh - 64px), calc(100vw - 420px), 410px);
+    max-width: calc(100vh - 64px);
+    max-height: calc(100vh - 64px);
     border-width: 2px;
     border-radius: 6px;
   }
@@ -311,8 +320,10 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 
 @media (max-width: 1200px) {
   .monopoly-board {
-    width: min(calc(100vh - 56px), calc(100vw - 460px), 520px);
-    height: min(calc(100vh - 56px), calc(100vw - 460px), 520px);
+    width: min(calc(100vh - 76px), calc(100vw - 460px), 490px);
+    height: min(calc(100vh - 76px), calc(100vw - 460px), 490px);
+    max-width: calc(100vh - 76px);
+    max-height: calc(100vh - 76px);
   }
 }
 
@@ -327,10 +338,10 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
     overflow: visible !important;
   }
   .monopoly-board {
-    width: min(95vw, 540px);
-    height: min(95vw, 540px);
-    max-width: 95vw;
-    max-height: 95vw;
+    width: min(92vw, 500px);
+    height: min(92vw, 500px);
+    max-width: 92vw;
+    max-height: 92vw;
   }
 }
 

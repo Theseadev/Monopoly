@@ -643,7 +643,7 @@
   <!-- ========================================== -->
   <!-- 5. LAYAR PAPAN PERMAINAN (IN-GAME BOARD)   -->
   <!-- ========================================== -->
-  <section id="inGameBoardScreen" class="hidden w-full min-h-screen flex flex-col bg-zinc-950/85">
+  <section id="inGameBoardScreen" class="hidden w-full h-screen max-h-screen flex flex-col bg-zinc-950/85 overflow-hidden">
     <!-- Top In-Game Header Bar -->
     <header class="h-11 md:h-12 border-b border-amber-900/60 bg-zinc-900/90 backdrop-blur px-3 flex items-center justify-between shadow-lg sticky top-0 z-30">
       <div class="flex items-center gap-2">
@@ -737,7 +737,7 @@
     </div>
 
     <!-- Main Workspace -->
-    <div class="flex-1 p-1 sm:p-1.5 xl:p-2 flex flex-col xl:flex-row items-center xl:items-start justify-center gap-1.5 xl:gap-2.5 max-w-[1440px] mx-auto w-full min-h-0">
+    <div class="flex-1 p-1 sm:p-1.5 flex flex-col xl:flex-row items-center justify-center gap-1.5 xl:gap-2.5 max-w-[1440px] mx-auto w-full min-h-0 overflow-hidden">
       <!-- Left Column: Player Cards -->
       <aside class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-2 order-2 xl:order-1">
         <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5 shadow-xl">

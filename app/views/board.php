@@ -737,7 +737,7 @@
     </div>
 
     <!-- Main Workspace -->
-    <div class="flex-1 p-1 sm:p-1.5 flex flex-col xl:flex-row items-center justify-center gap-1.5 xl:gap-3 max-w-[1650px] mx-auto w-full min-h-0 overflow-hidden">
+    <div class="flex-1 p-1 sm:p-1.5 flex flex-col xl:flex-row items-center xl:items-start justify-center gap-1.5 xl:gap-3 max-w-[1650px] mx-auto w-full min-h-0 overflow-hidden">
       <!-- Left Column: Player Cards -->
       <aside class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-2 order-2 xl:order-1">
         <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5 shadow-xl">
@@ -832,7 +832,7 @@
       </aside>
 
       <!-- Center Column: The Monopoly Board -->
-      <section class="flex flex-col items-center justify-center order-1 xl:order-2 shrink-0 min-w-0 min-h-0">
+      <section class="flex flex-col items-center justify-start order-1 xl:order-2 shrink-0 min-w-0 min-h-0">
         <div id="monopolyBoard" class="monopoly-board"></div>
       </section>
 

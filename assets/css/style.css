@@ -1,0 +1,1610 @@
+/* Monopoly Custom Stylesheet (Matching Reference Mockups) */
+
+:root {
+  --wood-light: #e6b980;
+  --wood-dark: #b87b41;
+  --card-bg: #351c0e;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* Realistic Polished Wood Tabletop Background */
+.wood-bg {
+  background-color: #c98c4f;
+  background-image: 
+    radial-gradient(ellipse at center, rgba(255, 230, 185, 0.4) 0%, rgba(135, 78, 30, 0.5) 100%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.03) 0px,
+      rgba(255, 255, 255, 0.03) 2px,
+      rgba(0, 0, 0, 0.04) 3px,
+      rgba(0, 0, 0, 0.04) 6px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 40px,
+      rgba(0, 0, 0, 0.02) 41px,
+      transparent 42px
+    );
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* 3D Gold Typography */
+.text-gold-3d {
+  color: #f1b32d;
+  font-family: Impact, 'Arial Black', sans-serif;
+  letter-spacing: 0.06em;
+  text-shadow: 
+    0 1px 0 #d1941a,
+    0 2px 0 #b37a0c,
+    0 3px 0 #8f5c04,
+    0 4px 0 #6e4300,
+    0 6px 10px rgba(0, 0, 0, 0.5);
+}
+
+.text-gold-subtitle {
+  color: #e5be82;
+  font-family: system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* 3D Menu Buttons */
+.btn-menu-orange {
+  background: linear-gradient(180deg, #c4600e 0%, #a24604 100%);
+  border: 2.5px solid #5a2402;
+  box-shadow: 0 5px 0 #3a1601, 0 10px 18px rgba(0, 0, 0, 0.45), inset 0 1.5px 1px rgba(255, 255, 255, 0.35);
+  transition: all 0.1s ease;
+}
+
+.btn-menu-orange:hover {
+  background: linear-gradient(180deg, #d36b15 0%, #b04e06 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #3a1601, 0 14px 22px rgba(0, 0, 0, 0.5), inset 0 1.5px 1px rgba(255, 255, 255, 0.4);
+}
+
+.btn-menu-orange:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #3a1601, 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1.5px 1px rgba(255, 255, 255, 0.2);
+}
+
+.btn-menu-green {
+  background: linear-gradient(180deg, #1b6846 0%, #10462e 100%);
+  border: 2.5px solid #09291b;
+  box-shadow: 0 5px 0 #051a11, 0 10px 18px rgba(0, 0, 0, 0.45), inset 0 1.5px 1px rgba(255, 255, 255, 0.35);
+  transition: all 0.1s ease;
+}
+
+.btn-menu-green:hover {
+  background: linear-gradient(180deg, #217852 0%, #145538 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #051a11, 0 14px 22px rgba(0, 0, 0, 0.5), inset 0 1.5px 1px rgba(255, 255, 255, 0.4);
+}
+
+.btn-menu-green:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #051a11, 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1.5px 1px rgba(255, 255, 255, 0.2);
+}
+
+.btn-menu-blue {
+  background: linear-gradient(180deg, #15558d 0%, #0b3760 100%);
+  border: 2.5px solid #06223e;
+  box-shadow: 0 5px 0 #031527, 0 10px 18px rgba(0, 0, 0, 0.45), inset 0 1.5px 1px rgba(255, 255, 255, 0.35);
+  transition: all 0.1s ease;
+}
+
+.btn-menu-blue:hover {
+  background: linear-gradient(180deg, #1c66a8 0%, #0f4373 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #031527, 0 14px 22px rgba(0, 0, 0, 0.5), inset 0 1.5px 1px rgba(255, 255, 255, 0.4);
+}
+
+.btn-menu-blue:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #031527, 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1.5px 1px rgba(255, 255, 255, 0.2);
+}
+
+.btn-home-pill {
+  background: #231207;
+  border: 2px solid #cca134;
+  box-shadow: 0 3px 0 #0d0602, 0 6px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.1s ease;
+}
+
+.btn-home-pill:hover {
+  background: #311b0c;
+  transform: translateY(-1px);
+}
+
+.btn-home-pill:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #0d0602;
+}
+
+/* Settings Dark Chocolate Modal Card */
+.settings-card {
+  background-color: #351c0e;
+  border: 2px solid #231107;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.btn-card-back {
+  background-color: #4a2714;
+  border: 1.5px solid #241107;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-card-back:hover {
+  background-color: #5c321b;
+}
+
+/* Custom 3D Sliders */
+input[type="range"].monopoly-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #241208;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid #170b04;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+
+input[type="range"].monopoly-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right, #d49c20 var(--slider-progress, 50%), #241208 var(--slider-progress, 50%));
+}
+
+input[type="range"].monopoly-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff4d94 0%, #c4185d 50%, #7d0838 100%);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+  border: 1.5px solid #5a0426;
+  cursor: pointer;
+  margin-top: -10px;
+  transition: transform 0.1s ease;
+}
+
+input[type="range"].monopoly-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
+  transform: scale(0.95);
+}
+
+/* Custom Toggle Switch */
+.toggle-switch-track {
+  width: 54px;
+  height: 26px;
+  background-color: #231208;
+  border: 1.5px solid #140803;
+  border-radius: 13px;
+  position: relative;
+  cursor: pointer;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+}
+
+.toggle-switch-track.active {
+  background-color: #174229;
+  border-color: #0d2818;
+}
+
+.toggle-knob {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #a8a8a8 0%, #707070 50%, #444444 100%);
+  border: 1px solid #333333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 3px;
+  top: 2px;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.toggle-switch-track.active .toggle-knob {
+  transform: translateX(26px);
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #cccccc 50%, #999999 100%);
+}
+
+.toggle-label-no,
+.toggle-label-yes {
+  font-size: 8px;
+  font-weight: 800;
+  color: #8c8c8c;
+  pointer-events: none;
+}
+
+.toggle-label-yes {
+  display: none;
+}
+
+.toggle-switch-track.active .toggle-label-no {
+  display: none;
+}
+
+.toggle-switch-track.active .toggle-label-yes {
+  display: inline-block;
+  color: #34d399;
+}
+
+/* =================================================== */
+/* VINTAGE DELUXE MONOPOLI NUSANTARA BOARD STYLES     */
+/* =================================================== */
+
+.monopoly-board {
+  display: grid;
+  grid-template-columns: 1.3fr repeat(9, 1fr) 1.3fr;
+  grid-template-rows: 1.3fr repeat(9, 1fr) 1.3fr;
+  height: min(calc(100vh - 58px), calc(100vw - 530px), 640px);
+  width: min(calc(100vh - 58px), calc(100vw - 530px), 640px);
+  max-height: calc(100vh - 56px);
+  max-width: calc(100vw - 510px);
+  aspect-ratio: 1 / 1;
+  background: #cbaf75;
+  border: 4px solid #4a2c0c;
+  border-radius: 12px;
+  box-shadow: 
+    0 12px 30px -6px rgba(0, 0, 0, 0.75), 
+    0 0 14px rgba(74, 44, 12, 0.35),
+    inset 0 0 10px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+@media (max-height: 750px) {
+  .monopoly-board {
+    height: min(calc(100vh - 50px), calc(100vw - 480px), 530px);
+    width: min(calc(100vh - 50px), calc(100vw - 480px), 530px);
+    max-height: calc(100vh - 48px);
+    border-width: 3.5px;
+    border-radius: 10px;
+  }
+}
+
+@media (max-height: 650px) {
+  .monopoly-board {
+    height: min(calc(100vh - 44px), calc(100vw - 440px), 460px);
+    width: min(calc(100vh - 44px), calc(100vw - 440px), 460px);
+    max-height: calc(100vh - 42px);
+    border-width: 3px;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 1024px) {
+  #inGameBoardScreen {
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+  }
+  #inGameBoardScreen > div {
+    flex-direction: column !important;
+    overflow: visible !important;
+  }
+  .monopoly-board {
+    width: min(94vw, 540px);
+    height: min(94vw, 540px);
+    max-width: 94vw;
+    max-height: 94vw;
+  }
+}
+
+/* Individual Board Tiles - Crisp White & Sharp Borders */
+.board-tile {
+  background: #ffffff;
+  border: 0.5px solid #8c6738;
+  color: #1c1917;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: visible;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+.board-tile:hover {
+  background: #faf6ee;
+  z-index: 15;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+  border-color: #5a3818;
+  transform: scale(1.025);
+}
+
+/* Crisp Solid Header Color Bar */
+.color-bar {
+  width: 100%;
+  height: clamp(8px, 1.1vw, 11px);
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  position: relative;
+  z-index: 5;
+}
+
+/* Content Container Inside Tiles */
+.tile-content {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1px 2px;
+  position: relative;
+  z-index: 2;
+}
+
+.tile-name {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: clamp(6.5px, 0.82vw, 8.5px);
+  line-height: 1.05;
+  color: #1c1917;
+  text-align: center;
+  letter-spacing: -0.02em;
+  max-width: 100%;
+  word-break: normal;
+  overflow-wrap: normal;
+  white-space: normal;
+  hyphens: none;
+}
+
+.tile-city {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(5.5px, 0.7vw, 7px);
+  line-height: 1;
+  color: #785028;
+  margin-top: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Price Badge - Clean Minimalist Text */
+.tile-price-badge {
+  color: #44403c;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: clamp(6.5px, 0.8vw, 8px);
+  line-height: 1;
+  padding: 0.5px 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-bottom: 1px;
+  z-index: 2;
+}
+
+/* Corner Tiles Special Styling */
+.tile-corner {
+  background: #ffffff;
+  border: 0.5px solid #8c6738;
+}
+
+.corner-go {
+  background: #ffffff !important;
+  border-color: #8c6738 !important;
+}
+
+.corner-jail {
+  background: #ffffff !important;
+  border-color: #8c6738 !important;
+}
+
+.corner-jail-visiting {
+  background: #ecdcc3;
+  width: 100%;
+  border-bottom: 1px solid #8c6738;
+}
+
+.corner-jail-cell {
+  background: #fdfaf4;
+  border: 1.5px solid #c2410c;
+  border-radius: 6px;
+  width: 90%;
+}
+
+.corner-free-parking {
+  background: #ffffff !important;
+  border-color: #8c6738 !important;
+}
+
+.corner-go-to-jail {
+  background: #ffffff !important;
+  border-color: #8c6738 !important;
+}
+
+/* 3D Warm Parchment Center Area */
+.board-center {
+  background: #cbb077;
+  border: 1.5px solid rgba(140, 103, 56, 0.35);
+  border-radius: 12px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   HORIZONTAL BOARD CARD DECKS (ABOVE DICE)
+   ========================================================== */
+
+.center-horizontal-decks-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 2.5vw, 22px);
+  width: 100%;
+  max-width: 460px;
+  margin-top: clamp(14px, 3.2vw, 24px);
+  margin-bottom: clamp(12px, 2.8vw, 22px);
+  box-sizing: border-box;
+}
+
+.board-deck-slot-h {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.board-deck-slot-h:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+
+.board-deck-wrapper-h {
+  position: relative;
+  width: clamp(100px, 20vw, 150px);
+  height: clamp(52px, 10.5vw, 76px);
+}
+
+/* Stamped tray outline on the board parchment */
+.deck-tray-outline-h {
+  position: absolute;
+  inset: -3px;
+  border: 1.5px dashed rgba(115, 67, 26, 0.35);
+  border-radius: 9px;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.deck-tray-chance {
+  border-color: rgba(194, 65, 12, 0.45);
+}
+
+.deck-tray-chest {
+  border-color: rgba(3, 105, 161, 0.45);
+}
+
+/* 3D Physical Card Stack Layers */
+.deck-stack-card-h {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+.deck-stack-card-h.layer-back {
+  transform: translate(3px, 3px) rotate(-1deg);
+  z-index: 2;
+}
+
+.deck-stack-card-h.layer-mid {
+  transform: translate(1.5px, 1.5px) rotate(0.8deg);
+  z-index: 3;
+}
+
+/* Top Active Playing Card */
+.deck-main-card-h {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  padding: 3px;
+  z-index: 4;
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.22),
+    0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.deck-main-card-h.card-chance {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 45%, #c2410c 100%);
+  border: 1.5px solid #fed7aa;
+}
+
+.deck-main-card-h.card-chest {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 45%, #075985 100%);
+  border: 1.5px solid #bae6fd;
+}
+
+.board-deck-slot-h:hover .deck-main-card-h.card-chance {
+  box-shadow: 
+    0 8px 18px rgba(234, 88, 12, 0.38),
+    0 2px 6px rgba(0, 0, 0, 0.22);
+  filter: brightness(1.04);
+}
+
+.board-deck-slot-h:hover .deck-main-card-h.card-chest {
+  box-shadow: 
+    0 8px 18px rgba(2, 132, 199, 0.38),
+    0 2px 6px rgba(0, 0, 0, 0.22);
+  filter: brightness(1.04);
+}
+
+/* Inner Horizontal Card Layout */
+.deck-card-frame-h {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 1.2vw, 10px);
+  position: relative;
+  box-sizing: border-box;
+  padding: 2px clamp(6px, 1.2vw, 12px);
+}
+
+.card-mini-corner {
+  position: absolute;
+  font-size: clamp(6px, 1.1vw, 8.5px);
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+.card-mini-corner.top-l {
+  top: 2px;
+  left: 3px;
+}
+
+.card-mini-corner.bot-r {
+  bottom: 2px;
+  right: 3px;
+  transform: rotate(180deg);
+}
+
+.card-chance .card-mini-corner {
+  color: #fef3c7;
+}
+
+.card-chest .card-mini-corner {
+  color: #e0f2fe;
+}
+
+.card-badge-h {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.badge-chance {
+  width: clamp(22px, 4.2vw, 34px);
+  height: clamp(22px, 4.2vw, 34px);
+  background: rgba(254, 243, 199, 0.95);
+  color: #ea580c;
+  padding: clamp(3px, 0.7vw, 6px);
+  border: 1.5px solid #fbbf24;
+}
+
+.badge-chest {
+  width: clamp(22px, 4.2vw, 34px);
+  height: clamp(22px, 4.2vw, 34px);
+  background: rgba(240, 249, 255, 0.95);
+  color: #0284c7;
+  padding: clamp(3px, 0.7vw, 6px);
+  border: 1.5px solid #38bdf8;
+}
+
+.card-title-h {
+  font-size: clamp(7.5px, 1.3vw, 10.5px);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.card-sub-h {
+  font-size: clamp(5px, 0.8vw, 7px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+  opacity: 0.85;
+  margin-top: 1px;
+}
+
+/* 3D Deluxe White Dice Cube (Exact Match to Mockup) */
+.dice-box {
+  width: clamp(40px, 6vw, 56px);
+  height: clamp(40px, 6vw, 56px);
+  background: #ffffff;
+  border-radius: clamp(10px, 1.4vw, 15px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 clamp(4px, 0.7vw, 7px) 0 #73431a,
+    0 clamp(8px, 1.2vw, 14px) rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.dice-box:hover {
+  transform: translateY(-2px);
+}
+
+.dice-box:active {
+  transform: translateY(3px);
+  box-shadow: 
+    0 2px 0 #73431a,
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Authentic 3x3 Dice Pip Grid */
+.dice-pip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 100%;
+  height: 100%;
+  padding: clamp(4px, 0.7vw, 7px);
+  box-sizing: border-box;
+}
+
+.dice-pip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dice-pip.active::after {
+  content: '';
+  width: clamp(7px, 1.1vw, 10.5px);
+  height: clamp(7px, 1.1vw, 10.5px);
+  background: #1c1917;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 1.5px rgba(0, 0, 0, 0.5);
+}
+
+.dice-wild-rolling {
+  animation: diceWobble 0.24s ease-in-out infinite alternate;
+}
+
+@keyframes diceWobble {
+  0% { transform: translateY(-6px) rotate(-12deg) scale(1.05); }
+  100% { transform: translateY(-3px) rotate(12deg) scale(0.98); }
+}
+
+.dice-landed-pop {
+  animation: dicePop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes dicePop {
+  0% { transform: scale(0.85); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+/* Soft Golden Parchment Pill Button (Exact Match to Mockup) */
+.dice-tap-pill {
+  background: #bfa36c;
+  color: #54320e;
+  border: 1.5px solid #a88a50;
+  box-shadow: 
+    inset 0 1.5px 3px rgba(255, 255, 255, 0.45), 
+    0 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 9999px;
+  padding: clamp(4px, 0.7vw, 7px) clamp(12px, 1.8vw, 20px);
+  font-weight: 800;
+  font-size: clamp(8px, 1.05vw, 11px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dice-tap-pill:hover {
+  background: #c8ad74;
+  color: #432406;
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.6), 
+    0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dice-tap-pill:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.dice-tap-pill:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.center-turn-capsule {
+  background: #38200f;
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: clamp(3.5px, 0.6vw, 6px) clamp(10px, 1.6vw, 16px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  font-size: clamp(7.5px, 0.95vw, 10.5px);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: max-content;
+  max-width: 96%;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.center-turn-capsule #centerPromptText {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.turn-dot-indicator {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e5a93b;
+  box-shadow: 0 0 8px #e5a93b;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+/* 3D Chess Pawn Piece (Pion Catur Berwarna) */
+.player-pawn-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 25;
+  cursor: pointer;
+}
+
+.player-pawn-wrapper:hover {
+  transform: translateY(-4px) scale(1.15);
+  z-index: 30;
+}
+
+.chess-pawn-svg {
+  width: 22px;
+  height: 28px;
+  display: block;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.5));
+}
+
+@media (min-width: 768px) {
+  .chess-pawn-svg {
+    width: 25px;
+    height: 32px;
+  }
+}
+
+/* Pawn Hopping Arc Animation */
+@keyframes pawnHop {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-14px) scale(1.25); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.pawn-hop-active {
+  animation: pawnHop 0.22s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* Subtle Idle Breathing Animation */
+@keyframes pawnIdleBreath {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+.animate-pawn-idle {
+  animation: pawnIdleBreath 2.2s infinite ease-in-out;
+}
+
+/* House & Hotel 3D Badges */
+.building-house {
+  background: linear-gradient(180deg, #22c55e 0%, #15803d 100%);
+  border: 1px solid #86efac;
+  box-shadow: 0 2px 0 #14532d, 0 3px 5px rgba(0,0,0,0.5);
+  color: white;
+  font-weight: 900;
+  font-size: 8.5px;
+  padding: 1px 3px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.building-hotel {
+  background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+  border: 1px solid #fca5a5;
+  box-shadow: 0 2px 0 #7f1d1d, 0 3px 5px rgba(0,0,0,0.5);
+  color: white;
+  font-weight: 900;
+  font-size: 8.5px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.owner-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 0 6px currentColor, 0 2px 4px rgba(0,0,0,0.6);
+}
+
+@keyframes scaleUp {
+  0% { transform: scale(0.88); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.18s ease forwards;
+}
+
+/* =================================================== */
+/* MODERN CLEAN BOARD GAME SWEETALERT THEME            */
+/* =================================================== */
+
+.swal2-monopoly-popup {
+  background: #18181b !important;
+  border: 1.5px solid #3f3f46 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6) !important;
+  color: #f4f4f5 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  padding: 1.5rem !important;
+}
+
+.swal2-monopoly-title {
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em !important;
+  color: #f4f4f5 !important;
+  font-size: 1.35rem !important;
+}
+
+.swal2-monopoly-confirm {
+  background: #059669 !important;
+  border: 1px solid #10b981 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+  border-radius: 12px !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  color: #ffffff !important;
+  padding: 0.65rem 1.4rem !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer !important;
+}
+.swal2-monopoly-confirm:hover {
+  background: #10b981 !important;
+  transform: translateY(-1px) !important;
+}
+.swal2-monopoly-confirm:active {
+  transform: translateY(1px) !important;
+}
+
+.swal2-monopoly-cancel {
+  background: #27272a !important;
+  border: 1px solid #3f3f46 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+  border-radius: 12px !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  color: #d4d4d8 !important;
+  padding: 0.65rem 1.25rem !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer !important;
+}
+.swal2-monopoly-cancel:hover {
+  background: #3f3f46 !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+.swal2-monopoly-cancel:active {
+  transform: translateY(1px) !important;
+}
+
+/* =================================================== */
+/* GAMEPLAY ANIMATIONS & VISUAL EFFECTS                */
+/* =================================================== */
+
+/* 1. Pawn Arc Hopping Animation */
+@keyframes pawnArcHop {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-12px) scale(1.22);
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.85));
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.pawn-hop-active {
+  animation: pawnArcHop 0.22s cubic-bezier(0.2, 0.8, 0.3, 1) !important;
+  z-index: 50 !important;
+}
+
+/* 2. Tile Landed Pulse & Golden Flash */
+@keyframes tileLandedPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.9), inset 0 0 0 0 rgba(234, 179, 8, 0.8);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 28px 8px rgba(245, 158, 11, 0.95), inset 0 0 20px 4px rgba(253, 224, 71, 0.8);
+    z-index: 35;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(234, 179, 8, 0), inset 0 0 0 0 rgba(234, 179, 8, 0);
+  }
+}
+
+.tile-landed-glow {
+  animation: tileLandedPulse 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 35 !important;
+}
+/* 3. Smooth 3D Rolling Dice Animation & Landed Pop */
+@keyframes diceTumbleSmooth {
+  0% { transform: rotate(0deg) scale(1) translateY(0); }
+  25% { transform: rotate(-25deg) scale(1.18) translateY(-8px); }
+  50% { transform: rotate(30deg) scale(1.12) translateY(-3px); }
+  75% { transform: rotate(-18deg) scale(1.2) translateY(-7px); }
+  100% { transform: rotate(0deg) scale(1) translateY(0); }
+}
+
+.dice-wild-rolling {
+  animation: diceTumbleSmooth 0.38s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
+  color: #fde047 !important;
+  text-shadow: 0 0 15px #eab308, 0 0 25px #ca8a04 !important;
+  transform-origin: center center;
+}
+
+@keyframes dicePopLanded {
+  0% { transform: scale(1.35) rotate(-12deg); filter: drop-shadow(0 0 12px #f59e0b); }
+  50% { transform: scale(0.92) rotate(6deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.dice-landed-pop {
+  animation: dicePopLanded 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 4. Screen Shake removed per user request (no-op) */
+.shake-screen {
+  /* Disabled */
+}
+
+/* 5. Floating Cash Notification (+Rp 2.000.000 / -Rp 500.000) */
+@keyframes floatUpCashKeyframes {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 15px) scale(0.6);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -15px) scale(1.25);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -55px) scale(1.08);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -90px) scale(0.85);
+  }
+}
+
+.floating-cash-bubble {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  animation: floatUpCashKeyframes 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.03em;
+}
+
+.floating-cash-positive {
+  background: linear-gradient(135deg, #059669 0%, #064e3b 100%);
+  border: 2px solid #34d399;
+  color: #ecfdf5;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.floating-cash-negative {
+  background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%);
+  border: 2px solid #f87171;
+  color: #fef2f2;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* 6. Jail Siren Flashing Overlay */
+@keyframes jailSirenFlash {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.35; }
+}
+
+.jail-siren-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, transparent 40%, rgba(220, 38, 38, 0.6) 100%);
+  z-index: 9998;
+  animation: jailSirenFlash 0.35s ease-in-out 4;
+}
+
+/* =================================================== */
+/* DELUXE TITLE DEED CARD STYLES                       */
+/* =================================================== */
+
+.title-deed-card-container {
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  user-select: none;
+}
+
+.title-deed-checker-bg {
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(45deg, #f1f5f9 25%, transparent 25%), 
+    linear-gradient(-45deg, #f1f5f9 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #f1f5f9 75%), 
+    linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+/* =================================================== */
+/* 3D FLIP CARD & DECK STACK ANIMATIONS                */
+/* =================================================== */
+
+.card-deck-container {
+  perspective: 1400px;
+  width: 330px;
+  max-width: 92vw;
+  height: 500px;
+  max-height: 86vh;
+  margin: 0 auto;
+  position: relative;
+  user-select: none;
+}
+
+/* Layered 3D Card Stack Underneath (Real deck look from reference image) */
+.deck-stack-layer-1 {
+  position: absolute;
+  inset: 0;
+  top: 6px;
+  left: 6px;
+  right: -6px;
+  bottom: -6px;
+  border-radius: 28px;
+  background: #78350f;
+  border: 3px solid #451a03;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.deck-stack-layer-2 {
+  position: absolute;
+  inset: 0;
+  top: 12px;
+  left: 12px;
+  right: -12px;
+  bottom: -12px;
+  border-radius: 28px;
+  background: #451a03;
+  border: 3px solid #270d02;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Dana Umum (Chest) Blue Stack Theme */
+.deck-stack-chest-1 {
+  background: #0369a1 !important;
+  border-color: #0c4a6e !important;
+}
+
+.deck-stack-chest-2 {
+  background: #0c4a6e !important;
+  border-color: #082f49 !important;
+}
+
+/* The Flipping Card Element */
+.flip-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.34, 1.35, 0.64, 1);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.flip-card.is-flipped {
+  transform: rotateY(180deg);
+  cursor: default;
+}
+
+.flip-card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* BACK OF CARD (Closed / Face-down) */
+.flip-card-back {
+  transform: rotateY(0deg);
+  border: 4px solid #f59e0b;
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.4), 0 20px 40px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flip-card-back:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 0 35px rgba(245, 158, 11, 0.6), 0 25px 45px rgba(0, 0, 0, 0.8);
+}
+
+.card-pattern-chance {
+  background: 
+    radial-gradient(circle at 50% 50%, #ea580c 0%, #9a3412 70%, #431407 100%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 10px, transparent 10px, transparent 20px);
+}
+
+/* Dana Umum (Chest) - Blue Theme */
+.card-pattern-chest {
+  background: 
+    radial-gradient(circle at 50% 50%, #0284c7 0%, #0369a1 70%, #0c4a6e 100%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 10px, transparent 10px, transparent 20px);
+}
+
+.card-pattern-chest.flip-card-back {
+  border-color: #38bdf8;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.4), 0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+.card-pattern-chest.flip-card-back:hover {
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.6), 0 25px 45px rgba(0, 0, 0, 0.8);
+}
+
+/* FRONT OF CARD (Revealed / Face-up - Matching Mockup) */
+.flip-card-front {
+  transform: rotateY(180deg);
+  background-color: #fdfbf7;
+  border: 4px solid #0f172a;
+  color: #1c1917;
+}
+
+.flip-card-header-chest {
+  background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+  border-bottom: 3px solid #075985;
+}
+
+.flip-card-header-chance {
+  background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+  border-bottom: 3px solid #78350f;
+}
+
+/* OK Button for Dana Umum (Blue) */
+.btn-card-ok {
+  background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+  border: 2.5px solid #075985;
+  box-shadow: 0 4px 0 #0c4a6e, 0 8px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.1s ease;
+}
+
+.btn-card-ok:hover {
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #0c4a6e, 0 12px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-card-ok:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #0c4a6e;
+}
+
+/* OK Button for Chance (Orange) */
+.btn-card-ok-chance {
+  background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+  border: 2.5px solid #78350f;
+  box-shadow: 0 4px 0 #451a03, 0 8px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.1s ease;
+}
+
+.btn-card-ok-chance:hover {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #451a03, 0 12px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-card-ok-chance:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #451a03;
+}
+
+/* Full Card Title Deed Modal Styling */
+.title-deed-card-container {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transform-origin: center center;
+}
+
+/* Semi-transparent non-blurry backdrop so board remains clearly visible */
+.swal2-container {
+  background-color: rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: none !important;
+}
+
+/* ===================================================
+   MINI TITLE DEED PROPERTY CARDS (ASSET PORTFOLIO)
+   =================================================== */
+.mini-deed-card {
+  position: relative;
+  background: linear-gradient(180deg, #1f222e 0%, #151720 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mini-deed-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: rgba(245, 158, 11, 0.7);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55), 0 0 12px rgba(245, 158, 11, 0.25);
+}
+
+.mini-deed-card:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.mini-deed-card.is-mortgaged {
+  opacity: 0.7;
+  filter: grayscale(0.5);
+  border-color: rgba(239, 68, 68, 0.4);
+  background: linear-gradient(180deg, #251818 0%, #171111 100%);
+}
+
+.mini-deed-color-bar {
+  height: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+.mini-deed-body {
+  padding: 6px 8px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+/* ===================================================
+   TRADING DESK & SELECTION CARDS
+   =================================================== */
+.trade-card-select {
+  position: relative;
+  background: #140a04;
+  border: 1.5px solid #3b1d0e;
+  border-radius: 10px;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.trade-card-select:hover {
+  border-color: #f59e0b;
+  background: #1f0f06;
+}
+
+.trade-card-select.selected {
+  border-color: #10b981;
+  background: #0f2619;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+/* Trade Value Meter */
+.trade-value-pill {
+  background: #12131b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  padding: 4px 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+}
+
+/* Scrollbar halus untuk daftar kartu properti */
+#portfolioList::-webkit-scrollbar,
+.trade-scroll-area::-webkit-scrollbar {
+  width: 5px;
+}
+#portfolioList::-webkit-scrollbar-track,
+.trade-scroll-area::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+#portfolioList::-webkit-scrollbar-thumb,
+.trade-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.4);
+  border-radius: 4px;
+}
+#portfolioList::-webkit-scrollbar-thumb:hover,
+.trade-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.7);
+}
+
+/* Hilangkan tombol spinner bawaan browser pada input number */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+input[type="number"] {
+  -moz-appearance: textfield !important;
+  appearance: textfield !important;
+}
+
+/* ===================================================
+   FLOATING BOARD EMOTE FX (Interactive Emote Spam)
+   =================================================== */
+.board-emote-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-board-emote {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  animation: emoteFloatUp 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.75));
+}
+
+.floating-board-emote .emote-glyph {
+  font-size: 52px;
+  line-height: 1;
+  display: inline-block;
+  transform-origin: center center;
+}
+
+.floating-board-emote .emote-sender-tag {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(18, 10, 5, 0.92);
+  border: 1px solid rgba(245, 158, 11, 0.7);
+  color: #fef3c7;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes emoteFloatUp {
+  0% {
+    opacity: 0;
+    transform: translate(var(--dx, 0px), var(--dy, 0px)) scale(0.25) rotate(var(--rot, 0deg));
+  }
+  15% {
+    opacity: 1;
+    transform: translate(var(--dx, 0px), calc(var(--dy, 0px) - 25px)) scale(1.45) rotate(var(--rot, 0deg));
+  }
+  30% {
+    transform: translate(var(--dx, 0px), calc(var(--dy, 0px) - 45px)) scale(1.05) rotate(var(--rot, 0deg));
+  }
+  75% {
+    opacity: 1;
+    transform: translate(calc(var(--dx, 0px) + var(--drift, 0px)), calc(var(--dy, 0px) - 110px)) scale(1.0) rotate(calc(var(--rot, 0deg) + var(--rot-drift, 0deg)));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--dx, 0px) + var(--drift, 0px)), calc(var(--dy, 0px) - 160px)) scale(0.8) rotate(calc(var(--rot, 0deg) + var(--rot-drift, 0deg)));
+  }
+}
+
+/* ===================================================
+   PORTFOLIO & CHAT CUSTOM SCROLLBARS
+   =================================================== */
+#portfolioList {
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #f59e0b rgba(24, 24, 27, 0.7);
+}
+
+#portfolioList::-webkit-scrollbar,
+.custom-portfolio-scroll::-webkit-scrollbar,
+.custom-chat-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+#portfolioList::-webkit-scrollbar-track,
+.custom-portfolio-scroll::-webkit-scrollbar-track,
+.custom-chat-scroll::-webkit-scrollbar-track {
+  background: rgba(18, 18, 22, 0.75);
+  border-radius: 9999px;
+}
+
+#portfolioList::-webkit-scrollbar-thumb,
+.custom-portfolio-scroll::-webkit-scrollbar-thumb,
+.custom-chat-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #f59e0b, #d97706);
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+#portfolioList::-webkit-scrollbar-thumb:hover,
+.custom-portfolio-scroll::-webkit-scrollbar-thumb:hover,
+.custom-chat-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #fbbf24, #f59e0b);
+}
+
+/* Chat Messages */
+.chat-msg-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chat-bubble {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 11.5px;
+  line-height: 1.35;
+  max-width: 88%;
+  word-break: break-word;
+}
+
+.chat-bubble-self {
+  align-self: flex-end;
+  background: linear-gradient(135deg, rgba(180, 83, 9, 0.45), rgba(120, 53, 15, 0.65));
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fff;
+}
+
+.chat-bubble-other {
+  align-self: flex-start;
+  background: rgba(39, 39, 42, 0.85);
+  border: 1px solid rgba(82, 82, 91, 0.6);
+  color: #e4e4e7;
+}
+
+.chat-bubble-emote {
+  background: transparent !important;
+  border: none !important;
+  padding: 2px 4px !important;
+}
+

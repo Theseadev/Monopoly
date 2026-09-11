@@ -1,0 +1,8 @@
+node_modules/
+dist/
+storage/rooms/*.json
+.DS_Store
+*.local
+*.zip
+.gemini/
+scratch/

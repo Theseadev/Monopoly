@@ -1,0 +1,492 @@
+// Data Konfigurasi 40 Petak Papan Monopoli
+// Tema: Edisi Nusantara (Indonesia)
+
+export const BOARD_SPACES = [
+  // Sisi Bawah (0 - 10): Kanan ke Kiri (GO ke Penjara)
+  {
+    id: 0,
+    name: "Mulai (GO)",
+    shortName: "MULAI",
+    type: "corner",
+    subType: "go",
+    description: "Ambil Rp 2.000.000 setiap kali melewati petak ini",
+    icon: "flag"
+  },
+  {
+    id: 1,
+    name: "Aceh",
+    shortName: "Aceh",
+    city: "Banda Aceh",
+    type: "property",
+    group: "brown",
+    price: 600000,
+    rent: [20000, 100000, 300000, 900000, 1600000, 2500000],
+    housePrice: 500000,
+    mortgage: 300000,
+    color: "#8B4513"
+  },
+  {
+    id: 2,
+    name: "Dana Umum",
+    shortName: "Dana Umum",
+    type: "special",
+    subType: "community-chest",
+    description: "Ambil satu Kartu Dana Umum",
+    icon: "archive"
+  },
+  {
+    id: 3,
+    name: "Sumatera Utara",
+    shortName: "Sumut",
+    city: "Medan",
+    type: "property",
+    group: "brown",
+    price: 600000,
+    rent: [40000, 200000, 600000, 1800000, 3200000, 4500000],
+    housePrice: 500000,
+    mortgage: 300000,
+    color: "#8B4513"
+  },
+  {
+    id: 4,
+    name: "Pajak Pendapatan",
+    shortName: "Pajak Kas",
+    type: "tax",
+    amount: 2000000,
+    description: "Bayar Pajak Rp 2.000.000 ke Bank",
+    icon: "receipt"
+  },
+  {
+    id: 5,
+    name: "Stasiun Gambir",
+    shortName: "St. Gambir",
+    city: "Jakarta",
+    type: "railroad",
+    group: "railroad",
+    price: 2000000,
+    rent: [250000, 500000, 1000000, 2000000],
+    mortgage: 1000000,
+    icon: "train"
+  },
+  {
+    id: 6,
+    name: "Sumatera Barat",
+    shortName: "Sumbar",
+    city: "Padang",
+    type: "property",
+    group: "light_blue",
+    price: 1000000,
+    rent: [60000, 300000, 900000, 2700000, 4000000, 5500000],
+    housePrice: 500000,
+    mortgage: 500000,
+    color: "#38bdf8"
+  },
+  {
+    id: 7,
+    name: "Kesempatan",
+    shortName: "Kesempatan",
+    type: "special",
+    subType: "chance",
+    description: "Ambil satu Kartu Kesempatan",
+    icon: "help-circle"
+  },
+  {
+    id: 8,
+    name: "Riau",
+    shortName: "Riau",
+    city: "Pekanbaru",
+    type: "property",
+    group: "light_blue",
+    price: 1000000,
+    rent: [60000, 300000, 900000, 2700000, 4000000, 5500000],
+    housePrice: 500000,
+    mortgage: 500000,
+    color: "#38bdf8"
+  },
+  {
+    id: 9,
+    name: "Sumatera Selatan",
+    shortName: "Sumsel",
+    city: "Palembang",
+    type: "property",
+    group: "light_blue",
+    price: 1200000,
+    rent: [80000, 400000, 1000000, 3000000, 4500000, 6000000],
+    housePrice: 500000,
+    mortgage: 600000,
+    color: "#38bdf8"
+  },
+  {
+    id: 10,
+    name: "Penjara",
+    shortName: "PENJARA",
+    type: "corner",
+    subType: "jail",
+    description: "Hanya lewat atau sedang ditahan",
+    icon: "lock"
+  },
+
+  // Sisi Kiri (11 - 19): Bawah ke Atas (Penjara ke Parkir Bebas)
+  {
+    id: 11,
+    name: "Lampung",
+    shortName: "Lampung",
+    city: "Bandar Lampung",
+    type: "property",
+    group: "pink",
+    price: 1400000,
+    rent: [100000, 500000, 1500000, 4500000, 6250000, 7500000],
+    housePrice: 1000000,
+    mortgage: 700000,
+    color: "#ec4899"
+  },
+  {
+    id: 12,
+    name: "PLN (Listrik)",
+    shortName: "PLN Listrik",
+    city: "Listrik",
+    type: "utility",
+    group: "utility",
+    price: 1500000,
+    mortgage: 750000,
+    description: "Sewa: 4x dadu (1 utilitas) / 10x dadu (2 utilitas)",
+    icon: "zap"
+  },
+  {
+    id: 13,
+    name: "Banten",
+    shortName: "Banten",
+    city: "Serang",
+    type: "property",
+    group: "pink",
+    price: 1400000,
+    rent: [100000, 500000, 1500000, 4500000, 6250000, 7500000],
+    housePrice: 1000000,
+    mortgage: 700000,
+    color: "#ec4899"
+  },
+  {
+    id: 14,
+    name: "DKI Jakarta",
+    shortName: "DKI Jakarta",
+    city: "Jakarta",
+    type: "property",
+    group: "pink",
+    price: 1600000,
+    rent: [120000, 600000, 1800000, 5000000, 7000000, 9000000],
+    housePrice: 1000000,
+    mortgage: 800000,
+    color: "#ec4899"
+  },
+  {
+    id: 15,
+    name: "Stasiun Bandung",
+    shortName: "St. Bandung",
+    city: "Jawa Barat",
+    type: "railroad",
+    group: "railroad",
+    price: 2000000,
+    rent: [250000, 500000, 1000000, 2000000],
+    mortgage: 1000000,
+    icon: "train"
+  },
+  {
+    id: 16,
+    name: "Jawa Barat",
+    shortName: "Jawa Barat",
+    city: "Bandung",
+    type: "property",
+    group: "orange",
+    price: 1800000,
+    rent: [140000, 700000, 2000000, 5500000, 7500000, 9500000],
+    housePrice: 1000000,
+    mortgage: 900000,
+    color: "#f97316"
+  },
+  {
+    id: 17,
+    name: "Dana Umum",
+    shortName: "Dana Umum",
+    type: "special",
+    subType: "community-chest",
+    description: "Ambil satu Kartu Dana Umum",
+    icon: "archive"
+  },
+  {
+    id: 18,
+    name: "Jawa Tengah",
+    shortName: "Jawa Tengah",
+    city: "Semarang",
+    type: "property",
+    group: "orange",
+    price: 1800000,
+    rent: [140000, 700000, 2000000, 5500000, 7500000, 9500000],
+    housePrice: 1000000,
+    mortgage: 900000,
+    color: "#f97316"
+  },
+  {
+    id: 19,
+    name: "D.I. Yogyakarta",
+    shortName: "Yogyakarta",
+    city: "Yogyakarta",
+    type: "property",
+    group: "orange",
+    price: 2000000,
+    rent: [160000, 800000, 2200000, 6000000, 8000000, 10000000],
+    housePrice: 1000000,
+    mortgage: 1000000,
+    color: "#f97316"
+  },
+  {
+    id: 20,
+    name: "Parkir Bebas",
+    shortName: "PARKIR BEBAS",
+    type: "corner",
+    subType: "free-parking",
+    description: "Tempat istirahat santai",
+    icon: "car"
+  },
+
+  // Sisi Atas (21 - 29): Kiri ke Kanan (Parkir Bebas ke Masuk Penjara)
+  {
+    id: 21,
+    name: "Jawa Timur",
+    shortName: "Jawa Timur",
+    city: "Surabaya",
+    type: "property",
+    group: "red",
+    price: 2200000,
+    rent: [180000, 900000, 2500000, 7000000, 8750000, 10500000],
+    housePrice: 1500000,
+    mortgage: 1100000,
+    color: "#ef4444"
+  },
+  {
+    id: 22,
+    name: "Kesempatan",
+    shortName: "Kesempatan",
+    type: "special",
+    subType: "chance",
+    description: "Ambil satu Kartu Kesempatan",
+    icon: "help-circle"
+  },
+  {
+    id: 23,
+    name: "Bali",
+    shortName: "Bali",
+    city: "Denpasar",
+    type: "property",
+    group: "red",
+    price: 2200000,
+    rent: [180000, 900000, 2500000, 7000000, 8750000, 10500000],
+    housePrice: 1500000,
+    mortgage: 1100000,
+    color: "#ef4444"
+  },
+  {
+    id: 24,
+    name: "Nusa Tenggara Barat",
+    shortName: "NTB",
+    city: "Mataram",
+    type: "property",
+    group: "red",
+    price: 2400000,
+    rent: [200000, 1000000, 3000000, 7500000, 9250000, 11000000],
+    housePrice: 1500000,
+    mortgage: 1200000,
+    color: "#ef4444"
+  },
+  {
+    id: 25,
+    name: "Stasiun Ps Turi",
+    shortName: "St. Ps Turi",
+    city: "Surabaya",
+    type: "railroad",
+    group: "railroad",
+    price: 2000000,
+    rent: [250000, 500000, 1000000, 2000000],
+    mortgage: 1000000,
+    icon: "train"
+  },
+  {
+    id: 26,
+    name: "Nusa Tenggara Timur",
+    shortName: "NTT",
+    city: "Kupang",
+    type: "property",
+    group: "yellow",
+    price: 2600000,
+    rent: [220000, 1100000, 3300000, 8000000, 9750000, 11500000],
+    housePrice: 1500000,
+    mortgage: 1300000,
+    color: "#eab308"
+  },
+  {
+    id: 27,
+    name: "Kalimantan Barat",
+    shortName: "Kalbar",
+    city: "Pontianak",
+    type: "property",
+    group: "yellow",
+    price: 2600000,
+    rent: [220000, 1100000, 3300000, 8000000, 9750000, 11500000],
+    housePrice: 1500000,
+    mortgage: 1300000,
+    color: "#eab308"
+  },
+  {
+    id: 28,
+    name: "PDAM (Air)",
+    shortName: "PDAM Air",
+    city: "Air Bersih",
+    type: "utility",
+    group: "utility",
+    price: 1500000,
+    mortgage: 750000,
+    description: "Sewa: 4x dadu (1 utilitas) / 10x dadu (2 utilitas)",
+    icon: "droplet"
+  },
+  {
+    id: 29,
+    name: "Kalimantan Timur",
+    shortName: "Kaltim",
+    city: "Samarinda",
+    type: "property",
+    group: "yellow",
+    price: 2800000,
+    rent: [240000, 1200000, 3600000, 8500000, 10250000, 12000000],
+    housePrice: 1500000,
+    mortgage: 1400000,
+    color: "#eab308"
+  },
+  {
+    id: 30,
+    name: "Masuk Penjara",
+    shortName: "KE PENJARA",
+    type: "corner",
+    subType: "go-to-jail",
+    description: "Langsung pergi ke penjara!",
+    icon: "shield-alert"
+  },
+
+  // Sisi Kanan (31 - 39): Atas ke Bawah (Masuk Penjara ke Mulai)
+  {
+    id: 31,
+    name: "Kalimantan Selatan",
+    shortName: "Kalsel",
+    city: "Banjarmasin",
+    type: "property",
+    group: "green",
+    price: 3000000,
+    rent: [260000, 1300000, 3900000, 9000000, 11000000, 12750000],
+    housePrice: 2000000,
+    mortgage: 1500000,
+    color: "#22c55e"
+  },
+  {
+    id: 32,
+    name: "Sulawesi Selatan",
+    shortName: "Sulsel",
+    city: "Makassar",
+    type: "property",
+    group: "green",
+    price: 3000000,
+    rent: [260000, 1300000, 3900000, 9000000, 11000000, 12750000],
+    housePrice: 2000000,
+    mortgage: 1500000,
+    color: "#22c55e"
+  },
+  {
+    id: 33,
+    name: "Dana Umum",
+    shortName: "Dana Umum",
+    type: "special",
+    subType: "community-chest",
+    description: "Ambil satu Kartu Dana Umum",
+    icon: "archive"
+  },
+  {
+    id: 34,
+    name: "Sulawesi Utara",
+    shortName: "Sulut",
+    city: "Manado",
+    type: "property",
+    group: "green",
+    price: 3200000,
+    rent: [280000, 1500000, 4500000, 10000000, 12000000, 14000000],
+    housePrice: 2000000,
+    mortgage: 1600000,
+    color: "#22c55e"
+  },
+  {
+    id: 35,
+    name: "Stasiun Medan",
+    shortName: "St. Medan",
+    city: "Sumut",
+    type: "railroad",
+    group: "railroad",
+    price: 2000000,
+    rent: [250000, 500000, 1000000, 2000000],
+    mortgage: 1000000,
+    icon: "train"
+  },
+  {
+    id: 36,
+    name: "Kesempatan",
+    shortName: "Kesempatan",
+    type: "special",
+    subType: "chance",
+    description: "Ambil satu Kartu Kesempatan",
+    icon: "help-circle"
+  },
+  {
+    id: 37,
+    name: "Maluku",
+    shortName: "Maluku",
+    city: "Ambon",
+    type: "property",
+    group: "dark_blue",
+    price: 3500000,
+    rent: [350000, 1750000, 5000000, 11000000, 13000000, 15000000],
+    housePrice: 2000000,
+    mortgage: 1750000,
+    color: "#1e3a8a"
+  },
+  {
+    id: 38,
+    name: "Pajak Mewah",
+    shortName: "Pajak Mewah",
+    city: "Mewah",
+    type: "tax",
+    amount: 1000000,
+    description: "Bayar Pajak Barang Mewah Rp 1.000.000",
+    icon: "gem"
+  },
+  {
+    id: 39,
+    name: "Papua",
+    shortName: "Papua",
+    city: "Jayapura",
+    type: "property",
+    group: "dark_blue",
+    price: 4000000,
+    rent: [500000, 2000000, 6000000, 14000000, 17000000, 20000000],
+    housePrice: 2000000,
+    mortgage: 2000000,
+    color: "#1e3a8a"
+  }
+];
+
+export const PROPERTY_GROUPS = {
+  brown: { name: "Coklat", total: 2, color: "#8B4513" },
+  light_blue: { name: "Biru Muda", total: 3, color: "#38bdf8" },
+  pink: { name: "Pink", total: 3, color: "#ec4899" },
+  orange: { name: "Oranye", total: 3, color: "#f97316" },
+  red: { name: "Merah", total: 3, color: "#ef4444" },
+  yellow: { name: "Kuning", total: 3, color: "#eab308" },
+  green: { name: "Hijau", total: 3, color: "#22c55e" },
+  dark_blue: { name: "Biru Tua", total: 2, color: "#1e3a8a" },
+  railroad: { name: "Stasiun Kereta", total: 4, color: "#64748b" },
+  utility: { name: "Perusahaan Umum", total: 2, color: "#6b7280" }
+};

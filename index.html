@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monopoli Nusantara - Game Web Interaktif</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20%22100%22%20%22100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
+  <!-- Tailwind CSS Play CDN for ultra-fast reliable rendering -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            board: {
+              dark: '#064e3b',
+              felt: '#0b3d2c'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="./src/style.css" />
+</head>
+<body class="bg-zinc-950 text-slate-100 min-h-screen flex flex-col selection:bg-amber-500 selection:text-black">
+  <!-- Top Navigation Bar -->
+  <header class="h-14 border-b border-emerald-900/60 bg-zinc-900/90 backdrop-blur px-4 flex items-center justify-between shadow-lg sticky top-0 z-30">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">🏛️</span>
+      <div>
+        <span class="font-black text-lg tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-200">
+          MONOPOLI NUSANTARA
+        </span>
+        <span class="hidden md:inline-block ml-2 text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-600/40 px-2 py-0.5 rounded-full font-bold">
+          Edisi Indonesia
+        </span>
+      </div>
+    </div>
+
+    <!-- Quick Controls -->
+    <div class="flex items-center gap-2">
+      <button id="btnSoundToggle" class="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-emerald-400 text-xs font-bold transition flex items-center gap-1.5 border border-zinc-700 shadow" title="Aktif/Nonaktifkan Suara">
+        <span id="soundIcon">🔊</span>
+        <span class="hidden sm:inline" id="soundLabel">Suara On</span>
+      </button>
+
+      <button id="btnGameRules" class="p-2 px-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-amber-300 text-xs font-bold transition flex items-center gap-1.5 border border-zinc-700 shadow" title="Panduan Aturan Main">
+        <span>📖</span>
+        <span class="hidden sm:inline">Aturan</span>
+      </button>
+
+      <button id="btnNewGame" class="p-2 px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-lg active:scale-95">
+        <span>🔄</span>
+        <span>Game Baru</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Game Workspace -->
+  <main class="flex-1 p-3 md:p-5 flex flex-col xl:flex-row items-center xl:items-start justify-center gap-5 max-w-[1520px] mx-auto w-full">
+    <!-- Left Column: Player Cards -->
+    <aside class="w-full xl:w-80 xl:max-w-[320px] shrink-0 flex flex-col gap-4 order-2 xl:order-1">
+      <!-- Players List Card -->
+      <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-4 shadow-xl">
+        <div class="flex items-center justify-between mb-3 pb-2 border-b border-zinc-800">
+          <h3 class="text-xs uppercase font-extrabold tracking-wider text-amber-400 font-outfit">Daftar Pemain</h3>
+          <span class="text-[10px] text-gray-400 font-medium">Status & Giliran</span>
+        </div>
+        <div id="playersListContainer" class="space-y-2.5">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- Jail Action Buttons (Conditional) -->
+        <div id="jailActions" class="hidden pt-3 border-t border-zinc-800 space-y-2 mt-3">
+          <div class="text-[11px] text-red-400 font-semibold text-center flex items-center justify-center gap-1">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+            </svg>
+            <span>Anda Sedang Ditahan di Penjara</span>
+          </div>
+          <button id="btnPayJailFine" class="w-full py-2 rounded-lg bg-red-950/80 hover:bg-red-900 border border-red-500/50 text-red-200 text-xs font-bold transition cursor-pointer">
+            Bayar Denda Rp 500.000
+          </button>
+          <button id="btnUseJailCard" class="hidden w-full py-2 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-200 text-xs font-bold transition cursor-pointer">
+            Gunakan Kartu Bebas Penjara
+          </button>
+        </div>
+      </div>
+
+      <!-- Obrolan Pemain & Reaksi Emoticon -->
+      <div id="playerChatCard" class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-3.5 shadow-xl flex flex-col gap-2.5">
+        <div class="flex items-center justify-between pb-2 border-b border-zinc-800">
+          <div class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 fill-current text-amber-400" viewBox="0 0 24 24">
+              <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
+            </svg>
+            <h3 class="text-xs uppercase font-extrabold tracking-wider text-amber-400 font-outfit">Obrolan Pemain</h3>
+          </div>
+          <span class="flex items-center gap-1 text-[9px] text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-500/40">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Live
+          </span>
+        </div>
+
+        <div>
+          <div class="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider mb-1 flex items-center justify-between">
+            <span>Reaksi Cepat (Spam)</span>
+            <span class="text-[8.5px] text-amber-400/80 lowercase">klik muncul di papan</span>
+          </div>
+          <div id="quickEmoteBar" class="grid grid-cols-5 gap-1 bg-zinc-950/80 border border-zinc-800/80 rounded-xl p-1.5 overflow-hidden">
+            <button type="button" class="btn-quick-emote h-7.5 hover:bg-zinc-800/90 rounded-lg text-base md:text-lg hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="😂" title="Tertawa (wkwk)">😂</button>
+            <button type="button" class="btn-quick-emote h-7.5 hover:bg-zinc-800/90 rounded-lg text-base md:text-lg hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="🤣" title="Ngakak">🤣</button>
+            <button type="button" class="btn-quick-emote h-7.5 hover:bg-zinc-800/90 rounded-lg text-base md:text-lg hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="🤑" title="Cuan / Kaya">🤑</button>
+            <button type="button" class="btn-quick-emote h-7.5 hover:bg-zinc-800/90 rounded-lg text-base md:text-lg hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="😭" title="Nangis / Apes">😭</button>
+            <button type="button" class="btn-quick-emote h-7.5 hover:bg-zinc-800/90 rounded-lg text-base md:text-lg hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="😡" title="Marah / Emosi">😡</button>
+            <button type="button" class="btn-quick-emote h-7.5 hover:bg-zinc-800/90 rounded-lg text-base md:text-lg hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="😎" title="Santai / Bos">😎</button>
+            <button type="button" class="btn-quick-emote h-7.5 hover:bg-zinc-800/90 rounded-lg text-base md:text-lg hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="💀" title="Tamat / Apes">💀</button>
+            <button type="button" class="btn-quick-emote h-7.5 hover:bg-zinc-800/90 rounded-lg text-base md:text-lg hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="🎲" title="Hoki Dadu">🎲</button>
+            <button type="button" class="btn-quick-emote h-7.5 hover:bg-zinc-800/90 rounded-lg text-base md:text-lg hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="🔥" title="Membara">🔥</button>
+            <button type="button" class="btn-quick-emote h-7.5 hover:bg-zinc-800/90 rounded-lg text-base md:text-lg hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="👏" title="Tepuk Tangan">👏</button>
+          </div>
+        </div>
+
+        <div id="chatMessagesList" class="h-32 xl:h-36 overflow-y-auto overflow-x-hidden space-y-1.5 pr-2 text-xs custom-chat-scroll flex flex-col">
+          <div class="text-[10px] text-zinc-500 text-center py-2 italic">
+            Ketik pesan di bawah untuk mengobrol dengan sesama pemain.
+          </div>
+        </div>
+
+        <form id="chatInputForm" class="flex items-center gap-1.5 pt-1 border-t border-zinc-800/80">
+          <input 
+            type="text" 
+            id="inputChatMessage" 
+            placeholder="Ketik pesan..." 
+            maxlength="80" 
+            autocomplete="off"
+            class="flex-1 bg-zinc-950 border border-zinc-700/80 rounded-xl px-2.5 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500 transition"
+          />
+          <button 
+            type="submit" 
+            id="btnSendChatMessage" 
+            class="p-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold transition flex items-center justify-center shadow cursor-pointer active:scale-95"
+            title="Kirim Pesan"
+          >
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </aside>
+
+    <!-- Center Column: The Monopoly Board -->
+    <section class="flex flex-col items-center justify-center order-1 xl:order-2 shrink-0">
+      <div id="monopolyBoard" class="monopoly-board">
+        <!-- Rendered dynamically by BoardRenderer -->
+      </div>
+    </section>
+
+    <!-- Right Column: Game Activity Log & Asset Portfolio -->
+    <aside class="w-full xl:w-80 xl:max-w-[320px] shrink-0 flex flex-col gap-4 order-3">
+      <!-- Activity Log -->
+      <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-4 shadow-xl flex flex-col h-[320px]">
+        <div class="flex items-center justify-between pb-2 border-b border-zinc-800 mb-2">
+          <div class="text-xs uppercase font-extrabold tracking-wider text-gray-400">Riwayat Permainan</div>
+          <span class="text-[10px] text-emerald-400 font-semibold">Live Feed</span>
+        </div>
+        <div id="gameLogsList" class="flex-1 overflow-y-auto space-y-2 pr-1 text-xs">
+          <!-- Logs populated by gameState -->
+        </div>
+      </div>
+
+      <!-- Property Portfolio & Monopoly Groups (Card Grid) -->
+      <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-3.5 shadow-xl flex flex-col h-[380px] overflow-hidden">
+        <div class="flex items-center justify-between pb-2 border-b border-zinc-800 mb-2">
+          <div class="text-xs uppercase font-extrabold tracking-wider text-amber-400">Aset & Properti</div>
+          <span id="portfolioStatsBadge" class="text-[10px] text-amber-300 bg-amber-950/80 px-2 py-0.5 rounded-full border border-amber-500/40 font-bold">0 Properti</span>
+        </div>
+        <div id="portfolioPlayerTabs" class="flex items-center gap-1.5 overflow-x-auto pb-1.5 mb-1.5 scrollbar-none text-[10px]"></div>
+        <div id="portfolioList" class="flex-1 min-h-0 overflow-y-auto pr-1.5 text-xs grid grid-cols-2 gap-2 content-start custom-portfolio-scroll">
+          <p class="text-gray-500 text-center py-6 col-span-2 text-xs">Belum ada properti yang dibeli.</p>
+        </div>
+        <div id="portfolioScrollHint" class="hidden text-center text-[9px] text-amber-400/80 pt-1.5 border-t border-zinc-800/80 font-medium">
+          Gulir ke bawah untuk melihat properti lainnya
+        </div>
+      </div>
+
+      <!-- Sistem Trading Sesama Pemain -->
+      <div class="bg-zinc-900/90 border-2 border-amber-500/40 rounded-2xl p-3.5 shadow-xl flex flex-col gap-2.5">
+        <div class="flex items-center justify-between pb-2 border-b border-zinc-800">
+          <div class="text-xs uppercase font-extrabold tracking-wider text-amber-400">Trading Sesama Pemain</div>
+          <span class="text-[9px] text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-500/40">Tukar Aset</span>
+        </div>
+        <p class="text-[11px] text-gray-300 leading-snug">Tukar-tambah properti atau uang tunai dengan lawan/Bot.</p>
+        <div id="tradingPartnersStatus" class="flex items-center gap-1.5 text-[10px] text-gray-400"></div>
+        <button id="btnOpenTradingDesk" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-black text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95">
+          <span>Buka Meja Trading</span>
+        </button>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Modal Container Overlay -->
+  <div id="modalContainer" class="hidden"></div>
+
+  <!-- Rules Guide Modal (Standalone Template) -->
+  <div id="rulesModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
+    <div class="bg-zinc-900 border-2 border-emerald-500/50 rounded-3xl max-w-lg w-full shadow-2xl p-6 text-white max-h-[85vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-zinc-800">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">📜</span>
+          <h2 class="font-black text-lg text-amber-400">Aturan Permainan Monopoli</h2>
+        </div>
+        <button id="btnCloseRules" class="text-gray-400 hover:text-white text-lg font-bold">✕</button>
+      </div>
+
+      <div class="space-y-4 my-4 text-xs leading-relaxed text-gray-300">
+        <div class="p-3 bg-zinc-800/80 rounded-xl border border-zinc-700">
+          <h4 class="font-bold text-emerald-400 text-sm mb-1">🎯 Tujuan Utama</h4>
+          <p>Membeli, menyewakan, dan menguasai properti di seluruh Indonesia hingga seluruh lawan bangkrut!</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-amber-400 text-sm mb-1">🎲 Dadu & Angka Kembar (Doubles)</h4>
+          <ul class="list-disc list-inside space-y-1 pl-1">
+            <li>Jika melempar angka kembar (misal 4-4), Anda berhak jalan lagi setelah giliran selesai.</li>
+            <li>Jika melempar angka kembar <b>3 kali berturut-turut</b> dalam 1 giliran, Anda langsung dijebloskan ke <b>Penjara</b>!</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-amber-400 text-sm mb-1">🏡 Membangun Rumah & Hotel</h4>
+          <ul class="list-disc list-inside space-y-1 pl-1">
+            <li>Anda harus memiliki <b>seluruh tanah dalam satu kelompok warna</b> sebelum dapat mendirikan bangunan.</li>
+            <li>Tanah satu kelompok yang telah dikuasai penuh mengenakan <b>sewa 2x lipat</b> meskipun belum didirikan rumah.</li>
+            <li>Pembangunan harus merata (maksimal 4 rumah sebelum di-upgrade menjadi 1 Hotel).</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-amber-400 text-sm mb-1">🔒 Aturan Penjara</h4>
+          <p>Anda bisa keluar dari penjara dengan 3 cara: melempar dadu kembar, membayar denda Rp 500.000, atau menggunakan Kartu Bebas Penjara.</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-amber-400 text-sm mb-1">💰 Melewati Petak Mulai (GO)</h4>
+          <p>Setiap kali pemain melewati atau mendarat di petak Mulai, Bank memberikan uang tunai <b>Rp 2.000.000</b>.</p>
+        </div>
+      </div>
+
+      <button id="btnConfirmRules" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 rounded-xl font-bold text-xs uppercase tracking-wider transition">
+        Saya Mengerti!
+      </button>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

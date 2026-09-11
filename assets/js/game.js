@@ -897,10 +897,10 @@ function renderBoard() {
       </div>
     </div>
 
-    <!-- Middle-Top Section: Authentic Vertical Card Decks (Above Dice) -->
+    <!-- Middle-Top Section: Authentic 3D Rectangular Card Decks (Above Dice) -->
     <div class="center-horizontal-decks-row">
       
-      <!-- 1. LEFT: Deck Kartu Kesempatan (Vertical Card) -->
+      <!-- 1. LEFT: Deck Kartu Kesempatan (Landscape Rectangle) -->
       <div class="board-deck-slot-h" id="boardDeckChance" title="Klik untuk melihat info Kartu Kesempatan">
         <div class="board-deck-wrapper-h">
           <div class="deck-tray-outline-h deck-tray-chance"></div>
@@ -908,24 +908,22 @@ function renderBoard() {
           <div class="deck-stack-card-h layer-mid bg-[#fef3c7]"></div>
           <div class="deck-main-card-h card-chance">
             <div class="deck-card-frame-h">
-              <span class="text-[6.5px] md:text-[7.5px] font-black uppercase tracking-[0.2em] text-amber-200/80 font-outfit">KARTU</span>
-              
-              <div class="card-badge-h badge-chance my-auto">
+              <div class="card-badge-h badge-chance">
                 <span class="font-black text-base md:text-xl font-outfit leading-none select-none text-[#c2410c] drop-shadow-sm">?</span>
               </div>
               
-              <div class="flex flex-col items-center justify-center leading-none min-w-0 w-full mb-0.5">
+              <div class="flex flex-col items-start justify-center leading-tight min-w-0">
+                <span class="text-[6.5px] md:text-[7.5px] font-black uppercase tracking-[0.18em] text-amber-200/90 font-outfit leading-none">KARTU</span>
                 <span class="card-title-h font-outfit text-amber-100">KESEMPATAN</span>
                 <span class="card-sub-h font-sans text-amber-200/90">CHANCE</span>
+                <span class="text-[5.5px] md:text-[6.5px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded-full bg-black/25 text-amber-100/90 mt-0.5">50 KARTU</span>
               </div>
-              
-              <span class="text-[5.5px] md:text-[6.5px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded-full bg-black/20 text-amber-100/85">50 KARTU</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2. RIGHT: Deck Kartu Dana Umum (Vertical Card) -->
+      <!-- 2. RIGHT: Deck Kartu Dana Umum (Landscape Rectangle) -->
       <div class="board-deck-slot-h" id="boardDeckChest" title="Klik untuk melihat info Kartu Dana Umum">
         <div class="board-deck-wrapper-h">
           <div class="deck-tray-outline-h deck-tray-chest"></div>
@@ -933,18 +931,16 @@ function renderBoard() {
           <div class="deck-stack-card-h layer-mid bg-[#e0f2fe]"></div>
           <div class="deck-main-card-h card-chest">
             <div class="deck-card-frame-h">
-              <span class="text-[6.5px] md:text-[7.5px] font-black uppercase tracking-[0.2em] text-sky-200/80 font-outfit">KARTU</span>
-              
-              <div class="card-badge-h badge-chest my-auto">
+              <div class="card-badge-h badge-chest">
                 <div class="w-4 h-4 md:w-5 md:h-5 flex items-center justify-center text-[#0369a1] drop-shadow-sm">${GameIcons.chest}</div>
               </div>
               
-              <div class="flex flex-col items-center justify-center leading-none min-w-0 w-full mb-0.5">
+              <div class="flex flex-col items-start justify-center leading-tight min-w-0">
+                <span class="text-[6.5px] md:text-[7.5px] font-black uppercase tracking-[0.18em] text-sky-200/90 font-outfit leading-none">KARTU</span>
                 <span class="card-title-h font-outfit text-sky-100">DANA UMUM</span>
                 <span class="card-sub-h font-sans text-sky-200/90">COMMUNITY CHEST</span>
+                <span class="text-[5.5px] md:text-[6.5px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded-full bg-black/25 text-sky-100/90 mt-0.5">50 KARTU</span>
               </div>
-              
-              <span class="text-[5.5px] md:text-[6.5px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded-full bg-black/20 text-sky-100/85">50 KARTU</span>
             </div>
           </div>
         </div>
@@ -953,7 +949,7 @@ function renderBoard() {
     </div>
 
     <!-- Middle-Bottom Section: Dice Rolling Station & Turn HUD (Below Cards) -->
-    <div class="center-dice-station flex flex-col items-center gap-2 md:gap-2.5 my-auto">
+    <div class="center-dice-station flex flex-col items-center gap-2 md:gap-2.5">
       <div id="diceCenterContainer" class="flex items-center justify-center gap-3 md:gap-5 cursor-pointer py-0.5">
         <div id="die1" class="dice-box"></div>
         <div id="die2" class="dice-box"></div>

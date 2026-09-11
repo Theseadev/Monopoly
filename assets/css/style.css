@@ -518,11 +518,11 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(4px, 1.2vw, 14px);
-  width: 95%;
-  max-width: 360px;
-  margin-top: clamp(4px, 1vh, 14px);
-  margin-bottom: clamp(4px, 1vh, 12px);
+  gap: clamp(6px, 1.4vw, 16px);
+  width: 100%;
+  max-width: 340px;
+  margin-top: clamp(3px, 0.8vh, 10px);
+  margin-bottom: clamp(3px, 0.8vh, 8px);
   box-sizing: border-box;
   min-width: 0;
 }
@@ -533,18 +533,20 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   align-items: center;
   cursor: pointer;
   user-select: none;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
   min-width: 0;
+  flex: 1 1 0;
+  max-width: 160px;
 }
 
 .board-deck-slot-h:hover {
-  transform: translateY(-2px) scale(1.02);
+  transform: translateY(-2px) scale(1.03);
 }
 
 .board-deck-wrapper-h {
   position: relative;
-  width: clamp(70px, 9.5vw, 125px);
-  height: clamp(36px, 5.2vh, 62px);
+  width: 100%;
+  height: clamp(38px, 5.5vh, 56px);
   min-width: 0;
 }
 
@@ -571,19 +573,19 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 .deck-stack-card-h {
   position: absolute;
   inset: 0;
-  border-radius: 8px;
+  border-radius: 7px;
   border: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
   pointer-events: none;
 }
 
 .deck-stack-card-h.layer-back {
-  transform: translate(3px, 3px) rotate(-1deg);
+  transform: translate(2.5px, 2.5px) rotate(-1deg);
   z-index: 2;
 }
 
 .deck-stack-card-h.layer-mid {
-  transform: translate(1.5px, 1.5px) rotate(0.8deg);
+  transform: translate(1.2px, 1.2px) rotate(0.8deg);
   z-index: 3;
 }
 
@@ -591,8 +593,8 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 .deck-main-card-h {
   position: absolute;
   inset: 0;
-  border-radius: 8px;
-  padding: 3px;
+  border-radius: 7px;
+  padding: 2.5px;
   z-index: 4;
   box-shadow: 
     0 4px 10px rgba(0, 0, 0, 0.22),
@@ -601,70 +603,44 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 }
 
 .deck-main-card-h.card-chance {
-  background: linear-gradient(135deg, #f97316 0%, #ea580c 45%, #c2410c 100%);
+  background: linear-gradient(135deg, #fb923c 0%, #ea580c 50%, #c2410c 100%);
   border: 1.5px solid #fed7aa;
 }
 
 .deck-main-card-h.card-chest {
-  background: linear-gradient(135deg, #0284c7 0%, #0369a1 45%, #075985 100%);
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 50%, #0369a1 100%);
   border: 1.5px solid #bae6fd;
 }
 
 .board-deck-slot-h:hover .deck-main-card-h.card-chance {
   box-shadow: 
-    0 8px 18px rgba(234, 88, 12, 0.38),
-    0 2px 6px rgba(0, 0, 0, 0.22);
-  filter: brightness(1.04);
+    0 8px 18px rgba(234, 88, 12, 0.42),
+    0 2px 6px rgba(0, 0, 0, 0.25);
+  filter: brightness(1.05);
 }
 
 .board-deck-slot-h:hover .deck-main-card-h.card-chest {
   box-shadow: 
-    0 8px 18px rgba(2, 132, 199, 0.38),
-    0 2px 6px rgba(0, 0, 0, 0.22);
-  filter: brightness(1.04);
+    0 8px 18px rgba(2, 132, 199, 0.42),
+    0 2px 6px rgba(0, 0, 0, 0.25);
+  filter: brightness(1.05);
 }
 
 /* Inner Horizontal Card Layout */
 .deck-card-frame-h {
   width: 100%;
   height: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: clamp(6px, 1.2vw, 10px);
+  justify-content: flex-start;
+  gap: clamp(4px, 0.8vw, 8px);
   position: relative;
   box-sizing: border-box;
-  padding: 2px clamp(6px, 1.2vw, 12px);
-}
-
-.card-mini-corner {
-  position: absolute;
-  font-size: clamp(6px, 1.1vw, 8.5px);
-  font-weight: 900;
-  line-height: 1;
-  opacity: 0.85;
-}
-
-.card-mini-corner.top-l {
-  top: 2px;
-  left: 3px;
-}
-
-.card-mini-corner.bot-r {
-  bottom: 2px;
-  right: 3px;
-  transform: rotate(180deg);
-}
-
-.card-chance .card-mini-corner {
-  color: #fef3c7;
-}
-
-.card-chest .card-mini-corner {
-  color: #e0f2fe;
+  padding: 2px clamp(4px, 0.8vw, 8px);
+  overflow: hidden;
 }
 
 .card-badge-h {
@@ -672,44 +648,44 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.18);
   flex-shrink: 0;
 }
 
 .badge-chance {
-  width: clamp(18px, 2.8vw, 30px);
-  height: clamp(18px, 2.8vw, 30px);
-  background: rgba(254, 243, 199, 0.95);
+  width: clamp(20px, 2.5vw, 28px);
+  height: clamp(20px, 2.5vw, 28px);
+  background: #fef3c7;
   color: #ea580c;
-  padding: clamp(2px, 0.5vw, 5px);
   border: 1.5px solid #fbbf24;
 }
 
 .badge-chest {
-  width: clamp(18px, 2.8vw, 30px);
-  height: clamp(18px, 2.8vw, 30px);
-  background: rgba(240, 249, 255, 0.95);
+  width: clamp(20px, 2.5vw, 28px);
+  height: clamp(20px, 2.5vw, 28px);
+  background: #f0f9ff;
   color: #0284c7;
-  padding: clamp(2px, 0.5vw, 5px);
   border: 1.5px solid #38bdf8;
 }
 
 .card-title-h {
-  font-size: clamp(6.5px, 0.95vw, 9.5px);
+  font-size: clamp(7.5px, 0.95vw, 10.5px);
   font-weight: 900;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  line-height: 1.1;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  line-height: 1.15;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .card-sub-h {
-  font-size: clamp(4.5px, 0.6vw, 6.5px);
+  font-size: clamp(5px, 0.65vw, 7px);
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   line-height: 1;
-  opacity: 0.85;
+  white-space: nowrap;
+  opacity: 0.9;
   margin-top: 1px;
 }
 

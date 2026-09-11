@@ -898,7 +898,7 @@ function renderBoard() {
     </div>
 
     <!-- Middle-Top Section: Horizontal Card Decks (Above Dice) -->
-    <div class="center-horizontal-decks-row mt-2.5 md:mt-4 mb-1.5 md:mb-2.5">
+    <div class="center-horizontal-decks-row">
       
       <!-- 1. LEFT: Deck Kartu Kesempatan (Horizontal) -->
       <div class="board-deck-slot-h" id="boardDeckChance" title="Klik untuk melihat info Kartu Kesempatan">
@@ -908,12 +908,10 @@ function renderBoard() {
           <div class="deck-stack-card-h layer-mid bg-[#fffbeb]"></div>
           <div class="deck-main-card-h card-chance">
             <div class="deck-card-frame-h">
-              <span class="card-mini-corner top-l">?</span>
-              <span class="card-mini-corner bot-r">?</span>
               <div class="card-badge-h badge-chance">
-                ${GameIcons.chance}
+                <span class="font-black text-[12px] md:text-[14px] font-outfit leading-none select-none">?</span>
               </div>
-              <div class="flex flex-col items-start leading-tight">
+              <div class="flex flex-col items-start justify-center leading-none min-w-0">
                 <span class="card-title-h font-outfit text-amber-100">KESEMPATAN</span>
                 <span class="card-sub-h font-sans text-amber-200/90">CHANCE</span>
               </div>
@@ -930,16 +928,10 @@ function renderBoard() {
           <div class="deck-stack-card-h layer-mid bg-[#f0f9ff]"></div>
           <div class="deck-main-card-h card-chest">
             <div class="deck-card-frame-h">
-              <span class="card-mini-corner top-l">
-                <span class="w-2 h-2 inline-block">${GameIcons.chest}</span>
-              </span>
-              <span class="card-mini-corner bot-r">
-                <span class="w-2 h-2 inline-block">${GameIcons.chest}</span>
-              </span>
               <div class="card-badge-h badge-chest">
-                ${GameIcons.chest}
+                <div class="w-3.5 h-3.5 md:w-4 md:h-4 flex items-center justify-center">${GameIcons.chest}</div>
               </div>
-              <div class="flex flex-col items-start leading-tight">
+              <div class="flex flex-col items-start justify-center leading-none min-w-0">
                 <span class="card-title-h font-outfit text-sky-100">DANA UMUM</span>
                 <span class="card-sub-h font-sans text-sky-200/90">COMMUNITY CHEST</span>
               </div>
@@ -989,10 +981,10 @@ function renderBoard() {
         title: 'Tumpukan Kartu Kesempatan',
         html: `
           <div class="text-left space-y-2 text-sm text-stone-700">
-            <p>Deck ini berisi <strong>16 Kartu Kesempatan</strong> yang diambil secara otomatis saat bidak pemain mendarat di petak <strong>Kesempatan</strong>.</p>
+            <p>Deck ini berisi <strong>50 Kartu Kesempatan</strong> yang diambil secara otomatis saat bidak pemain mendarat di petak <strong>Kesempatan</strong>.</p>
             <div class="p-2.5 bg-amber-50 rounded-lg border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
               <span class="w-5 h-5 flex-shrink-0 text-amber-600">${GameIcons.chance}</span>
-              <span>Berisi bonus keberuntungan, tiket perjalanan kilat ke kota lain, atau denda pembangunan.</span>
+              <span>Berisi bonus keberuntungan, tiket perjalanan kilat ke kota lain, pilihan kartu cuan/zonk, atau denda pembangunan.</span>
             </div>
           </div>
         `,
@@ -1013,10 +1005,10 @@ function renderBoard() {
         title: 'Tumpukan Kartu Dana Umum',
         html: `
           <div class="text-left space-y-2 text-sm text-stone-700">
-            <p>Deck ini berisi <strong>16 Kartu Dana Umum</strong> yang diambil secara otomatis saat bidak pemain mendarat di petak <strong>Dana Umum</strong>.</p>
+            <p>Deck ini berisi <strong>50 Kartu Dana Umum</strong> yang diambil secara otomatis saat bidak pemain mendarat di petak <strong>Dana Umum</strong>.</p>
             <div class="p-2.5 bg-sky-50 rounded-lg border border-sky-200 text-xs text-sky-900 flex items-start gap-2">
               <span class="w-5 h-5 flex-shrink-0 text-sky-600">${GameIcons.chest}</span>
-              <span>Berisi bantuan dana sosial nusantara, dividen bank nasional, atau kartu bebas penjara.</span>
+              <span>Berisi bantuan dana sosial nusantara, dividen bank nasional, pilihan kartu cuan/zonk, atau kartu bebas penjara.</span>
             </div>
           </div>
         `,

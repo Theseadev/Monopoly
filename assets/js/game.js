@@ -838,7 +838,7 @@ function renderBoard() {
     } else {
       // 2. REGULAR TILES (Properties, Railroads, Utilities, Taxes, Cards)
       let colorBarHtml = '';
-      let indicatorsHtml = '<div class="indicators-container absolute top-0.5 right-0.5 flex items-center gap-0.5 z-10 pointer-events-none"></div>';
+      let indicatorsHtml = '<div class="indicators-container absolute flex items-center gap-0.5 z-10 pointer-events-none"></div>';
       let iconHtml = '';
       let priceText = space.price ? formatShortPrice(space.price) : (space.amount ? `Bayar ${formatShortPrice(space.amount)}` : '');
       const displayName = space.shortName || space.name;
@@ -857,16 +857,55 @@ function renderBoard() {
 
       const priceBadgeHtml = priceText ? `<span class="tile-price-badge">${priceText}</span>` : '';
 
-      cell.innerHTML = `
-        ${colorBarHtml}
-        ${indicatorsHtml}
-        <div class="tile-content">
-          ${iconHtml}
-          <span class="tile-name">${displayName}</span>
-        </div>
-        ${priceBadgeHtml}
-        <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
-      `;
+      if (pos.side === 'top') {
+        // TOP TILES: Price at Top (outer edge), Name/Icon in middle, Color bar at Bottom (facing center)
+        cell.innerHTML = `
+          ${priceBadgeHtml}
+          ${indicatorsHtml}
+          <div class="tile-content">
+            ${iconHtml}
+            <span class="tile-name">${displayName}</span>
+          </div>
+          ${colorBarHtml}
+          <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
+        `;
+      } else if (pos.side === 'left') {
+        // LEFT TILES: Name/Icon/Price on left, Color bar at Right (vertical strip facing center)
+        cell.innerHTML = `
+          ${indicatorsHtml}
+          <div class="tile-content">
+            ${iconHtml}
+            <span class="tile-name">${displayName}</span>
+            ${priceBadgeHtml}
+          </div>
+          ${colorBarHtml}
+          <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
+        `;
+      } else if (pos.side === 'right') {
+        // RIGHT TILES: Color bar at Left (vertical strip facing center), Name/Icon/Price on right
+        cell.innerHTML = `
+          ${colorBarHtml}
+          ${indicatorsHtml}
+          <div class="tile-content">
+            ${iconHtml}
+            <span class="tile-name">${displayName}</span>
+            ${priceBadgeHtml}
+          </div>
+          <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
+        `;
+      } else {
+        // BOTTOM TILES: Color bar at Top (facing center), Name/Icon in middle, Price at Bottom (outer edge)
+        cell.innerHTML = `
+          ${colorBarHtml}
+          ${indicatorsHtml}
+          <div class="tile-content">
+            ${iconHtml}
+            <span class="tile-name">${displayName}</span>
+          </div>
+          ${priceBadgeHtml}
+          <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
+        `;
+      }
     }
 
     cell.addEventListener('click', () => {

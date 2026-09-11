@@ -739,7 +739,7 @@
     <!-- Main Workspace -->
     <div class="flex-1 p-1 sm:p-1.5 flex flex-col xl:flex-row items-center xl:items-stretch justify-center gap-1.5 xl:gap-3 max-w-[1650px] mx-auto w-full min-h-0 overflow-hidden">
       <!-- Left Column: Player Cards -->
-      <aside class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col justify-between gap-1.5 xl:gap-2 order-2 xl:order-1 min-h-0">
+      <aside class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-1.5 xl:gap-2 order-2 xl:order-1 min-h-0">
         <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl shrink-0">
           <div class="flex items-center justify-between mb-1.5 pb-1 border-b border-zinc-800">
             <h3 class="text-[11px] uppercase font-extrabold tracking-wider text-amber-400 font-outfit">Daftar Pemain</h3>
@@ -765,7 +765,7 @@
         </div>
 
         <!-- Obrolan Pemain & Reaksi Emoticon -->
-        <div id="playerChatCard" class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col flex-1 min-h-0 justify-between gap-1">
+        <div id="playerChatCard" class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col flex-1 min-h-0 gap-1.5">
           <!-- Header -->
           <div class="flex items-center justify-between pb-1 border-b border-zinc-800 shrink-0">
             <div class="flex items-center gap-1">
@@ -780,7 +780,7 @@
             </span>
           </div>
 
-          <!-- Quick Reaction Emoticon Bar (Bisa Di-Spam ke Tengah Papan) -->
+          <!-- Quick Reaction Emoticon Bar (Rata Atas di Bawah Header) -->
           <div class="shrink-0">
             <div class="text-[8px] font-bold text-gray-400 uppercase tracking-wider mb-0.5 flex items-center justify-between">
               <span>Reaksi Cepat</span>
@@ -800,15 +800,15 @@
             </div>
           </div>
 
-          <!-- Chat Message Feed -->
-          <div id="chatMessagesList" class="flex-1 min-h-[40px] max-h-[90px] xl:max-h-[130px] overflow-y-auto overflow-x-hidden space-y-1 pr-1 text-[10.5px] custom-chat-scroll flex flex-col">
-            <div class="text-[9px] text-zinc-500 text-center py-0.5 italic">
-              Ketik pesan di bawah untuk mengobrol.
+          <!-- Chat Message Feed (Mengisi ruang hingga bawah) -->
+          <div id="chatMessagesList" class="flex-1 min-h-[50px] overflow-y-auto overflow-x-hidden space-y-1 pr-1 text-[10.5px] custom-chat-scroll flex flex-col justify-start">
+            <div class="text-[9px] text-zinc-500 text-center py-2 italic">
+              Ketik pesan di bawah untuk mengobrol dengan sesama pemain.
             </div>
           </div>
 
           <!-- Chat Input Form -->
-          <form id="chatInputForm" class="flex items-center gap-1 pt-1 border-t border-zinc-800/80 shrink-0">
+          <form id="chatInputForm" class="flex items-center gap-1 pt-1 border-t border-zinc-800/80 shrink-0 mt-auto">
             <input 
               type="text" 
               id="inputChatMessage" 
@@ -820,7 +820,7 @@
             <button 
               type="submit" 
               id="btnSendChatMessage" 
-              class="p-1 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold transition flex items-center justify-center shadow cursor-pointer active:scale-95"
+              class="p-1 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold transition flex items-center justify-center shadow cursor-pointer active:scale-95 shrink-0"
               title="Kirim Pesan"
             >
               <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">

@@ -458,7 +458,11 @@ class AdminController {
             $remoteAuthor = $remoteData['commit']['author']['name'] ?? ($remoteData['author']['login'] ?? 'Theseadev');
             $remoteDate = date('d M Y H:i', strtotime($remoteData['commit']['author']['date'] ?? 'now'));
 
-            $tempZip = sys_get_temp_dir() . '/monopoly_update_' . time() . '.zip';
+            $tempDir = $repoDir . '/storage/temp';
+            if (!is_dir($tempDir)) {
+                @mkdir($tempDir, 0777, true);
+            }
+            $tempZip = $tempDir . '/monopoly_update_' . time() . '.zip';
             $zipContent = null;
 
             // Jika ada token, gunakan endpoint API zipball GitHub

@@ -410,6 +410,27 @@
               <span>Cek Pembaruan</span>
             </button>
           </div>
+
+          <!-- Token GitHub (Jika Repo Private) -->
+          <div class="pt-2 border-t border-zinc-800/80 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold text-zinc-400 flex items-center gap-1.5">
+                <span>🔑</span>
+                <span>GitHub Token (PAT)</span>
+              </span>
+              <span id="gitTokenBadge" class="text-[9.5px] px-1.5 py-0.5 rounded font-bold bg-zinc-800 text-zinc-400">Public Mode</span>
+            </div>
+            
+            <div class="flex gap-1.5">
+              <input type="password" id="gitTokenInput" placeholder="ghp_xxxx (Opsional / Repo Private)" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-2.5 py-1.5 text-xs text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-500 font-mono" />
+              <button onclick="saveGitToken()" id="btnSaveGitToken" class="px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-amber-500 hover:text-black text-zinc-300 font-bold text-xs border border-zinc-700 transition whitespace-nowrap">
+                Simpan
+              </button>
+            </div>
+            <p class="text-[10px] text-zinc-500 leading-tight">
+              Hanya perlu diisi jika repo di-set <b>Private</b> di GitHub. Jika diubah ke <b>Public</b>, tidak butuh token.
+            </p>
+          </div>
         </div>
 
         <!-- Terminal Console View -->
@@ -959,7 +980,67 @@
       }
     }
 
+    async function fetchGitTokenStatus() {
+      try {
+        const res = await fetch('/api/admin/git/token');
+        const data = await res.json();
+        const badge = document.getElementById('gitTokenBadge');
+        const input = document.getElementById('gitTokenInput');
+        if (data && data.hasToken) {
+          if (badge) {
+            badge.textContent = 'Token Aktif';
+            badge.className = 'text-[9.5px] px-1.5 py-0.5 rounded font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+          }
+          if (input) {
+            input.placeholder = data.maskedToken || 'ghp_••••••••';
+          }
+        } else {
+          if (badge) {
+            badge.textContent = 'Public Mode';
+            badge.className = 'text-[9.5px] px-1.5 py-0.5 rounded font-bold bg-zinc-800 text-zinc-400';
+          }
+          if (input && !input.value) {
+            input.placeholder = 'ghp_xxxx (Opsional / Repo Private)';
+          }
+        }
+      } catch (err) {}
+    }
+
+    async function saveGitToken() {
+      const input = document.getElementById('gitTokenInput');
+      const token = (input ? input.value : '').trim();
+      const btn = document.getElementById('btnSaveGitToken');
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/admin/git/token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token })
+        });
+        const data = await res.json();
+        if (data && data.success) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Token Diperbarui',
+            text: data.message,
+            timer: 2000,
+            showConfirmButton: false
+          });
+          if (input) input.value = '';
+          fetchGitTokenStatus();
+        } else {
+          Swal.fire({ icon: 'error', title: 'Gagal', text: data?.message });
+        }
+      } catch (err) {
+        Swal.fire({ icon: 'error', title: 'Error', text: err.message });
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
     async function fetchGitStatus() {
+      fetchGitTokenStatus();
       try {
         const res = await fetch('/api/admin/git/status');
         const data = await res.json();
@@ -985,7 +1066,7 @@
       btn.disabled = true;
       btn.classList.add('opacity-50');
 
-      appendConsoleLog('git fetch origin', 'cmd');
+      appendConsoleLog('git fetch origin (memeriksa commit GitHub)...', 'cmd');
 
       try {
         const res = await fetch('/api/admin/git/fetch', { method: 'POST' });
@@ -998,6 +1079,24 @@
           } else {
             appendConsoleLog('Repository lokal sudah sama persis dengan GitHub (Up to date).', 'success');
           }
+        } else if (data && data.isPrivate) {
+          appendConsoleLog(data.output, 'error');
+          Swal.fire({
+            icon: 'info',
+            title: 'Repository GitHub Privat',
+            html: `<div class="text-left text-xs space-y-2 text-zinc-300">
+              <p>GitHub tidak dapat diakses tanpa izin karena repository <b>Theseadev/Monopoly</b> berstatus <span class="text-amber-400 font-bold">Private</span>.</p>
+              <div class="p-2.5 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1 font-sans">
+                <div class="font-bold text-emerald-400">⭐ Solusi 1 (Paling Mudah):</div>
+                <div>Ubah repository menjadi <b>PUBLIC</b> di <a href="https://github.com/Theseadev/Monopoly/settings" target="_blank" class="text-blue-400 underline">GitHub Settings</a> (Danger Zone &gt; Change visibility).</div>
+              </div>
+              <div class="p-2.5 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1 font-sans">
+                <div class="font-bold text-amber-400">Opsi 2:</div>
+                <div>Masukkan <b>GitHub Personal Access Token (PAT)</b> pada kolom token di panel ini.</div>
+              </div>
+            </div>`,
+            confirmButtonText: 'Mengerti'
+          });
         } else {
           appendConsoleLog(data?.message || 'Git fetch error.', 'error');
         }
@@ -1026,16 +1125,16 @@
           appendConsoleLog(`Git pull berhasil dalam ${data.duration}s! Commit sekarang: ${data.lastCommit}`, 'success');
           Swal.fire({
             icon: 'success',
-            title: 'Pembaruan Berhasil Ditarik!',
-            text: `Source code terbaru dari GitHub berhasil diterapkan (${data.branch}).`,
-            timer: 2500
+            title: 'Pembaruan Berhasil Diterapkan!',
+            text: `Source code terbaru dari GitHub berhasil dipasang (${data.branch}).`,
+            timer: 3000
           });
         } else {
           appendConsoleLog(data?.output || data?.message || 'Git pull error.', 'error');
           Swal.fire({
             icon: 'warning',
-            title: 'Hasil Git Pull',
-            text: data?.output || data?.message || 'Terjadi kendala saat melakukan git pull.'
+            title: 'Gagal Upgrade',
+            text: data?.output || data?.message || 'Terjadi kendala saat melakukan upgrade dari GitHub.'
           });
         }
       } catch (err) {

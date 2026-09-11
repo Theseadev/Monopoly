@@ -118,7 +118,8 @@ class GameController {
 
     public static function resolveCard(): void {
         self::initRequestContext();
-        $state = GameState::resolveCardAction();
+        $choice = Flight::request()->data->choice ?? (Flight::request()->query->choice ?? null);
+        $state = GameState::resolveCardAction($choice ? (string)$choice : null);
         Flight::json($state);
     }
 

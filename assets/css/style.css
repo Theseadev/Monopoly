@@ -1330,6 +1330,25 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   box-shadow: 0 1px 0 #451a03;
 }
 
+/* Interactive Card Decision Buttons */
+.card-choice-btn {
+  border-width: 1.5px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-choice-btn:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.card-choice-btn:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 /* Full Card Title Deed Modal Styling */
 .title-deed-card-container {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08);

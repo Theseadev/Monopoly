@@ -471,7 +471,7 @@ class GameState {
         return $state;
     }
 
-    public static function resolveCardAction(): array {
+    public static function resolveCardAction(?string $choiceId = null): array {
         $state = self::load();
         if (empty($state['currentAction']) || $state['currentAction']['type'] !== 'CARD_DRAWN') {
             return $state;
@@ -480,11 +480,52 @@ class GameState {
         $player = &$state['players'][$state['currentPlayerIndex']];
         $card = $state['currentAction']['card'];
 
-        switch ($card['type']) {
+        // Jika kartu memiliki opsi keputusan (Choices)
+        if (!empty($card['choices']) && is_array($card['choices'])) {
+            $selectedChoice = null;
+            if (!empty($choiceId)) {
+                foreach ($card['choices'] as $c) {
+                    if (($c['id'] ?? '') === $choiceId) {
+                        $selectedChoice = $c;
+                        break;
+                    }
+                }
+            }
+
+            // Fallback untuk Bot AI atau jika pilihan tidak dikirim spesifik
+            if (!$selectedChoice) {
+                if (!empty($player['isAI'])) {
+                    // AI pintar: jika ada pilihan bayar sogok vs penjara, pilih sogok jika uang aman
+                    foreach ($card['choices'] as $c) {
+                        $act = $c['action'] ?? ($c['type'] ?? '');
+                        if ($act === 'pay_money' && $player['money'] >= (($c['amount'] ?? 0) + 300000)) {
+                            $selectedChoice = $c;
+                            break;
+                        }
+                    }
+                }
+                if (!$selectedChoice) {
+                    $selectedChoice = $card['choices'][0];
+                }
+            }
+
+            self::executeCardEffect($state, $player, $selectedChoice, $card['title']);
+        } else {
+            self::executeCardEffect($state, $player, $card, $card['title']);
+        }
+
+        self::save($state);
+        return $state;
+    }
+
+    private static function executeCardEffect(array &$state, array &$player, array $effect, string $cardTitle): void {
+        $actionType = $effect['action'] ?? ($effect['type'] ?? 'none');
+
+        switch ($actionType) {
             case 'move_to':
                 $oldPos = $player['position'];
-                $target = $card['target'];
-                if (!empty($card['collectGo']) && $target < $oldPos) {
+                $target = (int)$effect['target'];
+                if (!empty($effect['collectGo']) && $target < $oldPos) {
                     $player['money'] += 2000000;
                     self::addLog($state, "{$player['name']} melewati Mulai dan mengambil Rp 2.000.000!", 'success');
                 }
@@ -493,20 +534,54 @@ class GameState {
                 break;
 
             case 'move_steps':
-                $steps = $card['steps'];
+                $steps = (int)$effect['steps'];
                 $player['position'] = ($player['position'] + $steps + 40) % 40;
+                self::addLog($state, "{$player['name']} " . ($steps > 0 ? "maju {$steps} petak" : "mundur " . abs($steps) . " petak") . " (" . ($effect['title'] ?? $cardTitle) . ").", 'info');
                 self::handleLandedSpace($state, $player);
                 break;
 
             case 'receive_money':
-                $player['money'] += $card['amount'];
-                self::addLog($state, "{$player['name']} mendapat Rp " . number_format($card['amount'], 0, ',', '.') . ".", 'success');
+                $amt = (int)$effect['amount'];
+                $player['money'] += $amt;
+                self::addLog($state, "{$player['name']} memperoleh Rp " . number_format($amt, 0, ',', '.') . " (" . ($effect['title'] ?? $cardTitle) . ").", 'success');
                 self::finishAction($state);
                 break;
 
             case 'pay_money':
-                $player['money'] = max(0, $player['money'] - $card['amount']);
-                self::addLog($state, "{$player['name']} membayar Rp " . number_format($card['amount'], 0, ',', '.') . ".", 'warning');
+                $amt = (int)$effect['amount'];
+                $player['money'] = max(0, $player['money'] - $amt);
+                self::addLog($state, "{$player['name']} membayar Rp " . number_format($amt, 0, ',', '.') . " (" . ($effect['title'] ?? $cardTitle) . ").", 'warning');
+                if ($player['money'] <= 0) {
+                    self::checkBankruptcy($state, $player, null);
+                }
+                self::finishAction($state);
+                break;
+
+            case 'pay_and_move':
+                $cost = (int)($effect['cost'] ?? ($effect['amount'] ?? 0));
+                $steps = (int)($effect['steps'] ?? 0);
+                $player['money'] = max(0, $player['money'] - $cost);
+                $player['position'] = ($player['position'] + $steps + 40) % 40;
+                self::addLog($state, "{$player['name']} membayar Rp " . number_format($cost, 0, ',', '.') . " dan melaju {$steps} langkah!", 'success');
+                self::handleLandedSpace($state, $player);
+                break;
+
+            case 'gamble':
+                $cost = (int)($effect['cost'] ?? 0);
+                $reward = (int)($effect['reward'] ?? 0);
+                $isWin = (mt_rand(0, 99) < 50); // 50% Win Chance
+
+                if ($isWin) {
+                    $netWin = $reward - $cost;
+                    $player['money'] += $netWin;
+                    self::addLog($state, "🎉 CUAN BESAR! {$player['name']} menang jackpot Rp " . number_format($reward, 0, ',', '.') . " dari robot trading!", 'success');
+                } else {
+                    $player['money'] = max(0, $player['money'] - $cost);
+                    self::addLog($state, "💥 RUG PULL! {$player['name']} kena scam dan kehilangan modal Rp " . number_format($cost, 0, ',', '.') . "!", 'danger');
+                    if ($player['money'] <= 0) {
+                        self::checkBankruptcy($state, $player, null);
+                    }
+                }
                 self::finishAction($state);
                 break;
 
@@ -517,6 +592,7 @@ class GameState {
                 break;
 
             case 'go_to_jail':
+                self::addLog($state, "{$player['name']} dijebloskan ke sel penjara!", 'danger');
                 self::sendToJailInternal($state, $player);
                 self::finishAction($state);
                 break;
@@ -526,17 +602,20 @@ class GameState {
                 foreach (BoardData::BOARD_SPACES as $s) {
                     $p = $state['properties'][$s['id']] ?? null;
                     if ($p && ($p['ownerId'] ?? null) === $player['id']) {
-                        if (!empty($p['isHotel'])) $repairs += $card['perHotel'];
-                        else if (!empty($p['houses'])) $repairs += $p['houses'] * $card['perHouse'];
+                        if (!empty($p['isHotel'])) $repairs += $effect['perHotel'];
+                        else if (!empty($p['houses'])) $repairs += $p['houses'] * $effect['perHouse'];
                     }
                 }
                 $player['money'] = max(0, $player['money'] - $repairs);
-                self::addLog($state, "{$player['name']} membayar biaya renovasi total Rp " . number_format($repairs, 0, ',', '.') . ".", 'warning');
+                self::addLog($state, "{$player['name']} membayar biaya perbaikan/renovasi total Rp " . number_format($repairs, 0, ',', '.') . ".", 'warning');
+                if ($player['money'] <= 0) {
+                    self::checkBankruptcy($state, $player, null);
+                }
                 self::finishAction($state);
                 break;
 
             case 'pay_all_players':
-                $amt = $card['amount'];
+                $amt = (int)$effect['amount'];
                 foreach ($state['players'] as &$other) {
                     if ($other['id'] !== $player['id'] && empty($other['isBankrupt'])) {
                         $pAmt = min($player['money'], $amt);
@@ -544,11 +623,12 @@ class GameState {
                         $other['money'] += $pAmt;
                     }
                 }
+                self::addLog($state, "{$player['name']} membagikan Rp " . number_format($amt, 0, ',', '.') . " ke masing-masing pemain.", 'info');
                 self::finishAction($state);
                 break;
 
             case 'collect_all_players':
-                $amt = $card['amount'];
+                $amt = (int)$effect['amount'];
                 foreach ($state['players'] as &$other) {
                     if ($other['id'] !== $player['id'] && empty($other['isBankrupt'])) {
                         $pAmt = min($other['money'], $amt);
@@ -556,16 +636,16 @@ class GameState {
                         $player['money'] += $pAmt;
                     }
                 }
+                self::addLog($state, "{$player['name']} mengumpulkan Rp " . number_format($amt, 0, ',', '.') . " dari setiap pemain.", 'success');
                 self::finishAction($state);
                 break;
 
+            case 'none':
             default:
+                self::addLog($state, "{$player['name']} memilih jalur aman (" . ($effect['title'] ?? $cardTitle) . ").", 'info');
                 self::finishAction($state);
                 break;
         }
-
-        self::save($state);
-        return $state;
     }
 
     private static function checkBankruptcy(array &$state, array &$player, ?array &$creditor): void {

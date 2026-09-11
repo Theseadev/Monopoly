@@ -415,18 +415,103 @@ export class GameState {
     return true;
   }
 
-  // Jalankan efek kartu
-  resolveCardAction() {
+  // Jalankan efek kartu (termasuk kartu pilihan)
+  resolveCardAction(choiceId = null) {
     if (!this.currentAction || this.currentAction.type !== 'CARD_DRAWN') return;
     const player = this.getCurrentPlayer();
     const card = this.currentAction.card;
 
-    const res = card.action(player, this);
-    if (typeof res === 'string') {
-      this.addLog(`${player.name}: ${res}`, 'info');
+    if (card.choices && Array.isArray(card.choices)) {
+      let selectedChoice = null;
+      if (choiceId) {
+        selectedChoice = card.choices.find(c => c.id === choiceId);
+      }
+      if (!selectedChoice) {
+        if (player.isAI) {
+          selectedChoice = card.choices.find(c => c.action === 'pay_money' && player.money >= ((c.amount || 0) + 300000));
+        }
+        if (!selectedChoice) selectedChoice = card.choices[0];
+      }
+      this.executeCardEffect(player, selectedChoice, card.title);
+    } else {
+      this.executeCardEffect(player, card, card.title);
     }
+  }
 
-    this.finishAction();
+  executeCardEffect(player, effect, cardTitle) {
+    const act = effect.action || effect.type || 'none';
+    switch (act) {
+      case 'move_to':
+        this.movePlayerTo(player, effect.target, !!effect.collectGo);
+        break;
+      case 'move_steps':
+        const newPos = (player.position + effect.steps + 40) % 40;
+        this.movePlayerTo(player, newPos, false);
+        this.addLog(`${player.name} ${effect.steps > 0 ? `maju ${effect.steps}` : `mundur ${Math.abs(effect.steps)}`} langkah.`, 'info');
+        break;
+      case 'receive_money':
+        player.money += effect.amount;
+        this.addLog(`${player.name} mendapat Rp ${Number(effect.amount).toLocaleString('id-ID')} (${effect.title || cardTitle}).`, 'success');
+        this.finishAction();
+        break;
+      case 'pay_money':
+        this.deductMoney(player, effect.amount);
+        this.addLog(`${player.name} membayar Rp ${Number(effect.amount).toLocaleString('id-ID')} (${effect.title || cardTitle}).`, 'warning');
+        this.finishAction();
+        break;
+      case 'pay_and_move':
+        const cost = effect.cost || effect.amount || 0;
+        const steps = effect.steps || 0;
+        this.deductMoney(player, cost);
+        const targetPos = (player.position + steps + 40) % 40;
+        this.addLog(`${player.name} membayar Rp ${Number(cost).toLocaleString('id-ID')} dan melaju ${steps} petak!`, 'success');
+        this.movePlayerTo(player, targetPos, false);
+        break;
+      case 'gamble':
+        const gCost = effect.cost || 0;
+        const gReward = effect.reward || 0;
+        const isWin = Math.random() < 0.5;
+        if (isWin) {
+          player.money += (gReward - gCost);
+          this.addLog(`🎉 CUAN! ${player.name} memenangkan Rp ${Number(gReward).toLocaleString('id-ID')}!`, 'success');
+        } else {
+          this.deductMoney(player, gCost);
+          this.addLog(`💥 RUG PULL! ${player.name} kehilangan Rp ${Number(gCost).toLocaleString('id-ID')}!`, 'danger');
+        }
+        this.finishAction();
+        break;
+      case 'jail_card':
+        player.getOutOfJailFreeCards = (player.getOutOfJailFreeCards || 0) + 1;
+        this.addLog(`${player.name} menyimpan Kartu Bebas Penjara.`, 'success');
+        this.finishAction();
+        break;
+      case 'go_to_jail':
+        this.addLog(`${player.name} dijebloskan ke sel penjara!`, 'danger');
+        this.sendToJail(player);
+        this.finishAction();
+        break;
+      case 'repairs':
+        const rCost = this.calculateRepairs(player, effect.perHouse || 250000, effect.perHotel || 1000000);
+        this.deductMoney(player, rCost);
+        this.addLog(`${player.name} membayar biaya renovasi total Rp ${Number(rCost).toLocaleString('id-ID')}.`, 'warning');
+        this.finishAction();
+        break;
+      case 'pay_all_players':
+        this.payEachPlayer(player, effect.amount);
+        this.addLog(`${player.name} membagikan Rp ${Number(effect.amount).toLocaleString('id-ID')} ke setiap pemain.`, 'info');
+        this.finishAction();
+        break;
+      case 'collect_all_players':
+        this.collectFromEachPlayer(player, effect.amount);
+        this.addLog(`${player.name} mengumpulkan Rp ${Number(effect.amount).toLocaleString('id-ID')} dari setiap pemain.`, 'success');
+        this.finishAction();
+        break;
+      case 'none':
+      default:
+        this.addLog(`${player.name} memilih jalur aman (${effect.title || cardTitle}).`, 'info');
+        this.finishAction();
+        break;
+    }
   }
 
   // Transfer Uang antar pemain

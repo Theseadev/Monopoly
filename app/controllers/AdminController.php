@@ -327,13 +327,23 @@ class AdminController {
             $remoteData = self::fetchGitHubApi('commits/main');
             $duration = round(microtime(true) - $startTime, 2);
 
-            if (!$remoteData || empty($remoteData['sha'])) {
-                // Fallback jika API rate-limit atau repo belum ada commit
-                $message = $remoteData['message'] ?? 'Tidak dapat terhubung ke GitHub API atau repository belum memiliki commit.';
+            if (!$remoteData || !empty($remoteData['error']) || empty($remoteData['sha'])) {
+                $status = $remoteData['status'] ?? 0;
+                $message = $remoteData['message'] ?? 'Tidak dapat terhubung ke GitHub API.';
+                
+                $output = "⚠️ [AKSES GITHUB GAGAL - HTTP " . ($status ?: '404') . "]\n"
+                        . "Repository https://github.com/Theseadev/Monopoly berstatus PRIVATE atau memerlukan Token.\n\n"
+                        . "💡 CARA MENGATASI (PILIH SALAH SATU):\n"
+                        . "1. ⭐ (Paling Mudah) Ubah Repo ke PUBLIC:\n"
+                        . "   Buka: https://github.com/Theseadev/Monopoly/settings\n"
+                        . "   Scroll ke bawah 'Danger Zone' -> Klik 'Change visibility' -> Pilih 'Change to public'.\n"
+                        . "2. ATAU Masukkan 'GitHub Personal Access Token (PAT)' pada formulir di bawah tab ini.";
+
                 echo json_encode([
-                    'success' => true,
-                    'message' => 'Pemeriksaan selesai.',
-                    'output' => "⚠️ GitHub Status: {$message}\nRepository: https://github.com/Theseadev/Monopoly.git",
+                    'success' => false,
+                    'isPrivate' => true,
+                    'message' => 'Repositori Private / Not Found di GitHub.',
+                    'output' => $output,
                     'incomingCommits' => '',
                     'hasUpdates' => false,
                     'duration' => $duration
@@ -401,6 +411,7 @@ class AdminController {
         try {
             $startTime = microtime(true);
             $branch = 'main';
+            $token = self::getGitHubToken();
 
             // 1. Coba gunakan Git CLI jika server mendukung dan proc_open tersedia
             if (self::isExecAvailable() && is_dir($repoDir . '/.git')) {
@@ -432,19 +443,31 @@ class AdminController {
             $remoteAuthor = $remoteData['commit']['author']['name'] ?? ($remoteData['author']['login'] ?? 'Theseadev');
             $remoteDate = date('d M Y H:i', strtotime($remoteData['commit']['author']['date'] ?? 'now'));
 
-            $zipUrl = "https://codeload.github.com/Theseadev/Monopoly/zip/refs/heads/{$branch}";
             $tempZip = sys_get_temp_dir() . '/monopoly_update_' . time() . '.zip';
+            $zipContent = null;
 
-            $zipContent = self::downloadRemoteFile($zipUrl);
+            // Jika ada token, gunakan endpoint API zipball GitHub
+            if (!empty($token)) {
+                $zipContent = self::downloadRemoteFile("https://api.github.com/repos/Theseadev/Monopoly/zipball/{$branch}", $token);
+            }
+
             if (!$zipContent) {
-                // Fallback URL alternatif GitHub
-                $zipContent = self::downloadRemoteFile("https://github.com/Theseadev/Monopoly/archive/refs/heads/{$branch}.zip");
+                $zipContent = self::downloadRemoteFile("https://codeload.github.com/Theseadev/Monopoly/zip/refs/heads/{$branch}", $token ?: null);
+            }
+
+            if (!$zipContent) {
+                $zipContent = self::downloadRemoteFile("https://github.com/Theseadev/Monopoly/archive/refs/heads/{$branch}.zip", $token ?: null);
             }
 
             if (!$zipContent) {
                 echo json_encode([
                     'success' => false,
-                    'output' => "⚠️ Gagal mengunduh paket pembaruan dari GitHub ({$zipUrl}).\nPastikan repository https://github.com/Theseadev/Monopoly bersifat publik atau memiliki branch '{$branch}'.",
+                    'output' => "⚠️ Gagal mengunduh paket pembaruan dari GitHub.\n"
+                              . "Penyebab: Repository https://github.com/Theseadev/Monopoly berstatus Private.\n\n"
+                              . "Solusi:\n"
+                              . "1. Ubah repository ke PUBLIC di GitHub Settings (https://github.com/Theseadev/Monopoly/settings)\n"
+                              . "ATAU\n"
+                              . "2. Masukkan GitHub Personal Access Token di formulir tab Pembaruan GitHub.",
                     'duration' => round(microtime(true) - $startTime, 2)
                 ], JSON_UNESCAPED_UNICODE);
                 exit;
@@ -465,15 +488,24 @@ class AdminController {
             }
 
             $extractedFilesCount = 0;
-            $prefixInZip = "Monopoly-{$branch}/";
+            $prefixInZip = "";
+            
+            // Cari prefix root folder di zip jika ada (misal 'Theseadev-Monopoly-xxxx/' atau 'Monopoly-main/')
+            for ($i = 0; $i < min(5, $zip->numFiles); $i++) {
+                $firstEntry = $zip->getNameIndex($i);
+                if (strpos($firstEntry, '/') !== false) {
+                    $prefixInZip = explode('/', $firstEntry)[0] . '/';
+                    break;
+                }
+            }
 
             for ($i = 0; $i < $zip->numFiles; $i++) {
                 $entryName = $zip->getNameIndex($i);
                 if (empty($entryName)) continue;
 
-                // Hilangkan root folder zip (misal 'Monopoly-main/')
+                // Hilangkan root folder zip jika ada
                 $relPath = $entryName;
-                if (strpos($relPath, $prefixInZip) === 0) {
+                if (!empty($prefixInZip) && strpos($relPath, $prefixInZip) === 0) {
                     $relPath = substr($relPath, strlen($prefixInZip));
                 }
 
@@ -481,6 +513,7 @@ class AdminController {
 
                 // Lindungi data penting agar tidak terhapus / ter-overwrite
                 if (strpos($relPath, 'storage/rooms') === 0) continue;
+                if ($relPath === 'storage/github_token.txt') continue;
                 if ($relPath === 'app/config/database.php' && file_exists($repoDir . '/' . $relPath)) continue;
 
                 $targetPath = $repoDir . '/' . $relPath;
@@ -596,35 +629,115 @@ class AdminController {
     }
 
     /**
+     * Helper: Dapatkan GitHub Token jika ada
+     */
+    public static function getGitHubToken(): string {
+        $tokenFile = realpath(__DIR__ . '/../../') . '/storage/github_token.txt';
+        if (file_exists($tokenFile)) {
+            $t = trim((string)@file_get_contents($tokenFile));
+            if (!empty($t)) return $t;
+        }
+        if (!empty($_SESSION['admin_github_token'])) {
+            return trim($_SESSION['admin_github_token']);
+        }
+        return trim((string)getenv('GITHUB_TOKEN'));
+    }
+
+    /**
+     * API: Simpan GitHub Personal Access Token
+     */
+    public static function saveGitHubToken(): void {
+        header('Content-Type: application/json; charset=utf-8');
+        self::requireAuth();
+
+        try {
+            $body = json_decode(file_get_contents('php://input'), true) ?? $_POST;
+            $token = trim($body['token'] ?? '');
+            $storageDir = realpath(__DIR__ . '/../../') . '/storage';
+            if (!is_dir($storageDir)) {
+                @mkdir($storageDir, 0777, true);
+            }
+            $tokenFile = $storageDir . '/github_token.txt';
+
+            if (empty($token)) {
+                if (file_exists($tokenFile)) @unlink($tokenFile);
+                unset($_SESSION['admin_github_token']);
+                echo json_encode(['success' => true, 'message' => 'Token GitHub berhasil dihapus.']);
+            } else {
+                @file_put_contents($tokenFile, $token);
+                $_SESSION['admin_github_token'] = $token;
+                $masked = substr($token, 0, 4) . '••••••••' . substr($token, -4);
+                echo json_encode(['success' => true, 'message' => "Token GitHub tersimpan ({$masked}).", 'masked' => $masked]);
+            }
+        } catch (\Throwable $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+        exit;
+    }
+
+    /**
+     * API: Dapatkan Status Token GitHub
+     */
+    public static function getGitHubTokenStatus(): void {
+        header('Content-Type: application/json; charset=utf-8');
+        self::requireAuth();
+
+        $token = self::getGitHubToken();
+        $hasToken = !empty($token);
+        $masked = $hasToken ? (substr($token, 0, 4) . '••••••••' . substr($token, -4)) : '';
+
+        echo json_encode([
+            'success' => true,
+            'hasToken' => $hasToken,
+            'maskedToken' => $masked
+        ]);
+        exit;
+    }
+
+    /**
      * Helper: Request ke GitHub REST API
      */
     private static function fetchGitHubApi(string $endpoint): ?array {
         $url = "https://api.github.com/repos/Theseadev/Monopoly/" . ltrim($endpoint, '/');
+        $token = self::getGitHubToken();
+        $headers = [
+            'Accept: application/vnd.github.v3+json',
+            'User-Agent: Monopoly-AutoUpdater/1.0'
+        ];
+        if (!empty($token)) {
+            $headers[] = 'Authorization: token ' . $token;
+        }
 
         if (function_exists('curl_init')) {
             $ch = curl_init($url);
             curl_setopt_array($ch, [
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_USERAGENT => 'Monopoly-AutoUpdater/1.0',
-                CURLOPT_TIMEOUT => 12,
+                CURLOPT_TIMEOUT => 15,
                 CURLOPT_SSL_VERIFYPEER => false,
-                CURLOPT_HTTPHEADER => [
-                    'Accept: application/vnd.github.v3+json',
-                    'User-Agent: Monopoly-AutoUpdater/1.0'
-                ]
+                CURLOPT_HTTPHEADER => $headers
             ]);
             $response = curl_exec($ch);
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             curl_close($ch);
+
+            if ($httpCode === 404) {
+                return ['error' => true, 'status' => 404, 'message' => 'Not Found / Private Repository'];
+            }
             if ($httpCode >= 200 && $httpCode < 300 && $response) {
                 return json_decode($response, true);
             }
         }
 
+        $headerStr = "User-Agent: Monopoly-AutoUpdater/1.0\r\nAccept: application/vnd.github.v3+json\r\n";
+        if (!empty($token)) {
+            $headerStr .= "Authorization: token {$token}\r\n";
+        }
+
         $ctx = stream_context_create([
             'http' => [
-                'header' => "User-Agent: Monopoly-AutoUpdater/1.0\r\nAccept: application/vnd.github.v3+json\r\n",
-                'timeout' => 12,
+                'header' => $headerStr,
+                'timeout' => 15,
                 'ignore_errors' => true
             ],
             'ssl' => [
@@ -634,7 +747,11 @@ class AdminController {
         ]);
         $response = @file_get_contents($url, false, $ctx);
         if ($response) {
-            return json_decode($response, true);
+            $json = json_decode($response, true);
+            if (isset($json['message']) && stripos($json['message'], 'Not Found') !== false) {
+                return ['error' => true, 'status' => 404, 'message' => 'Not Found / Private Repository'];
+            }
+            return $json;
         }
         return null;
     }
@@ -642,15 +759,24 @@ class AdminController {
     /**
      * Helper: Unduh berkas remote biner
      */
-    private static function downloadRemoteFile(string $url): ?string {
+    private static function downloadRemoteFile(string $url, ?string $token = null): ?string {
+        $headers = [
+            'User-Agent: Monopoly-AutoUpdater/1.0',
+            'Accept: application/vnd.github.v3+json'
+        ];
+        if (!empty($token)) {
+            $headers[] = 'Authorization: token ' . $token;
+        }
+
         if (function_exists('curl_init')) {
             $ch = curl_init($url);
             curl_setopt_array($ch, [
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_USERAGENT => 'Monopoly-AutoUpdater/1.0',
-                CURLOPT_TIMEOUT => 45,
-                CURLOPT_SSL_VERIFYPEER => false
+                CURLOPT_TIMEOUT => 60,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_HTTPHEADER => $headers
             ]);
             $data = curl_exec($ch);
             $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -660,10 +786,15 @@ class AdminController {
             }
         }
 
+        $headerStr = "User-Agent: Monopoly-AutoUpdater/1.0\r\n";
+        if (!empty($token)) {
+            $headerStr .= "Authorization: token {$token}\r\n";
+        }
+
         $ctx = stream_context_create([
             'http' => [
-                'header' => "User-Agent: Monopoly-AutoUpdater/1.0\r\n",
-                'timeout' => 45,
+                'header' => $headerStr,
+                'timeout' => 60,
                 'follow_location' => 1
             ],
             'ssl' => [

@@ -146,6 +146,8 @@ Flight::route('GET /api/admin/git/status', ['App\Controllers\AdminController', '
 Flight::route('POST /api/admin/git/fetch', ['App\Controllers\AdminController', 'gitFetch']);
 Flight::route('POST /api/admin/git/pull', ['App\Controllers\AdminController', 'gitPull']);
 Flight::route('POST /api/admin/git/commit-push', ['App\Controllers\AdminController', 'gitCommitPush']);
+Flight::route('POST /api/admin/git/token', ['App\Controllers\AdminController', 'saveGitHubToken']);
+Flight::route('GET /api/admin/git/token', ['App\Controllers\AdminController', 'getGitHubTokenStatus']);
 
 // Mulai Flight Framework
 Flight::start();

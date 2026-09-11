@@ -330,19 +330,34 @@ class AdminController {
             if (!$remoteData || !empty($remoteData['error']) || empty($remoteData['sha'])) {
                 $status = $remoteData['status'] ?? 0;
                 $message = $remoteData['message'] ?? 'Tidak dapat terhubung ke GitHub API.';
+                $is401 = ($status === 401);
                 
-                $output = "⚠️ [AKSES GITHUB GAGAL - HTTP " . ($status ?: '404') . "]\n"
-                        . "Repository https://github.com/Theseadev/Monopoly berstatus PRIVATE atau memerlukan Token.\n\n"
-                        . "💡 CARA MENGATASI (PILIH SALAH SATU):\n"
-                        . "1. ⭐ (Paling Mudah) Ubah Repo ke PUBLIC:\n"
-                        . "   Buka: https://github.com/Theseadev/Monopoly/settings\n"
-                        . "   Scroll ke bawah 'Danger Zone' -> Klik 'Change visibility' -> Pilih 'Change to public'.\n"
-                        . "2. ATAU Masukkan 'GitHub Personal Access Token (PAT)' pada formulir di bawah tab ini.";
+                if ($is401) {
+                    $output = "⚠️ [AKSES GITHUB GAGAL - HTTP 401 UNAUTHORIZED]\n"
+                            . "Token GitHub (PAT) yang tersimpan TIDAK VALID atau SUDAH KADALUARSA.\n\n"
+                            . "💡 CARA MENGATASI (PILIH SALAH SATU):\n"
+                            . "1. ⭐ Buat Token Baru di GitHub:\n"
+                            . "   • Buka: https://github.com/settings/tokens\n"
+                            . "   • Klik 'Generate new token (classic)'\n"
+                            . "   • Centang izin: 'repo' (Full control of private repositories)\n"
+                            . "   • Klik Generate, salin kodenya (dimulai 'ghp_...'), lalu masukkan di formulir Token di bawah ini.\n"
+                            . "2. ATAU Ubah Repo ke PUBLIC:\n"
+                            . "   • Buka https://github.com/Theseadev/Monopoly/settings -> Danger Zone -> Change visibility to Public.";
+                } else {
+                    $output = "⚠️ [AKSES GITHUB GAGAL - HTTP " . ($status ?: '404') . "]\n"
+                            . "Repository https://github.com/Theseadev/Monopoly berstatus PRIVATE atau memerlukan Token.\n\n"
+                            . "💡 CARA MENGATASI (PILIH SALAH SATU):\n"
+                            . "1. ⭐ (Paling Mudah) Ubah Repo ke PUBLIC:\n"
+                            . "   Buka: https://github.com/Theseadev/Monopoly/settings\n"
+                            . "   Scroll ke bawah 'Danger Zone' -> Klik 'Change visibility' -> Pilih 'Change to public'.\n"
+                            . "2. ATAU Masukkan 'GitHub Personal Access Token (PAT)' yang valid pada formulir di bawah ini.";
+                }
 
                 echo json_encode([
                     'success' => false,
                     'isPrivate' => true,
-                    'message' => 'Repositori Private / Not Found di GitHub.',
+                    'is401' => $is401,
+                    'message' => $message,
                     'output' => $output,
                     'incomingCommits' => '',
                     'hasUpdates' => false,
@@ -699,13 +714,16 @@ class AdminController {
      */
     private static function fetchGitHubApi(string $endpoint): ?array {
         $url = "https://api.github.com/repos/Theseadev/Monopoly/" . ltrim($endpoint, '/');
-        $token = self::getGitHubToken();
+        $token = trim(self::getGitHubToken());
         $headers = [
             'Accept: application/vnd.github.v3+json',
             'User-Agent: Monopoly-AutoUpdater/1.0'
         ];
         if (!empty($token)) {
-            $headers[] = 'Authorization: token ' . $token;
+            $authHeader = (strpos($token, 'Bearer ') === 0 || strpos($token, 'token ') === 0) 
+                ? $token 
+                : 'Bearer ' . $token;
+            $headers[] = 'Authorization: ' . $authHeader;
         }
 
         if (function_exists('curl_init')) {
@@ -721,17 +739,28 @@ class AdminController {
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             curl_close($ch);
 
+            if ($httpCode === 401) {
+                return ['error' => true, 'status' => 401, 'message' => 'Token GitHub Tidak Valid / Bad Credentials (HTTP 401)'];
+            }
             if ($httpCode === 404) {
-                return ['error' => true, 'status' => 404, 'message' => 'Not Found / Private Repository'];
+                return ['error' => true, 'status' => 404, 'message' => 'Not Found / Private Repository (HTTP 404)'];
             }
             if ($httpCode >= 200 && $httpCode < 300 && $response) {
-                return json_decode($response, true);
+                $decoded = json_decode($response, true);
+                if (is_array($decoded)) return $decoded;
+            }
+            if ($httpCode >= 400 && $response) {
+                $errJson = json_decode($response, true);
+                return ['error' => true, 'status' => $httpCode, 'message' => $errJson['message'] ?? "GitHub API Error (HTTP {$httpCode})"];
             }
         }
 
         $headerStr = "User-Agent: Monopoly-AutoUpdater/1.0\r\nAccept: application/vnd.github.v3+json\r\n";
         if (!empty($token)) {
-            $headerStr .= "Authorization: token {$token}\r\n";
+            $authHeader = (strpos($token, 'Bearer ') === 0 || strpos($token, 'token ') === 0) 
+                ? $token 
+                : 'Bearer ' . $token;
+            $headerStr .= "Authorization: {$authHeader}\r\n";
         }
 
         $ctx = stream_context_create([
@@ -748,10 +777,15 @@ class AdminController {
         $response = @file_get_contents($url, false, $ctx);
         if ($response) {
             $json = json_decode($response, true);
-            if (isset($json['message']) && stripos($json['message'], 'Not Found') !== false) {
-                return ['error' => true, 'status' => 404, 'message' => 'Not Found / Private Repository'];
+            if (isset($json['message'])) {
+                if (stripos($json['message'], 'Bad credentials') !== false) {
+                    return ['error' => true, 'status' => 401, 'message' => 'Bad credentials'];
+                }
+                if (stripos($json['message'], 'Not Found') !== false) {
+                    return ['error' => true, 'status' => 404, 'message' => 'Not Found / Private Repository'];
+                }
             }
-            return $json;
+            return is_array($json) ? $json : null;
         }
         return null;
     }
@@ -762,10 +796,14 @@ class AdminController {
     private static function downloadRemoteFile(string $url, ?string $token = null): ?string {
         $headers = [
             'User-Agent: Monopoly-AutoUpdater/1.0',
-            'Accept: application/vnd.github.v3+json'
+            'Accept: application/vnd.github+json'
         ];
         if (!empty($token)) {
-            $headers[] = 'Authorization: token ' . $token;
+            $token = trim($token);
+            $authHeader = (strpos($token, 'Bearer ') === 0 || strpos($token, 'token ') === 0) 
+                ? $token 
+                : 'Bearer ' . $token;
+            $headers[] = 'Authorization: ' . $authHeader;
         }
 
         if (function_exists('curl_init')) {
@@ -786,9 +824,12 @@ class AdminController {
             }
         }
 
-        $headerStr = "User-Agent: Monopoly-AutoUpdater/1.0\r\n";
+        $headerStr = "User-Agent: Monopoly-AutoUpdater/1.0\r\nAccept: application/vnd.github+json\r\n";
         if (!empty($token)) {
-            $headerStr .= "Authorization: token {$token}\r\n";
+            $authHeader = (strpos($token, 'Bearer ') === 0 || strpos($token, 'token ') === 0) 
+                ? $token 
+                : 'Bearer ' . $token;
+            $headerStr .= "Authorization: {$authHeader}\r\n";
         }
 
         $ctx = stream_context_create([

@@ -839,7 +839,7 @@
       <!-- Right Column: Asset Portfolio & Player-to-Player Trading System -->
       <aside class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-2 order-3">
         <!-- 1. Aset & Properti (Card Grid Mini Title Deed) -->
-        <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5 shadow-xl flex flex-col max-h-[350px] xl:max-h-[370px] overflow-hidden">
+        <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5 shadow-xl flex flex-col min-h-[400px] xl:min-h-[425px] max-h-[440px] overflow-hidden">
           <div class="flex items-center justify-between pb-1 border-b border-zinc-800 mb-1 shrink-0">
             <div class="flex items-center gap-1">
               <svg class="w-3.5 h-3.5 fill-current text-amber-400" viewBox="0 0 24 24">
@@ -855,8 +855,8 @@
             <!-- Populated by JavaScript -->
           </div>
 
-          <!-- Cards Grid Container with Smooth Scrollbar (Scrolls on 7+ cards) -->
-          <div id="portfolioList" class="flex-1 min-h-0 max-h-[260px] xl:max-h-[280px] overflow-y-auto pr-1 text-[11px] grid grid-cols-2 gap-1.5 content-start custom-portfolio-scroll">
+          <!-- Cards Grid Container with Smooth Scrollbar (Scrolls on 9+ cards) -->
+          <div id="portfolioList" class="flex-1 min-h-[310px] xl:min-h-[335px] max-h-[350px] overflow-y-auto pr-1 text-[11px] grid grid-cols-2 gap-1.5 content-start custom-portfolio-scroll">
             <p class="text-gray-500 text-center py-4 col-span-2 text-[10px]">Belum ada properti yang dibeli.</p>
           </div>
           <div id="portfolioScrollHint" class="hidden text-center text-[8.5px] text-amber-400/90 pt-1 border-t border-zinc-800/80 font-medium shrink-0 flex items-center justify-center gap-1">

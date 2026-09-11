@@ -41,12 +41,17 @@
 
     <!-- Quick Controls -->
     <div class="flex items-center gap-2">
-      <button id="btnSoundToggle" class="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-emerald-400 text-xs font-bold transition flex items-center gap-1.5 border border-zinc-700 shadow" title="Aktif/Nonaktifkan Suara">
-        <span id="soundIcon">🔊</span>
-        <span class="hidden sm:inline" id="soundLabel">Suara On</span>
+      <button id="btnFullscreenToggle" class="p-2 px-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-amber-300 text-xs font-bold transition flex items-center gap-1.5 border border-zinc-700 shadow" title="Layar Penuh (Tekan ESC untuk keluar)">
+        <span id="fullscreenIcon">⛶</span>
+        <span id="fullscreenLabel" class="hidden sm:inline">Layar Penuh</span>
       </button>
 
-      <button id="btnGameRules" class="p-2 px-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-amber-300 text-xs font-bold transition flex items-center gap-1.5 border border-zinc-700 shadow" title="Panduan Aturan Main">
+      <button id="btnSoundToggle" class="p-2 px-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-emerald-400 text-xs font-bold transition flex items-center gap-1.5 border border-zinc-700 shadow" title="Aktif/Nonaktifkan Suara">
+        <span id="soundIcon">🔊</span>
+        <span id="soundLabel" class="hidden sm:inline">Suara</span>
+      </button>
+
+      <button id="btnGameRules" class="p-2 px-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-amber-300 text-xs font-bold transition flex items-center gap-1.5 border border-zinc-700 shadow" title="Panduan Aturan Main">
         <span>📖</span>
         <span class="hidden sm:inline">Aturan</span>
       </button>
@@ -57,6 +62,12 @@
       </button>
     </div>
   </header>
+
+  <!-- Floating Fullscreen Notification Toast -->
+  <div id="fullscreenToast" class="fixed top-14 left-1/2 -translate-x-1/2 z-50 bg-zinc-900/95 border border-amber-500/60 text-amber-300 text-xs px-4 py-2 rounded-full shadow-2xl flex items-center gap-2 pointer-events-none opacity-0 transition-all duration-300 transform -translate-y-2">
+    <span>🎮</span>
+    <span class="font-semibold text-xs">Mode Layar Penuh Aktif — Tekan <kbd class="px-1.5 py-0.5 bg-black/50 border border-amber-500/40 rounded text-[10px] font-mono text-white">ESC</kbd> untuk keluar</span>
+  </div>
 
   <!-- Main Game Workspace -->
   <main class="flex-1 p-3 md:p-5 flex flex-col xl:flex-row items-center xl:items-start justify-center gap-5 max-w-[1520px] mx-auto w-full">

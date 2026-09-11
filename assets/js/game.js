@@ -553,6 +553,11 @@ const btnLogsDropdown = document.getElementById('btnLogsDropdown');
 const logsDropdownMenu = document.getElementById('logsDropdownMenu');
 const logsBadgeCount = document.getElementById('logsBadgeCount');
 const logsDropdownArrow = document.getElementById('logsDropdownArrow');
+const btnFullscreenToggle = document.getElementById('btnFullscreenToggle');
+const fullscreenIcon = document.getElementById('fullscreenIcon');
+const fullscreenLabel = document.getElementById('fullscreenLabel');
+const fullscreenToast = document.getElementById('fullscreenToast');
+let fullscreenToastTimeout = null;
 const btnSoundToggle = document.getElementById('btnSoundToggle');
 const soundIcon = document.getElementById('soundIcon');
 const soundLabel = document.getElementById('soundLabel');
@@ -3790,6 +3795,7 @@ function launchOnlineGame(gameState) {
   if (inGameModeBadge) {
     inGameModeBadge.textContent = `Online: ${currentOnlineRoom ? currentOnlineRoom.code : ''}`;
   }
+  requestGameFullscreen();
   showScreen('inGameBoardScreen');
   renderBoard();
   updateHUD();
@@ -3800,6 +3806,7 @@ function launchOnlineGame(gameState) {
 
 // Inisialisasi Game dari Form Pengaturan (AI / PvP)
 async function startConfiguredGame(mode) {
+  requestGameFullscreen();
   stopAllPolling();
   currentOnlineRoom = null;
   currentOnlinePlayer = null;
@@ -4191,9 +4198,110 @@ portfolioList?.addEventListener('scroll', () => {
   }
 });
 
+// ===================================================
+// FULLSCREEN MODE & ESCAPE (ESC) KEY HANDLER
+// ===================================================
+function showFullscreenToast(message) {
+  if (!fullscreenToast) return;
+  if (fullscreenToastTimeout) clearTimeout(fullscreenToastTimeout);
+  if (message) {
+    const span = fullscreenToast.querySelector('span');
+    if (span) span.innerHTML = message;
+  }
+  fullscreenToast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+  fullscreenToast.classList.add('opacity-100', 'translate-y-0');
+  fullscreenToastTimeout = setTimeout(() => {
+    fullscreenToast.classList.remove('opacity-100', 'translate-y-0');
+    fullscreenToast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+  }, 3000);
+}
+
+function isFullscreenActive() {
+  return Boolean(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+}
+
+function requestGameFullscreen() {
+  const elem = document.documentElement;
+  try {
+    if (!isFullscreenActive()) {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen().catch(() => {});
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      }
+    }
+  } catch (err) {
+    console.log('Fullscreen request ignored:', err);
+  }
+}
+
+function exitGameFullscreen() {
+  try {
+    if (isFullscreenActive()) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+  } catch (err) {
+    console.log('Exit fullscreen error:', err);
+  }
+}
+
+function toggleGameFullscreen() {
+  if (isFullscreenActive()) {
+    exitGameFullscreen();
+  } else {
+    requestGameFullscreen();
+  }
+}
+
+function updateFullscreenUI() {
+  const isFull = isFullscreenActive();
+  if (fullscreenIcon) {
+    fullscreenIcon.innerHTML = isFull
+      ? `<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>`
+      : `<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>`;
+  }
+  if (fullscreenLabel) {
+    fullscreenLabel.textContent = isFull ? 'Keluar Full' : 'Layar Penuh';
+  }
+  if (btnFullscreenToggle) {
+    btnFullscreenToggle.title = isFull ? 'Keluar Layar Penuh (ESC)' : 'Layar Penuh (Tekan ESC untuk keluar)';
+  }
+  if (isFull) {
+    showFullscreenToast('Mode Layar Penuh Aktif — Tekan <kbd class="px-1.5 py-0.5 bg-black/50 border border-amber-500/40 rounded text-[10px] font-mono text-white">ESC</kbd> untuk keluar');
+  }
+}
+
+// Event Listeners untuk perubahan status fullscreen & tombol ESC
+['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(evt => {
+  document.addEventListener(evt, updateFullscreenUI);
+});
+
+btnFullscreenToggle?.addEventListener('click', () => {
+  toggleGameFullscreen();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && isFullscreenActive()) {
+    exitGameFullscreen();
+  }
+});
+
 // Page Load Setup
 window.addEventListener('DOMContentLoaded', () => {
   initSettingsControls();
   renderChats();
   showScreen('homeMenuScreen');
+  updateFullscreenUI();
 });

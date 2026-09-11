@@ -693,6 +693,16 @@
           </div>
         </div>
 
+        <!-- Tombol Layar Penuh (Fullscreen) -->
+        <button id="btnFullscreenToggle" class="p-1.5 px-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-amber-300 text-xs font-bold transition flex items-center gap-1 border border-zinc-700 shadow cursor-pointer active:scale-95" title="Layar Penuh (Tekan ESC untuk keluar)">
+          <span id="fullscreenIcon" class="w-3.5 h-3.5 inline-flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+            </svg>
+          </span>
+          <span class="hidden sm:inline text-[11px]" id="fullscreenLabel">Layar Penuh</span>
+        </button>
+
         <button id="btnSoundToggle" class="p-1.5 px-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-emerald-400 text-xs font-bold transition flex items-center gap-1 border border-zinc-700 shadow cursor-pointer" title="Aktif/Nonaktifkan Suara">
           <span id="soundIcon" class="w-3.5 h-3.5 inline-flex items-center justify-center">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -717,6 +727,14 @@
         </button>
       </div>
     </header>
+
+    <!-- Floating Fullscreen Notification Toast -->
+    <div id="fullscreenToast" class="fixed top-14 left-1/2 -translate-x-1/2 z-50 bg-zinc-900/95 border border-amber-500/60 text-amber-300 text-xs px-4 py-2 rounded-full shadow-2xl flex items-center gap-2 pointer-events-none opacity-0 transition-all duration-300 transform -translate-y-2">
+      <svg class="w-4 h-4 fill-current text-amber-400 shrink-0" viewBox="0 0 24 24">
+        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+      </svg>
+      <span class="font-semibold text-[11px]">Mode Layar Penuh Aktif — Tekan <kbd class="px-1.5 py-0.5 bg-black/50 border border-amber-500/40 rounded text-[10px] font-mono text-white">ESC</kbd> untuk keluar</span>
+    </div>
 
     <!-- Main Workspace -->
     <div class="flex-1 p-1 sm:p-1.5 xl:p-2 flex flex-col xl:flex-row items-center xl:items-start justify-center gap-1.5 xl:gap-2.5 max-w-[1440px] mx-auto w-full min-h-0">

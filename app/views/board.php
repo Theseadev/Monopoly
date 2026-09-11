@@ -737,7 +737,7 @@
     </div>
 
     <!-- Main Workspace -->
-    <div class="flex-1 p-1 sm:p-1.5 flex flex-col xl:flex-row items-center justify-center gap-1.5 xl:gap-2.5 max-w-[1440px] mx-auto w-full min-h-0 overflow-hidden">
+    <div class="flex-1 p-1 sm:p-1.5 flex flex-col xl:flex-row items-center justify-center gap-1.5 xl:gap-3 max-w-[1650px] mx-auto w-full min-h-0 overflow-hidden">
       <!-- Left Column: Player Cards -->
       <aside class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-2 order-2 xl:order-1">
         <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5 shadow-xl">

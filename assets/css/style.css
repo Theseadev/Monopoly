@@ -266,10 +266,10 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) repeat(9, minmax(0, 1fr)) minmax(0, 1.35fr);
   grid-template-rows: minmax(0, 1.35fr) repeat(9, minmax(0, 1fr)) minmax(0, 1.35fr);
-  width: min(calc(100vh - 86px), calc(100vw - 530px), 560px);
-  height: min(calc(100vh - 86px), calc(100vw - 530px), 560px);
-  max-width: calc(100vh - 86px);
-  max-height: calc(100vh - 86px);
+  width: min(calc(100vh - 72px), calc(100vw - 520px), 860px);
+  height: min(calc(100vh - 72px), calc(100vw - 520px), 860px);
+  max-width: calc(100vh - 72px);
+  max-height: calc(100vh - 72px);
   aspect-ratio: 1 / 1;
   background: #cbaf75;
   border: 3px solid #4a2c0c;
@@ -287,10 +287,10 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 
 @media (max-height: 900px) {
   .monopoly-board {
-    width: min(calc(100vh - 80px), calc(100vw - 500px), 520px);
-    height: min(calc(100vh - 80px), calc(100vw - 500px), 520px);
-    max-width: calc(100vh - 80px);
-    max-height: calc(100vh - 80px);
+    width: min(calc(100vh - 68px), calc(100vw - 500px), 760px);
+    height: min(calc(100vh - 68px), calc(100vw - 500px), 760px);
+    max-width: calc(100vh - 68px);
+    max-height: calc(100vh - 68px);
     border-width: 2.5px;
     border-radius: 10px;
   }
@@ -298,10 +298,10 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 
 @media (max-height: 780px) {
   .monopoly-board {
-    width: min(calc(100vh - 74px), calc(100vw - 470px), 470px);
-    height: min(calc(100vh - 74px), calc(100vw - 470px), 470px);
-    max-width: calc(100vh - 74px);
-    max-height: calc(100vh - 74px);
+    width: min(calc(100vh - 62px), calc(100vw - 470px), 660px);
+    height: min(calc(100vh - 62px), calc(100vw - 470px), 660px);
+    max-width: calc(100vh - 62px);
+    max-height: calc(100vh - 62px);
     border-width: 2px;
     border-radius: 8px;
   }
@@ -309,10 +309,10 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 
 @media (max-height: 650px) {
   .monopoly-board {
-    width: min(calc(100vh - 64px), calc(100vw - 420px), 410px);
-    height: min(calc(100vh - 64px), calc(100vw - 420px), 410px);
-    max-width: calc(100vh - 64px);
-    max-height: calc(100vh - 64px);
+    width: min(calc(100vh - 56px), calc(100vw - 420px), 520px);
+    height: min(calc(100vh - 56px), calc(100vw - 420px), 520px);
+    max-width: calc(100vh - 56px);
+    max-height: calc(100vh - 56px);
     border-width: 2px;
     border-radius: 6px;
   }
@@ -320,10 +320,10 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 
 @media (max-width: 1200px) {
   .monopoly-board {
-    width: min(calc(100vh - 76px), calc(100vw - 460px), 490px);
-    height: min(calc(100vh - 76px), calc(100vw - 460px), 490px);
-    max-width: calc(100vh - 76px);
-    max-height: calc(100vh - 76px);
+    width: min(calc(100vh - 64px), calc(100vw - 460px), 640px);
+    height: min(calc(100vh - 64px), calc(100vw - 460px), 640px);
+    max-width: calc(100vh - 64px);
+    max-height: calc(100vh - 64px);
   }
 }
 
@@ -338,10 +338,10 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
     overflow: visible !important;
   }
   .monopoly-board {
-    width: min(92vw, 500px);
-    height: min(92vw, 500px);
-    max-width: 92vw;
-    max-height: 92vw;
+    width: min(94vw, 560px);
+    height: min(94vw, 560px);
+    max-width: 94vw;
+    max-height: 94vw;
   }
 }
 
@@ -377,7 +377,7 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 /* Crisp Solid Header Color Bar */
 .color-bar {
   width: 100%;
-  height: clamp(8px, 1.1vw, 11px);
+  height: clamp(8px, 1.25vw, 15px);
   flex-shrink: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4);
@@ -403,7 +403,7 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 .tile-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: clamp(5.5px, 0.7vw, 8px);
+  font-size: clamp(6px, 0.8vw, 10px);
   line-height: 1.05;
   color: #1c1917;
   text-align: center;
@@ -419,7 +419,7 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 .tile-city {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
-  font-size: clamp(4.5px, 0.55vw, 6.5px);
+  font-size: clamp(5px, 0.65vw, 8px);
   line-height: 1;
   color: #785028;
   margin-top: 0.5px;
@@ -434,7 +434,7 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   color: #44403c;
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: clamp(5.5px, 0.65vw, 7.5px);
+  font-size: clamp(6px, 0.75vw, 9.5px);
   line-height: 1;
   padding: 0.5px 2px;
   white-space: nowrap;

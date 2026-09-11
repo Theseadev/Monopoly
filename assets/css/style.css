@@ -258,7 +258,9 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 
 #inGameBoardScreen {
   height: 100vh;
+  height: 100dvh;
   max-height: 100vh;
+  max-height: 100dvh;
   overflow: hidden;
 }
 
@@ -266,10 +268,10 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) repeat(9, minmax(0, 1fr)) minmax(0, 1.35fr);
   grid-template-rows: minmax(0, 1.35fr) repeat(9, minmax(0, 1fr)) minmax(0, 1.35fr);
-  width: min(calc(100dvh - 100px), calc(100vw - 540px), 740px);
-  height: min(calc(100dvh - 100px), calc(100vw - 540px), 740px);
-  max-width: calc(100dvh - 100px);
-  max-height: calc(100dvh - 100px);
+  width: min(calc(100dvh - 72px), calc(100vw - 520px), 720px);
+  height: min(calc(100dvh - 72px), calc(100vw - 520px), 720px);
+  max-width: calc(100dvh - 72px);
+  max-height: calc(100dvh - 72px);
   aspect-ratio: 1 / 1;
   background: #cbaf75;
   border: 3px solid #4a2c0c;
@@ -289,18 +291,18 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 :fullscreen .monopoly-board,
 #inGameBoardScreen:fullscreen .monopoly-board,
 body:fullscreen .monopoly-board {
-  width: min(calc(100dvh - 66px), calc(100vw - 520px), 860px) !important;
-  height: min(calc(100dvh - 66px), calc(100vw - 520px), 860px) !important;
-  max-width: calc(100dvh - 66px) !important;
-  max-height: calc(100dvh - 66px) !important;
+  width: min(calc(100dvh - 60px), calc(100vw - 520px), 860px) !important;
+  height: min(calc(100dvh - 60px), calc(100vw - 520px), 860px) !important;
+  max-width: calc(100dvh - 60px) !important;
+  max-height: calc(100dvh - 60px) !important;
 }
 
 @media (max-height: 850px) {
   .monopoly-board {
-    width: min(calc(100dvh - 96px), calc(100vw - 500px), 660px);
-    height: min(calc(100dvh - 96px), calc(100vw - 500px), 660px);
-    max-width: calc(100dvh - 96px);
-    max-height: calc(100dvh - 96px);
+    width: min(calc(100dvh - 74px), calc(100vw - 480px), 640px);
+    height: min(calc(100dvh - 74px), calc(100vw - 480px), 640px);
+    max-width: calc(100dvh - 74px);
+    max-height: calc(100dvh - 74px);
     border-width: 2.5px;
     border-radius: 10px;
   }
@@ -308,10 +310,10 @@ body:fullscreen .monopoly-board {
 
 @media (max-height: 720px) {
   .monopoly-board {
-    width: min(calc(100dvh - 90px), calc(100vw - 460px), 560px);
-    height: min(calc(100dvh - 90px), calc(100vw - 460px), 560px);
-    max-width: calc(100dvh - 90px);
-    max-height: calc(100dvh - 90px);
+    width: min(calc(100dvh - 68px), calc(100vw - 460px), 560px);
+    height: min(calc(100dvh - 68px), calc(100vw - 460px), 560px);
+    max-width: calc(100dvh - 68px);
+    max-height: calc(100dvh - 68px);
     border-width: 2px;
     border-radius: 8px;
   }
@@ -319,10 +321,10 @@ body:fullscreen .monopoly-board {
 
 @media (max-height: 620px) {
   .monopoly-board {
-    width: min(calc(100dvh - 80px), calc(100vw - 420px), 480px);
-    height: min(calc(100dvh - 80px), calc(100vw - 420px), 480px);
-    max-width: calc(100dvh - 80px);
-    max-height: calc(100dvh - 80px);
+    width: min(calc(100dvh - 60px), calc(100vw - 420px), 480px);
+    height: min(calc(100dvh - 60px), calc(100vw - 420px), 480px);
+    max-width: calc(100dvh - 60px);
+    max-height: calc(100dvh - 60px);
     border-width: 2px;
     border-radius: 6px;
   }
@@ -330,10 +332,10 @@ body:fullscreen .monopoly-board {
 
 @media (max-width: 1366px) {
   .monopoly-board {
-    width: min(calc(100dvh - 96px), calc(100vw - 480px), 680px);
-    height: min(calc(100dvh - 96px), calc(100vw - 480px), 680px);
-    max-width: calc(100dvh - 96px);
-    max-height: calc(100dvh - 96px);
+    width: min(calc(100dvh - 72px), calc(100vw - 480px), 660px);
+    height: min(calc(100dvh - 72px), calc(100vw - 480px), 660px);
+    max-width: calc(100dvh - 72px);
+    max-height: calc(100dvh - 72px);
   }
 }
 
@@ -1656,7 +1658,6 @@ input[type="number"] {
    PORTFOLIO & CHAT CUSTOM SCROLLBARS
    =================================================== */
 #portfolioList {
-  max-height: 360px;
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;

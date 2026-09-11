@@ -719,9 +719,9 @@
     </header>
 
     <!-- Main Workspace -->
-    <div class="flex-1 p-1.5 sm:p-2 xl:p-2.5 flex flex-col xl:flex-row items-center xl:items-start justify-center gap-2 xl:gap-3 max-w-[1380px] mx-auto w-full">
+    <div class="flex-1 p-1 sm:p-1.5 xl:p-2 flex flex-col xl:flex-row items-center xl:items-start justify-center gap-1.5 xl:gap-2.5 max-w-[1440px] mx-auto w-full min-h-0">
       <!-- Left Column: Player Cards -->
-      <aside class="w-full xl:w-60 2xl:w-68 shrink-0 flex flex-col gap-2 order-2 xl:order-1">
+      <aside class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-2 order-2 xl:order-1">
         <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5 shadow-xl">
           <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-zinc-800">
             <h3 class="text-[11px] uppercase font-extrabold tracking-wider text-amber-400 font-outfit">Daftar Pemain</h3>
@@ -814,12 +814,12 @@
       </aside>
 
       <!-- Center Column: The Monopoly Board -->
-      <section class="flex flex-col items-center justify-center order-1 xl:order-2 shrink-0">
+      <section class="flex flex-col items-center justify-center order-1 xl:order-2 shrink-0 min-w-0 min-h-0">
         <div id="monopolyBoard" class="monopoly-board"></div>
       </section>
 
       <!-- Right Column: Asset Portfolio & Player-to-Player Trading System -->
-      <aside class="w-full xl:w-60 2xl:w-68 shrink-0 flex flex-col gap-2 order-3">
+      <aside class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-2 order-3">
         <!-- 1. Aset & Properti (Card Grid Mini Title Deed) -->
         <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5 shadow-xl flex flex-col h-[240px] xl:h-[280px] 2xl:h-[340px] overflow-hidden">
           <div class="flex items-center justify-between pb-1 border-b border-zinc-800 mb-1">

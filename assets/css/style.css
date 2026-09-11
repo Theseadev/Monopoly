@@ -258,15 +258,15 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 
 .monopoly-board {
   display: grid;
-  grid-template-columns: 1.3fr repeat(9, 1fr) 1.3fr;
-  grid-template-rows: 1.3fr repeat(9, 1fr) 1.3fr;
-  height: min(calc(100vh - 58px), calc(100vw - 530px), 640px);
-  width: min(calc(100vh - 58px), calc(100vw - 530px), 640px);
-  max-height: calc(100vh - 56px);
-  max-width: calc(100vw - 510px);
+  grid-template-columns: minmax(0, 1.35fr) repeat(9, minmax(0, 1fr)) minmax(0, 1.35fr);
+  grid-template-rows: minmax(0, 1.35fr) repeat(9, minmax(0, 1fr)) minmax(0, 1.35fr);
+  width: min(calc(100vh - 64px), calc(100vw - 520px), 620px);
+  height: min(calc(100vh - 64px), calc(100vw - 520px), 620px);
+  max-width: 100%;
+  max-height: calc(100vh - 60px);
   aspect-ratio: 1 / 1;
   background: #cbaf75;
-  border: 4px solid #4a2c0c;
+  border: 3.5px solid #4a2c0c;
   border-radius: 12px;
   box-shadow: 
     0 12px 30px -6px rgba(0, 0, 0, 0.75), 
@@ -279,23 +279,40 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   box-sizing: border-box;
 }
 
-@media (max-height: 750px) {
+@media (max-height: 800px) {
   .monopoly-board {
-    height: min(calc(100vh - 50px), calc(100vw - 480px), 530px);
-    width: min(calc(100vh - 50px), calc(100vw - 480px), 530px);
-    max-height: calc(100vh - 48px);
-    border-width: 3.5px;
+    width: min(calc(100vh - 56px), calc(100vw - 500px), 540px);
+    height: min(calc(100vh - 56px), calc(100vw - 500px), 540px);
+    max-height: calc(100vh - 52px);
+    border-width: 3px;
     border-radius: 10px;
   }
 }
 
-@media (max-height: 650px) {
+@media (max-height: 700px) {
   .monopoly-board {
-    height: min(calc(100vh - 44px), calc(100vw - 440px), 460px);
-    width: min(calc(100vh - 44px), calc(100vw - 440px), 460px);
-    max-height: calc(100vh - 42px);
-    border-width: 3px;
+    width: min(calc(100vh - 50px), calc(100vw - 460px), 480px);
+    height: min(calc(100vh - 50px), calc(100vw - 460px), 480px);
+    max-height: calc(100vh - 46px);
+    border-width: 2.5px;
     border-radius: 8px;
+  }
+}
+
+@media (max-height: 600px) {
+  .monopoly-board {
+    width: min(calc(100vh - 42px), calc(100vw - 420px), 420px);
+    height: min(calc(100vh - 42px), calc(100vw - 420px), 420px);
+    max-height: calc(100vh - 40px);
+    border-width: 2px;
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .monopoly-board {
+    width: min(calc(100vh - 56px), calc(100vw - 460px), 520px);
+    height: min(calc(100vh - 56px), calc(100vw - 460px), 520px);
   }
 }
 
@@ -310,10 +327,10 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
     overflow: visible !important;
   }
   .monopoly-board {
-    width: min(94vw, 540px);
-    height: min(94vw, 540px);
-    max-width: 94vw;
-    max-height: 94vw;
+    width: min(95vw, 540px);
+    height: min(95vw, 540px);
+    max-width: 95vw;
+    max-height: 95vw;
   }
 }
 
@@ -325,13 +342,17 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding: 0;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .board-tile:hover {
@@ -371,14 +392,15 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 .tile-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: clamp(6.5px, 0.82vw, 8.5px);
+  font-size: clamp(5.5px, 0.7vw, 8px);
   line-height: 1.05;
   color: #1c1917;
   text-align: center;
   letter-spacing: -0.02em;
   max-width: 100%;
-  word-break: normal;
-  overflow-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
   white-space: normal;
   hyphens: none;
 }
@@ -386,7 +408,7 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 .tile-city {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
-  font-size: clamp(5.5px, 0.7vw, 7px);
+  font-size: clamp(4.5px, 0.55vw, 6.5px);
   line-height: 1;
   color: #785028;
   margin-top: 0.5px;
@@ -401,12 +423,12 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   color: #44403c;
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: clamp(6.5px, 0.8vw, 8px);
+  font-size: clamp(5.5px, 0.65vw, 7.5px);
   line-height: 1;
-  padding: 0.5px 3px;
+  padding: 0.5px 2px;
   white-space: nowrap;
   flex-shrink: 0;
-  margin-bottom: 1px;
+  margin-bottom: 0.5px;
   z-index: 2;
 }
 
@@ -453,7 +475,7 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 .board-center {
   background: #cbb077;
   border: 1.5px solid rgba(140, 103, 56, 0.35);
-  border-radius: 12px;
+  border-radius: 10px;
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
@@ -462,6 +484,19 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  padding: clamp(2px, 0.6vh, 8px) clamp(4px, 0.8vw, 12px);
+}
+
+.center-header {
+  padding-top: clamp(2px, 0.6vh, 6px);
+}
+
+.center-header h1 {
+  font-size: clamp(13px, 2.2vw, 24px) !important;
 }
 
 /* ==========================================================
@@ -472,12 +507,13 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(10px, 2.5vw, 22px);
-  width: 100%;
-  max-width: 460px;
-  margin-top: clamp(14px, 3.2vw, 24px);
-  margin-bottom: clamp(12px, 2.8vw, 22px);
+  gap: clamp(4px, 1.2vw, 14px);
+  width: 95%;
+  max-width: 360px;
+  margin-top: clamp(4px, 1vh, 14px);
+  margin-bottom: clamp(4px, 1vh, 12px);
   box-sizing: border-box;
+  min-width: 0;
 }
 
 .board-deck-slot-h {
@@ -487,24 +523,26 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   cursor: pointer;
   user-select: none;
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  min-width: 0;
 }
 
 .board-deck-slot-h:hover {
-  transform: translateY(-3px) scale(1.03);
+  transform: translateY(-2px) scale(1.02);
 }
 
 .board-deck-wrapper-h {
   position: relative;
-  width: clamp(100px, 20vw, 150px);
-  height: clamp(52px, 10.5vw, 76px);
+  width: clamp(70px, 9.5vw, 125px);
+  height: clamp(36px, 5.2vh, 62px);
+  min-width: 0;
 }
 
 /* Stamped tray outline on the board parchment */
 .deck-tray-outline-h {
   position: absolute;
-  inset: -3px;
+  inset: -2px;
   border: 1.5px dashed rgba(115, 67, 26, 0.35);
-  border-radius: 9px;
+  border-radius: 8px;
   pointer-events: none;
   z-index: 1;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -628,25 +666,25 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 }
 
 .badge-chance {
-  width: clamp(22px, 4.2vw, 34px);
-  height: clamp(22px, 4.2vw, 34px);
+  width: clamp(18px, 2.8vw, 30px);
+  height: clamp(18px, 2.8vw, 30px);
   background: rgba(254, 243, 199, 0.95);
   color: #ea580c;
-  padding: clamp(3px, 0.7vw, 6px);
+  padding: clamp(2px, 0.5vw, 5px);
   border: 1.5px solid #fbbf24;
 }
 
 .badge-chest {
-  width: clamp(22px, 4.2vw, 34px);
-  height: clamp(22px, 4.2vw, 34px);
+  width: clamp(18px, 2.8vw, 30px);
+  height: clamp(18px, 2.8vw, 30px);
   background: rgba(240, 249, 255, 0.95);
   color: #0284c7;
-  padding: clamp(3px, 0.7vw, 6px);
+  padding: clamp(2px, 0.5vw, 5px);
   border: 1.5px solid #38bdf8;
 }
 
 .card-title-h {
-  font-size: clamp(7.5px, 1.3vw, 10.5px);
+  font-size: clamp(6.5px, 0.95vw, 9.5px);
   font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -655,7 +693,7 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 }
 
 .card-sub-h {
-  font-size: clamp(5px, 0.8vw, 7px);
+  font-size: clamp(4.5px, 0.6vw, 6.5px);
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -666,14 +704,14 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 
 /* 3D Deluxe White Dice Cube (Exact Match to Mockup) */
 .dice-box {
-  width: clamp(40px, 6vw, 56px);
-  height: clamp(40px, 6vw, 56px);
+  width: clamp(32px, 4.5vw, 48px);
+  height: clamp(32px, 4.5vw, 48px);
   background: #ffffff;
-  border-radius: clamp(10px, 1.4vw, 15px);
+  border-radius: clamp(8px, 1.1vw, 13px);
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 
-    0 clamp(4px, 0.7vw, 7px) 0 #73431a,
-    0 clamp(8px, 1.2vw, 14px) rgba(0, 0, 0, 0.25);
+    0 clamp(3px, 0.5vw, 6px) 0 #73431a,
+    0 clamp(6px, 1vw, 12px) rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -701,7 +739,7 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   grid-template-rows: repeat(3, 1fr);
   width: 100%;
   height: 100%;
-  padding: clamp(4px, 0.7vw, 7px);
+  padding: clamp(3px, 0.5vw, 6px);
   box-sizing: border-box;
 }
 
@@ -713,8 +751,8 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 
 .dice-pip.active::after {
   content: '';
-  width: clamp(7px, 1.1vw, 10.5px);
-  height: clamp(7px, 1.1vw, 10.5px);
+  width: clamp(6px, 0.9vw, 9.5px);
+  height: clamp(6px, 0.9vw, 9.5px);
   background: #1c1917;
   border-radius: 50%;
   box-shadow: inset 0 1px 1.5px rgba(0, 0, 0, 0.5);
@@ -748,9 +786,9 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
     inset 0 1.5px 3px rgba(255, 255, 255, 0.45), 
     0 2px 5px rgba(0, 0, 0, 0.15);
   border-radius: 9999px;
-  padding: clamp(4px, 0.7vw, 7px) clamp(12px, 1.8vw, 20px);
+  padding: clamp(3px, 0.4vh, 5px) clamp(10px, 1.4vw, 16px);
   font-weight: 800;
-  font-size: clamp(8px, 1.05vw, 11px);
+  font-size: clamp(7.5px, 0.85vw, 10px);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
@@ -785,24 +823,29 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   background: #38200f;
   color: #ffffff;
   border-radius: 9999px;
-  padding: clamp(3.5px, 0.6vw, 6px) clamp(10px, 1.6vw, 16px);
+  padding: clamp(2.5px, 0.4vh, 4.5px) clamp(8px, 1.2vw, 14px);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  font-size: clamp(7.5px, 0.95vw, 10.5px);
+  font-size: clamp(7px, 0.8vw, 9.5px);
   font-weight: 700;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  width: max-content;
-  max-width: 96%;
-  text-align: center;
+  gap: 5px;
+  max-width: 94%;
+  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
 }
 
 .center-turn-capsule #centerPromptText {
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   display: inline-block;
+  max-width: 100%;
 }
 
 .turn-dot-indicator {

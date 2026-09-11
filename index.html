@@ -173,17 +173,17 @@
       </div>
 
       <!-- Property Portfolio & Monopoly Groups (Card Grid) -->
-      <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-3.5 shadow-xl flex flex-col h-[380px] overflow-hidden">
-        <div class="flex items-center justify-between pb-2 border-b border-zinc-800 mb-2">
+      <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-3.5 shadow-xl flex flex-col max-h-[390px] overflow-hidden">
+        <div class="flex items-center justify-between pb-2 border-b border-zinc-800 mb-2 shrink-0">
           <div class="text-xs uppercase font-extrabold tracking-wider text-amber-400">Aset & Properti</div>
           <span id="portfolioStatsBadge" class="text-[10px] text-amber-300 bg-amber-950/80 px-2 py-0.5 rounded-full border border-amber-500/40 font-bold">0 Properti</span>
         </div>
-        <div id="portfolioPlayerTabs" class="flex items-center gap-1.5 overflow-x-auto pb-1.5 mb-1.5 scrollbar-none text-[10px]"></div>
-        <div id="portfolioList" class="flex-1 min-h-0 overflow-y-auto pr-1.5 text-xs grid grid-cols-2 gap-2 content-start custom-portfolio-scroll">
+        <div id="portfolioPlayerTabs" class="flex items-center gap-1.5 overflow-x-auto pb-1.5 mb-1.5 scrollbar-none text-[10px] shrink-0"></div>
+        <div id="portfolioList" class="flex-1 min-h-0 max-h-[300px] overflow-y-auto pr-1.5 text-xs grid grid-cols-2 gap-1.5 content-start custom-portfolio-scroll">
           <p class="text-gray-500 text-center py-6 col-span-2 text-xs">Belum ada properti yang dibeli.</p>
         </div>
-        <div id="portfolioScrollHint" class="hidden text-center text-[9px] text-amber-400/80 pt-1.5 border-t border-zinc-800/80 font-medium">
-          Gulir ke bawah untuk melihat properti lainnya
+        <div id="portfolioScrollHint" class="hidden text-center text-[9px] text-amber-400/90 pt-1.5 border-t border-zinc-800/80 font-medium shrink-0 flex items-center justify-center gap-1">
+          <span class="animate-bounce">↓</span> <span id="portfolioScrollHintText">Gulir ke bawah untuk melihat properti lainnya</span>
         </div>
       </div>
 

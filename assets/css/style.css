@@ -1602,6 +1602,8 @@ input[type="number"] {
    PORTFOLIO & CHAT CUSTOM SCROLLBARS
    =================================================== */
 #portfolioList {
+  max-height: 300px;
+  overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
   scrollbar-color: #f59e0b rgba(24, 24, 27, 0.7);
@@ -1610,7 +1612,7 @@ input[type="number"] {
 #portfolioList::-webkit-scrollbar,
 .custom-portfolio-scroll::-webkit-scrollbar,
 .custom-chat-scroll::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 #portfolioList::-webkit-scrollbar-track,

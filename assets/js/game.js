@@ -1615,12 +1615,12 @@ function updatePortfolio() {
     const prop = state.properties[space.id];
     const isMortgaged = Boolean(prop.isMortgaged);
     const card = document.createElement('div');
-    card.className = `group relative rounded-xl overflow-hidden bg-[#faf8f4] border-2 ${isMortgaged ? 'border-red-400/80 opacity-75' : 'border-[#d5cbbe]'} shadow-sm hover:shadow-md hover:-translate-y-0.5 transition duration-150 cursor-pointer flex flex-col justify-between active:scale-95 select-none text-center`;
+    card.className = `group relative rounded-xl overflow-hidden bg-[#faf8f4] border-2 ${isMortgaged ? 'border-red-400/80 opacity-75' : 'border-[#d5cbbe]'} shadow-sm hover:shadow-md hover:-translate-y-0.5 transition duration-150 cursor-pointer flex flex-col justify-between active:scale-95 select-none text-center h-[70px] min-h-[70px]`;
     card.title = `Klik untuk kelola ${space.name}`;
 
     card.innerHTML = `
       <!-- Top Colored Stripe with Level Indicators -->
-      <div class="h-5 w-full flex items-center justify-between px-1.5 shadow-inner" style="background-color: ${space.color || '#475569'}">
+      <div class="h-5 w-full flex items-center justify-between px-1.5 shadow-inner shrink-0" style="background-color: ${space.color || '#475569'}">
         <span class="text-[8px] font-black tracking-wider text-white drop-shadow font-outfit uppercase truncate">
           ${space.group ? space.group.toUpperCase() : 'ASET'}
         </span>
@@ -1636,17 +1636,17 @@ function updatePortfolio() {
       </div>
       
       <!-- Card Body (Title & City matching user reference image) -->
-      <div class="p-1.5 text-center flex flex-col items-center justify-center flex-1 bg-gradient-to-b from-[#faf8f4] to-[#f2ece0]">
+      <div class="p-1 text-center flex flex-col items-center justify-center flex-1 bg-gradient-to-b from-[#faf8f4] to-[#f2ece0] min-h-0">
         <div class="font-black text-xs text-zinc-900 font-outfit leading-tight truncate w-full" title="${space.name}">
           ${space.shortName || space.name}
         </div>
-        <div class="text-[10px] text-amber-900/90 font-bold truncate w-full mt-0.5">
+        <div class="text-[9.5px] text-amber-900/90 font-bold truncate w-full mt-0.5">
           ${space.city || space.name}
         </div>
       </div>
 
       <!-- Bottom Rent / Mortgage Status -->
-      <div class="px-1.5 py-0.5 bg-[#ebe3d3] border-t border-[#d8cdb8] flex items-center justify-between text-[8.5px]">
+      <div class="px-1.5 py-0.5 bg-[#ebe3d3] border-t border-[#d8cdb8] flex items-center justify-between text-[8px] shrink-0">
         ${isMortgaged ? `
           <span class="text-red-700 font-extrabold w-full text-center bg-red-100/90 py-0.2 rounded">TERGADAI</span>
         ` : `
@@ -1664,8 +1664,15 @@ function updatePortfolio() {
   });
 
   if (portfolioScrollHint) {
-    if (portfolioList.scrollHeight > portfolioList.clientHeight + 10) {
+    if (ownedProps.length >= 9 || portfolioList.scrollHeight > portfolioList.clientHeight + 5) {
       portfolioScrollHint.classList.remove('hidden');
+      const extraCards = Math.max(1, ownedProps.length - 8);
+      const hintText = document.getElementById('portfolioScrollHintText');
+      if (hintText) {
+        hintText.textContent = `Gulir untuk melihat properti lainnya (${extraCards} lagi)`;
+      } else {
+        portfolioScrollHint.innerHTML = `<span class="animate-bounce">↓</span> Gulir untuk melihat properti lainnya (${extraCards} lagi)`;
+      }
     } else {
       portfolioScrollHint.classList.add('hidden');
     }

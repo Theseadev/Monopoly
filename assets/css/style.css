@@ -511,18 +511,18 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 }
 
 /* ==========================================================
-   HORIZONTAL BOARD CARD DECKS (ABOVE DICE)
+   AUTHENTIC 3D VERTICAL BOARD CARD DECKS (ABOVE DICE)
    ========================================================== */
 
 .center-horizontal-decks-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(6px, 1.4vw, 16px);
+  gap: clamp(10px, 2vw, 24px);
   width: 100%;
-  max-width: 340px;
-  margin-top: clamp(3px, 0.8vh, 10px);
-  margin-bottom: clamp(3px, 0.8vh, 8px);
+  max-width: 380px;
+  margin-top: clamp(2px, 0.6vh, 8px);
+  margin-bottom: clamp(4px, 1vh, 12px);
   box-sizing: border-box;
   min-width: 0;
 }
@@ -533,32 +533,31 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   align-items: center;
   cursor: pointer;
   user-select: none;
-  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   min-width: 0;
-  flex: 1 1 0;
-  max-width: 160px;
+  flex: 0 1 auto;
 }
 
 .board-deck-slot-h:hover {
-  transform: translateY(-2px) scale(1.03);
+  transform: translateY(-4px) scale(1.04);
 }
 
 .board-deck-wrapper-h {
   position: relative;
-  width: 100%;
-  height: clamp(38px, 5.5vh, 56px);
+  width: clamp(82px, 10.8vw, 120px);
+  height: clamp(106px, 14.2vh, 150px);
   min-width: 0;
 }
 
 /* Stamped tray outline on the board parchment */
 .deck-tray-outline-h {
   position: absolute;
-  inset: -2px;
+  inset: -3px;
   border: 1.5px dashed rgba(115, 67, 26, 0.35);
-  border-radius: 8px;
+  border-radius: 12px;
   pointer-events: none;
   z-index: 1;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .deck-tray-chance {
@@ -573,19 +572,19 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 .deck-stack-card-h {
   position: absolute;
   inset: 0;
-  border-radius: 7px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 9px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   pointer-events: none;
 }
 
 .deck-stack-card-h.layer-back {
-  transform: translate(2.5px, 2.5px) rotate(-1deg);
+  transform: translate(3.5px, 3.5px) rotate(-1.5deg);
   z-index: 2;
 }
 
 .deck-stack-card-h.layer-mid {
-  transform: translate(1.2px, 1.2px) rotate(0.8deg);
+  transform: translate(1.8px, 1.8px) rotate(1.2deg);
   z-index: 3;
 }
 
@@ -593,54 +592,54 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 .deck-main-card-h {
   position: absolute;
   inset: 0;
-  border-radius: 7px;
-  padding: 2.5px;
+  border-radius: 9px;
+  padding: 3px;
   z-index: 4;
   box-shadow: 
-    0 4px 10px rgba(0, 0, 0, 0.22),
-    0 1px 3px rgba(0, 0, 0, 0.15);
+    0 6px 14px rgba(0, 0, 0, 0.25),
+    0 2px 4px rgba(0, 0, 0, 0.15);
   transition: box-shadow 0.2s ease, filter 0.2s ease;
 }
 
 .deck-main-card-h.card-chance {
-  background: linear-gradient(135deg, #fb923c 0%, #ea580c 50%, #c2410c 100%);
+  background: linear-gradient(155deg, #fb923c 0%, #ea580c 45%, #9a3412 100%);
   border: 1.5px solid #fed7aa;
 }
 
 .deck-main-card-h.card-chest {
-  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 50%, #0369a1 100%);
+  background: linear-gradient(155deg, #38bdf8 0%, #0284c7 45%, #075985 100%);
   border: 1.5px solid #bae6fd;
 }
 
 .board-deck-slot-h:hover .deck-main-card-h.card-chance {
   box-shadow: 
-    0 8px 18px rgba(234, 88, 12, 0.42),
-    0 2px 6px rgba(0, 0, 0, 0.25);
+    0 10px 22px rgba(234, 88, 12, 0.45),
+    0 3px 8px rgba(0, 0, 0, 0.3);
   filter: brightness(1.05);
 }
 
 .board-deck-slot-h:hover .deck-main-card-h.card-chest {
   box-shadow: 
-    0 8px 18px rgba(2, 132, 199, 0.42),
-    0 2px 6px rgba(0, 0, 0, 0.25);
+    0 10px 22px rgba(2, 132, 199, 0.45),
+    0 3px 8px rgba(0, 0, 0, 0.3);
   filter: brightness(1.05);
 }
 
-/* Inner Horizontal Card Layout */
+/* Inner Vertical Card Layout */
 .deck-card-frame-h {
   width: 100%;
   height: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 5px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  gap: clamp(4px, 0.8vw, 8px);
+  justify-content: space-between;
   position: relative;
   box-sizing: border-box;
-  padding: 2px clamp(4px, 0.8vw, 8px);
+  padding: clamp(4px, 0.8vh, 8px) clamp(3px, 0.6vw, 6px);
   overflow: hidden;
+  text-align: center;
 }
 
 .card-badge-h {
@@ -648,40 +647,40 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.18);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.22);
   flex-shrink: 0;
 }
 
 .badge-chance {
-  width: clamp(20px, 2.5vw, 28px);
-  height: clamp(20px, 2.5vw, 28px);
-  background: #fef3c7;
+  width: clamp(28px, 3.8vw, 42px);
+  height: clamp(28px, 3.8vw, 42px);
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #fef3c7 60%, #fde68a 100%);
   color: #ea580c;
-  border: 1.5px solid #fbbf24;
+  border: 2px solid #fbbf24;
 }
 
 .badge-chest {
-  width: clamp(20px, 2.5vw, 28px);
-  height: clamp(20px, 2.5vw, 28px);
-  background: #f0f9ff;
+  width: clamp(28px, 3.8vw, 42px);
+  height: clamp(28px, 3.8vw, 42px);
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #e0f2fe 60%, #bae6fd 100%);
   color: #0284c7;
-  border: 1.5px solid #38bdf8;
+  border: 2px solid #38bdf8;
 }
 
 .card-title-h {
-  font-size: clamp(7.5px, 0.95vw, 10.5px);
+  font-size: clamp(8px, 1.05vw, 11px);
   font-weight: 900;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   line-height: 1.15;
   white-space: nowrap;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .card-sub-h {
-  font-size: clamp(5px, 0.65vw, 7px);
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: clamp(5.5px, 0.7vw, 7.5px);
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;

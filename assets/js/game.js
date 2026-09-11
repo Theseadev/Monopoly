@@ -897,44 +897,54 @@ function renderBoard() {
       </div>
     </div>
 
-    <!-- Middle-Top Section: Horizontal Card Decks (Above Dice) -->
+    <!-- Middle-Top Section: Authentic Vertical Card Decks (Above Dice) -->
     <div class="center-horizontal-decks-row">
       
-      <!-- 1. LEFT: Deck Kartu Kesempatan (Horizontal) -->
+      <!-- 1. LEFT: Deck Kartu Kesempatan (Vertical Card) -->
       <div class="board-deck-slot-h" id="boardDeckChance" title="Klik untuk melihat info Kartu Kesempatan">
         <div class="board-deck-wrapper-h">
           <div class="deck-tray-outline-h deck-tray-chance"></div>
-          <div class="deck-stack-card-h layer-back bg-[#fef3c7]"></div>
-          <div class="deck-stack-card-h layer-mid bg-[#fffbeb]"></div>
+          <div class="deck-stack-card-h layer-back bg-[#fde68a]"></div>
+          <div class="deck-stack-card-h layer-mid bg-[#fef3c7]"></div>
           <div class="deck-main-card-h card-chance">
             <div class="deck-card-frame-h">
-              <div class="card-badge-h badge-chance">
-                <span class="font-black text-[12px] md:text-[14px] font-outfit leading-none select-none">?</span>
+              <span class="text-[6.5px] md:text-[7.5px] font-black uppercase tracking-[0.2em] text-amber-200/80 font-outfit">KARTU</span>
+              
+              <div class="card-badge-h badge-chance my-auto">
+                <span class="font-black text-base md:text-xl font-outfit leading-none select-none text-[#c2410c] drop-shadow-sm">?</span>
               </div>
-              <div class="flex flex-col items-start justify-center leading-none min-w-0">
+              
+              <div class="flex flex-col items-center justify-center leading-none min-w-0 w-full mb-0.5">
                 <span class="card-title-h font-outfit text-amber-100">KESEMPATAN</span>
                 <span class="card-sub-h font-sans text-amber-200/90">CHANCE</span>
               </div>
+              
+              <span class="text-[5.5px] md:text-[6.5px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded-full bg-black/20 text-amber-100/85">50 KARTU</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2. RIGHT: Deck Kartu Dana Umum (Horizontal) -->
+      <!-- 2. RIGHT: Deck Kartu Dana Umum (Vertical Card) -->
       <div class="board-deck-slot-h" id="boardDeckChest" title="Klik untuk melihat info Kartu Dana Umum">
         <div class="board-deck-wrapper-h">
           <div class="deck-tray-outline-h deck-tray-chest"></div>
-          <div class="deck-stack-card-h layer-back bg-[#e0f2fe]"></div>
-          <div class="deck-stack-card-h layer-mid bg-[#f0f9ff]"></div>
+          <div class="deck-stack-card-h layer-back bg-[#bae6fd]"></div>
+          <div class="deck-stack-card-h layer-mid bg-[#e0f2fe]"></div>
           <div class="deck-main-card-h card-chest">
             <div class="deck-card-frame-h">
-              <div class="card-badge-h badge-chest">
-                <div class="w-3.5 h-3.5 md:w-4 md:h-4 flex items-center justify-center">${GameIcons.chest}</div>
+              <span class="text-[6.5px] md:text-[7.5px] font-black uppercase tracking-[0.2em] text-sky-200/80 font-outfit">KARTU</span>
+              
+              <div class="card-badge-h badge-chest my-auto">
+                <div class="w-4 h-4 md:w-5 md:h-5 flex items-center justify-center text-[#0369a1] drop-shadow-sm">${GameIcons.chest}</div>
               </div>
-              <div class="flex flex-col items-start justify-center leading-none min-w-0">
+              
+              <div class="flex flex-col items-center justify-center leading-none min-w-0 w-full mb-0.5">
                 <span class="card-title-h font-outfit text-sky-100">DANA UMUM</span>
                 <span class="card-sub-h font-sans text-sky-200/90">COMMUNITY CHEST</span>
               </div>
+              
+              <span class="text-[5.5px] md:text-[6.5px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded-full bg-black/20 text-sky-100/85">50 KARTU</span>
             </div>
           </div>
         </div>

@@ -266,10 +266,10 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) repeat(9, minmax(0, 1fr)) minmax(0, 1.35fr);
   grid-template-rows: minmax(0, 1.35fr) repeat(9, minmax(0, 1fr)) minmax(0, 1.35fr);
-  width: min(calc(100dvh - 86px), calc(100vw - 520px), 760px);
-  height: min(calc(100dvh - 86px), calc(100vw - 520px), 760px);
-  max-width: calc(100dvh - 86px);
-  max-height: calc(100dvh - 86px);
+  width: min(calc(100dvh - 100px), calc(100vw - 540px), 740px);
+  height: min(calc(100dvh - 100px), calc(100vw - 540px), 740px);
+  max-width: calc(100dvh - 100px);
+  max-height: calc(100dvh - 100px);
   aspect-ratio: 1 / 1;
   background: #cbaf75;
   border: 3px solid #4a2c0c;
@@ -289,51 +289,51 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 :fullscreen .monopoly-board,
 #inGameBoardScreen:fullscreen .monopoly-board,
 body:fullscreen .monopoly-board {
-  width: min(calc(100dvh - 66px), calc(100vw - 520px), 860px);
-  height: min(calc(100dvh - 66px), calc(100vw - 520px), 860px);
-  max-width: calc(100dvh - 66px);
-  max-height: calc(100dvh - 66px);
+  width: min(calc(100dvh - 66px), calc(100vw - 520px), 860px) !important;
+  height: min(calc(100dvh - 66px), calc(100vw - 520px), 860px) !important;
+  max-width: calc(100dvh - 66px) !important;
+  max-height: calc(100dvh - 66px) !important;
 }
 
 @media (max-height: 850px) {
   .monopoly-board {
-    width: min(calc(100dvh - 82px), calc(100vw - 480px), 680px);
-    height: min(calc(100dvh - 82px), calc(100vw - 480px), 680px);
-    max-width: calc(100dvh - 82px);
-    max-height: calc(100dvh - 82px);
+    width: min(calc(100dvh - 96px), calc(100vw - 500px), 660px);
+    height: min(calc(100dvh - 96px), calc(100vw - 500px), 660px);
+    max-width: calc(100dvh - 96px);
+    max-height: calc(100dvh - 96px);
     border-width: 2.5px;
     border-radius: 10px;
   }
 }
 
-@media (max-height: 750px) {
+@media (max-height: 720px) {
   .monopoly-board {
-    width: min(calc(100dvh - 76px), calc(100vw - 440px), 590px);
-    height: min(calc(100dvh - 76px), calc(100vw - 440px), 590px);
-    max-width: calc(100dvh - 76px);
-    max-height: calc(100dvh - 76px);
+    width: min(calc(100dvh - 90px), calc(100vw - 460px), 560px);
+    height: min(calc(100dvh - 90px), calc(100vw - 460px), 560px);
+    max-width: calc(100dvh - 90px);
+    max-height: calc(100dvh - 90px);
     border-width: 2px;
     border-radius: 8px;
   }
 }
 
-@media (max-height: 650px) {
+@media (max-height: 620px) {
   .monopoly-board {
-    width: min(calc(100dvh - 68px), calc(100vw - 400px), 490px);
-    height: min(calc(100dvh - 68px), calc(100vw - 400px), 490px);
-    max-width: calc(100dvh - 68px);
-    max-height: calc(100dvh - 68px);
+    width: min(calc(100dvh - 80px), calc(100vw - 420px), 480px);
+    height: min(calc(100dvh - 80px), calc(100vw - 420px), 480px);
+    max-width: calc(100dvh - 80px);
+    max-height: calc(100dvh - 80px);
     border-width: 2px;
     border-radius: 6px;
   }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1366px) {
   .monopoly-board {
-    width: min(calc(100dvh - 80px), calc(100vw - 460px), 650px);
-    height: min(calc(100dvh - 80px), calc(100vw - 460px), 650px);
-    max-width: calc(100dvh - 80px);
-    max-height: calc(100dvh - 80px);
+    width: min(calc(100dvh - 96px), calc(100vw - 480px), 680px);
+    height: min(calc(100dvh - 96px), calc(100vw - 480px), 680px);
+    max-width: calc(100dvh - 96px);
+    max-height: calc(100dvh - 96px);
   }
 }
 
@@ -370,11 +370,8 @@ body:fullscreen .monopoly-board {
     margin: 0 auto !important;
   }
   .tile-name {
-    font-size: clamp(5px, 1.8vw, 8px) !important;
-    line-height: 1 !important;
-  }
-  .tile-city {
-    font-size: clamp(4px, 1.4vw, 6.5px) !important;
+    font-size: clamp(5.5px, 1.8vw, 8.5px) !important;
+    line-height: 1.1 !important;
   }
   .tile-price-badge {
     font-size: clamp(4.5px, 1.5vw, 7.5px) !important;
@@ -479,35 +476,24 @@ body:fullscreen .monopoly-board {
   padding: 1px 2px;
   position: relative;
   z-index: 2;
+  overflow: hidden;
 }
 
 .tile-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: clamp(6px, 0.8vw, 10px);
-  line-height: 1.05;
+  font-size: clamp(6.5px, 0.85vw, 10.5px);
+  line-height: 1.15;
   color: #1c1917;
   text-align: center;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
   white-space: normal;
   hyphens: none;
-}
-
-.tile-city {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 700;
-  font-size: clamp(5px, 0.65vw, 8px);
-  line-height: 1;
-  color: #785028;
-  margin-top: 0.5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
+  margin: auto 0;
 }
 
 /* Price Badge - Clean Minimalist Text */
@@ -515,12 +501,12 @@ body:fullscreen .monopoly-board {
   color: #44403c;
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: clamp(6px, 0.75vw, 9.5px);
+  font-size: clamp(5.5px, 0.72vw, 9px);
   line-height: 1;
   padding: 0.5px 2px;
   white-space: nowrap;
   flex-shrink: 0;
-  margin-bottom: 0.5px;
+  margin-bottom: 1px;
   z-index: 2;
 }
 

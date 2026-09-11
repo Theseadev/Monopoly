@@ -787,13 +787,13 @@ function renderBoard() {
         // MULAI / GO
         cell.className += ' corner-go';
         cell.innerHTML = `
-          <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-1 z-0 w-full h-full">
-            <span class="text-[7.5px] font-black text-[#784419] uppercase tracking-wider leading-none pt-0.5 font-outfit">LEWAT AMBIL</span>
-            <div class="my-auto flex flex-col items-center">
-              <span class="text-xs md:text-sm font-black text-[#b91c1c] font-outfit tracking-widest leading-none">MULAI</span>
-              <span class="tile-price-badge font-mono mt-0.5 text-[8px] md:text-[9px] text-[#b91c1c] font-bold">+Rp 2 JT</span>
+          <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-0.5 z-0 w-full h-full">
+            <span class="text-[6px] md:text-[7.5px] font-black text-[#784419] uppercase tracking-wider leading-none pt-0.5 font-outfit">LEWAT AMBIL</span>
+            <div class="my-auto flex flex-col items-center leading-tight">
+              <span class="text-[11px] md:text-sm font-black text-[#b91c1c] font-outfit tracking-widest leading-none">MULAI</span>
+              <span class="tile-price-badge font-mono text-[7px] md:text-[8.5px] text-[#b91c1c] font-bold mt-0.5">+Rp 2 JT</span>
             </div>
-            <div class="w-4 h-4 md:w-5 md:h-5 text-[#b91c1c] mb-0.5">${GameIcons.goArrow}</div>
+            <div class="w-3.5 h-3.5 md:w-4 md:h-4 text-[#b91c1c] mb-0.5">${GameIcons.goArrow}</div>
           </div>
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
         `;
@@ -801,13 +801,13 @@ function renderBoard() {
         // PENJARA / JAIL
         cell.className += ' corner-jail';
         cell.innerHTML = `
-          <div class="corner-jail-visiting py-0.5 px-1 text-[7px] md:text-[8px] font-extrabold text-[#4a2c0c] flex items-center justify-center gap-1 shadow-sm">
-            <span class="w-2.5 h-2.5 inline-block text-[#4a2c0c]">${GameIcons.visiting}</span>
+          <div class="corner-jail-visiting py-0.5 px-0.5 text-[6px] md:text-[7.5px] font-extrabold text-[#4a2c0c] flex items-center justify-center gap-0.5 shadow-sm leading-none">
+            <span class="w-2 h-2 inline-block text-[#4a2c0c]">${GameIcons.visiting}</span>
             <span>HANYA LEWAT</span>
           </div>
           <div class="corner-jail-cell flex-1 flex flex-col items-center justify-center my-0.5 p-0.5">
-            <div class="w-4 h-4 text-[#c2410c]">${GameIcons.jailLock}</div>
-            <span class="text-[8px] md:text-[9px] font-black text-[#c2410c] font-outfit tracking-wider leading-none mt-0.5">PENJARA</span>
+            <div class="w-3.5 h-3.5 text-[#c2410c]">${GameIcons.jailLock}</div>
+            <span class="text-[7.5px] md:text-[8.5px] font-black text-[#c2410c] font-outfit tracking-wider leading-none mt-0.5">PENJARA</span>
           </div>
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
         `;
@@ -815,10 +815,10 @@ function renderBoard() {
         // PARKIR BEBAS / FREE PARKING
         cell.className += ' corner-free-parking';
         cell.innerHTML = `
-          <div class="tile-content flex-1 flex flex-col items-center justify-center text-center p-1 z-0 w-full h-full">
-            <div class="w-6 h-6 md:w-7 md:h-7 text-[#1e3a8a] my-0.5">${GameIcons.freeParking}</div>
-            <span class="tile-name text-[#1e3a8a] mt-0.5 leading-tight">PARKIR BEBAS</span>
-            <span class="tile-city text-[#475569] leading-none mt-0.5">Istirahat</span>
+          <div class="tile-content flex-1 flex flex-col items-center justify-center text-center p-0.5 z-0 w-full h-full">
+            <div class="w-5 h-5 md:w-6 md:h-6 text-[#1e3a8a] my-0.5">${GameIcons.freeParking}</div>
+            <span class="tile-name text-[#1e3a8a] leading-tight text-[7px] md:text-[9px]">PARKIR BEBAS</span>
+            <span class="text-[6px] md:text-[7px] text-[#475569] font-bold leading-none mt-0.5">Istirahat</span>
           </div>
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
         `;
@@ -826,11 +826,11 @@ function renderBoard() {
         // MASUK PENJARA / GO TO JAIL
         cell.className += ' corner-go-to-jail';
         cell.innerHTML = `
-          <div class="tile-content flex-1 flex flex-col items-center justify-center text-center p-1 z-0 w-full h-full">
-            <div class="w-6 h-6 md:w-7 md:h-7 text-[#b91c1c] my-0.5">${GameIcons.police}</div>
-            <span class="tile-name text-[#4a2c0c] mt-0.5 leading-none">MASUK</span>
-            <span class="text-[9px] md:text-[10px] font-black text-[#b91c1c] font-outfit leading-tight mt-0.5">PENJARA!</span>
-            <div class="w-3.5 h-3.5 text-[#b91c1c] mt-0.5">${GameIcons.arrowDownLeft}</div>
+          <div class="tile-content flex-1 flex flex-col items-center justify-center text-center p-0.5 z-0 w-full h-full">
+            <div class="w-5 h-5 md:w-6 md:h-6 text-[#b91c1c] my-0.5">${GameIcons.police}</div>
+            <span class="tile-name text-[#4a2c0c] leading-none text-[6.5px] md:text-[8px]">MASUK</span>
+            <span class="text-[7.5px] md:text-[9px] font-black text-[#b91c1c] font-outfit leading-tight mt-0.5">PENJARA!</span>
+            <div class="w-3 h-3 text-[#b91c1c] mt-0.5">${GameIcons.arrowDownLeft}</div>
           </div>
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
         `;
@@ -846,17 +846,16 @@ function renderBoard() {
       if (space.type === 'property') {
         colorBarHtml = `<div class="color-bar" style="background-color: ${space.color}"></div>`;
       } else if (space.type === 'railroad') {
-        iconHtml = `<div class="w-4 h-4 md:w-5 md:h-5 text-zinc-700 my-0.5">${GameIcons.train}</div>`;
+        iconHtml = `<div class="w-3.5 h-3.5 md:w-4.5 md:h-4.5 text-zinc-700 my-0.5">${GameIcons.train}</div>`;
       } else if (space.type === 'utility') {
-        iconHtml = space.icon === 'zap' ? `<div class="w-4 h-4 md:w-5 md:h-5 text-amber-500 my-0.5">${GameIcons.zap}</div>` : `<div class="w-4 h-4 md:w-5 md:h-5 text-blue-500 my-0.5">${GameIcons.water}</div>`;
+        iconHtml = space.icon === 'zap' ? `<div class="w-3.5 h-3.5 md:w-4.5 md:h-4.5 text-amber-500 my-0.5">${GameIcons.zap}</div>` : `<div class="w-3.5 h-3.5 md:w-4.5 md:h-4.5 text-blue-500 my-0.5">${GameIcons.water}</div>`;
       } else if (space.type === 'tax') {
-        iconHtml = space.id === 4 ? `<div class="w-4 h-4 md:w-5 md:h-5 text-amber-600 my-0.5">${GameIcons.tax}</div>` : `<div class="w-4 h-4 md:w-5 md:h-5 text-cyan-600 my-0.5">${GameIcons.diamond}</div>`;
+        iconHtml = space.id === 4 ? `<div class="w-3.5 h-3.5 md:w-4.5 md:h-4.5 text-amber-600 my-0.5">${GameIcons.tax}</div>` : `<div class="w-3.5 h-3.5 md:w-4.5 md:h-4.5 text-cyan-600 my-0.5">${GameIcons.diamond}</div>`;
       } else if (space.type === 'special') {
-        iconHtml = space.subType === 'chance' ? `<div class="w-4 h-4 md:w-5 md:h-5 text-amber-600 my-0.5">${GameIcons.chance}</div>` : `<div class="w-4 h-4 md:w-5 md:h-5 text-sky-600 my-0.5">${GameIcons.chest}</div>`;
+        iconHtml = space.subType === 'chance' ? `<div class="w-3.5 h-3.5 md:w-4.5 md:h-4.5 text-amber-600 my-0.5">${GameIcons.chance}</div>` : `<div class="w-3.5 h-3.5 md:w-4.5 md:h-4.5 text-sky-600 my-0.5">${GameIcons.chest}</div>`;
       }
 
       const priceBadgeHtml = priceText ? `<span class="tile-price-badge">${priceText}</span>` : '';
-      const citySubtitleHtml = (space.city && space.type === 'property') ? `<span class="tile-city">${space.city}</span>` : '';
 
       cell.innerHTML = `
         ${colorBarHtml}
@@ -864,7 +863,6 @@ function renderBoard() {
         <div class="tile-content">
           ${iconHtml}
           <span class="tile-name">${displayName}</span>
-          ${citySubtitleHtml}
         </div>
         ${priceBadgeHtml}
         <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>

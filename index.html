@@ -184,13 +184,13 @@
       </div>
 
       <!-- Property Portfolio & Monopoly Groups (Card Grid) -->
-      <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-3.5 shadow-xl flex flex-col min-h-[460px] xl:min-h-[500px] max-h-[560px] overflow-hidden">
-        <div class="flex items-center justify-between pb-2 border-b border-zinc-800 mb-2 shrink-0">
+      <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-3 shadow-xl flex flex-col max-h-[350px] xl:max-h-[370px] overflow-hidden">
+        <div class="flex items-center justify-between pb-1.5 border-b border-zinc-800 mb-1.5 shrink-0">
           <div class="text-xs uppercase font-extrabold tracking-wider text-amber-400">Aset & Properti</div>
           <span id="portfolioStatsBadge" class="text-[10px] text-amber-300 bg-amber-950/80 px-2 py-0.5 rounded-full border border-amber-500/40 font-bold">0 Properti</span>
         </div>
-        <div id="portfolioPlayerTabs" class="flex items-center gap-1.5 overflow-x-auto pb-1.5 mb-1.5 scrollbar-none text-[10px] shrink-0"></div>
-        <div id="portfolioList" class="flex-1 min-h-[380px] xl:min-h-[420px] max-h-[470px] overflow-y-auto pr-1.5 text-xs grid grid-cols-2 gap-1.5 content-start custom-portfolio-scroll">
+        <div id="portfolioPlayerTabs" class="flex items-center gap-1.5 overflow-x-auto pb-1 mb-1 scrollbar-none text-[10px] shrink-0"></div>
+        <div id="portfolioList" class="flex-1 min-h-0 max-h-[260px] xl:max-h-[280px] overflow-y-auto pr-1.5 text-xs grid grid-cols-2 gap-1.5 content-start custom-portfolio-scroll">
           <p class="text-gray-500 text-center py-6 col-span-2 text-xs">Belum ada properti yang dibeli.</p>
         </div>
         <div id="portfolioScrollHint" class="hidden text-center text-[9px] text-amber-400/90 pt-1.5 border-t border-zinc-800/80 font-medium shrink-0 flex items-center justify-center gap-1">
@@ -199,14 +199,14 @@
       </div>
 
       <!-- Sistem Trading Sesama Pemain -->
-      <div class="bg-zinc-900/90 border-2 border-amber-500/40 rounded-2xl p-3.5 shadow-xl flex flex-col gap-2.5">
-        <div class="flex items-center justify-between pb-2 border-b border-zinc-800">
+      <div class="bg-zinc-900/90 border-2 border-amber-500/40 rounded-2xl p-3 shadow-xl flex flex-col gap-1.5">
+        <div class="flex items-center justify-between pb-1.5 border-b border-zinc-800">
           <div class="text-xs uppercase font-extrabold tracking-wider text-amber-400">Trading Sesama Pemain</div>
           <span class="text-[9px] text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-500/40">Tukar Aset</span>
         </div>
-        <p class="text-[11px] text-gray-300 leading-snug">Tukar-tambah properti atau uang tunai dengan lawan/Bot.</p>
+        <p class="text-[10.5px] text-gray-300 leading-snug">Tukar-tambah properti atau uang tunai dengan lawan/Bot.</p>
         <div id="tradingPartnersStatus" class="flex items-center gap-1.5 text-[10px] text-gray-400"></div>
-        <button id="btnOpenTradingDesk" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-black text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95">
+        <button id="btnOpenTradingDesk" class="w-full py-2 rounded-xl bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-black text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95">
           <span>Buka Meja Trading</span>
         </button>
       </div>

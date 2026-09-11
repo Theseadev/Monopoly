@@ -1656,7 +1656,7 @@ input[type="number"] {
    PORTFOLIO & CHAT CUSTOM SCROLLBARS
    =================================================== */
 #portfolioList {
-  max-height: 480px;
+  max-height: 280px;
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;

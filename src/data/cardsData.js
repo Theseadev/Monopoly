@@ -1,4 +1,4 @@
-// Data Kartu Kesempatan (Chance) dan Dana Umum (Community Chest) - Tema Nusantara Satir (Bahasa Gaul & Kocak)
+// Data Kartu Kesempatan (Chance) dan Dana Umum (Community Chest) - Tema Nusantara Satir (Gaul, Kocak & Ngeledek Abis)
 
 export const CHANCE_CARDS = [
     {
@@ -36,7 +36,7 @@ export const CHANCE_CARDS = [
     {
         "id": "c5",
         "title": "Ngebut ke Pelabuhan Tanjung Priok!",
-        "description": "Nyetir mobil bak terbuka sambil denger lagu jedag-jedug, meluncur ke Tanjung Priok! Kalo lewatin Mulai ambil jatah Rp 2.000.000.",
+        "description": "Nyetir mobil sport sambil denger lagu jedag-jedug, meluncur ke Tanjung Priok! Kalo lewatin Mulai ambil jatah Rp 2.000.000.",
         "type": "move_to",
         "target": 15,
         "collectGo": true
@@ -204,14 +204,14 @@ export const CHANCE_CARDS = [
     },
     {
         "id": "c26",
-        "title": "Kena Tilang Razia Operasi Patuh!",
-        "description": "Apes banget! Motor lu kena ciduk knalpot brong & STNK mati pajaknya di perempatan. Pak Polisi ngasih opsi penyelesaian:",
+        "title": "Mampus Kena Razia Operasi Patuh!",
+        "description": "Gaya elit ekonomi sulit! Motor lu knalpot brong, spion copotan, STNK mati 5 tahun dicegat polantas di perempatan. Pilih nasib lu:",
         "type": "choice",
         "choices": [
             {
                 "id": "bribe",
-                "title": "Uang Damai (Sogok Petugas)",
-                "desc": "Selipin Rp 150.000 buat \"uang rokok & beli bensin\" petugas, langsung gas jalan lagi.",
+                "title": "Uang Damai (Sogok Polisi)",
+                "desc": "Keluarin Rp 150.000 buat \"uang rokok & bensin\" petugas daripada motor disita.",
                 "action": "pay_money",
                 "amount": 150000,
                 "icon": "💸",
@@ -220,8 +220,8 @@ export const CHANCE_CARDS = [
             },
             {
                 "id": "jail",
-                "title": "Ikut Sidang (Masuk Sel Penjara)",
-                "desc": "Motor ditahan di polres, lu dijebloskan ke sel nunggu antrean sidang pengadilan.",
+                "title": "Ngeyel Masuk Sel (Penjara)",
+                "desc": "Sok keras gamau damai, motor dikandangin dan lu dijebloskan ke sel penjara!",
                 "action": "go_to_jail",
                 "icon": "⚖️",
                 "badge": "Masuk Penjara",
@@ -231,14 +231,14 @@ export const CHANCE_CARDS = [
     },
     {
         "id": "c27",
-        "title": "Koper Impor Nyangkut di Bea Cukai Bandara!",
-        "description": "Koper isi oleh-oleh jastip lu di-X-Ray dan ditahan petugas bandara karena dicurigai barang mewah tanpa izin:",
+        "title": "Niat Jastip Malah Keciduk Bea Cukai!",
+        "description": "Koper lu gembung isi tas branded KW ketahuan mesin X-Ray bandara! Petugas melotot nunggu kejelasan:",
         "type": "choice",
         "choices": [
             {
                 "id": "ordal",
-                "title": "Titip Amplop Ordal (Rp 120.000)",
-                "desc": "Kasih uang pelicin ke kenalan orang dalem biar koper langsung lolos pintu keluar.",
+                "title": "Amplop Ordal Jalur Tikus (Rp 120.000)",
+                "desc": "Selipin amplop ke kenalan ordal bandara biar koper lolos tanpa dibongkar.",
                 "action": "pay_money",
                 "amount": 120000,
                 "icon": "🤫",
@@ -248,7 +248,7 @@ export const CHANCE_CARDS = [
             {
                 "id": "official",
                 "title": "Bayar Pajak Resmi Negara (Rp 350.000)",
-                "desc": "Warga taat hukum, bayar bea masuk & PPN impor resmi ke kas Bank.",
+                "desc": "Pasrah bayar bea masuk resmi ke Bank biar gak viral di berita TV.",
                 "action": "pay_money",
                 "amount": 350000,
                 "icon": "🧾",
@@ -259,14 +259,14 @@ export const CHANCE_CARDS = [
     },
     {
         "id": "c28",
-        "title": "Kondangan Resepsi Hajatan Anak Sultan!",
-        "description": "Dapet undangan VIP resepsi mewah di ballroom hotel bintang lima plus souvenir parfum impor:",
+        "title": "Undangan Hajatan Anak Sultan Bikin Boncos!",
+        "description": "Gengsi gede dapet undangan hajatan orang kaya hotel bintang 5. Mau sok kaya apa mau numpang makan doang?",
         "type": "choice",
         "choices": [
             {
                 "id": "vip",
-                "title": "Kasih Amplop Sultan (Rp 200.000)",
-                "desc": "Dapet kenalan circle pengusaha pejabat & langsung melaju 3 langkah ke depan!",
+                "title": "Kasih Amplop Tebal (Rp 200.000)",
+                "desc": "Sok jadi donatur VIP biar dipuji pejabat! Dapet koneksi & maju 3 langkah.",
                 "action": "pay_and_move",
                 "cost": 200000,
                 "steps": 3,
@@ -276,166 +276,166 @@ export const CHANCE_CARDS = [
             },
             {
                 "id": "buffet",
-                "title": "Makan Prasmanan Aja (Gratis)",
-                "desc": "Kenyangin perut makan kambing guling & es krim tanpa keluar duit sepeserpun.",
+                "title": "Numpang Makan Gratisan",
+                "desc": "Muka tembok langsung serbu kambing guling tanpa ngisi kotak amplop.",
                 "action": "none",
                 "icon": "🍲",
-                "badge": "Makan Gratis",
+                "badge": "Muka Tembok Gratis",
                 "theme": "slate"
             }
         ]
     },
     {
         "id": "c29",
-        "title": "Ketahuan Titip Absen Sidang Paripurna DPR!",
-        "description": "Kamera wartawan memergoki kursi lu kosong melompong padahal finger-print absen udah diisi temen. Langsung diseret masuk penjara!",
+        "title": "Terciduk Tidur & Titip Absen Sidang Paripurna!",
+        "description": "Kamera wartawan zoom muka lu lagi mangap iler pas sidang paripurna! Terbukti jastip finger-print absen, langsung diseret ke penjara!",
         "type": "go_to_jail"
     },
     {
         "id": "c30",
-        "title": "Grebek Sabung Ayam & Judol Kakek Zeus!",
-        "description": "Lagi asik nunggu petir merah kakek zeus, markas keburu digerebek tim buser! Masuk sel tahanan tanpa lewat petak Mulai!",
+        "title": "Kerepotan Digerebek Sabung Ayam & Judol Zeus!",
+        "description": "Lagi asik teriak \"Maxwin Kakek Zeus!\", eh pintu didobrak Densus! Lu digelandang ke sel penjara tanpa lewat Mulai, rasain tuh!",
         "type": "go_to_jail"
     },
     {
         "id": "c31",
-        "title": "Mobil Diderek Dishub Parkir di Trotoar!",
-        "description": "Ditinggal ngopi bentar, mobil lu udah digondol mobil derek Dishub karena parkir di jalur tunanetra. Tebus denda Rp 500.000!",
+        "title": "Sukurin! Mobil Lu Digondol Derek Dishub!",
+        "description": "Otak di mana parkir mobil nutupin trotoar pejalan kaki? Pas balik mobil udah melayang di atas truk derek Dishub. Tebus denda Rp 500.000, kapok!",
         "type": "pay_money",
         "amount": 500000
     },
     {
         "id": "c32",
-        "title": "M-Banking Kuras Habis Kena File APK Nikah!",
-        "description": "Ngeklik file \"Surat_Undangan_Pernikahan.apk\" di WhatsApp, kode OTP melayang dan tabungan lenyap! Ganti kerugian Rp 1.000.000.",
+        "title": "Wkwkwk Kena Tipu APK Undangan Nikah!",
+        "description": "Katanya melek teknologi tapi disuruh klik \"Undangan_Nikah.apk\" langsung nurut. Saldo m-banking amblas Rp 1.000.000 digasak hacker!",
         "type": "pay_money",
         "amount": 1000000
     },
     {
         "id": "c33",
-        "title": "Pajak Motor & STNK Mati 5 Tahun Kena Razia!",
-        "description": "Ketangkap basah di razia Samsat keliling, pelat nomor udah kadaluarsa dari jaman baheula. Bayar denda tunggakan Rp 600.000!",
+        "title": "Mampus! Pajak Motor Mati 5 Tahun Kena Razia Samsat!",
+        "description": "Bangga beli motor second murah, giliran ditilang baru sadar pajaknya mati dari jaman megalitikum. Bayar denda tunggakan Rp 600.000!",
         "type": "pay_money",
         "amount": 600000
     },
     {
         "id": "c34",
-        "title": "Dipalak Oknum Ormas Minta Uang Proposal!",
-        "description": "Rombongan ormas berseragam loreng nongkrong depan pagar nyodorin map tebel uang keamanan 17-an. Bayar sumbangan paksa Rp 300.000.",
+        "title": "Kicep Dipalak Proposal Uang Keamanan Ormas!",
+        "description": "Didatengin abang-abang loreng bawa map tebel muka sangar, lu langsung gemeteran gak berani nolak. Bayar upeti paksa Rp 300.000!",
         "type": "pay_money",
         "amount": 300000
     },
     {
         "id": "c35",
-        "title": "Ketipu Calo Tiket Konser Barcode Bodong!",
-        "description": "Udah dandan heboh pake outfit konser, pas di-scan di gate ternyata tiketnya udah dipake 10 orang lain! Rugi bandar Rp 750.000.",
+        "title": "Kasian Deh Lu! Ketipu Calo Tiket Konser Barcode Palsu!",
+        "description": "Udah dandan heboh pake baju glitter, pas scan tiket bunyinya \"TETTT INVALID\". Calonya udah kabur ke Bali, nangis rugi Rp 750.000!",
         "type": "pay_money",
         "amount": 750000
     },
     {
         "id": "c36",
-        "title": "Tagihan Kartu Kredit Meledak Usai Liburan!",
-        "description": "Gesek sana-sini pas liburan berasa jadi miliarder, pas tagihan dateng langsung nangis di pojokan. Bayar cicilan Rp 900.000.",
+        "title": "Rasain Tuh! Tagihan Kartu Kredit Meledak Usai Flexing!",
+        "description": "Waktu liburan sok jadi sultan traktir semua orang, pas tagihan gesek dateng langsung makan mie instan sebulan. Bayar cicilan Rp 900.000!",
         "type": "pay_money",
         "amount": 900000
     },
     {
         "id": "c37",
-        "title": "Kos-Kosan Digerebek Satpol PP & Pak RT!",
-        "description": "Kos-kosan lu kedapatan rame-rame gak lapor 1x24 jam dan bikin gaduh tetangga malam hari. Bayar denda ketertiban Rp 400.000.",
+        "title": "Kos-Kosan Lu Digedor Satpol PP & Warga!",
+        "description": "Bikin gaduh tengah malam sambil nyalain musik jedag-jedug, warga auto ngamuk panggil Satpol PP. Bayar denda bikin rusuh Rp 400.000!",
         "type": "pay_money",
         "amount": 400000
     },
     {
         "id": "c38",
-        "title": "Kamera ETLE Jepret Lu Terobos Jalur Busway!",
-        "description": "Niatnya nyalip macet eh di ujung jalan udah ada kamera tilang elektronik berkedip manja. Surat tilang melayang, bayar Rp 500.000!",
+        "title": "Kamera ETLE Jepret Muka Panik Lu Terobos Busway!",
+        "description": "Niatnya sok pinter mau nyalip macet, eh di ujung jalur kamera tilang elektronik senyum manja. Surat tilang melayang ke rumah, bayar Rp 500.000!",
         "type": "pay_money",
         "amount": 500000
     },
     {
         "id": "c39",
-        "title": "Franchise Boba Viral Sepi Pembeli Gulung Tikar!",
-        "description": "Tren minuman boba udah redup diganti es teh jumbo, sewa ruko gak ketutup dan stok basi. Tanggung rugi usaha Rp 800.000.",
+        "title": "Bisnis Franchise Boba Lu Bangkrut Total!",
+        "description": "Ikut-ikutan tren buka franchise boba pas zamannya udah basi, ruko sepi laler doang yang mampir. Rugi modal Rp 800.000, kasian!",
         "type": "pay_money",
         "amount": 800000
     },
     {
         "id": "c40",
-        "title": "Mesin Mobil Ngebul Overheat Turun Mesin!",
-        "description": "Radiator jebol pas nanjak di tol layang, asap putih ngebul kayak fogging nyamuk. Bayar ongkos bengkel bubut Rp 650.000.",
+        "title": "Mobil Tua Lu Mogok Berasap di Tol Layang!",
+        "description": "Gaya-gayaan bawa mobil tua nanjak tol layang, radiator meledak ngebul kayak fogging nyamuk! Bayar derek & bengkel bubut Rp 650.000!",
         "type": "pay_money",
         "amount": 650000
     },
     {
         "id": "c41",
-        "title": "Gagal Uji Emisi Knalpot Asap Cumi-Cumi Darat!",
-        "description": "Knalpot mobil diesel lu ngeluarin asap hitam pekat bikin polusi se-kecamatan. Ditilang razia emisi, bayar denda Rp 350.000.",
+        "title": "Knalpot Cumi-Cumi Lu Gagal Total Uji Emisi!",
+        "description": "Ngebulin asap hitam pekat ke muka pemotor lain, langsung dicegat petugas razia polusi udara. Denda knalpot beracun Rp 350.000, bersihin tuh mesin!",
         "type": "pay_money",
         "amount": 350000
     },
     {
         "id": "c42",
-        "title": "Denda PBB Rumah Nunggak Kena Surat Peringatan!",
-        "description": "Surat tagihan Pajak Bumi dan Bangunan keselip di bawah keset sampe lewat jatuh tempo. Bayar denda bunga Rp 450.000.",
+        "title": "Surat Tagihan PBB Keselip di Keset Sampe Nunggak!",
+        "description": "Saking malesnya beresin rumah, surat pajak bumi dan bangunan dijadiin alas piring sampe telat setahun. Bayar denda bunga Rp 450.000!",
         "type": "pay_money",
         "amount": 450000
     },
     {
         "id": "c43",
-        "title": "Bocil Komplek Pecahin Kaca Mobil Tetangga!",
-        "description": "Anak-anak main bola plastik tendangan pisang nyasar ke kaca spion dan kaca depan tetangga. Bayar ganti rugi Rp 300.000.",
+        "title": "Bocil Lu Pecahin Kaca Mobil Mewah Tetangga!",
+        "description": "Anak lu sok-sokan jadi Cristiano Ronaldo nendang bola nyasar ke kaca mobil Alphard tetangga. Siap-siap ganti rugi Rp 300.000!",
         "type": "pay_money",
         "amount": 300000
     },
     {
         "id": "c44",
-        "title": "Pelat Nomor Salah Nyelonong Jalur Ganjil-Genap!",
-        "description": "Kiraian tanggal genap ternyata tanggal ganjil! Pak Polantas langsung melambai mesra di bunderan. Bayar tilang Rp 500.000.",
+        "title": "Buta Kalender! Nyelonong Masuk Jalur Ganjil-Genap!",
+        "description": "Kiraian tanggal genap taunya ganjil, pak polantas udah nunggu sambil senyum lebar di bunderan. Bayar tilang kebodohan Rp 500.000!",
         "type": "pay_money",
         "amount": 500000
     },
     {
         "id": "c45",
-        "title": "Iuran IPL Apartemen Naik Gila-Gilaan!",
-        "description": "Pengelola apartemen naikin tarif lift dan kolam renang tanpa musyawarah warga. Bayar tagihan IPL bengkak Rp 550.000.",
+        "title": "Dipalak Biaya IPL Apartemen Gak Masuk Akal!",
+        "description": "Kolam renang ijo lumutan dan lift sering anjlok tapi pengelola apartemen naikin iuran sepihak. Lu cuma bisa pasrah bayar Rp 550.000!",
         "type": "pay_money",
         "amount": 550000
     },
     {
         "id": "c46",
-        "title": "Belanja HP Murah Dikirim Potongan Kardus & Sabun!",
-        "description": "Tergiur promo HP flagship harga 500 rebu, pas unboxing isinya sabun colek sama potongan bata merah! Nangis rugi Rp 400.000.",
+        "title": "Hahaha! Beli HP Murah Dikirim Sabun Batangan & Bata!",
+        "description": "Makanya jangan serakah tergiur HP iPhone 100 ribu di medsos! Pas unboxing isinya sabun colek sama potongan bata merah, rugi Rp 400.000!",
         "type": "pay_money",
         "amount": 400000
     },
     {
         "id": "c47",
-        "title": "Genteng Bocor & Plafon Ambrol Diterjang Badai!",
-        "description": "Hujan badai semalaman bikin atap semua aset properti lu jebol rembes air! Bayar renovasi Rp 150.000 per Rumah dan Rp 600.000 per Hotel.",
+        "title": "Bencana Hujan Badai Bikin Atap Properti Lu Ambrol!",
+        "description": "Plafon jebol, genteng beterbangan, air rembes ke kasur semua properti lu! Bayar renovasi Rp 150.000 per Rumah dan Rp 600.000 per Hotel, derita lu!",
         "type": "repairs",
         "perHouse": 150000,
         "perHotel": 600000
     },
     {
         "id": "c48",
-        "title": "Truk Galon Air Rem Blong Nabrak Pagar!",
-        "description": "Truk angkut galon oleng ngehantam deretan pagar properti lu sampe roboh. Bayar tukang las Rp 100.000 per Rumah dan Rp 400.000 per Hotel.",
+        "title": "Truk Galon Rem Blong Nyungsep ke Pagar Properti Lu!",
+        "description": "Bruk! Sopir truk ngantuk ngehantam deretan pagar rumah lu sampe rata tanah. Bayar tukang renovasi Rp 100.000 per Rumah dan Rp 400.000 per Hotel.",
         "type": "repairs",
         "perHouse": 100000,
         "perHotel": 400000
     },
     {
         "id": "c49",
-        "title": "Terjebak Buka-Tutup Jalur Puncak 8 Jam!",
-        "description": "Niat liburan malah tua di jalan gara-gara terjebak one-way jalur puncak gak gerak sama sekali. Mundur 3 petak ke belakang, lemes bestie!",
+        "title": "Rasain Lu! Terjebak One-Way Puncak 12 Jam Gak Gerak!",
+        "description": "Sok-sokan mau healing ke Puncak pas weekend, eh mobil lu mati kutu di tengah kemacetan horor. Mundur 3 petak ke belakang, lemes lu!",
         "type": "move_steps",
         "steps": -3
     },
     {
         "id": "c50",
-        "title": "Tarik Tunai di Mesin ATM Duit Ketelen!",
-        "description": "Uang di mesin ATM gak keluar tapi saldo di m-banking langsung kepotong sukses. Apes kuadrat, bayar kerugian Rp 500.000!",
+        "title": "Apes Banget! Duit Lu Ditelan Mesin ATM Rusak!",
+        "description": "Uang tunai gak keluar tapi saldo rekening lu langsung lenyap kepotong. Mau komplain ke CS disuruh nunggu 14 hari kerja, bayar rugi Rp 500.000!",
         "type": "pay_money",
         "amount": 500000
     }
@@ -641,14 +641,14 @@ export const COMMUNITY_CHEST_CARDS = [
     },
     {
         "id": "cc26",
-        "title": "Terciduk OTT KPK Kasus Proyek Fiktif!",
-        "description": "Nama lu masuk rekaman sadapan bagi-bagi fee proyek dinas, wartawan udah nunggu di lobi kantor:",
+        "title": "Cieee Kena OTT KPK! Kemaren Sombong Flexing!",
+        "description": "Rekaman telepon lu minta fee proyek bansos bocor ke penyidik KPK. Wartawan udah nunggu di lobi mau wawancara:",
         "type": "choice",
         "choices": [
             {
                 "id": "lawyer",
                 "title": "Sewa Pengacara Top & Buzzer (Rp 400.000)",
-                "desc": "Bayar jasa tim hukum mahal buat pengalihan isu & bebas dari panggilan.",
+                "desc": "Bayar pengacara mahal buat ngarang cerita pura-pura sakit amnesia.",
                 "action": "pay_money",
                 "amount": 400000,
                 "icon": "👨‍💼",
@@ -657,8 +657,8 @@ export const COMMUNITY_CHEST_CARDS = [
             },
             {
                 "id": "jail",
-                "title": "Pasrah Pakai Rompi Oranye (Masuk Penjara)",
-                "desc": "Tunduk malu di depan kamera wartawan dan langsung digiring ke rutan KPK.",
+                "title": "Fitting Rompi Oranye (Masuk Penjara)",
+                "desc": "Pasrah digiring ke rutan KPK sambil nutupin muka pake map.",
                 "action": "go_to_jail",
                 "icon": "🏛️",
                 "badge": "Masuk Penjara",
@@ -668,14 +668,14 @@ export const COMMUNITY_CHEST_CARDS = [
     },
     {
         "id": "cc27",
-        "title": "Uang Pelicin Sertifikat Tanah PTSL Kelurahan!",
-        "description": "Katanya program sertifikat gratis, tapi oknum calo kelurahan minta uang rokok biar berkas lu gak ditimbun:",
+        "title": "Kena Pungli Calo Sertifikat Tanah Kelurahan!",
+        "description": "Katanya program pemerintah gratis, tapi oknum calo nyindir \"Kalo ga ada uang rokok, berkas lu masuk lemari arsip 5 tahun\":",
         "type": "choice",
         "choices": [
             {
                 "id": "bribe",
                 "title": "Kasih Uang Rokok Calo (Rp 150.000)",
-                "desc": "Sertifikat tanah langsung jadi kilat dalam 3 hari kerja.",
+                "desc": "Kalah sama sistem, bayar calo biar sertifikat tanah beres 3 hari.",
                 "action": "pay_money",
                 "amount": 150000,
                 "icon": "☕",
@@ -684,8 +684,8 @@ export const COMMUNITY_CHEST_CARDS = [
             },
             {
                 "id": "wait",
-                "title": "Ikut Prosedur Normal (Mundur 2 Petak)",
-                "desc": "Berkas tertimbun di lemari berdebu, nunggu berbulan-bulan gak kelar.",
+                "title": "Ngeyel Ikut Prosedur Normal (Mundur 2)",
+                "desc": "Sok idealis, berkas lu ditimbun di tumpukan kardus berdebu. Mundur 2 petak!",
                 "action": "move_steps",
                 "steps": -2,
                 "icon": "🐢",
@@ -696,163 +696,163 @@ export const COMMUNITY_CHEST_CARDS = [
     },
     {
         "id": "cc28",
-        "title": "Tukang Parkir Ninja Muncul Depan Minimarket!",
-        "description": "Pas dateng gak ada siapa-siapa, pas mau mundurin motor tiba-tiba bunyi peluit \"Prit-prit!\". Bayar uang parkir gaib Rp 200.000.",
+        "title": "Kena Jebakan Batman Tukang Parkir Ninja!",
+        "description": "Parkir cuma 10 detik beli permen, pas mau jalan tiba-tiba muncul dari balik pohon sambil niup peluit \"Prit-prit!\". Bayar pajak siluman Rp 200.000!",
         "type": "pay_money",
         "amount": 200000
     },
     {
         "id": "cc29",
-        "title": "Iuran Nobar Timnas & Beli Bensin Genset RT!",
-        "description": "Pak RT keliling bawa toa narik sumbangan sewa infokus layar tancap buat nobar piala asia. Bayar iuran Rp 250.000.",
+        "title": "Dipalak Iuran Nobar & Genset Pak RT!",
+        "description": "Pak RT nongkrong depan teras bawa speaker toa nagih iuran sewa proyektor layar tancap. Gak bisa ngeles lagi lu, bayar Rp 250.000!",
         "type": "pay_money",
         "amount": 250000
     },
     {
         "id": "cc30",
-        "title": "BPJS Kesehatan Nunggak 1 Tahun Pas Mau Berobat!",
-        "description": "Kartu BPJS non-aktif gara-gara lupa isi saldo autodebet selama setahun. Wajib lunasin tunggakan denda Rp 600.000!",
+        "title": "Gaya Elit BPJS Nunggak Setahun Pas Mau Rawat Inap!",
+        "description": "Pas sehat sombong gak mau bayar iuran, pas masuk IGD status kartu non-aktif! Wajib lunasin denda tunggakan Rp 600.000, makanya jangan pelit!",
         "type": "pay_money",
         "amount": 600000
     },
     {
         "id": "cc31",
-        "title": "PBB Rumah Melonjak Gara-Gara NJOP Dinaikin!",
-        "description": "Zona Nilai Tanah komplek lu dinaikin pemda, tagihan pajak bumi dan bangunan ikutan meroket. Bayar PBB Rp 700.000!",
+        "title": "Pusing Pala Barbie! Tagihan PBB Rumah Lu Naik Drastis!",
+        "description": "Kiraian NJOP naik bikin bangga, taunya tagihan pajak tanah ikutan meroket gila-gilaan! Bayar kas negara Rp 700.000, nangis lu!",
         "type": "pay_money",
         "amount": 700000
     },
     {
         "id": "cc32",
-        "title": "Foto KTP Lu Bocor Dipake Pinjol Ilegal!",
-        "description": "Diteror debt collector lewat WhatsApp padahal gak pernah minjem sepeserpun. Bayar biaya sewa pengacara mediasi Rp 800.000.",
+        "title": "Hahaha Mampus! KTP Lu Dipake Pinjol Ilegal Orang Lain!",
+        "description": "Asal sembarangan upload foto KTP di internet, sekarang nomor lu diteror ratusan debt collector galak! Bayar jasa mediasi Rp 800.000!",
         "type": "pay_money",
         "amount": 800000
     },
     {
         "id": "cc33",
-        "title": "Ketipu Arisan Bodong Mama Muda Janji Untung 50%!",
-        "description": "Admin arisan kabur ke luar pulau bawa kabur uang miliaran member arisan. Nangis bombay rugi setoran Rp 1.000.000!",
+        "title": "Ketipu Arisan Bodong Mama Muda Untung 50%!",
+        "description": "Tergiur janji manis admin arisan glowing di Facebook, taunya duit lu dibawa kabur liburan ke Bali! Rugi setoran modal Rp 1.000.000, kapok!",
         "type": "pay_money",
         "amount": 1000000
     },
     {
         "id": "cc34",
-        "title": "Buang Sampah Sembarangan Terekam CCTV Pemda!",
-        "description": "Ngelempar kantong kresek sampah ke kali eh mukanya kejepret kamera CCTV pengawas berdefinisi 4K. Bayar denda Rp 300.000!",
+        "title": "Malu-Maluin! Buang Sampah di Kali Terekam CCTV 4K!",
+        "description": "Ngelempar sampah ke sungai pas malem-malem, muka lu kejepret jelas banget di CCTV pemda sampe viral di medsos. Bayar denda Rp 300.000!",
         "type": "pay_money",
         "amount": 300000
     },
     {
         "id": "cc35",
-        "title": "Tagihan Listrik Rumah Meledak AC Nyala 24 Jam!",
-        "description": "Hawanya gerah banget sampe AC 3 kamar nyala non-stop dari pagi ketemu pagi. Bayar tagihan PLN Rp 500.000.",
+        "title": "Rasain Tuh! Tagihan Listrik Bengkak AC Nyala 24 Jam Nonstop!",
+        "description": "Kamar serasa kutub utara AC nyala terus dari pagi ketemu pagi, pas meteran dicek tagihan PLN jebol! Bayar listrik Rp 500.000!",
         "type": "pay_money",
         "amount": 500000
     },
     {
         "id": "cc36",
-        "title": "Pipa PDAM Mampet Bau Lumpur, Beli Air Truk!",
-        "description": "Air kran keluar warna cokelat bau karat, terpaksa langganan truk tangki air bersih keliling. Bayar ongkos air Rp 350.000.",
+        "title": "Air PDAM Keruh Bau Karat, Beli Air Tangki!",
+        "description": "Mandi pake air kran malah gatel-gatel satu badan, terpaksa beli air bersih truk tangki keliling. Bayar biaya air darurat Rp 350.000!",
         "type": "pay_money",
         "amount": 350000
     },
     {
         "id": "cc37",
-        "title": "Denda Telat Lapor SPT Pajak Badan Usaha!",
-        "description": "Staf keuangan ketiduran dan lupa submit e-Filing sebelum jam 12 malam tanggal 30 April. Bayar denda djp Rp 400.000.",
+        "title": "Kena Denda Telat Lapor SPT Pajak Gara-Gara Ketiduran!",
+        "description": "Nunggu deadline menit terakhir server down terus lu malah ketiduran di depan laptop. Surat denda pajak mendarat manis, bayar Rp 400.000!",
         "type": "pay_money",
         "amount": 400000
     },
     {
         "id": "cc38",
-        "title": "Motor Masuk Tol Gara-Gara Buta Rute Google Maps!",
-        "description": "Lupa ganti mode motor di Google Maps, lu nyelonong masuk gerbang tol otomatis sampe dicegat petugas. Bayar tilang Rp 500.000.",
+        "title": "Bego Banget! Motor Masuk Tol Gara-Gara Buta Rute Maps!",
+        "description": "Lupa ganti mode motor di Google Maps, lu nyelonong masuk gerbang tol Jagorawi sampe dicegat sekuriti. Bayar tilang kebodohan Rp 500.000!",
         "type": "pay_money",
         "amount": 500000
     },
     {
         "id": "cc39",
-        "title": "Bayar Uang Gedung & UKT Kuliah Semester Baru!",
-        "description": "Jadwal krs online dibuka, syaratnya wajib melunasi uang kuliah tunggal dan praktikum lab. Bayar UKT Rp 1.200.000.",
+        "title": "Jadwal KRS Diblokir Gara-Gara Nunggak UKT Kuliah!",
+        "description": "Duit kuliah dari ortu dipake nongkrong hedon, pas mau ngisi krs portal kampus terkunci rapat. Bayar uang kuliah Rp 1.200.000 sekarang juga!",
         "type": "pay_money",
         "amount": 1200000
     },
     {
         "id": "cc40",
-        "title": "Kaca Spion Mobil Diembat Maling di Lampu Merah!",
-        "description": "Lagi asik dengerin musik pas lampu merah, tangan maling gesit langsung nyabut dua spion mobil lu. Beli spion baru Rp 450.000.",
+        "title": "Spion Mobil Lu Diembat Maling Pas Lampu Merah!",
+        "description": "Lagi asik nyanyi di dalem mobil, tangan copet gesit langsung nilep dua spion mobil lu. Beli spion baru Rp 450.000, apes tiada tara!",
         "type": "pay_money",
         "amount": 450000
     },
     {
         "id": "cc41",
-        "title": "Denda Parkir Inap Bandara Lupa Diambil Seminggu!",
-        "description": "Tinggalin mobil di parkiran terminal bandara pas liburan ke luar negeri, argo parkir jebol! Bayar tiket inap Rp 650.000.",
+        "title": "Argo Parkir Inap Bandara Jebol Lupa Ditinggal Seminggu!",
+        "description": "Sok kaya tinggalin mobil di terminal 3 bandara pas liburan luar negeri, pas keluar kaget argo parkir tembus jutaan! Bayar tiket Rp 650.000!",
         "type": "pay_money",
         "amount": 650000
     },
     {
         "id": "cc42",
-        "title": "Pajak Progresif Mobil & Motor Numpuk Satu KK!",
-        "description": "Nama lu dipinjam saudara buat beli kendaraan, pas tagihan pajak progresif dateng bikin pusing pala barbie. Bayar Rp 750.000.",
+        "title": "Pajak Progresif Numpuk Gara-Gara Minjemin Nama ke Saudara!",
+        "description": "Niat nolong minjemin KTP ke om buat beli mobil, giliran tagihan pajak progresif dateng om lu pura-pura amnesia. Bayar Rp 750.000!",
         "type": "pay_money",
         "amount": 750000
     },
     {
         "id": "cc43",
-        "title": "Ketipu Jasa Tukar Uang Baru Pinggir Jalan!",
-        "description": "Niatnya nuker uang pecahan baru buat THR ponakan, eh di tengah gepokan diselipin kertas koran dan uang robek. Rugi Rp 300.000.",
+        "title": "Ketipu Jasa Tukar Uang Baru Diselipin Uang Robek!",
+        "description": "Nuker uang THR recehan di pinggir jalan, pas diitung di rumah tengahnya diselipin kertas koran sama uang palsu robek. Rugi Rp 300.000!",
         "type": "pay_money",
         "amount": 300000
     },
     {
         "id": "cc44",
-        "title": "Iuran Sampah & Satpam Komplek 1 Tahun di Muka!",
-        "description": "Pak bendahara komplek ngetok pintu rumah nagih uang kebersihan dan ronda malam sekaligus setahun. Bayar Rp 350.000.",
+        "title": "Ditagih Iuran Sampah & Satpam 1 Tahun Sekaligus!",
+        "description": "Pak bendahara RT bawa kwitansi panjang nagih tunggakan kebersihan komplek satu tahun di muka. Bayar Rp 350.000, jangan ngumpet di kamar!",
         "type": "pay_money",
         "amount": 350000
     },
     {
         "id": "cc45",
-        "title": "Saldo e-Toll Habis di Gerbang Keluar Tol Otomatis!",
-        "description": "Palang tol gak kebuka, klakson mobil di belakang pada histeris bikin panik. Kena penalti tarif tol terjauh Rp 250.000.",
+        "title": "Kasian! Saldo e-Toll Nol Bikin Heboh Pintu Tol Otomatis!",
+        "description": "Palang tol gak kebuka, mobil belakang ratusan klaksonin lu sampe gemeteran keringat dingin. Kena penalti tarif terjauh Rp 250.000!",
         "type": "pay_money",
         "amount": 250000
     },
     {
         "id": "cc46",
-        "title": "Iuran Fogging Nyamuk DBD & Kerja Bakti RT!",
-        "description": "Banyak jentik nyamuk di got komplek, warga sepakat manggil mobil fogging dan beli konsumsi kerja bakti. Bayar iuran Rp 300.000.",
+        "title": "Kena Todong Iuran Fogging Nyamuk & Konsumsi RT!",
+        "description": "Gara-gara kebon lu gak pernah dibersihin jadi sarang nyamuk, warga sepakat nagih biaya fogging ke lu. Bayar iuran Rp 300.000!",
         "type": "pay_money",
         "amount": 300000
     },
     {
         "id": "cc47",
-        "title": "Ngebut Nabrak Palang Portal Otomatis Cluster!",
-        "description": "Buru-buru ngegas sebelum sensor kebuka penuh, palang besi portal cluster patah dua. Ganti rugi servis sensor Rp 400.000.",
+        "title": "Ngebut Nabrak Palang Otomatis Cluster Sampe Patah!",
+        "description": "Gak sabaran nunggu sensor kebuka, palang besi cluster lu hantam sampe patah dua. Ganti rugi servis palang gerbang Rp 400.000!",
         "type": "pay_money",
         "amount": 400000
     },
     {
         "id": "cc48",
-        "title": "Traktir Bakso Urat & Es Kelapa Tetangga Satu Gang!",
-        "description": "Abis dapet arisan, lu ditagih traktir makan bakso dan es kelapa muda se-gang. Bagi Rp 100.000 ke setiap pemain lain!",
+        "title": "Kena Palak Traktir Bakso & Es Teler Tetangga Satu Gang!",
+        "description": "Ketahuan dapet bonus kerjaan, tetangga satu gang langsung nagih traktiran makan bakso urat. Bagi Rp 100.000 ke setiap pemain lain!",
         "type": "pay_all_players",
         "amount": 100000
     },
     {
         "id": "cc49",
-        "title": "Banjir Rob Pasang Laut Rendam Semua Properti!",
-        "description": "Tanggul jebol, air laut merendam lantai dasar properti lu bikin keramik dan cat ngelotok! Bayar biaya renovasi Rp 200.000 per Rumah dan Rp 800.000 per Hotel.",
+        "title": "Banjir Rob Pasang Laut Rendam Semua Properti Lu!",
+        "description": "Lantai dasar properti lu kerendem air asin setinggi dengkul, keramik ngelupas cat ancur! Bayar renovasi Rp 200.000 per Rumah dan Rp 800.000 per Hotel!",
         "type": "repairs",
         "perHouse": 200000,
         "perHotel": 800000
     },
     {
         "id": "cc50",
-        "title": "Terseret Skandal Mafia Tanah & Sertifikat Aspal!",
-        "description": "Beli tanah murah dari oknum mafia tanah ternyata sertifikatnya dobel dan palsu. Dijemput paksa masuk ke sel penjara!",
+        "title": "Mampus! Terciduk Kasus Mafia Tanah Sertifikat Ganda!",
+        "description": "Beli tanah murah dari makelar bodong ternyata sertifikat aspal! Satgas mafia tanah langsung ngegeret lu ke sel penjara!",
         "type": "go_to_jail"
     }
 ];

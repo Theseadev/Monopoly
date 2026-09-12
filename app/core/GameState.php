@@ -102,18 +102,21 @@ class GameState {
         $communityChestDeck = CardsData::COMMUNITY_CHEST_CARDS;
         shuffle($communityChestDeck);
 
+        $startingIndex = count($players) > 0 ? mt_rand(0, count($players) - 1) : 0;
+        $startingPlayerName = $players[$startingIndex]['name'] ?? 'Pemain 1';
+
         $state = [
             'players' => $players,
             'properties' => $properties,
-            'currentPlayerIndex' => 0,
+            'currentPlayerIndex' => $startingIndex,
             'dice' => [1, 1],
             'consecutiveDoubles' => 0,
             'phase' => 'READY_TO_ROLL', // READY_TO_ROLL, ACTION_REQUIRED, TURN_ENDED, GAME_OVER
             'currentAction' => null,
             'logs' => [
                 [
-                    'message' => 'Permainan Monopoli Nusantara (Flight PHP) dimulai!',
-                    'type' => 'system',
+                    'message' => "Permainan dimulai! Undian giliran pertama: {$startingPlayerName} jalan terlebih dahulu.",
+                    'type' => 'highlight',
                     'time' => date('H:i:s')
                 ]
             ],

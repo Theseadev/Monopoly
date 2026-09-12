@@ -1588,44 +1588,65 @@ function updatePortfolio() {
   const current = state.players[state.currentPlayerIndex];
   if (!current) return;
 
+  const currentHuman = getCurrentHumanPlayer();
+  const isMultiplayerOnline = Boolean(currentOnlineRoom && currentOnlinePlayer);
+
   // Tentukan pemain mana yang sedang dilihat portofolionya
-  let viewedPlayer = state.players.find(p => p.id === selectedPortfolioPlayerId && !p.isBankrupt);
-  if (!viewedPlayer) {
-    viewedPlayer = current;
+  let viewedPlayer;
+  if (isMultiplayerOnline) {
+    viewedPlayer = currentHuman || state.players[0];
     selectedPortfolioPlayerId = viewedPlayer.id;
+  } else {
+    viewedPlayer = state.players.find(p => p.id === selectedPortfolioPlayerId && !p.isBankrupt);
+    if (!viewedPlayer) {
+      viewedPlayer = current;
+      selectedPortfolioPlayerId = viewedPlayer.id;
+    }
   }
 
   // Render Tabs Pemain
   if (portfolioPlayerTabs) {
     portfolioPlayerTabs.innerHTML = '';
-    state.players.forEach(p => {
-      if (p.isBankrupt) return;
-      const pProps = BOARD_SPACES.filter(s => state.properties[s.id] && state.properties[s.id].ownerId === p.id);
-      const isSelected = p.id === viewedPlayer.id;
-      const isCurrentTurn = p.id === current.id;
-      
-      const tabBtn = document.createElement('button');
-      tabBtn.type = 'button';
-      tabBtn.className = `px-2.5 py-1 rounded-lg font-bold text-[10px] transition shrink-0 flex items-center gap-1.5 cursor-pointer border ${
-        isSelected 
-          ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-zinc-950 border-amber-300 shadow-sm font-black' 
-          : 'bg-zinc-800 hover:bg-zinc-700 text-gray-300 border-zinc-700'
-      }`;
-      
+    if (isMultiplayerOnline) {
+      // Khusus Multiplayer Online: Hanya tampilkan tab aset sendiri
+      const pProps = BOARD_SPACES.filter(s => state.properties[s.id] && state.properties[s.id].ownerId === viewedPlayer.id);
+      const tabBtn = document.createElement('div');
+      tabBtn.className = 'px-2.5 py-1 rounded-lg font-black text-[10px] bg-gradient-to-r from-amber-500 to-yellow-400 text-zinc-950 border border-amber-300 shadow-sm flex items-center gap-1.5';
       tabBtn.innerHTML = `
-        <span class="w-2 h-2 rounded-full inline-block shrink-0" style="background-color: ${p.color}"></span>
-        <span class="truncate">${p.name.split(' ')[0]}</span>
-        <span class="px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-black/25 text-zinc-950 font-black' : 'bg-zinc-900 text-amber-300'} text-[8.5px]">${pProps.length}</span>
+        <span class="w-2 h-2 rounded-full inline-block shrink-0" style="background-color: ${viewedPlayer.color}"></span>
+        <span class="truncate">Aset Saya (${viewedPlayer.name})</span>
+        <span class="px-1.5 py-0.2 rounded-full bg-black/25 text-zinc-950 font-black text-[8.5px]">${pProps.length}</span>
       `;
-      
-      tabBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        selectedPortfolioPlayerId = p.id;
-        updatePortfolio();
-      });
-      
       portfolioPlayerTabs.appendChild(tabBtn);
-    });
+    } else {
+      state.players.forEach(p => {
+        if (p.isBankrupt) return;
+        const pProps = BOARD_SPACES.filter(s => state.properties[s.id] && state.properties[s.id].ownerId === p.id);
+        const isSelected = p.id === viewedPlayer.id;
+        
+        const tabBtn = document.createElement('button');
+        tabBtn.type = 'button';
+        tabBtn.className = `px-2.5 py-1 rounded-lg font-bold text-[10px] transition shrink-0 flex items-center gap-1.5 cursor-pointer border ${
+          isSelected 
+            ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-zinc-950 border-amber-300 shadow-sm font-black' 
+            : 'bg-zinc-800 hover:bg-zinc-700 text-gray-300 border-zinc-700'
+        }`;
+        
+        tabBtn.innerHTML = `
+          <span class="w-2 h-2 rounded-full inline-block shrink-0" style="background-color: ${p.color}"></span>
+          <span class="truncate">${p.name.split(' ')[0]}</span>
+          <span class="px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-black/25 text-zinc-950 font-black' : 'bg-zinc-900 text-amber-300'} text-[8.5px]">${pProps.length}</span>
+        `;
+        
+        tabBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectedPortfolioPlayerId = p.id;
+          updatePortfolio();
+        });
+        
+        portfolioPlayerTabs.appendChild(tabBtn);
+      });
+    }
   }
 
   // Dapatkan Properti yang Dimiliki Pemain Terpilih
@@ -3983,12 +4004,51 @@ function startInGamePolling(code) {
 
       if (isAnimating || isBotRunning) return;
 
+      // 3. Deteksi Pergerakan Musuh / Lawan & Mainkan Animasi Langkah + Sound Effect
+      if (state && state.players) {
+        for (let i = 0; i < res.players.length; i++) {
+          const oldP = state.players[i];
+          const newP = res.players[i];
+          if (oldP && newP && oldP.position !== newP.position && !newP.inJail) {
+            const currentHuman = getCurrentHumanPlayer();
+            const myId = currentHuman ? currentHuman.id : -1;
+
+            if (newP.id !== myId || state.currentPlayerIndex !== myId) {
+              const startPos = oldP.position;
+              const endPos = newP.position;
+              let totalSteps = (endPos - startPos + 40) % 40;
+              if (res.dice && Array.isArray(res.dice) && (res.dice[0] + res.dice[1]) > 0) {
+                totalSteps = res.dice[0] + res.dice[1];
+              }
+
+              if (totalSteps > 0 && totalSteps <= 12) {
+                isAnimating = true;
+                sound.playDiceRoll();
+                const die1 = document.getElementById('die1');
+                const die2 = document.getElementById('die2');
+                if (die1 && res.dice) renderDiceFace(die1, res.dice[0] || 1);
+                if (die2 && res.dice) renderDiceFace(die2, res.dice[1] || 1);
+
+                animateTokenStepByStep(newP.id, startPos, endPos, totalSteps).then(() => {
+                  isAnimating = false;
+                  state = res;
+                  updateBoardUI();
+                  updateHUD();
+                });
+                return;
+              }
+            }
+          }
+        }
+      }
+
       const isDifferent = !state ||
         res.currentPlayerIndex !== state.currentPlayerIndex ||
         res.phase !== state.phase ||
         JSON.stringify(res.dice) !== JSON.stringify(state.dice) ||
         (res.logs && state.logs && res.logs.length !== state.logs.length) ||
-        JSON.stringify(res.properties) !== JSON.stringify(state.properties);
+        JSON.stringify(res.properties) !== JSON.stringify(state.properties) ||
+        JSON.stringify(res.players.map(p => ({ pos: p.position, money: p.money, jail: p.inJail }))) !== JSON.stringify(state.players.map(p => ({ pos: p.position, money: p.money, jail: p.inJail })));
 
       if (isDifferent) {
         state = res;

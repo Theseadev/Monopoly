@@ -927,12 +927,12 @@ function renderBoard() {
   centerArea.innerHTML = `
     <!-- Top Section: Elegant Monopoly Header -->
     <div class="center-header flex flex-col items-center pt-2 md:pt-3">
-      <div class="w-7 h-7 md:w-8 md:h-8 text-[#784419] mb-0.5 drop-shadow-sm">${GameIcons.shield}</div>
-      <h1 class="text-xl md:text-3xl font-black tracking-widest text-[#5c2d08] uppercase font-outfit leading-none drop-shadow-sm">
+      <div class="w-7 h-7 md:w-8 md:h-8 text-[#b91c1c] mb-0.5 drop-shadow-sm">${GameIcons.shield}</div>
+      <h1 class="text-xl md:text-3xl font-black tracking-widest text-[#b91c1c] uppercase font-outfit leading-none drop-shadow-sm">
         MONOPOLY
       </h1>
-      <div class="text-[8px] md:text-[10px] uppercase tracking-[0.28em] font-black text-[#784419] mt-0.5 font-outfit">
-        • EDISI NUSANTARA •
+      <div class="text-[8px] md:text-[10px] uppercase tracking-[0.28em] font-black text-[#9f1239] mt-0.5 font-outfit">
+        • EDISI NUSANTARA 🇮🇩 •
       </div>
     </div>
 
@@ -943,19 +943,19 @@ function renderBoard() {
       <div class="board-deck-slot-h" id="boardDeckChance" title="Klik untuk melihat info Kartu Kesempatan">
         <div class="board-deck-wrapper-h">
           <div class="deck-tray-outline-h deck-tray-chance"></div>
-          <div class="deck-stack-card-h layer-back bg-[#fde68a]"></div>
-          <div class="deck-stack-card-h layer-mid bg-[#fef3c7]"></div>
+          <div class="deck-stack-card-h layer-back bg-[#ffe4e6]"></div>
+          <div class="deck-stack-card-h layer-mid bg-[#fff1f2]"></div>
           <div class="deck-main-card-h card-chance">
             <div class="deck-card-frame-h">
               <div class="card-badge-h badge-chance">
-                <span class="font-black text-base md:text-xl font-outfit leading-none select-none text-[#c2410c] drop-shadow-sm">?</span>
+                <span class="font-black text-base md:text-xl font-outfit leading-none select-none text-[#be123c] drop-shadow-sm">?</span>
               </div>
               
               <div class="flex flex-col items-start justify-center leading-tight min-w-0">
-                <span class="text-[6.5px] md:text-[7.5px] font-black uppercase tracking-[0.18em] text-amber-200/90 font-outfit leading-none">KARTU</span>
-                <span class="card-title-h font-outfit text-amber-100">KESEMPATAN</span>
-                <span class="card-sub-h font-sans text-amber-200/90">CHANCE</span>
-                <span class="text-[5.5px] md:text-[6.5px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded-full bg-black/25 text-amber-100/90 mt-0.5">50 KARTU</span>
+                <span class="text-[6.5px] md:text-[7.5px] font-black uppercase tracking-[0.18em] text-rose-200/90 font-outfit leading-none">KARTU</span>
+                <span class="card-title-h font-outfit text-white">KESEMPATAN</span>
+                <span class="card-sub-h font-sans text-rose-200/90">CHANCE</span>
+                <span class="text-[5.5px] md:text-[6.5px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded-full bg-black/25 text-rose-100/90 mt-0.5">50 KARTU</span>
               </div>
             </div>
           </div>
@@ -1007,7 +1007,7 @@ function renderBoard() {
     </div>
 
     <!-- Bottom Section: Helper Hint -->
-    <div class="text-center text-[8.5px] md:text-[10px] text-[#784419]/80 font-semibold pb-1">
+    <div class="text-center text-[8.5px] md:text-[10px] text-[#9f1239]/90 font-semibold pb-1">
       Klik petak mana saja untuk melihat Sertifikat & Rincian Sewa
     </div>
 

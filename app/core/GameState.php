@@ -839,7 +839,7 @@ class GameState {
         $state = self::load();
         $trade = $state['pendingTrade'] ?? null;
 
-        if (!$trade || $trade['toPlayerId'] !== $playerId) {
+        if (!$trade || (int)$trade['toPlayerId'] !== (int)$playerId) {
             return $state;
         }
 
@@ -880,7 +880,7 @@ class GameState {
 
     public static function cancelTrade(int $playerId): array {
         $state = self::load();
-        if (isset($state['pendingTrade']) && ($state['pendingTrade']['fromPlayerId'] === $playerId || $state['pendingTrade']['toPlayerId'] === $playerId)) {
+        if (isset($state['pendingTrade']) && ((int)$state['pendingTrade']['fromPlayerId'] === (int)$playerId || (int)$state['pendingTrade']['toPlayerId'] === (int)$playerId)) {
             $state['pendingTrade'] = null;
             self::addLog($state, "Tawaran barter dibatalkan.", 'info');
             self::save($state);
@@ -920,7 +920,7 @@ class GameState {
         $fromPlayer = $state['players'][$fromPlayerId] ?? null;
         $toPlayer = $state['players'][$toPlayerId] ?? null;
 
-        if (!$fromPlayer || !$toPlayer || $fromPlayerId === $toPlayerId) {
+        if (!$fromPlayer || !$toPlayer || (int)$fromPlayerId === (int)$toPlayerId) {
             self::addLog($state, "Ajakan trading tidak valid.", 'danger');
             return $state;
         }
@@ -934,10 +934,10 @@ class GameState {
         if (!empty($toPlayer['isAI'])) {
             $state['tradeInvite'] = [
                 'id' => uniqid('tri_'),
-                'fromPlayerId' => $fromPlayerId,
+                'fromPlayerId' => (int)$fromPlayerId,
                 'fromPlayerName' => $fromPlayer['name'],
                 'fromPlayerColor' => $fromPlayer['color'] ?? '#3b82f6',
-                'toPlayerId' => $toPlayerId,
+                'toPlayerId' => (int)$toPlayerId,
                 'toPlayerName' => $toPlayer['name'],
                 'toPlayerColor' => $toPlayer['color'] ?? '#ef4444',
                 'status' => 'ACCEPTED',
@@ -951,10 +951,10 @@ class GameState {
         // Jika lawan adalah Manusia (Online / PvP)
         $invite = [
             'id' => uniqid('tri_'),
-            'fromPlayerId' => $fromPlayerId,
+            'fromPlayerId' => (int)$fromPlayerId,
             'fromPlayerName' => $fromPlayer['name'],
             'fromPlayerColor' => $fromPlayer['color'] ?? '#3b82f6',
-            'toPlayerId' => $toPlayerId,
+            'toPlayerId' => (int)$toPlayerId,
             'toPlayerName' => $toPlayer['name'],
             'toPlayerColor' => $toPlayer['color'] ?? '#ef4444',
             'status' => 'PENDING',
@@ -971,7 +971,7 @@ class GameState {
         $state = self::load();
         $invite = $state['tradeInvite'] ?? null;
 
-        if (!$invite || $invite['toPlayerId'] !== $playerId) {
+        if (!$invite || (int)$invite['toPlayerId'] !== (int)$playerId) {
             return $state;
         }
 
@@ -998,7 +998,7 @@ class GameState {
 
     public static function cancelTradeInvite(int $playerId): array {
         $state = self::load();
-        if (isset($state['tradeInvite']) && ($state['tradeInvite']['fromPlayerId'] === $playerId || $state['tradeInvite']['toPlayerId'] === $playerId)) {
+        if (isset($state['tradeInvite']) && ((int)$state['tradeInvite']['fromPlayerId'] === (int)$playerId || (int)$state['tradeInvite']['toPlayerId'] === (int)$playerId)) {
             $state['tradeInvite'] = null;
             self::save($state);
         }

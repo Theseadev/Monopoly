@@ -1766,7 +1766,7 @@ function updateTradingDesk() {
 
 // Entry Point: Mengajak Lawan Trading (Handshake Konfirmasi Pop-up)
 async function openTradingDesk(targetPlayerId = null) {
-  if (!state || isModalOpen || isProcessingAction) return;
+  if (!state || isProcessingAction) return;
 
   const humanPlayer = getCurrentHumanPlayer();
   const opponents = state.players.filter(p => !p.isBankrupt && p.id !== humanPlayer.id);
@@ -1781,9 +1781,39 @@ async function openTradingDesk(targetPlayerId = null) {
     return;
   }
 
-  let selectedOpponentId = targetPlayerId !== null && opponents.some(o => o.id === targetPlayerId) 
-    ? targetPlayerId 
-    : opponents[0].id;
+  let selectedOpponentId = targetPlayerId;
+
+  // Jika belum memilih lawan dan ada lebih dari 1 lawan, tanyakan ke pemain ingin trading dengan siapa
+  if (selectedOpponentId === null) {
+    if (opponents.length === 1) {
+      selectedOpponentId = opponents[0].id;
+    } else {
+      const inputOptions = {};
+      opponents.forEach(op => {
+        const propCount = BOARD_SPACES.filter(s => state.properties[s.id] && state.properties[s.id].ownerId === op.id).length;
+        inputOptions[op.id] = `${op.name} (${formatCurrency(op.money)} - ${propCount} properti)`;
+      });
+
+      const { value: chosenId } = await Swal.fire({
+        title: '<span class="swal2-monopoly-title">Pilih Lawan Trading</span>',
+        input: 'radio',
+        inputOptions: inputOptions,
+        inputValue: String(opponents[0].id),
+        showCancelButton: true,
+        confirmButtonText: 'Lanjutkan',
+        cancelButtonText: 'Batal',
+        customClass: {
+          popup: 'swal2-monopoly-popup',
+          confirmButton: 'swal2-monopoly-confirm',
+          cancelButton: 'swal2-monopoly-cancel'
+        },
+        buttonsStyling: false
+      });
+
+      if (!chosenId) return;
+      selectedOpponentId = parseInt(chosenId);
+    }
+  }
 
   const targetPlayer = state.players.find(p => p.id === selectedOpponentId);
   if (!targetPlayer) return;
@@ -2027,8 +2057,12 @@ function openTradingDeskModal(targetPlayerId) {
     `;
 
     modalContainer.classList.remove('hidden');
+    isModalOpen = true;
 
-    document.getElementById('btnCancelTradeDesk')?.addEventListener('click', closeModal);
+    document.getElementById('btnCancelTradeDesk')?.addEventListener('click', () => {
+      isModalOpen = false;
+      closeModal();
+    });
 
     document.getElementById('selectTradeOpponent')?.addEventListener('change', (e) => {
       selectedOpponentId = parseInt(e.target.value);
@@ -2093,6 +2127,7 @@ function openTradingDeskModal(targetPlayerId) {
         jailCards: 0
       };
 
+      isModalOpen = false;
       closeModal();
       await handleProposeTrade(humanPlayer, opponent, offerObj, requestObj);
     });
@@ -2403,26 +2438,10 @@ async function executeTrade(playerAId, playerBId, offer, request) {
   updateBoardUI();
 }
 
-// Helper Tutup Semua Modal Secara Bersih & Hapus Sisa DOM
+// Helper Tutup Modal Aksi Giliran Secara Bersih
 function forceCloseAllModals() {
-  try {
-    if (typeof Swal !== 'undefined') {
-      Swal.close();
-    }
-  } catch (e) {}
-
-  document.querySelectorAll('.swal2-container').forEach(el => {
-    try {
-      el.remove();
-    } catch (e) {}
-  });
-
-  document.body.classList.remove('swal2-shown', 'swal2-height-auto', 'swal2-no-backdrop');
-  document.body.style.overflow = '';
-  document.body.style.paddingRight = '';
-  document.documentElement.classList.remove('swal2-shown', 'swal2-height-auto');
-
   closeModal();
+  isModalOpen = false;
 }
 
 // Check Modals
@@ -2439,19 +2458,19 @@ function checkModals() {
     return;
   }
 
-  // Jika bukan fase ACTION_REQUIRED, pastikan semua modal tertutup bersih
+  // Jika bukan fase ACTION_REQUIRED, pastikan modal aksi giliran tertutup
   if (state.phase !== 'ACTION_REQUIRED') {
     if (!isModalOpen && !isProcessingAction) {
-      forceCloseAllModals();
+      closeModal();
     }
     return;
   }
 
   if (current.isAI) return;
 
-  // Jika multiplayer online, jangan munculkan dialog keputusan di layar pemain yang bukan gilirannya
+  // Jika multiplayer online, jangan munculkan dialog keputusan giliran di layar pemain yang bukan gilirannya
   if (currentOnlineRoom && currentOnlinePlayer && current.id !== currentOnlinePlayer.id) {
-    forceCloseAllModals();
+    closeModal();
     return;
   }
 
@@ -3801,16 +3820,19 @@ function startLobbyPolling(code) {
 }
 
 async function checkOnlineTradeEvents(res) {
-  if (!res || !currentOnlineRoom) return;
+  if (!res) return;
   const human = getCurrentHumanPlayer();
-  const myId = human ? human.id : 0;
+  const myId = human ? parseInt(human.id) : 0;
+  const myName = (human && human.name) ? human.name.trim().toLowerCase() : '';
 
   // 1. CEK AJAKAN TRADING (Trade Invite Handshake)
   if (res.tradeInvite) {
     const invite = res.tradeInvite;
+    const isTargetMe = (parseInt(invite.toPlayerId) === myId) || (invite.toPlayerName && myName && invite.toPlayerName.trim().toLowerCase() === myName);
+    const isSenderMe = (parseInt(invite.fromPlayerId) === myId) || (invite.fromPlayerName && myName && invite.fromPlayerName.trim().toLowerCase() === myName);
 
     // A. Pemain saat ini adalah pihak yang DIAJAK trading
-    if (invite.toPlayerId === myId && invite.status === 'PENDING') {
+    if (isTargetMe && invite.status === 'PENDING') {
       if (activeTradeInvitePromptId !== invite.id) {
         activeTradeInvitePromptId = invite.id;
         sound.playDiceRoll();
@@ -3819,7 +3841,7 @@ async function checkOnlineTradeEvents(res) {
           title: `<span class="swal2-monopoly-title">🤝 Ajakan Trading</span>`,
           html: `
             <div class="text-center text-xs text-zinc-300 font-sans space-y-2 py-1">
-              <p class="text-sm"><b class="text-amber-400 font-bold">${invite.fromPlayerName}</b> mengajak Anda membuka <b class="text-white">Meja Trading</b> untuk bernegosiasi & bertukar aset properti.</p>
+              <p class="text-sm"><b class="text-amber-400 font-bold">${escapeHtml(invite.fromPlayerName)}</b> mengajak Anda membuka <b class="text-white">Meja Trading</b> untuk bernegosiasi & bertukar aset properti.</p>
               <p class="text-zinc-400 text-[11px]">Apakah Anda menerima ajakan trading ini?</p>
             </div>
           `,
@@ -3854,7 +3876,7 @@ async function checkOnlineTradeEvents(res) {
     }
 
     // B. Pemain saat ini adalah pihak yang MENGAJAK trading
-    if (invite.fromPlayerId === myId) {
+    if (isSenderMe) {
       if (invite.status === 'ACCEPTED' && isWaitingForTradeInvite) {
         isWaitingForTradeInvite = false;
         Swal.close();
@@ -3878,6 +3900,7 @@ async function checkOnlineTradeEvents(res) {
       }
     }
   } else {
+    activeTradeInvitePromptId = null;
     if (isWaitingForTradeInvite) {
       isWaitingForTradeInvite = false;
       Swal.close();
@@ -3887,8 +3910,9 @@ async function checkOnlineTradeEvents(res) {
   // 2. CEK PROPOSAL BARTER MASUK (Pending Trade Barter)
   if (res.pendingTrade) {
     const trade = res.pendingTrade;
+    const isTargetMe = (parseInt(trade.toPlayerId) === myId);
 
-    if (trade.toPlayerId === myId) {
+    if (isTargetMe) {
       if (activePendingTradeId !== trade.createdAt) {
         activePendingTradeId = trade.createdAt;
         const fromPlayer = res.players.find(p => p.id === trade.fromPlayerId) || { name: 'Pemain ' + (trade.fromPlayerId + 1), id: trade.fromPlayerId };
@@ -3930,6 +3954,7 @@ async function checkOnlineTradeEvents(res) {
       }
     }
   } else {
+    activePendingTradeId = null;
     if (isWaitingForTradeProposal) {
       isWaitingForTradeProposal = false;
       Swal.close();

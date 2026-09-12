@@ -148,35 +148,107 @@ class RoomManager {
 
     public static function removePlayer(string $code, int $playerId): array {
         $room = self::getRoom($code);
-        if (!$room || $room['status'] !== 'LOBBY') {
-            return ['success' => false, 'message' => 'Tidak dapat menghapus pemain.'];
+        if (!$room) {
+            return ['success' => false, 'message' => 'Ruangan tidak ditemukan.'];
         }
 
-        $filtered = [];
-        $idx = 0;
-        $tokens = ['Merah', 'Biru', 'Hijau', 'Kuning'];
-        $colors = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b'];
+        // 1. Jika masih di LOBBY
+        if ($room['status'] === 'LOBBY') {
+            $filtered = [];
+            $idx = 0;
+            $tokens = ['Merah', 'Biru', 'Hijau', 'Kuning'];
+            $colors = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b'];
 
-        foreach ($room['players'] as $p) {
-            if ($p['id'] !== $playerId) {
-                $p['id'] = $idx;
-                $p['token'] = $tokens[$idx % count($tokens)];
-                $p['color'] = $colors[$idx % count($colors)];
-                if ($idx === 0) $p['isHost'] = true;
-                $filtered[] = $p;
-                $idx++;
+            foreach ($room['players'] as $p) {
+                if ((int)$p['id'] !== (int)$playerId) {
+                    $p['id'] = $idx;
+                    $p['token'] = $tokens[$idx % count($tokens)];
+                    $p['color'] = $colors[$idx % count($colors)];
+                    if ($idx === 0) $p['isHost'] = true;
+                    $filtered[] = $p;
+                    $idx++;
+                }
+            }
+
+            $room['players'] = $filtered;
+            if (empty($room['players'])) {
+                @unlink(self::getRoomFile($code));
+                return ['success' => true, 'deleted' => true];
+            }
+
+            $room['host'] = $room['players'][0]['name'];
+            self::saveRoom($code, $room);
+            return ['success' => true, 'room' => $room];
+        }
+
+        // 2. Jika SUDAH DALAM PERMAINAN (PLAYING)
+        if ($room['status'] === 'PLAYING' && !empty($room['gameState'])) {
+            $state = &$room['gameState'];
+            $player = null;
+
+            foreach ($state['players'] as &$p) {
+                if ((int)$p['id'] === (int)$playerId) {
+                    $player = &$p;
+                    break;
+                }
+            }
+
+            if ($player) {
+                $playerName = $player['name'];
+                $player['isBankrupt'] = true;
+                $player['isLeft'] = true;
+
+                GameState::addLog($state, "🚪 {$playerName} telah keluar dari permainan!", 'danger');
+
+                // Lepas properti milik pemain yang keluar
+                foreach (\App\Data\BoardData::BOARD_SPACES as $s) {
+                    if (isset($state['properties'][$s['id']]) && (int)$state['properties'][$s['id']]['ownerId'] === (int)$playerId) {
+                        $state['properties'][$s['id']] = [
+                            'ownerId' => null,
+                            'houses' => 0,
+                            'isHotel' => false,
+                            'isMortgaged' => false
+                        ];
+                    }
+                }
+
+                // Cek jika yang keluar adalah pemain yang sedang giliran berjalan
+                if ((int)$state['currentPlayerIndex'] === (int)$playerId && ($state['phase'] ?? '') !== 'GAME_OVER') {
+                    $totalPlayers = count($state['players']);
+                    $activeCount = count(array_filter($state['players'], fn($p) => empty($p['isBankrupt'])));
+                    if ($activeCount > 1) {
+                        do {
+                            $state['currentPlayerIndex'] = ($state['currentPlayerIndex'] + 1) % $totalPlayers;
+                        } while (!empty($state['players'][$state['currentPlayerIndex']]['isBankrupt']));
+                        $state['phase'] = 'READY_TO_ROLL';
+                        $state['currentAction'] = null;
+                        $next = $state['players'][$state['currentPlayerIndex']];
+                        GameState::addLog($state, "Giliran dialihkan ke {$next['name']}.", 'info');
+                    }
+                }
+
+                // Cek sisa pemain aktif
+                $active = array_values(array_filter($state['players'], fn($p) => empty($p['isBankrupt'])));
+                if (count($active) === 1) {
+                    $winner = $active[0];
+                    $state['phase'] = 'GAME_OVER';
+                    $room['status'] = 'FINISHED';
+                    GameState::addLog($state, "🏆 SELAMAT! {$winner['name']} dinobatkan sebagai JUARA karena pemain lain telah keluar/bangkrut!", 'highlight');
+                } else if (empty($active)) {
+                    $state['phase'] = 'GAME_OVER';
+                    $room['status'] = 'FINISHED';
+                }
+
+                self::saveRoom($code, $room);
+                return [
+                    'success' => true,
+                    'room' => $room,
+                    'gameState' => $state
+                ];
             }
         }
 
-        $room['players'] = $filtered;
-        if (empty($room['players'])) {
-            @unlink(self::getRoomFile($code));
-            return ['success' => true, 'deleted' => true];
-        }
-
-        $room['host'] = $room['players'][0]['name'];
-        self::saveRoom($code, $room);
-        return ['success' => true, 'room' => $room];
+        return ['success' => false, 'message' => 'Gagal memproses pemain keluar.'];
     }
 
     public static function startGame(string $code): array {

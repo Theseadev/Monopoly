@@ -227,6 +227,66 @@ class GameController {
         Flight::json($state);
     }
 
+    public static function surrender(): void {
+        $roomCode = self::initRequestContext();
+        $body = Flight::request()->getBody();
+        $json = json_decode($body, true);
+        $data = is_array($json) ? array_merge(Flight::request()->data->getData(), $json) : Flight::request()->data->getData();
+        $playerId = (int)($data['playerId'] ?? 0);
+
+        if ($roomCode) {
+            $result = RoomManager::removePlayer($roomCode, $playerId);
+            Flight::json($result['gameState'] ?? GameState::load($roomCode));
+            return;
+        }
+
+        $state = GameState::load();
+        if (isset($state['players'][$playerId])) {
+            $state['players'][$playerId]['isBankrupt'] = true;
+            $state['players'][$playerId]['isLeft'] = true;
+            $pName = $state['players'][$playerId]['name'];
+            GameState::addLog($state, "🚪 {$pName} telah menyerah dari permainan!", 'danger');
+
+            // Lepas properti milik pemain yang menyerah
+            foreach (\App\Data\BoardData::BOARD_SPACES as $s) {
+                if (isset($state['properties'][$s['id']]) && (int)$state['properties'][$s['id']]['ownerId'] === $playerId) {
+                    $state['properties'][$s['id']] = [
+                        'ownerId' => null,
+                        'houses' => 0,
+                        'isHotel' => false,
+                        'isMortgaged' => false
+                    ];
+                }
+            }
+
+            // Ganti giliran jika pemain yang keluar sedang aktif
+            if ((int)$state['currentPlayerIndex'] === $playerId && ($state['phase'] ?? '') !== 'GAME_OVER') {
+                $totalPlayers = count($state['players']);
+                $activeCount = count(array_filter($state['players'], fn($p) => empty($p['isBankrupt'])));
+                if ($activeCount > 1) {
+                    do {
+                        $state['currentPlayerIndex'] = ($state['currentPlayerIndex'] + 1) % $totalPlayers;
+                    } while (!empty($state['players'][$state['currentPlayerIndex']]['isBankrupt']));
+                    $state['phase'] = 'READY_TO_ROLL';
+                    $state['currentAction'] = null;
+                    $next = $state['players'][$state['currentPlayerIndex']];
+                    GameState::addLog($state, "Giliran dialihkan ke {$next['name']}.", 'info');
+                }
+            }
+
+            $active = array_values(array_filter($state['players'], fn($p) => empty($p['isBankrupt'])));
+            if (count($active) === 1) {
+                $winner = $active[0];
+                $state['phase'] = 'GAME_OVER';
+                GameState::addLog($state, "🏆 SELAMAT! {$winner['name']} dinobatkan sebagai JUARA karena pemain lain telah keluar/bangkrut!", 'highlight');
+            } else if (empty($active)) {
+                $state['phase'] = 'GAME_OVER';
+            }
+            GameState::save($state);
+        }
+        Flight::json($state);
+    }
+
     // ==========================================
     // MULTIPLAYER ONLINE ROOM & LOBBY CONTROLLER
     // ==========================================

@@ -555,6 +555,7 @@ let isWaitingForTradeInvite = false;
 let activeWaitingInviteTargetName = '';
 let activePendingTradeId = null;
 let isWaitingForTradeProposal = false;
+let isGameOverModalShown = false;
 
 const btnLogsDropdown = document.getElementById('btnLogsDropdown');
 const logsDropdownMenu = document.getElementById('logsDropdownMenu');
@@ -2467,17 +2468,22 @@ function forceCloseAllModals() {
 
 // Check Modals
 function checkModals() {
-  if (!state || isProcessingAction) return;
+  if (!state) return;
   const current = state.players[state.currentPlayerIndex];
 
   if (state.phase === 'GAME_OVER') {
-    if (!isModalOpen && !isProcessingAction) {
+    if (!isGameOverModalShown) {
+      isGameOverModalShown = true;
+      forceCloseAllModals();
+      try { Swal.close(); } catch (e) {}
       const active = state.players.filter(p => !p.isBankrupt);
-      const winner = active[0] || current;
+      const winner = active[0] || current || { name: 'Pemenang', id: 0 };
       showGameOver(winner);
     }
     return;
   }
+
+  if (isProcessingAction) return;
 
   // Jika bukan fase ACTION_REQUIRED, pastikan modal aksi giliran tertutup
   if (state.phase !== 'ACTION_REQUIRED') {
@@ -3751,6 +3757,7 @@ function showTitleDeed(space) {
 // Layar Pemenang Spektakuler dengan SweetAlert2 & Confetti Fireworks
 function showGameOver(winner) {
   isModalOpen = true;
+  isGameOverModalShown = true;
   sound.playWin();
 
   // Kembang api confetti berulang selama 4 detik
@@ -3777,6 +3784,8 @@ function showGameOver(winner) {
   };
   frame();
 
+  const isOnlyRemaining = state && state.players && (state.players.filter(p => !p.isBankrupt).length <= 1);
+
   Swal.fire({
     title: `<span class="swal2-monopoly-title text-2xl md:text-3xl flex items-center justify-center gap-2"><span class="w-7 h-7 text-amber-400 inline-block">${GameIcons.trophy}</span> <span>JUARA MONOPOLI!</span> <span class="w-7 h-7 text-amber-400 inline-block">${GameIcons.trophy}</span></span>`,
     html: `
@@ -3784,7 +3793,7 @@ function showGameOver(winner) {
         <div class="w-16 h-16 mx-auto text-amber-400 mb-3 animate__animated animate__tada animate__infinite">${GameIcons.crown}</div>
         <h2 class="text-2xl font-black text-amber-300 font-outfit mb-2">${winner.name}</h2>
         <p class="text-xs text-zinc-300 max-w-xs mx-auto leading-relaxed">
-          Selamat! Seluruh konglomerat lawan telah bangkrut. Anda dinobatkan sebagai <b>Penguasa Properti Terkaya di Nusantara</b>!
+          ${isOnlyRemaining ? 'Selamat! Seluruh pemain lawan telah keluar/menyerah atau bangkrut. Anda menjadi satu-satunya pemain yang bertahan dan dinobatkan sebagai <b>Penguasa Properti Terkaya di Nusantara</b>!' : 'Selamat! Seluruh konglomerat lawan telah bangkrut. Anda dinobatkan sebagai <b>Penguasa Properti Terkaya di Nusantara</b>!'}
         </p>
       </div>
     `,
@@ -3800,6 +3809,7 @@ function showGameOver(winner) {
     stopAllPolling();
     currentOnlineRoom = null;
     currentOnlinePlayer = null;
+    isGameOverModalShown = false;
     showScreen('homeMenuScreen');
   });
 }
@@ -4175,6 +4185,7 @@ function renderLobbyUI() {
 
 function launchOnlineGame(gameState) {
   state = gameState;
+  isGameOverModalShown = false;
   processedChatIds.clear();
   localChats = [];
   if (gameState && gameState.chats && Array.isArray(gameState.chats)) {
@@ -4204,6 +4215,7 @@ async function startConfiguredGame(mode) {
   stopAllPolling();
   currentOnlineRoom = null;
   currentOnlinePlayer = null;
+  isGameOverModalShown = false;
 
   let players = [];
   let options = { gameMode: mode };
@@ -4304,11 +4316,64 @@ document.getElementById('btnBackFromOnline')?.addEventListener('click', () => {
   showScreen('homeMenuScreen');
 });
 
-document.getElementById('btnInGameBackHome')?.addEventListener('click', () => {
-  stopAllPolling();
-  currentOnlineRoom = null;
-  currentOnlinePlayer = null;
-  showScreen('homeMenuScreen');
+document.getElementById('btnInGameBackHome')?.addEventListener('click', async () => {
+  // Jika sudah fase GAME_OVER, langsung kembali ke menu
+  if (state && state.phase === 'GAME_OVER') {
+    stopAllPolling();
+    currentOnlineRoom = null;
+    currentOnlinePlayer = null;
+    forceCloseAllModals();
+    showScreen('homeMenuScreen');
+    return;
+  }
+
+  const result = await Swal.fire({
+    title: '<span class="text-rose-400 font-outfit">Keluar dari Permainan?</span>',
+    html: `
+      <div class="text-center text-xs text-zinc-300 font-sans space-y-2 py-1">
+        <p>Apakah Anda yakin ingin keluar ke Menu Utama?</p>
+        <p class="text-amber-400 font-bold">Jika Anda keluar di tengah permainan, Anda dianggap menyerah dan pemain yang tersisa akan otomatis memenangkan permainan!</p>
+      </div>
+    `,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Ya, Menyerah & Keluar',
+    cancelButtonText: 'Batal',
+    customClass: {
+      popup: 'swal2-monopoly-popup',
+      confirmButton: 'swal2-monopoly-confirm bg-rose-600 hover:bg-rose-500 text-white font-bold',
+      cancelButton: 'swal2-monopoly-cancel'
+    },
+    buttonsStyling: false,
+    allowOutsideClick: false
+  });
+
+  if (result.isConfirmed) {
+    const currentHuman = getCurrentHumanPlayer();
+    const myId = currentHuman ? currentHuman.id : 0;
+
+    // 1. Kirim sinyal surrender ke server
+    try {
+      await apiCall('/api/game/surrender', { playerId: myId }, 'POST');
+    } catch (e) {
+      console.error('Surrender error:', e);
+    }
+
+    // 2. Jika online room, tinggalkan room
+    if (currentOnlineRoom && currentOnlineRoom.code) {
+      try {
+        await apiCall('/api/room/leave', { code: currentOnlineRoom.code, playerId: myId }, 'POST');
+      } catch (e) {
+        console.error('Leave room error:', e);
+      }
+    }
+
+    stopAllPolling();
+    currentOnlineRoom = null;
+    currentOnlinePlayer = null;
+    forceCloseAllModals();
+    showScreen('homeMenuScreen');
+  }
 });
 
 // Form Submissions

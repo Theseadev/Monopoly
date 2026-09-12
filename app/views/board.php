@@ -837,7 +837,7 @@
       </section>
 
       <!-- Right Column: Asset Portfolio & Player-to-Player Trading System -->
-      <aside class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col justify-between gap-1.5 xl:gap-2 order-3 min-h-0">
+      <aside class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-1.5 xl:gap-2 order-3 min-h-0">
         <!-- 1. Aset & Properti (Card Grid Mini Title Deed) -->
         <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col flex-1 min-h-[140px] overflow-hidden">
           <div class="flex items-center justify-between pb-1 border-b border-zinc-800 mb-1 shrink-0">
@@ -847,7 +847,7 @@
               </svg>
               <div class="text-[11px] uppercase font-extrabold tracking-wider text-amber-400 font-outfit">Aset & Properti</div>
             </div>
-            <span id="portfolioStatsBadge" class="text-[9px] text-amber-300 bg-amber-950/80 px-1.5 py-0.2 rounded-full border border-amber-500/40 font-bold">0 Properti</span>
+            <span id="portfolioStatsBadge" class="text-[8.5px] text-amber-300 bg-amber-950/80 px-2 py-0.5 rounded-full border border-amber-500/40 font-bold whitespace-nowrap shrink-0">0 Properti</span>
           </div>
 
           <!-- Filter Pemain / Tabs Switcher -->

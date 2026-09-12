@@ -1606,10 +1606,9 @@ function updatePortfolio() {
       }`;
       
       tabBtn.innerHTML = `
-        <span class="w-2 h-2 rounded-full" style="background-color: ${p.color}"></span>
-        <span>${p.name.split(' ')[0]}</span>
-        <span class="px-1 py-0.2 rounded-full ${isSelected ? 'bg-black/20 text-zinc-950 font-black' : 'bg-zinc-900 text-amber-300'} text-[9px]">${pProps.length}</span>
-        ${isCurrentTurn ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping ml-0.5"></span>' : ''}
+        <span class="w-2 h-2 rounded-full inline-block shrink-0" style="background-color: ${p.color}"></span>
+        <span class="truncate">${p.name.split(' ')[0]}</span>
+        <span class="px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-black/25 text-zinc-950 font-black' : 'bg-zinc-900 text-amber-300'} text-[8.5px]">${pProps.length}</span>
       `;
       
       tabBtn.addEventListener('click', (e) => {
@@ -1657,38 +1656,35 @@ function updatePortfolio() {
     const prop = state.properties[space.id];
     const isMortgaged = Boolean(prop.isMortgaged);
     const card = document.createElement('div');
-    card.className = `group relative rounded-xl overflow-hidden bg-[#faf8f4] border-2 ${isMortgaged ? 'border-red-400/80 opacity-75' : 'border-[#d5cbbe]'} shadow-sm hover:shadow-md hover:-translate-y-0.5 transition duration-150 cursor-pointer flex flex-col justify-between active:scale-95 select-none text-center h-[70px] min-h-[70px]`;
+    card.className = `group relative rounded-xl overflow-hidden bg-[#faf8f4] border-2 ${isMortgaged ? 'border-red-400/80 opacity-75' : 'border-[#d5cbbe]'} shadow-sm hover:shadow-md hover:-translate-y-0.5 transition duration-150 cursor-pointer flex flex-col justify-between active:scale-95 select-none text-center h-[74px] min-h-[74px]`;
     card.title = `Klik untuk kelola ${space.name}`;
 
     card.innerHTML = `
       <!-- Top Colored Stripe with Level Indicators -->
-      <div class="h-5 w-full flex items-center justify-between px-1.5 shadow-inner shrink-0" style="background-color: ${space.color || '#475569'}">
-        <span class="text-[8px] font-black tracking-wider text-white drop-shadow font-outfit uppercase truncate">
+      <div class="h-4.5 w-full flex items-center justify-between px-1.5 shadow-inner shrink-0" style="background-color: ${space.color || '#475569'}">
+        <span class="text-[7.5px] font-black tracking-wider text-white drop-shadow font-outfit uppercase truncate">
           ${space.group ? space.group.toUpperCase() : 'ASET'}
         </span>
         ${prop.isHotel ? `
-          <span class="flex items-center gap-0.5 bg-red-950 text-red-200 px-1 py-0.2 rounded text-[7px] font-bold border border-red-400/60 shrink-0">
+          <span class="flex items-center gap-0.5 bg-red-950 text-red-200 px-1 py-0.2 rounded text-[6.5px] font-bold border border-red-400/60 shrink-0">
             <span class="w-2 h-2 inline-block">${GameIcons.hotel}</span> 1H
           </span>
         ` : (prop.houses > 0 ? `
-          <span class="flex items-center gap-0.5 bg-emerald-950 text-emerald-200 px-1 py-0.2 rounded text-[7px] font-bold border border-emerald-400/60 shrink-0">
+          <span class="flex items-center gap-0.5 bg-emerald-950 text-emerald-200 px-1 py-0.2 rounded text-[6.5px] font-bold border border-emerald-400/60 shrink-0">
             <span class="w-2 h-2 inline-block">${GameIcons.house}</span> ${prop.houses}
           </span>
         ` : '')}
       </div>
       
-      <!-- Card Body (Title & City matching user reference image) -->
-      <div class="p-1 text-center flex flex-col items-center justify-center flex-1 bg-gradient-to-b from-[#faf8f4] to-[#f2ece0] min-h-0">
-        <div class="font-black text-xs text-zinc-900 font-outfit leading-tight truncate w-full" title="${space.name}">
-          ${space.shortName || space.name}
-        </div>
-        <div class="text-[9.5px] text-amber-900/90 font-bold truncate w-full mt-0.5">
-          ${space.city || space.name}
+      <!-- Card Body: Clean Prominent Title -->
+      <div class="px-1 py-1 text-center flex flex-col items-center justify-center flex-1 bg-gradient-to-b from-[#faf8f4] to-[#f2ece0] min-h-0">
+        <div class="font-extrabold text-[11px] text-zinc-900 font-outfit leading-tight truncate w-full" title="${space.name}">
+          ${space.name}
         </div>
       </div>
 
       <!-- Bottom Rent / Mortgage Status -->
-      <div class="px-1.5 py-0.5 bg-[#ebe3d3] border-t border-[#d8cdb8] flex items-center justify-between text-[8px] shrink-0">
+      <div class="px-1.5 py-0.5 bg-[#ebe3d3] border-t border-[#d8cdb8] flex items-center justify-between text-[7.5px] shrink-0 font-outfit">
         ${isMortgaged ? `
           <span class="text-red-700 font-extrabold w-full text-center bg-red-100/90 py-0.2 rounded">TERGADAI</span>
         ` : `

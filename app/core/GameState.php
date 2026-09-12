@@ -730,6 +730,40 @@ class GameState {
     // SISTEM TRADING / BARTER PROPERTI ANTAR PEMAIN
     // ==========================================
 
+    public static function tradeProperties(int $playerAId, int $playerBId, array $offer, array $request): array {
+        $state = self::load();
+        if (($state['phase'] ?? '') === 'GAME_OVER') return $state;
+
+        $pA = &$state['players'][$playerAId] ?? null;
+        $pB = &$state['players'][$playerBId] ?? null;
+        if (!$pA || !$pB) return $state;
+
+        $offerCash = max(0, (int)($offer['cash'] ?? 0));
+        $requestCash = max(0, (int)($request['cash'] ?? 0));
+        $offerPropertyIds = array_map('intval', (array)($offer['propertyIds'] ?? []));
+        $requestPropertyIds = array_map('intval', (array)($request['propertyIds'] ?? []));
+
+        // Transfer properti yang ditawarkan
+        foreach ($offerPropertyIds as $pid) {
+            if (isset($state['properties'][$pid])) {
+                $state['properties'][$pid]['ownerId'] = $playerBId;
+            }
+        }
+        // Transfer properti yang diminta/diberikan musuh
+        foreach ($requestPropertyIds as $pid) {
+            if (isset($state['properties'][$pid])) {
+                $state['properties'][$pid]['ownerId'] = $playerAId;
+            }
+        }
+
+        // Transfer uang kas
+        $pA['money'] = $pA['money'] - $offerCash + $requestCash;
+        $pB['money'] = $pB['money'] - $requestCash + $offerCash;
+
+        self::save($state);
+        return $state;
+    }
+
     public static function proposeTrade(
         int $fromPlayerId,
         int $toPlayerId,

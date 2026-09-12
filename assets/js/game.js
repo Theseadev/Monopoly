@@ -1919,9 +1919,7 @@ function openTradingDeskModal(targetPlayerId) {
     : opponents[0].id;
 
   let offerCash = 0;
-  let requestCash = 0;
   let offerPropertyIds = new Set();
-  let requestPropertyIds = new Set();
 
   function renderTradeDeskModal() {
     const opponent = state.players.find(p => p.id === selectedOpponentId);
@@ -1959,44 +1957,40 @@ function openTradingDeskModal(targetPlayerId) {
           <!-- Main 2-Panel Trade Section -->
           <div class="flex items-center gap-2 sm:gap-3 flex-1 min-h-0">
             
-            <!-- Panel Kiri: Player 2 / Target Lawan -->
-            <div class="flex-1 bg-[#140a04] border border-[#3b1d0e] rounded-2xl p-3 sm:p-3.5 flex flex-col h-[340px]">
+            <!-- Panel Kiri: AKUN SENDIRI (Pemain 1 / Anda) -->
+            <div class="flex-1 bg-[#140a04] border-2 border-amber-600/60 rounded-2xl p-3 sm:p-3.5 flex flex-col h-[340px] shadow-lg">
               
-              <!-- Player Info Header -->
-              <div class="flex items-center gap-2.5 pb-2">
-                ${renderPawn(opponent.color || '#0284c7')}
+              <!-- Player Info Header (Anda) -->
+              <div class="flex items-center gap-2.5 pb-2 border-b border-amber-900/40">
+                ${renderPawn(humanPlayer.color || '#ef4444')}
                 <div class="flex-1 min-w-0">
-                  ${opponents.length > 1 ? `
-                    <select id="selectTradeOpponent" class="bg-transparent text-sky-400 font-black text-sm font-outfit cursor-pointer outline-none border-b border-sky-500/30 pb-0.5 w-full truncate">
-                      ${opponents.map(op => `
-                        <option value="${op.id}" class="bg-[#140a04] text-white" ${op.id === opponent.id ? 'selected' : ''}>
-                          ${op.name}
-                        </option>
-                      `).join('')}
-                    </select>
-                  ` : `
-                    <div class="font-black text-sm text-sky-400 font-outfit truncate">${opponent.name}</div>
-                  `}
-                  <div class="text-xs text-stone-400 font-medium">${formatCurrency(opponent.money)}</div>
+                  <div class="font-black text-sm text-amber-400 font-outfit truncate flex items-center gap-1">
+                    <span>${humanPlayer.name}</span>
+                    <span class="text-[9px] bg-amber-500 text-zinc-950 px-1 rounded font-black">ANDA</span>
+                  </div>
+                  <div class="text-xs text-emerald-400 font-semibold">${formatCurrency(humanPlayer.money)}</div>
                 </div>
               </div>
 
-              <!-- Money Box -->
-              <div class="bg-[#0a0502] border border-[#3b1d0e] rounded-xl px-3.5 py-2.5 flex items-center justify-between mt-2">
-                <span class="text-amber-400 font-black text-sm font-outfit shrink-0">Rp</span>
-                <input type="text" inputmode="numeric" pattern="[0-9]*" id="inputRequestCash" value="${requestCash || 0}" class="bg-transparent text-amber-400 font-black text-lg sm:text-xl font-mono text-right w-full outline-none px-1" placeholder="0">
+              <!-- Money Box (Anda Tawarkan) -->
+              <div class="bg-[#0a0502] border border-amber-500/50 rounded-xl px-3 py-2 flex items-center justify-between mt-2 shadow-inner">
+                <span class="text-amber-400 font-black text-xs font-outfit shrink-0">Beri Rp</span>
+                <input type="text" inputmode="numeric" pattern="[0-9]*" id="inputOfferCash" value="${offerCash || 0}" class="bg-transparent text-amber-300 font-black text-base sm:text-lg font-mono text-right w-full outline-none px-1" placeholder="0">
               </div>
 
-              <!-- PROPERTIES Section -->
-              <div class="mt-3 flex-1 flex flex-col min-h-0">
-                <div class="text-[10px] font-black tracking-widest text-[#b45309] text-center mb-1.5 uppercase font-outfit">PROPERTI DIMINTA</div>
+              <!-- PROPERTIES Section (Aset Anda Yang Ditawarkan) -->
+              <div class="mt-2 flex-1 flex flex-col min-h-0">
+                <div class="text-[9.5px] font-black tracking-widest text-amber-400 text-center mb-1 uppercase font-outfit flex items-center justify-center gap-1">
+                  <span>ASET ANDA</span>
+                  <span class="text-[8.5px] text-zinc-400 font-normal">(PILIH DIBERIKAN)</span>
+                </div>
                 <div class="flex-1 overflow-y-auto space-y-1.5 trade-scroll-area pr-1">
-                  ${oppProps.length === 0 ? `
-                    <div class="h-full flex items-center justify-center italic text-stone-500 text-xs font-medium">Tidak ada properti</div>
-                  ` : oppProps.map(space => {
-                    const isSelected = requestPropertyIds.has(space.id);
+                  ${myProps.length === 0 ? `
+                    <div class="h-full flex items-center justify-center italic text-stone-500 text-xs font-medium text-center px-2">Anda belum memiliki kartu properti</div>
+                  ` : myProps.map(space => {
+                    const isSelected = offerPropertyIds.has(space.id);
                     return `
-                      <div class="trade-card-select ${isSelected ? 'selected' : ''}" data-type="request" data-space-id="${space.id}">
+                      <div class="trade-card-select ${isSelected ? 'selected' : ''}" data-type="offer" data-space-id="${space.id}">
                         <div class="flex items-center gap-2">
                           <div class="w-2.5 h-6 rounded-sm shrink-0" style="background-color: ${space.color || '#64748b'}"></div>
                           <div class="flex-1 min-w-0 text-left">
@@ -2014,49 +2008,65 @@ function openTradingDeskModal(targetPlayerId) {
             </div>
 
             <!-- Center Exchange Arrow -->
-            <div class="flex items-center justify-center text-amber-400 text-xl font-black shrink-0 px-0.5">
-              ⇄
+            <div class="flex flex-col items-center justify-center text-amber-400 text-lg font-black shrink-0 px-0.5">
+              <span>⇄</span>
+              <span class="text-[8.5px] text-amber-500/80 font-bold uppercase tracking-tighter">BARTER</span>
             </div>
 
-            <!-- Panel Kanan: Player 1 / Anda -->
+            <!-- Panel Kanan: AKUN MUSUH / LAWAN -->
             <div class="flex-1 bg-[#140a04] border border-[#3b1d0e] rounded-2xl p-3 sm:p-3.5 flex flex-col h-[340px]">
               
-              <!-- Player Info Header -->
-              <div class="flex items-center gap-2.5 pb-2">
-                ${renderPawn(humanPlayer.color || '#ef4444')}
+              <!-- Player Info Header (Musuh) -->
+              <div class="flex items-center gap-2.5 pb-2 border-b border-stone-800/60">
+                ${renderPawn(opponent.color || '#0284c7')}
                 <div class="flex-1 min-w-0">
-                  <div class="font-black text-sm text-red-500 font-outfit truncate">${humanPlayer.name}</div>
-                  <div class="text-xs text-stone-400 font-medium">${formatCurrency(humanPlayer.money)}</div>
+                  ${opponents.length > 1 ? `
+                    <select id="selectTradeOpponent" class="bg-transparent text-sky-400 font-black text-sm font-outfit cursor-pointer outline-none border-b border-sky-500/30 pb-0.5 w-full truncate">
+                      ${opponents.map(op => `
+                        <option value="${op.id}" class="bg-[#140a04] text-white" ${op.id === opponent.id ? 'selected' : ''}>
+                          ${op.name} ${op.isAI ? '(Bot)' : ''}
+                        </option>
+                      `).join('')}
+                    </select>
+                  ` : `
+                    <div class="font-black text-sm text-sky-400 font-outfit truncate">${opponent.name} ${opponent.isAI ? '<span class="text-[9px] bg-zinc-800 text-sky-300 px-1 py-0.2 rounded font-bold">Bot</span>' : ''}</div>
+                  `}
+                  <div class="text-xs text-stone-400 font-medium">${formatCurrency(opponent.money)}</div>
                 </div>
               </div>
 
-              <!-- Money Box -->
-              <div class="bg-[#0a0502] border border-[#3b1d0e] rounded-xl px-3.5 py-2.5 flex items-center justify-between mt-2">
-                <span class="text-amber-400 font-black text-sm font-outfit shrink-0">Rp</span>
-                <input type="text" inputmode="numeric" pattern="[0-9]*" id="inputOfferCash" value="${offerCash || 0}" class="bg-transparent text-amber-400 font-black text-lg sm:text-xl font-mono text-right w-full outline-none px-1" placeholder="0">
+              <!-- Money Box (Musuh Tentukan Sendiri) -->
+              <div class="bg-[#0a0502]/60 border border-[#3b1d0e]/60 rounded-xl px-3 py-2 flex items-center justify-between mt-2 opacity-75 select-none" title="Uang ditentukan oleh musuh">
+                <span class="text-amber-400/60 font-black text-xs font-outfit shrink-0">Kas Musuh</span>
+                <span class="text-stone-400 text-[11px] italic font-medium">Musuh yg tentukan</span>
               </div>
 
-              <!-- PROPERTIES Section -->
-              <div class="mt-3 flex-1 flex flex-col min-h-0">
-                <div class="text-[10px] font-black tracking-widest text-[#b45309] text-center mb-1.5 uppercase font-outfit">PROPERTI DITAWARKAN</div>
+              <!-- PROPERTIES Section (Aset Milik Musuh) -->
+              <div class="mt-2 flex-1 flex flex-col min-h-0">
+                <div class="text-[9.5px] font-black tracking-widest text-sky-400 text-center mb-1 uppercase font-outfit flex items-center justify-center gap-1">
+                  <span>ASET LAWAN</span>
+                  <span class="text-[8.5px] text-zinc-400 font-normal">(DIPILIH LAWAN)</span>
+                </div>
                 <div class="flex-1 overflow-y-auto space-y-1.5 trade-scroll-area pr-1">
-                  ${myProps.length === 0 ? `
-                    <div class="h-full flex items-center justify-center italic text-stone-500 text-xs font-medium">Tidak ada properti</div>
-                  ` : myProps.map(space => {
-                    const isSelected = offerPropertyIds.has(space.id);
+                  ${oppProps.length === 0 ? `
+                    <div class="h-full flex items-center justify-center italic text-stone-500 text-xs font-medium text-center px-2">Lawan belum memiliki kartu properti</div>
+                  ` : oppProps.map(space => {
                     return `
-                      <div class="trade-card-select ${isSelected ? 'selected' : ''}" data-type="offer" data-space-id="${space.id}">
+                      <div class="trade-card-readonly" title="Properti milik ${opponent.name} (Hanya dapat dipilih oleh lawan)">
                         <div class="flex items-center gap-2">
                           <div class="w-2.5 h-6 rounded-sm shrink-0" style="background-color: ${space.color || '#64748b'}"></div>
                           <div class="flex-1 min-w-0 text-left">
-                            <div class="font-bold text-xs text-white truncate font-outfit">${space.name}</div>
-                            <div class="text-[10px] text-stone-400">${formatShortPrice(space.price)}</div>
+                            <div class="font-bold text-xs text-stone-300 truncate font-outfit">${space.name}</div>
+                            <div class="text-[10px] text-stone-500">${formatShortPrice(space.price)}</div>
                           </div>
-                          ${isSelected ? '<svg class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>' : ''}
+                          <span class="text-[9px] text-stone-500 font-bold">🔒</span>
                         </div>
                       </div>
                     `;
                   }).join('')}
+                </div>
+                <div class="text-[9px] text-amber-500/80 font-bold text-center bg-amber-950/30 border border-amber-500/20 rounded-md py-0.5 mt-1">
+                  🔒 Lawan sendiri yang menentukan imbalan
                 </div>
               </div>
 
@@ -2088,8 +2098,6 @@ function openTradingDeskModal(targetPlayerId) {
 
     document.getElementById('selectTradeOpponent')?.addEventListener('change', (e) => {
       selectedOpponentId = parseInt(e.target.value);
-      requestCash = 0;
-      requestPropertyIds.clear();
       renderTradeDeskModal();
     });
 
@@ -2102,15 +2110,7 @@ function openTradingDeskModal(targetPlayerId) {
       e.target.value = val === 0 && clean === '' ? '' : val;
     });
 
-    document.getElementById('inputRequestCash')?.addEventListener('input', (e) => {
-      const clean = e.target.value.replace(/\D/g, '');
-      let val = parseInt(clean) || 0;
-      if (val < 0) val = 0;
-      if (val > opponent.money) val = opponent.money;
-      requestCash = val;
-      e.target.value = val === 0 && clean === '' ? '' : val;
-    });
-
+    // Hanya kartu di sisi KIRI (Aset Anda) yang dapat diklik
     document.querySelectorAll('.trade-card-select').forEach(card => {
       card.addEventListener('click', () => {
         const type = card.dataset.type;
@@ -2118,19 +2118,16 @@ function openTradingDeskModal(targetPlayerId) {
         if (type === 'offer') {
           if (offerPropertyIds.has(spaceId)) offerPropertyIds.delete(spaceId);
           else offerPropertyIds.add(spaceId);
-        } else {
-          if (requestPropertyIds.has(spaceId)) requestPropertyIds.delete(spaceId);
-          else requestPropertyIds.add(spaceId);
         }
         renderTradeDeskModal();
       });
     });
 
     document.getElementById('btnSubmitTradeDesk')?.addEventListener('click', async () => {
-      if (offerCash === 0 && requestCash === 0 && offerPropertyIds.size === 0 && requestPropertyIds.size === 0) {
+      if (offerCash === 0 && offerPropertyIds.size === 0) {
         Swal.fire({
-          title: 'Tawaran Kosong',
-          text: 'Pilih minimal satu properti atau sejumlah uang untuk ditransaksikan.',
+          title: 'Tawaran Masih Kosong',
+          text: 'Pilih minimal satu properti milik Anda atau masukkan nominal uang tunai yang ingin Anda berikan kepada lawan.',
           icon: 'warning',
           customClass: { popup: 'swal2-monopoly-popup' }
         });
@@ -2143,15 +2140,9 @@ function openTradingDeskModal(targetPlayerId) {
         jailCards: 0
       };
 
-      const requestObj = {
-        cash: requestCash,
-        propertyIds: Array.from(requestPropertyIds),
-        jailCards: 0
-      };
-
       isModalOpen = false;
       closeModal();
-      await handleProposeTrade(humanPlayer, opponent, offerObj, requestObj);
+      await handleProposeTrade(humanPlayer, opponent, offerObj);
     });
   }
 
@@ -2159,37 +2150,67 @@ function openTradingDeskModal(targetPlayerId) {
 }
 
 // Handler Pengajuan Proposal Barter ke Lawan (Bot AI / Pemain Manusia)
-async function handleProposeTrade(fromPlayer, toPlayer, offer, request) {
+async function handleProposeTrade(fromPlayer, toPlayer, offer) {
   if (isProcessingAction) return;
   isProcessingAction = true;
 
   try {
     if (toPlayer.isAI) {
-      const evaluation = evaluateBotTrade(toPlayer, fromPlayer, offer, request, state);
+      const evaluation = evaluateAndPickBotTrade(toPlayer, fromPlayer, offer, state);
       
       if (evaluation.accept) {
-        sound.playCash();
-        triggerConfetti({ particleCount: 50, spread: 80 });
-        
-        await Swal.fire({
-          title: '<span class="text-emerald-400 font-outfit">Tawaran Diterima!</span>',
+        const offerPropNames = (offer.propertyIds || []).map(pid => BOARD_SPACES.find(s => s.id === pid)?.name || '').filter(Boolean);
+        const botPropNames = (evaluation.chosenPropertyIds || []).map(pid => BOARD_SPACES.find(s => s.id === pid)?.name || '').filter(Boolean);
+
+        let youGiveList = [];
+        if (offerPropNames.length) youGiveList.push(`🏢 Properti: <b class="text-white">${offerPropNames.join(', ')}</b>`);
+        if (offer.cash > 0) youGiveList.push(`💰 Uang Tunai: <b class="text-amber-400">${formatCurrency(offer.cash)}</b>`);
+
+        let botGivesList = [];
+        if (botPropNames.length) botGivesList.push(`🏢 Properti: <b class="text-white">${botPropNames.join(', ')}</b>`);
+        if (evaluation.chosenCash > 0) botGivesList.push(`💰 Uang Tunai: <b class="text-emerald-400">${formatCurrency(evaluation.chosenCash)}</b>`);
+
+        const swalRes = await Swal.fire({
+          title: `<span class="swal2-monopoly-title">🤝 Tawaran Disetujui ${toPlayer.name}!</span>`,
           html: `
-            <div class="text-left text-xs text-zinc-300 font-sans space-y-2">
-              <div class="p-3 bg-emerald-950/70 border border-emerald-500/50 rounded-xl text-emerald-200 font-medium">
+            <div class="text-left text-xs text-zinc-300 font-sans space-y-3 py-1">
+              <div class="p-3 bg-emerald-950/70 border border-emerald-500/50 rounded-xl text-emerald-200 text-center font-medium">
                 <b>${toPlayer.name}:</b> "${evaluation.message}"
               </div>
-              <div class="text-center font-bold text-amber-300 py-1">
-                Transaksi pertukaran aset telah berhasil diselesaikan!
+              <div class="grid grid-cols-2 gap-2 mt-2">
+                <div class="p-2.5 bg-[#140a04] rounded-xl border border-amber-600/40">
+                  <div class="font-bold text-amber-400 mb-1 text-[11px]">Anda Menyerahkan:</div>
+                  <div class="space-y-0.5 text-[11px]">${youGiveList.length ? youGiveList.join('<br>') : 'Tidak ada'}</div>
+                </div>
+                <div class="p-2.5 bg-[#140a04] rounded-xl border border-emerald-600/40">
+                  <div class="font-bold text-emerald-400 mb-1 text-[11px]">${toPlayer.name} Memberikan:</div>
+                  <div class="space-y-0.5 text-[11px]">${botGivesList.length ? botGivesList.join('<br>') : 'Tidak ada'}</div>
+                </div>
               </div>
+              <p class="text-center text-zinc-400 text-[11px] pt-1">Apakah Anda menyetujui pertukaran barter ini?</p>
             </div>
           `,
-          icon: 'success',
-          confirmButtonText: 'Lanjutkan',
-          customClass: { popup: 'swal2-monopoly-popup', confirmButton: 'swal2-monopoly-confirm' },
+          showCancelButton: true,
+          confirmButtonText: 'Setuju & Barter',
+          cancelButtonText: 'Batal',
+          customClass: {
+            popup: 'swal2-monopoly-popup',
+            confirmButton: 'swal2-monopoly-confirm',
+            cancelButton: 'swal2-monopoly-cancel'
+          },
           buttonsStyling: false
         });
 
-        await executeTrade(fromPlayer.id, toPlayer.id, offer, request);
+        if (swalRes.isConfirmed) {
+          sound.playCash();
+          triggerConfetti({ particleCount: 50, spread: 80 });
+          const requestObj = {
+            cash: evaluation.chosenCash || 0,
+            propertyIds: evaluation.chosenPropertyIds || [],
+            jailCards: 0
+          };
+          await executeTrade(fromPlayer.id, toPlayer.id, offer, requestObj);
+        }
       } else {
         await Swal.fire({
           title: '<span class="text-amber-400 font-outfit">Tawaran Ditolak</span>',
@@ -2199,7 +2220,7 @@ async function handleProposeTrade(fromPlayer, toPlayer, offer, request) {
                 <b>${toPlayer.name}:</b> "${evaluation.reason}"
               </div>
               <p class="text-center text-gray-400 text-[11px]">
-                Tip: Sesuaikan nilai uang tunai atau tawarkan properti yang melengkapi kelompok warna Bot.
+                Tip: Coba tawarkan nominal uang tunai yang lebih tinggi atau sertifikat tanah yang melengkapi warna kelompok Bot.
               </p>
             </div>
           `,
@@ -2237,13 +2258,13 @@ async function handleProposeTrade(fromPlayer, toPlayer, offer, request) {
           toPlayerId: toPlayer.id,
           offerPropertyIds: offer.propertyIds || [],
           offerMoney: offer.cash || 0,
-          requestPropertyIds: request.propertyIds || [],
-          requestMoney: request.cash || 0
+          requestPropertyIds: [],
+          requestMoney: 0
         }, 'POST');
       } else {
-        const res = await showIncomingTradeProposal(fromPlayer, toPlayer, offer, request);
+        const res = await showIncomingTradeProposal(fromPlayer, toPlayer, offer, { cash: 0, propertyIds: [], jailCards: 0 });
         if (res.isConfirmed) {
-          await executeTrade(fromPlayer.id, toPlayer.id, offer, request);
+          await executeTrade(fromPlayer.id, toPlayer.id, offer, { cash: 0, propertyIds: [], jailCards: 0 });
         } else {
           Swal.fire({
             title: 'Trading Ditolak',
@@ -2259,98 +2280,121 @@ async function handleProposeTrade(fromPlayer, toPlayer, offer, request) {
   }
 }
 
-// Algoritma Evaluasi Trading oleh Bot AI
-function evaluateBotTrade(botPlayer, humanPlayer, offer, request, state) {
-  let botGain = (offer.cash || 0) + ((offer.jailCards || 0) * 450000);
-  let botLoss = (request.cash || 0) + ((request.jailCards || 0) * 450000);
+// Algoritma Evaluasi & Pemilihan Aset Balasan oleh Bot AI
+function evaluateAndPickBotTrade(botPlayer, humanPlayer, offer, state) {
+  const offerCash = offer.cash || 0;
+  const offerPropIds = offer.propertyIds || [];
 
-  // Analisis Properti yang diterima Bot
-  (offer.propertyIds || []).forEach(pid => {
-    const space = BOARD_SPACES.find(s => s.id === pid);
-    if (!space) return;
-    const prop = state.properties[pid];
-    let val = space.price || 1000000;
-    if (prop?.isMortgaged) val *= 0.5;
-
-    // Cek apakah properti ini melengkapi monopoli bagi Bot
-    const groupSpaces = BOARD_SPACES.filter(s => s.group === space.group && s.type === space.type);
-    const botOwnedCount = groupSpaces.filter(s => (state.properties[s.id]?.ownerId === botPlayer.id) || s.id === pid).length;
-
-    if (botOwnedCount === groupSpaces.length) {
-      val *= 2.2; // Bonus Monopoli
-    } else if (botOwnedCount === groupSpaces.length - 1) {
-      val *= 1.4;
-    }
-
-    botGain += val;
-  });
-
-  // Analisis Properti yang diberikan Bot
-  (request.propertyIds || []).forEach(pid => {
-    const space = BOARD_SPACES.find(s => s.id === pid);
-    if (!space) return;
-    const prop = state.properties[pid];
-    let val = space.price || 1000000;
-    if (prop?.isMortgaged) val *= 0.5;
-
-    // Cek apakah properti ini memberikan Monopoli ke Lawan (Human)
-    const groupSpaces = BOARD_SPACES.filter(s => s.group === space.group && s.type === space.type);
-    const humanOwnedCount = groupSpaces.filter(s => (state.properties[s.id]?.ownerId === humanPlayer.id) || s.id === pid).length;
-
-    if (humanOwnedCount === groupSpaces.length) {
-      val *= 2.5; // Penalti Risiko Monopoli Lawan
-    } else if (humanOwnedCount === groupSpaces.length - 1) {
-      val *= 1.5;
-    }
-
-    const botCurrentlyOwned = groupSpaces.filter(s => state.properties[s.id]?.ownerId === botPlayer.id).length;
-    if (botCurrentlyOwned >= 2) {
-      val *= 1.4;
-    }
-
-    botLoss += val;
-  });
-
-  // Faktor Likuiditas Kas Bot
-  if (botPlayer.money < 2000000 && offer.cash > 1000000) {
-    botGain += (offer.cash * 0.35);
-  }
-
-  const score = botGain - botLoss;
-
-  if (score >= -50000) {
-    const acceptMessages = [
-      "Tawaran yang menarik dan saling menguntungkan! Saya setuju.",
-      "Kesepakatan bisnis yang adil. Senang berbisnis dengan Anda!",
-      "Saya menyetujui transaksi tukar aset ini.",
-      "Tawaran Anda cukup masuk akal. Ayo kita selesaikan transaksi ini!"
-    ];
-    return {
-      accept: true,
-      message: acceptMessages[Math.floor(Math.random() * acceptMessages.length)]
-    };
-  } else {
-    let reason = "Tawaran ini kurang menguntungkan bagi saya.";
-    const givesHumanMonopoly = (request.propertyIds || []).some(pid => {
-      const space = BOARD_SPACES.find(s => s.id === pid);
-      if (!space) return false;
-      const groupSpaces = BOARD_SPACES.filter(s => s.group === space.group && s.type === space.type);
-      return groupSpaces.filter(s => (state.properties[s.id]?.ownerId === humanPlayer.id) || s.id === pid).length === groupSpaces.length;
-    });
-
-    if (givesHumanMonopoly && (offer.cash || 0) < 3000000) {
-      reason = "Saya tidak bisa menyerahkan tanah ini karena akan membuat Anda memiliki Monopoli penuh warna tersebut tanpa kompensasi uang yang jauh lebih besar!";
-    } else if (botGain < botLoss * 0.7) {
-      reason = `Nilai tawaran Anda masih jauh di bawah valuasi aset saya (defisit sekitar ${formatCurrency(Math.abs(Math.round(score)))}).`;
-    } else {
-      reason = `Tawaran belum seimbang. Tambahkan uang tunai minimal ${formatCurrency(Math.max(500000, Math.abs(Math.round(score))))} lagi agar saya setuju.`;
-    }
-
+  if (offerCash <= 0 && offerPropIds.length === 0) {
     return {
       accept: false,
-      reason
+      reason: "Anda belum memilih aset atau uang apa pun yang ingin Anda berikan kepada saya."
     };
   }
+
+  // Hitung total nilai tawaran pemain dari sudut pandang Bot
+  let botGainValue = offerCash;
+  const botOwnedProps = BOARD_SPACES.filter(s => state.properties[s.id]?.ownerId === botPlayer.id);
+
+  offerPropIds.forEach(pid => {
+    const space = BOARD_SPACES.find(s => s.id === pid);
+    if (!space) return;
+    let val = space.price || 1000000;
+    const prop = state.properties[pid];
+    if (prop?.isMortgaged) val *= 0.5;
+
+    // Bonus jika melengkapi komplek monopoli bagi Bot
+    const groupSpaces = BOARD_SPACES.filter(s => s.group === space.group && s.type === space.type);
+    const botOwnedInGroup = groupSpaces.filter(s => state.properties[s.id]?.ownerId === botPlayer.id).length;
+
+    if (botOwnedInGroup === groupSpaces.length - 1) {
+      val *= 2.5; // Melengkapi monopoli! Sangat bernilai bagi Bot
+    } else if (botOwnedInGroup >= 1) {
+      val *= 1.4;
+    }
+
+    botGainValue += val;
+  });
+
+  // Identifikasi properti Bot yang terlindungi (bagian dari komplek monopoli penuh)
+  const botCompletedMonopolies = new Set();
+  Object.keys(PROPERTY_GROUPS).forEach(gKey => {
+    if (isColorGroupMonopoly(gKey, botPlayer.id)) {
+      PROPERTY_GROUPS[gKey].forEach(id => botCompletedMonopolies.add(id));
+    }
+  });
+
+  // Properti Bot yang bersedia dibarterkan
+  const candidateProps = botOwnedProps.filter(s => !botCompletedMonopolies.has(s.id));
+
+  let chosenPropertyIds = [];
+  let chosenCash = 0;
+
+  // 1. Jika Pemain Menawarkan Properti (Bisa + Uang)
+  if (offerPropIds.length > 0) {
+    // Cari properti Bot yang paling seimbang nilainya dengan yang ditawarkan
+    const sortedCandidates = [...candidateProps].sort((a, b) => {
+      const diffA = Math.abs((a.price || 0) - botGainValue);
+      const diffB = Math.abs((b.price || 0) - botGainValue);
+      return diffA - diffB;
+    });
+
+    if (sortedCandidates.length > 0) {
+      const bestProp = sortedCandidates[0];
+      const propVal = bestProp.price || 0;
+
+      // Jika nilai properti bot berada di rentang wajar (tidak jauh lebih mahal dari yang didapat Bot)
+      if (propVal <= botGainValue * 1.35) {
+        chosenPropertyIds.push(bestProp.id);
+        // Jika pemain memberi nilai jauh lebih tinggi, Bot tambahkan uang kembalian
+        if (botGainValue > propVal + 400000 && botPlayer.money >= 500000) {
+          const cashBonus = Math.min(botPlayer.money - 300000, Math.floor((botGainValue - propVal) * 0.7 / 100000) * 100000);
+          if (cashBonus > 0) chosenCash = cashBonus;
+        }
+      } else if (botPlayer.money >= 500000) {
+        // Jika properti Bot terlalu mahal, Bot tawarkan uang tunai yang adil untuk membeli properti pemain
+        chosenCash = Math.min(botPlayer.money - 300000, Math.floor(botGainValue * 0.95 / 100000) * 100000);
+      }
+    } else if (botPlayer.money >= 500000) {
+      // Bot tidak punya properti bebas, beri uang tunai
+      chosenCash = Math.min(botPlayer.money - 300000, Math.floor(botGainValue * 0.95 / 100000) * 100000);
+    }
+  } else {
+    // 2. Jika Pemain Hanya Menawarkan Uang Tunai (Ingin Beli Properti Bot)
+    const affordableProps = candidateProps.filter(s => (s.price || 0) <= offerCash * 0.9);
+    if (affordableProps.length > 0) {
+      affordableProps.sort((a, b) => (b.price || 0) - (a.price || 0));
+      chosenPropertyIds.push(affordableProps[0].id);
+    }
+  }
+
+  // Evaluasi final
+  if (chosenPropertyIds.length === 0 && chosenCash === 0) {
+    if (offerPropIds.length === 0) {
+      return {
+        accept: false,
+        reason: `Uang tunai ${formatCurrency(offerCash)} yang Anda tawarkan belum cukup bagi saya untuk melepas sertifikat properti milik saya.`
+      };
+    }
+    return {
+      accept: false,
+      reason: "Saat ini saya belum memiliki properti atau saldo kas yang seimbang untuk dibarterkan dengan tawaran Anda."
+    };
+  }
+
+  const acceptMessages = [
+    "Tawaran yang menarik! Saya memilih untuk memberikan aset ini sebagai imbalan barter yang adil.",
+    "Saya menyetujui tawaran barter ini dan telah memilih aset yang cocok untuk Anda.",
+    "Kesepakatan bisnis yang bagus! Ini adalah aset yang saya bersedia berikan kepada Anda.",
+    "Saya setuju! Transaksi barter ini menguntungkan kedua belah pihak."
+  ];
+
+  return {
+    accept: true,
+    chosenPropertyIds,
+    chosenCash,
+    message: acceptMessages[Math.floor(Math.random() * acceptMessages.length)]
+  };
 }
 
 // Dialog Konfirmasi Tawaran Masuk untuk Pemain Manusia

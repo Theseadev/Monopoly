@@ -1898,6 +1898,22 @@ body.fullscreen-active .corner-go-arrow {
   box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
 }
 
+.trade-card-readonly {
+  position: relative;
+  background: #120804;
+  border: 1.5px solid #2d1306;
+  border-radius: 10px;
+  padding: 6px 8px;
+  cursor: not-allowed;
+  user-select: none;
+  opacity: 0.82;
+  transition: all 0.15s ease;
+}
+
+.trade-card-readonly:hover {
+  border-color: #4a210b;
+}
+
 /* Trade Value Meter */
 .trade-value-pill {
   background: #12131b;

@@ -124,6 +124,9 @@ Flight::route('POST|GET /api/game/trade', ['App\Controllers\GameController', 'tr
 Flight::route('POST /api/game/trade/propose', ['App\Controllers\GameController', 'proposeTrade']);
 Flight::route('POST /api/game/trade/respond', ['App\Controllers\GameController', 'respondTrade']);
 Flight::route('POST /api/game/trade/cancel', ['App\Controllers\GameController', 'cancelTrade']);
+Flight::route('POST /api/game/trade-invite', ['App\Controllers\GameController', 'sendTradeInvite']);
+Flight::route('POST /api/game/trade-invite-respond', ['App\Controllers\GameController', 'respondTradeInvite']);
+Flight::route('POST /api/game/trade-invite-cancel', ['App\Controllers\GameController', 'cancelTradeInvite']);
 Flight::route('POST /api/game/chat', ['App\Controllers\GameController', 'sendChat']);
 
 // REST API Endpoints Ruangan Multiplayer Online & Lobby

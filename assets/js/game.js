@@ -549,6 +549,13 @@ let localChats = [];
 let processedChatIds = new Set();
 let botReactionTimeout = null;
 
+// Trade Handshake & Barter State Tracking
+let activeTradeInvitePromptId = null;
+let isWaitingForTradeInvite = false;
+let activeWaitingInviteTargetName = '';
+let activePendingTradeId = null;
+let isWaitingForTradeProposal = false;
+
 const btnLogsDropdown = document.getElementById('btnLogsDropdown');
 const logsDropdownMenu = document.getElementById('logsDropdownMenu');
 const logsBadgeCount = document.getElementById('logsBadgeCount');
@@ -1725,40 +1732,45 @@ function updatePortfolio() {
 
 function updateTradingWidget() {
   if (!tradingPartnersStatus || !state) return;
-  const current = state.players[state.currentPlayerIndex];
-  if (!current) return;
-  const activeHuman = (currentOnlineRoom && currentOnlinePlayer) ? currentOnlinePlayer : current;
-  
-  const opponents = state.players.filter(p => !p.isBankrupt && p.id !== activeHuman.id);
+  const humanPlayer = getCurrentHumanPlayer();
+  if (!humanPlayer) return;
+
+  const opponents = state.players.filter(p => !p.isBankrupt && p.id !== humanPlayer.id);
   if (opponents.length === 0) {
     tradingPartnersStatus.innerHTML = '<span class="text-gray-500 text-[10px]">Tidak ada lawan aktif.</span>';
     return;
   }
-  
+
   tradingPartnersStatus.innerHTML = opponents.map(op => {
     const pProps = BOARD_SPACES.filter(s => state.properties[s.id] && state.properties[s.id].ownerId === op.id);
     return `
-      <span class="px-2 py-0.5 rounded-full bg-zinc-800 border border-zinc-700 text-gray-300 flex items-center gap-1 font-semibold text-[10px]">
+      <button type="button" class="btn-trade-partner px-2 py-0.5 rounded-full bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-gray-300 hover:text-white flex items-center gap-1 font-semibold text-[10px] transition cursor-pointer active:scale-95" data-player-id="${op.id}" title="Ajak trading dengan ${op.name}">
         <span class="w-2 h-2 rounded-full" style="background-color: ${op.color}"></span>
         <span>${op.name.split(' ')[0]}</span>
         <span class="text-amber-400 font-bold">(${pProps.length})</span>
-      </span>
+      </button>
     `;
   }).join('');
+
+  tradingPartnersStatus.querySelectorAll('.btn-trade-partner').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const pid = parseInt(btn.dataset.playerId);
+      openTradingDesk(pid);
+    });
+  });
 }
 
 function updateTradingDesk() {
   updateTradingWidget();
 }
 
-function openTradingDesk(targetPlayerId = null) {
+// Entry Point: Mengajak Lawan Trading (Handshake Konfirmasi Pop-up)
+async function openTradingDesk(targetPlayerId = null) {
   if (!state || isModalOpen || isProcessingAction) return;
 
-  const current = state.players[state.currentPlayerIndex];
-  if (!current) return;
-  const humanPlayer = (currentOnlineRoom && currentOnlinePlayer) ? currentOnlinePlayer : (current.isAI ? state.players.find(p => !p.isAI && !p.isBankrupt) || current : current);
-
+  const humanPlayer = getCurrentHumanPlayer();
   const opponents = state.players.filter(p => !p.isBankrupt && p.id !== humanPlayer.id);
+
   if (opponents.length === 0) {
     Swal.fire({
       title: 'Tidak Ada Lawan',
@@ -1773,12 +1785,91 @@ function openTradingDesk(targetPlayerId = null) {
     ? targetPlayerId 
     : opponents[0].id;
 
+  const targetPlayer = state.players.find(p => p.id === selectedOpponentId);
+  if (!targetPlayer) return;
+
+  // 1. Jika Target adalah BOT AI -> Langsung Buka Meja Trading
+  if (targetPlayer.isAI) {
+    openTradingDeskModal(targetPlayer.id);
+    return;
+  }
+
+  // 2. Jika Mode Pass & Play (Local PvP tanpa Online Room)
+  if (!currentOnlineRoom) {
+    const res = await Swal.fire({
+      title: `<span class="swal2-monopoly-title">🤝 Ajakan Trading</span>`,
+      html: `
+        <div class="text-center text-xs text-zinc-300 font-sans space-y-2 py-1">
+          <p class="text-sm"><b>${humanPlayer.name}</b> ingin mengajak <b>${targetPlayer.name}</b> untuk melakukan trading aset.</p>
+          <p class="text-zinc-400 text-[11px]">Apakah <b>${targetPlayer.name}</b> menerima ajakan trading ini?</p>
+        </div>
+      `,
+      showCancelButton: true,
+      confirmButtonText: 'Terima & Buka Trading',
+      cancelButtonText: 'Tolak',
+      customClass: {
+        popup: 'swal2-monopoly-popup',
+        confirmButton: 'swal2-monopoly-confirm',
+        cancelButton: 'swal2-monopoly-cancel'
+      },
+      buttonsStyling: false
+    });
+
+    if (res.isConfirmed) {
+      openTradingDeskModal(targetPlayer.id);
+    }
+    return;
+  }
+
+  // 3. Mode Online Multiplayer -> Kirim Ajakan ke Server & Tampilkan Pop-up Menunggu
+  isWaitingForTradeInvite = true;
+  activeWaitingInviteTargetName = targetPlayer.name;
+
+  Swal.fire({
+    title: `<span class="swal2-monopoly-title">Mengirim Ajakan Trading...</span>`,
+    html: `
+      <div class="text-center text-xs text-zinc-300 font-sans space-y-3 py-2">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-rose-500 border-t-transparent"></div>
+        <p>Menunggu konfirmasi persetujuan dari <b class="text-rose-400 font-bold">${targetPlayer.name}</b>...</p>
+      </div>
+    `,
+    showCancelButton: true,
+    cancelButtonText: 'Batalkan',
+    showConfirmButton: false,
+    customClass: {
+      popup: 'swal2-monopoly-popup',
+      cancelButton: 'swal2-monopoly-cancel'
+    },
+    buttonsStyling: false,
+    allowOutsideClick: false
+  }).then(async (result) => {
+    if (result.dismiss === Swal.DismissReason.cancel) {
+      isWaitingForTradeInvite = false;
+      await apiCall('/api/game/trade-invite-cancel', { playerId: humanPlayer.id }, 'POST');
+    }
+  });
+
+  await apiCall('/api/game/trade-invite', {
+    fromPlayerId: humanPlayer.id,
+    toPlayerId: targetPlayer.id
+  }, 'POST');
+}
+
+// Meja Trading (Bilik Negosiasi & Barter Aset)
+function openTradingDeskModal(targetPlayerId) {
+  if (!state) return;
+  const humanPlayer = getCurrentHumanPlayer();
+  const opponents = state.players.filter(p => !p.isBankrupt && p.id !== humanPlayer.id);
+  if (opponents.length === 0) return;
+
+  let selectedOpponentId = targetPlayerId !== null && opponents.some(o => o.id === targetPlayerId) 
+    ? targetPlayerId 
+    : opponents[0].id;
+
   let offerCash = 0;
   let requestCash = 0;
   let offerPropertyIds = new Set();
   let requestPropertyIds = new Set();
-  let offerJailCard = false;
-  let requestJailCard = false;
 
   function renderTradeDeskModal() {
     const opponent = state.players.find(p => p.id === selectedOpponentId);
@@ -1801,7 +1892,6 @@ function openTradingDesk(targetPlayerId = null) {
       </svg>
     `;
 
-    // Modal Template
     modalContainer.innerHTML = `
       <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50 animate__animated animate__fadeIn animate__faster">
         <div class="bg-[#1f0e05] border-[4px] border-[#f59e0b] rounded-[32px] max-w-xl w-full shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_35px_rgba(245,158,11,0.25)] p-5 sm:p-6 text-white flex flex-col font-sans select-none relative max-h-[92vh]">
@@ -1811,7 +1901,7 @@ function openTradingDesk(targetPlayerId = null) {
             <svg class="w-7 h-7 text-amber-400 shrink-0 drop-shadow" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19.5 7.5L16.2 4.2c-.4-.4-1-.4-1.4 0l-3.3 3.3-1.4-1.4c-.4-.4-1-.4-1.4 0L4.5 10.3c-.4.4-.4 1 0 1.4l5.3 5.3c.4.4 1 .4 1.4 0l1.4-1.4 3.3 3.3c.4.4 1 .4 1.4 0l3.3-3.3c.4-.4.4-1 0-1.4l-1.4-1.4 1.7-1.7c.4-.4.4-1 0-1.4l-1.4-1.4 1.4-1.4c.4-.4.4-1 0-1.4z"/>
             </svg>
-            <h2 class="font-black text-2xl sm:text-3xl text-amber-400 font-outfit tracking-wide">Trade</h2>
+            <h2 class="font-black text-2xl sm:text-3xl text-amber-400 font-outfit tracking-wide">Meja Trading</h2>
           </div>
 
           <!-- Main 2-Panel Trade Section -->
@@ -1847,10 +1937,10 @@ function openTradingDesk(targetPlayerId = null) {
 
               <!-- PROPERTIES Section -->
               <div class="mt-3 flex-1 flex flex-col min-h-0">
-                <div class="text-[10px] font-black tracking-widest text-[#b45309] text-center mb-1.5 uppercase font-outfit">PROPERTIES</div>
+                <div class="text-[10px] font-black tracking-widest text-[#b45309] text-center mb-1.5 uppercase font-outfit">PROPERTI DIMINTA</div>
                 <div class="flex-1 overflow-y-auto space-y-1.5 trade-scroll-area pr-1">
                   ${oppProps.length === 0 ? `
-                    <div class="h-full flex items-center justify-center italic text-stone-500 text-xs font-medium">No properties</div>
+                    <div class="h-full flex items-center justify-center italic text-stone-500 text-xs font-medium">Tidak ada properti</div>
                   ` : oppProps.map(space => {
                     const isSelected = requestPropertyIds.has(space.id);
                     return `
@@ -1896,10 +1986,10 @@ function openTradingDesk(targetPlayerId = null) {
 
               <!-- PROPERTIES Section -->
               <div class="mt-3 flex-1 flex flex-col min-h-0">
-                <div class="text-[10px] font-black tracking-widest text-[#b45309] text-center mb-1.5 uppercase font-outfit">PROPERTIES</div>
+                <div class="text-[10px] font-black tracking-widest text-[#b45309] text-center mb-1.5 uppercase font-outfit">PROPERTI DITAWARKAN</div>
                 <div class="flex-1 overflow-y-auto space-y-1.5 trade-scroll-area pr-1">
                   ${myProps.length === 0 ? `
-                    <div class="h-full flex items-center justify-center italic text-stone-500 text-xs font-medium">No properties</div>
+                    <div class="h-full flex items-center justify-center italic text-stone-500 text-xs font-medium">Tidak ada properti</div>
                   ` : myProps.map(space => {
                     const isSelected = offerPropertyIds.has(space.id);
                     return `
@@ -1922,13 +2012,13 @@ function openTradingDesk(targetPlayerId = null) {
 
           </div>
 
-          <!-- Bottom Action Buttons: Offer & Cancel -->
+          <!-- Bottom Action Buttons: Ajukan Tawaran & Batal -->
           <div class="flex items-center gap-3 mt-4 pt-1">
             <button id="btnSubmitTradeDesk" class="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-b from-[#22c55e] to-[#15803d] border border-[#16a34a] text-white font-black text-lg sm:text-xl font-outfit shadow-[0_5px_0_#14532d] hover:brightness-110 active:translate-y-1 active:shadow-[0_1px_0_#14532d] transition-all cursor-pointer text-center">
-              Offer
+              Ajukan Tawaran
             </button>
             <button id="btnCancelTradeDesk" class="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-b from-[#4a2612] to-[#281308] border border-[#5c3017] text-[#fed7aa] font-black text-lg sm:text-xl font-outfit shadow-[0_5px_0_#150903] hover:brightness-110 active:translate-y-1 active:shadow-[0_1px_0_#150903] transition-all cursor-pointer text-center">
-              Cancel
+              Tutup
             </button>
           </div>
 
@@ -1938,7 +2028,6 @@ function openTradingDesk(targetPlayerId = null) {
 
     modalContainer.classList.remove('hidden');
 
-    // Event Listeners
     document.getElementById('btnCancelTradeDesk')?.addEventListener('click', closeModal);
 
     document.getElementById('selectTradeOpponent')?.addEventListener('change', (e) => {
@@ -1948,7 +2037,6 @@ function openTradingDesk(targetPlayerId = null) {
       renderTradeDeskModal();
     });
 
-    // Direct Input Cash Handlers (Clean Numbers, No Spinner)
     document.getElementById('inputOfferCash')?.addEventListener('input', (e) => {
       const clean = e.target.value.replace(/\D/g, '');
       let val = parseInt(clean) || 0;
@@ -1967,7 +2055,6 @@ function openTradingDesk(targetPlayerId = null) {
       e.target.value = val === 0 && clean === '' ? '' : val;
     });
 
-    // Toggle Property Selection
     document.querySelectorAll('.trade-card-select').forEach(card => {
       card.addEventListener('click', () => {
         const type = card.dataset.type;
@@ -1983,7 +2070,6 @@ function openTradingDesk(targetPlayerId = null) {
       });
     });
 
-    // Submit Offer Button
     document.getElementById('btnSubmitTradeDesk')?.addEventListener('click', async () => {
       if (offerCash === 0 && requestCash === 0 && offerPropertyIds.size === 0 && requestPropertyIds.size === 0) {
         Swal.fire({
@@ -2015,14 +2101,13 @@ function openTradingDesk(targetPlayerId = null) {
   renderTradeDeskModal();
 }
 
-// Handler Pengajuan Trading ke Lawan (Bot AI / Pemain Manusia)
+// Handler Pengajuan Proposal Barter ke Lawan (Bot AI / Pemain Manusia)
 async function handleProposeTrade(fromPlayer, toPlayer, offer, request) {
   if (isProcessingAction) return;
   isProcessingAction = true;
 
   try {
     if (toPlayer.isAI) {
-      // Evaluasi Kecerdasan Bot AI
       const evaluation = evaluateBotTrade(toPlayer, fromPlayer, offer, request, state);
       
       if (evaluation.accept) {
@@ -2068,17 +2153,48 @@ async function handleProposeTrade(fromPlayer, toPlayer, offer, request) {
         });
       }
     } else {
-      // Pemain Manusia (Pass & Play / Online)
-      const res = await showIncomingTradeProposal(fromPlayer, toPlayer, offer, request);
-      if (res.isConfirmed) {
-        await executeTrade(fromPlayer.id, toPlayer.id, offer, request);
-      } else {
+      if (currentOnlineRoom) {
+        isWaitingForTradeProposal = true;
         Swal.fire({
-          title: 'Trading Ditolak',
-          text: `${toPlayer.name} menolak tawaran trading Anda.`,
-          icon: 'info',
-          customClass: { popup: 'swal2-monopoly-popup' }
+          title: '<span class="swal2-monopoly-title">Mengirim Proposal Barter...</span>',
+          html: `
+            <div class="text-center text-xs text-zinc-300 font-sans space-y-3 py-2">
+              <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-amber-500 border-t-transparent"></div>
+              <p>Menunggu tanggapan tawaran dari <b class="text-rose-400 font-bold">${toPlayer.name}</b>...</p>
+            </div>
+          `,
+          showCancelButton: true,
+          cancelButtonText: 'Batalkan',
+          showConfirmButton: false,
+          customClass: { popup: 'swal2-monopoly-popup', cancelButton: 'swal2-monopoly-cancel' },
+          buttonsStyling: false
+        }).then(async (result) => {
+          if (result.dismiss === Swal.DismissReason.cancel) {
+            isWaitingForTradeProposal = false;
+            await apiCall('/api/game/trade/cancel', { playerId: fromPlayer.id }, 'POST');
+          }
         });
+
+        await apiCall('/api/game/trade/propose', {
+          fromPlayerId: fromPlayer.id,
+          toPlayerId: toPlayer.id,
+          offerPropertyIds: offer.propertyIds || [],
+          offerMoney: offer.cash || 0,
+          requestPropertyIds: request.propertyIds || [],
+          requestMoney: request.cash || 0
+        }, 'POST');
+      } else {
+        const res = await showIncomingTradeProposal(fromPlayer, toPlayer, offer, request);
+        if (res.isConfirmed) {
+          await executeTrade(fromPlayer.id, toPlayer.id, offer, request);
+        } else {
+          Swal.fire({
+            title: 'Trading Ditolak',
+            text: `${toPlayer.name} menolak tawaran trading Anda.`,
+            icon: 'info',
+            customClass: { popup: 'swal2-monopoly-popup' }
+          });
+        }
       }
     }
   } finally {
@@ -2447,21 +2563,24 @@ function renderChats() {
   chatMessagesList.scrollTop = chatMessagesList.scrollHeight;
 }
 
-function syncChatsFromState() {
-  if (!state || !state.chats || !Array.isArray(state.chats)) return;
+function syncChatsFromState(chatsList) {
+  const incomingChats = chatsList || (state && state.chats);
+  if (!incomingChats || !Array.isArray(incomingChats)) return;
   let hasNew = false;
   const currentHuman = getCurrentHumanPlayer();
   const myId = currentHuman ? currentHuman.id : 0;
 
-  state.chats.forEach(c => {
+  incomingChats.forEach(c => {
     if (!processedChatIds.has(c.id)) {
       processedChatIds.add(c.id);
-      if (c.message && c.message.trim() !== '') {
-        localChats.push(c);
-        hasNew = true;
-      }
-      if (c.senderId !== myId && c.emote) {
-        spawnFloatingEmote(c.emote, c.senderName, c.senderColor);
+      if (c.senderId !== myId) {
+        if (c.message && c.message.trim() !== '') {
+          localChats.push(c);
+          hasNew = true;
+        }
+        if (c.emote) {
+          spawnFloatingEmote(c.emote, c.senderName, c.senderColor);
+        }
       }
     }
   });
@@ -3681,6 +3800,143 @@ function startLobbyPolling(code) {
   }, 1200);
 }
 
+async function checkOnlineTradeEvents(res) {
+  if (!res || !currentOnlineRoom) return;
+  const human = getCurrentHumanPlayer();
+  const myId = human ? human.id : 0;
+
+  // 1. CEK AJAKAN TRADING (Trade Invite Handshake)
+  if (res.tradeInvite) {
+    const invite = res.tradeInvite;
+
+    // A. Pemain saat ini adalah pihak yang DIAJAK trading
+    if (invite.toPlayerId === myId && invite.status === 'PENDING') {
+      if (activeTradeInvitePromptId !== invite.id) {
+        activeTradeInvitePromptId = invite.id;
+        sound.playDiceRoll();
+
+        const result = await Swal.fire({
+          title: `<span class="swal2-monopoly-title">🤝 Ajakan Trading</span>`,
+          html: `
+            <div class="text-center text-xs text-zinc-300 font-sans space-y-2 py-1">
+              <p class="text-sm"><b class="text-amber-400 font-bold">${invite.fromPlayerName}</b> mengajak Anda membuka <b class="text-white">Meja Trading</b> untuk bernegosiasi & bertukar aset properti.</p>
+              <p class="text-zinc-400 text-[11px]">Apakah Anda menerima ajakan trading ini?</p>
+            </div>
+          `,
+          showCancelButton: true,
+          confirmButtonText: 'Terima & Buka Trading',
+          cancelButtonText: 'Tolak',
+          customClass: {
+            popup: 'swal2-monopoly-popup',
+            confirmButton: 'swal2-monopoly-confirm',
+            cancelButton: 'swal2-monopoly-cancel'
+          },
+          buttonsStyling: false,
+          allowOutsideClick: false
+        });
+
+        if (result.isConfirmed) {
+          sound.playCash();
+          await apiCall('/api/game/trade-invite-respond', {
+            playerId: myId,
+            accept: true,
+            inviteId: invite.id
+          }, 'POST');
+          openTradingDeskModal(invite.fromPlayerId);
+        } else {
+          await apiCall('/api/game/trade-invite-respond', {
+            playerId: myId,
+            accept: false,
+            inviteId: invite.id
+          }, 'POST');
+        }
+      }
+    }
+
+    // B. Pemain saat ini adalah pihak yang MENGAJAK trading
+    if (invite.fromPlayerId === myId) {
+      if (invite.status === 'ACCEPTED' && isWaitingForTradeInvite) {
+        isWaitingForTradeInvite = false;
+        Swal.close();
+        sound.playCash();
+        openTradingDeskModal(invite.toPlayerId);
+      } else if (invite.status === 'DECLINED' && isWaitingForTradeInvite) {
+        isWaitingForTradeInvite = false;
+        Swal.close();
+        Swal.fire({
+          title: '<span class="text-amber-400 font-outfit">Ajakan Ditolak</span>',
+          text: `${activeWaitingInviteTargetName || invite.toPlayerName || 'Pemain'} menolak ajakan trading Anda saat ini.`,
+          icon: 'info',
+          confirmButtonText: 'Tutup',
+          customClass: {
+            popup: 'swal2-monopoly-popup',
+            confirmButton: 'swal2-monopoly-confirm'
+          },
+          buttonsStyling: false
+        });
+        apiCall('/api/game/trade-invite-cancel', { playerId: myId }, 'POST').catch(() => {});
+      }
+    }
+  } else {
+    if (isWaitingForTradeInvite) {
+      isWaitingForTradeInvite = false;
+      Swal.close();
+    }
+  }
+
+  // 2. CEK PROPOSAL BARTER MASUK (Pending Trade Barter)
+  if (res.pendingTrade) {
+    const trade = res.pendingTrade;
+
+    if (trade.toPlayerId === myId) {
+      if (activePendingTradeId !== trade.createdAt) {
+        activePendingTradeId = trade.createdAt;
+        const fromPlayer = res.players.find(p => p.id === trade.fromPlayerId) || { name: 'Pemain ' + (trade.fromPlayerId + 1), id: trade.fromPlayerId };
+        const toPlayer = human;
+
+        const offer = {
+          cash: trade.offerMoney || 0,
+          propertyIds: trade.offerPropertyIds || [],
+          jailCards: 0
+        };
+
+        const request = {
+          cash: trade.requestMoney || 0,
+          propertyIds: trade.requestPropertyIds || [],
+          jailCards: 0
+        };
+
+        sound.playDiceRoll();
+        const swalRes = await showIncomingTradeProposal(fromPlayer, toPlayer, offer, request);
+
+        if (swalRes.isConfirmed) {
+          sound.playCash();
+          triggerConfetti({ particleCount: 50, spread: 80 });
+          const updatedState = await apiCall('/api/game/trade/respond', {
+            playerId: myId,
+            accept: true
+          }, 'POST');
+          if (updatedState) {
+            state = updatedState;
+            updateBoardUI();
+            updateHUD();
+          }
+        } else {
+          await apiCall('/api/game/trade/respond', {
+            playerId: myId,
+            accept: false
+          }, 'POST');
+        }
+      }
+    }
+  } else {
+    if (isWaitingForTradeProposal) {
+      isWaitingForTradeProposal = false;
+      Swal.close();
+    }
+  }
+}
+
 function startInGamePolling(code) {
   stopAllPolling();
   inGamePollInterval = setInterval(async () => {
@@ -3689,10 +3945,19 @@ function startInGamePolling(code) {
       inGamePollInterval = null;
       return;
     }
-    if (isAnimating || isBotRunning || isModalOpen) return;
 
     const res = await apiCall('/api/game/state', null, 'GET');
     if (res && res.players) {
+      // 1. Sinkronisasi Real-time Emoticon & Obrolan
+      if (res.chats && Array.isArray(res.chats)) {
+        syncChatsFromState(res.chats);
+      }
+
+      // 2. Deteksi Event Ajakan & Proposal Barter Online
+      checkOnlineTradeEvents(res);
+
+      if (isAnimating || isBotRunning) return;
+
       const isDifferent = !state ||
         res.currentPlayerIndex !== state.currentPlayerIndex ||
         res.phase !== state.phase ||
@@ -3706,7 +3971,7 @@ function startInGamePolling(code) {
         updateHUD();
       }
     }
-  }, 1500);
+  }, 1000);
 }
 
 function renderLobbyUI() {
@@ -3825,6 +4090,17 @@ function renderLobbyUI() {
 
 function launchOnlineGame(gameState) {
   state = gameState;
+  processedChatIds.clear();
+  localChats = [];
+  if (gameState && gameState.chats && Array.isArray(gameState.chats)) {
+    gameState.chats.forEach(c => {
+      processedChatIds.add(c.id);
+      if (c.message && c.message.trim() !== '') {
+        localChats.push(c);
+      }
+    });
+    renderChats();
+  }
   if (inGameModeBadge) {
     inGameModeBadge.textContent = `Online: ${currentOnlineRoom ? currentOnlineRoom.code : ''}`;
   }
@@ -3902,6 +4178,9 @@ async function startConfiguredGame(mode) {
   const newState = await apiCall('/api/game/new', { players, options });
   if (newState) {
     state = newState;
+    processedChatIds.clear();
+    localChats = [];
+    renderChats();
     showScreen('inGameBoardScreen');
     renderBoard();
     updateHUD();

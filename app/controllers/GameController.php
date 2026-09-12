@@ -13,6 +13,17 @@ class GameController {
         $queryCode = Flight::request()->query['roomCode'] ?? Flight::request()->query['code'] ?? null;
         $bodyData = Flight::request()->data->getData();
         $dataCode = $bodyData['roomCode'] ?? $bodyData['code'] ?? null;
+        
+        if (!$dataCode) {
+            $rawBody = Flight::request()->getBody();
+            if ($rawBody) {
+                $parsed = json_decode($rawBody, true);
+                if (is_array($parsed)) {
+                    $dataCode = $parsed['roomCode'] ?? $parsed['code'] ?? null;
+                }
+            }
+        }
+        
         $roomCode = $dataCode ?: $queryCode;
         
         GameState::setContextRoomCode($roomCode);
@@ -177,6 +188,42 @@ class GameController {
         $playerId = (int)($data['playerId'] ?? 0);
 
         $state = GameState::cancelTrade($playerId);
+        Flight::json($state);
+    }
+
+    public static function sendTradeInvite(): void {
+        self::initRequestContext();
+        $body = Flight::request()->getBody();
+        $json = json_decode($body, true);
+        $data = is_array($json) ? array_merge(Flight::request()->data->getData(), $json) : Flight::request()->data->getData();
+        $fromPlayerId = (int)($data['fromPlayerId'] ?? 0);
+        $toPlayerId = (int)($data['toPlayerId'] ?? 0);
+
+        $state = GameState::inviteTrade($fromPlayerId, $toPlayerId);
+        Flight::json($state);
+    }
+
+    public static function respondTradeInvite(): void {
+        self::initRequestContext();
+        $body = Flight::request()->getBody();
+        $json = json_decode($body, true);
+        $data = is_array($json) ? array_merge(Flight::request()->data->getData(), $json) : Flight::request()->data->getData();
+        $playerId = (int)($data['playerId'] ?? 0);
+        $accept = !empty($data['accept']);
+        $inviteId = !empty($data['inviteId']) ? (string)$data['inviteId'] : null;
+
+        $state = GameState::respondTradeInvite($playerId, $accept, $inviteId);
+        Flight::json($state);
+    }
+
+    public static function cancelTradeInvite(): void {
+        self::initRequestContext();
+        $body = Flight::request()->getBody();
+        $json = json_decode($body, true);
+        $data = is_array($json) ? array_merge(Flight::request()->data->getData(), $json) : Flight::request()->data->getData();
+        $playerId = (int)($data['playerId'] ?? 0);
+
+        $state = GameState::cancelTradeInvite($playerId);
         Flight::json($state);
     }
 

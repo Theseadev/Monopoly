@@ -120,7 +120,9 @@ class GameState {
             'options' => $options,
             'chanceDeck' => $chanceDeck,
             'communityChestDeck' => $communityChestDeck,
-            'chats' => []
+            'chats' => [],
+            'tradeInvite' => null,
+            'pendingTrade' => null
         ];
 
         self::save($state);
@@ -910,4 +912,97 @@ class GameState {
             $state['players'][$fromId]['money'] += $trade['requestMoney'];
         }
     }
+
+    public static function inviteTrade(int $fromPlayerId, int $toPlayerId): array {
+        $state = self::load();
+        if (($state['phase'] ?? '') === 'GAME_OVER') return $state;
+
+        $fromPlayer = $state['players'][$fromPlayerId] ?? null;
+        $toPlayer = $state['players'][$toPlayerId] ?? null;
+
+        if (!$fromPlayer || !$toPlayer || $fromPlayerId === $toPlayerId) {
+            self::addLog($state, "Ajakan trading tidak valid.", 'danger');
+            return $state;
+        }
+
+        if (!empty($fromPlayer['isBankrupt']) || !empty($toPlayer['isBankrupt'])) {
+            self::addLog($state, "Pemain bangkrut tidak dapat melakukan trading.", 'warning');
+            return $state;
+        }
+
+        // Jika lawan adalah BOT AI, langsung setujui ajakan trading
+        if (!empty($toPlayer['isAI'])) {
+            $state['tradeInvite'] = [
+                'id' => uniqid('tri_'),
+                'fromPlayerId' => $fromPlayerId,
+                'fromPlayerName' => $fromPlayer['name'],
+                'fromPlayerColor' => $fromPlayer['color'] ?? '#3b82f6',
+                'toPlayerId' => $toPlayerId,
+                'toPlayerName' => $toPlayer['name'],
+                'toPlayerColor' => $toPlayer['color'] ?? '#ef4444',
+                'status' => 'ACCEPTED',
+                'createdAt' => time()
+            ];
+            self::addLog($state, "{$fromPlayer['name']} membuka meja trading dengan {$toPlayer['name']}.", 'info');
+            self::save($state);
+            return $state;
+        }
+
+        // Jika lawan adalah Manusia (Online / PvP)
+        $invite = [
+            'id' => uniqid('tri_'),
+            'fromPlayerId' => $fromPlayerId,
+            'fromPlayerName' => $fromPlayer['name'],
+            'fromPlayerColor' => $fromPlayer['color'] ?? '#3b82f6',
+            'toPlayerId' => $toPlayerId,
+            'toPlayerName' => $toPlayer['name'],
+            'toPlayerColor' => $toPlayer['color'] ?? '#ef4444',
+            'status' => 'PENDING',
+            'createdAt' => time()
+        ];
+
+        $state['tradeInvite'] = $invite;
+        self::addLog($state, "{$fromPlayer['name']} mengirim ajakan trading kepada {$toPlayer['name']}.", 'info');
+        self::save($state);
+        return $state;
+    }
+
+    public static function respondTradeInvite(int $playerId, bool $accept, ?string $inviteId = null): array {
+        $state = self::load();
+        $invite = $state['tradeInvite'] ?? null;
+
+        if (!$invite || $invite['toPlayerId'] !== $playerId) {
+            return $state;
+        }
+
+        if ($inviteId && $invite['id'] !== $inviteId) {
+            return $state;
+        }
+
+        $fromPlayer = $state['players'][$invite['fromPlayerId']] ?? null;
+        $toPlayer = $state['players'][$invite['toPlayerId']] ?? null;
+        $fromName = $fromPlayer ? $fromPlayer['name'] : 'Pemain';
+        $toName = $toPlayer ? $toPlayer['name'] : 'Pemain';
+
+        if ($accept) {
+            $state['tradeInvite']['status'] = 'ACCEPTED';
+            self::addLog($state, "[TRADING DITERIMA] {$toName} menerima ajakan trading dari {$fromName}!", 'success');
+        } else {
+            $state['tradeInvite']['status'] = 'DECLINED';
+            self::addLog($state, "[TRADING DITOLAK] {$toName} menolak ajakan trading dari {$fromName}.", 'warning');
+        }
+
+        self::save($state);
+        return $state;
+    }
+
+    public static function cancelTradeInvite(int $playerId): array {
+        $state = self::load();
+        if (isset($state['tradeInvite']) && ($state['tradeInvite']['fromPlayerId'] === $playerId || $state['tradeInvite']['toPlayerId'] === $playerId)) {
+            $state['tradeInvite'] = null;
+            self::save($state);
+        }
+        return $state;
+    }
 }
+

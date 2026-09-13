@@ -2064,17 +2064,24 @@ body.fullscreen-active #btnOpenTradingDesk svg {
 }
 
 .chess-pawn-svg {
-  width: clamp(14px, 1.6vw, 19px);
-  height: clamp(18px, 2.1vw, 24px);
+  width: clamp(16px, 2vw, 23px);
+  height: clamp(21px, 2.6vw, 30px);
   display: block;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 2.5px 4px rgba(0, 0, 0, 0.55));
 }
 
 @media (min-width: 768px) {
   .chess-pawn-svg {
-    width: clamp(16px, 1.8vw, 21px);
-    height: clamp(20px, 2.3vw, 26px);
+    width: clamp(20px, 2.2vw, 28px);
+    height: clamp(25px, 2.8vw, 36px);
   }
+}
+
+:fullscreen .chess-pawn-svg,
+body.fullscreen-active .chess-pawn-svg {
+  width: clamp(24px, 2.6vw, 35px) !important;
+  height: clamp(30px, 3.3vw, 44px) !important;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.65)) !important;
 }
 
 /* Pawn Hopping Arc Animation */

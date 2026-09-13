@@ -142,18 +142,30 @@
     .settings-card {
       background: linear-gradient(175deg, rgba(38, 8, 14, 0.96) 0%, rgba(20, 3, 6, 0.98) 100%) !important;
       border: 1.5px solid rgba(244, 63, 94, 0.3) !important;
-      border-radius: 28px !important;
+      border-radius: 24px !important;
       box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(225, 29, 72, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;
       backdrop-filter: blur(20px);
+      box-sizing: border-box;
+    }
+    @media (min-width: 640px) {
+      .settings-card {
+        border-radius: 28px !important;
+      }
     }
 
     .form-setting-row {
       background: rgba(18, 3, 6, 0.7);
       border: 1.5px solid rgba(255, 255, 255, 0.07);
-      border-radius: 18px;
-      padding: 11px 13px;
+      border-radius: 14px;
+      padding: 8px 11px;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+    @media (min-width: 640px) {
+      .form-setting-row {
+        border-radius: 18px;
+        padding: 10px 13px;
+      }
     }
     .form-setting-row:focus-within, .form-setting-row:hover {
       border-color: rgba(244, 63, 94, 0.35);
@@ -341,11 +353,11 @@
   <!-- ========================================== -->
   <!-- 2. LAYAR PENGATURAN "MAIN VS BOT AI"       -->
   <!-- ========================================== -->
-  <section id="settingsAiScreen" class="hidden w-full max-w-[440px] min-h-screen flex flex-col items-center justify-center p-4 sm:p-5 mx-auto animate-fade-in">
-    <div class="settings-card w-full p-5 sm:p-6 relative">
+  <section id="settingsAiScreen" class="hidden w-full max-w-[420px] min-h-screen flex flex-col items-center justify-center p-3.5 sm:p-5 mx-auto animate-fade-in">
+    <div class="settings-card w-full p-4 sm:p-6 pb-5 sm:pb-6 relative">
       <!-- Top Sub-Header -->
-      <div class="flex items-center justify-between mb-4">
-        <button id="btnBackFromAi" class="btn-card-back px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer active:scale-95 transition">
+      <div class="flex items-center justify-between mb-3 sm:mb-4">
+        <button id="btnBackFromAi" class="btn-card-back px-3 py-1.5 rounded-xl text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer active:scale-95 transition">
           <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-[2.5]" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           <span>Kembali</span>
         </button>
@@ -359,19 +371,19 @@
       </div>
 
       <!-- Title -->
-      <div class="text-center mb-5">
+      <div class="text-center mb-4 sm:mb-5">
         <h2 class="text-gold-3d text-2xl sm:text-3xl font-black uppercase tracking-wider">
           PENGATURAN
         </h2>
-        <p class="text-rose-300/80 text-xs font-semibold mt-0.5">
+        <p class="text-rose-300/80 text-[11px] sm:text-xs font-semibold mt-0.5">
           Konfigurasi permainan melawan kecerdasan buatan
         </p>
       </div>
 
       <!-- Form Controls -->
-      <div class="space-y-3.5">
+      <div class="space-y-2.5 sm:space-y-3">
         <!-- 1. Jumlah Pemain -->
-        <div class="form-setting-row space-y-2">
+        <div class="form-setting-row space-y-1.5 sm:space-y-2">
           <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
             <span class="flex items-center gap-1.5"><span>👥</span> <span>Jumlah Pemain</span></span>
             <span id="aiPlayersVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">4 Orang</span>
@@ -380,7 +392,7 @@
         </div>
 
         <!-- 2. Tingkat Kecerdasan Bot -->
-        <div class="form-setting-row space-y-2">
+        <div class="form-setting-row space-y-1.5 sm:space-y-2">
           <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
             <span class="flex items-center gap-1.5"><span>🧠</span> <span>Tingkat Kecerdasan Bot</span></span>
             <span id="aiRobotsVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">Sedang</span>
@@ -389,7 +401,7 @@
         </div>
 
         <!-- 3. Modal Awal Uang -->
-        <div class="form-setting-row space-y-2">
+        <div class="form-setting-row space-y-1.5 sm:space-y-2">
           <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
             <span class="flex items-center gap-1.5"><span>💰</span> <span>Modal Awal Uang</span></span>
             <span id="aiMoneyVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">Rp 15.000.000</span>
@@ -399,33 +411,33 @@
 
         <!-- 4. Tarik Sewa di Penjara -->
         <div class="form-setting-row flex items-center justify-between gap-3">
-          <div class="flex-1">
+          <div class="flex-1 min-w-0">
             <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">
-              <span>🔒</span> <span>Tarik Sewa di Penjara</span>
+              <span>🔒</span> <span class="truncate">Tarik Sewa di Penjara</span>
             </div>
-            <div class="text-[10.5px] text-zinc-400 leading-snug mt-0.5">Pemilik yang dipenjara tidak menerima uang sewa</div>
+            <div class="text-[10px] sm:text-[10.5px] text-zinc-400 leading-tight sm:leading-snug mt-0.5">Pemilik yang dipenjara tidak menerima uang sewa</div>
           </div>
-          <div id="aiJailToggle" class="toggle-switch-track" data-checked="false">
+          <div id="aiJailToggle" class="toggle-switch-track shrink-0" data-checked="false">
             <div class="toggle-knob"></div>
           </div>
         </div>
 
         <!-- 5. Mode Lelang Properti -->
         <div class="form-setting-row flex items-center justify-between gap-3">
-          <div class="flex-1">
+          <div class="flex-1 min-w-0">
             <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">
-              <span>🏷️</span> <span>Mode Lelang Properti</span>
+              <span>🏷️</span> <span class="truncate">Mode Lelang Properti</span>
             </div>
-            <div class="text-[10.5px] text-zinc-400 leading-snug mt-0.5">Properti yang dilewati langsung dilelang</div>
+            <div class="text-[10px] sm:text-[10.5px] text-zinc-400 leading-tight sm:leading-snug mt-0.5">Properti yang dilewati langsung dilelang</div>
           </div>
-          <div id="aiAuctionToggle" class="toggle-switch-track" data-checked="false">
+          <div id="aiAuctionToggle" class="toggle-switch-track shrink-0" data-checked="false">
             <div class="toggle-knob"></div>
           </div>
         </div>
       </div>
 
       <!-- Next Button -->
-      <button id="btnStartAiGame" class="btn-menu-orange w-full py-3.5 mt-6 rounded-2xl text-white font-black text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer shadow-xl active:scale-95 transition">
+      <button id="btnStartAiGame" class="btn-menu-orange w-full py-3 sm:py-3.5 mt-4 sm:mt-5 rounded-xl sm:rounded-2xl text-white font-black text-xs sm:text-base flex items-center justify-center gap-2 cursor-pointer shadow-xl active:scale-95 transition">
         <span>Lanjut ke Permainan</span>
         <svg class="w-4 h-4 fill-none stroke-current stroke-[2.5]" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
@@ -436,11 +448,11 @@
   <!-- ============================================== -->
   <!-- 3. LAYAR PENGATURAN "PEMAIN VS PEMAIN"         -->
   <!-- ============================================== -->
-  <section id="settingsPvpScreen" class="hidden w-full max-w-[440px] min-h-screen flex flex-col items-center justify-center p-4 sm:p-5 mx-auto animate-fade-in">
-    <div class="settings-card w-full p-5 sm:p-6 relative">
+  <section id="settingsPvpScreen" class="hidden w-full max-w-[420px] min-h-screen flex flex-col items-center justify-center p-3.5 sm:p-5 mx-auto animate-fade-in">
+    <div class="settings-card w-full p-4 sm:p-6 pb-5 sm:pb-6 relative">
       <!-- Top Sub-Header -->
-      <div class="flex items-center justify-between mb-4">
-        <button id="btnBackFromPvp" class="btn-card-back px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer active:scale-95 transition">
+      <div class="flex items-center justify-between mb-3 sm:mb-4">
+        <button id="btnBackFromPvp" class="btn-card-back px-3 py-1.5 rounded-xl text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer active:scale-95 transition">
           <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-[2.5]" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           <span>Kembali</span>
         </button>
@@ -454,19 +466,19 @@
       </div>
 
       <!-- Title -->
-      <div class="text-center mb-5">
+      <div class="text-center mb-4 sm:mb-5">
         <h2 class="text-gold-3d text-2xl sm:text-3xl font-black uppercase tracking-wider">
           PENGATURAN
         </h2>
-        <p class="text-rose-300/80 text-xs font-semibold mt-0.5">
+        <p class="text-rose-300/80 text-[11px] sm:text-xs font-semibold mt-0.5">
           Main bersama teman secara bergiliran di 1 perangkat
         </p>
       </div>
 
       <!-- Form Controls -->
-      <div class="space-y-3.5">
+      <div class="space-y-2.5 sm:space-y-3">
         <!-- 1. Jumlah Pemain -->
-        <div class="form-setting-row space-y-2">
+        <div class="form-setting-row space-y-1.5 sm:space-y-2">
           <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
             <span class="flex items-center gap-1.5"><span>👥</span> <span>Jumlah Pemain</span></span>
             <span id="pvpPlayersVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">2 Orang</span>
@@ -475,7 +487,7 @@
         </div>
 
         <!-- 2. Modal Awal Uang -->
-        <div class="form-setting-row space-y-2">
+        <div class="form-setting-row space-y-1.5 sm:space-y-2">
           <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
             <span class="flex items-center gap-1.5"><span>💰</span> <span>Modal Awal Uang</span></span>
             <span id="pvpMoneyVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">Rp 15.000.000</span>
@@ -485,33 +497,33 @@
 
         <!-- 3. Tarik Sewa di Penjara -->
         <div class="form-setting-row flex items-center justify-between gap-3">
-          <div class="flex-1">
+          <div class="flex-1 min-w-0">
             <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">
-              <span>🔒</span> <span>Tarik Sewa di Penjara</span>
+              <span>🔒</span> <span class="truncate">Tarik Sewa di Penjara</span>
             </div>
-            <div class="text-[10.5px] text-zinc-400 leading-snug mt-0.5">Pemilik yang dipenjara tidak menerima uang sewa</div>
+            <div class="text-[10px] sm:text-[10.5px] text-zinc-400 leading-tight sm:leading-snug mt-0.5">Pemilik yang dipenjara tidak menerima uang sewa</div>
           </div>
-          <div id="pvpJailToggle" class="toggle-switch-track" data-checked="false">
+          <div id="pvpJailToggle" class="toggle-switch-track shrink-0" data-checked="false">
             <div class="toggle-knob"></div>
           </div>
         </div>
 
         <!-- 4. Mode Lelang Properti -->
         <div class="form-setting-row flex items-center justify-between gap-3">
-          <div class="flex-1">
+          <div class="flex-1 min-w-0">
             <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">
-              <span>🏷️</span> <span>Mode Lelang Properti</span>
+              <span>🏷️</span> <span class="truncate">Mode Lelang Properti</span>
             </div>
-            <div class="text-[10.5px] text-zinc-400 leading-snug mt-0.5">Properti yang dilewati langsung dilelang</div>
+            <div class="text-[10px] sm:text-[10.5px] text-zinc-400 leading-tight sm:leading-snug mt-0.5">Properti yang dilewati langsung dilelang</div>
           </div>
-          <div id="pvpAuctionToggle" class="toggle-switch-track" data-checked="false">
+          <div id="pvpAuctionToggle" class="toggle-switch-track shrink-0" data-checked="false">
             <div class="toggle-knob"></div>
           </div>
         </div>
       </div>
 
       <!-- Next Button -->
-      <button id="btnStartPvpGame" class="btn-menu-orange w-full py-3.5 mt-6 rounded-2xl text-white font-black text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer shadow-xl active:scale-95 transition">
+      <button id="btnStartPvpGame" class="btn-menu-orange w-full py-3 sm:py-3.5 mt-4 sm:mt-5 rounded-xl sm:rounded-2xl text-white font-black text-xs sm:text-base flex items-center justify-center gap-2 cursor-pointer shadow-xl active:scale-95 transition">
         <span>Lanjut ke Permainan</span>
         <svg class="w-4 h-4 fill-none stroke-current stroke-[2.5]" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
@@ -522,11 +534,11 @@
   <!-- ============================================== -->
   <!-- 4. LAYAR "MULTIPLAYER ONLINE"                  -->
   <!-- ============================================== -->
-  <section id="settingsOnlineScreen" class="hidden w-full max-w-[440px] min-h-screen flex flex-col items-center justify-center p-4 sm:p-5 mx-auto animate-fade-in">
-    <div class="settings-card w-full p-5 sm:p-6 relative">
+  <section id="settingsOnlineScreen" class="hidden w-full max-w-[420px] min-h-screen flex flex-col items-center justify-center p-3.5 sm:p-5 mx-auto animate-fade-in">
+    <div class="settings-card w-full p-4 sm:p-6 pb-6 sm:pb-7 relative">
       <!-- Top Sub-Header -->
-      <div class="flex items-center justify-between mb-4">
-        <button id="btnBackFromOnline" class="btn-card-back px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer active:scale-95 transition">
+      <div class="flex items-center justify-between mb-3 sm:mb-4">
+        <button id="btnBackFromOnline" class="btn-card-back px-3 py-1.5 rounded-xl text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer active:scale-95 transition">
           <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-[2.5]" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           <span>Kembali</span>
         </button>
@@ -540,29 +552,29 @@
       </div>
 
       <!-- Title -->
-      <div class="text-center mb-5">
+      <div class="text-center mb-3.5 sm:mb-4">
         <h2 class="text-gold-3d text-2xl sm:text-3xl font-black uppercase tracking-wider">
           GAME ONLINE
         </h2>
-        <p class="text-rose-300/80 text-xs font-semibold mt-0.5">
+        <p class="text-rose-300/80 text-[11px] sm:text-xs font-semibold mt-0.5">
           Buat ruangan baru atau gabung dengan teman
         </p>
       </div>
 
       <!-- Form Controls -->
-      <div class="space-y-3.5">
+      <div class="space-y-2.5 sm:space-y-3">
         <!-- 1. Nama Anda -->
-        <div class="form-setting-row space-y-1.5">
+        <div class="form-setting-row space-y-1 sm:space-y-1.5">
           <label class="block text-xs font-extrabold text-rose-200 font-outfit flex items-center gap-1.5">
             <span class="text-sm">👤</span> <span>Nama Anda</span>
           </label>
           <div class="relative">
-            <input type="text" id="onlinePlayerName" value="Pemain 1" maxlength="15" placeholder="Ketik nama Anda..." class="gaming-input w-full px-3.5 py-2.5 text-white font-bold text-sm outline-none placeholder:text-zinc-500" />
+            <input type="text" id="onlinePlayerName" value="Pemain 1" maxlength="15" placeholder="Ketik nama Anda..." class="gaming-input w-full px-3 py-2 sm:px-3.5 sm:py-2.5 text-white font-bold text-xs sm:text-sm outline-none placeholder:text-zinc-500" />
           </div>
         </div>
 
         <!-- 2. Maksimal Pemain -->
-        <div class="form-setting-row space-y-2">
+        <div class="form-setting-row space-y-1.5 sm:space-y-2">
           <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
             <span class="flex items-center gap-1.5"><span>👥</span> <span>Maksimal Pemain</span></span>
             <span id="onlineMaxPlayersVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">4 Orang</span>
@@ -572,47 +584,47 @@
 
         <!-- 3. Tarik Sewa di Penjara -->
         <div class="form-setting-row flex items-center justify-between gap-3">
-          <div class="flex-1">
+          <div class="flex-1 min-w-0">
             <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">
-              <span>🔒</span> <span>Tarik Sewa di Penjara</span>
+              <span>🔒</span> <span class="truncate">Tarik Sewa di Penjara</span>
             </div>
-            <div class="text-[10.5px] text-zinc-400 leading-snug mt-0.5">Pemilik yang dipenjara tidak menerima uang sewa</div>
+            <div class="text-[10px] sm:text-[10.5px] text-zinc-400 leading-tight sm:leading-snug mt-0.5">Pemilik yang dipenjara tidak menerima sewa</div>
           </div>
-          <div id="onlineJailToggle" class="toggle-switch-track" data-checked="false">
+          <div id="onlineJailToggle" class="toggle-switch-track shrink-0" data-checked="false">
             <div class="toggle-knob"></div>
           </div>
         </div>
 
         <!-- 4. Mode Lelang Properti -->
         <div class="form-setting-row flex items-center justify-between gap-3">
-          <div class="flex-1">
+          <div class="flex-1 min-w-0">
             <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">
-              <span>🏷️</span> <span>Mode Lelang Properti</span>
+              <span>🏷️</span> <span class="truncate">Mode Lelang Properti</span>
             </div>
-            <div class="text-[10.5px] text-zinc-400 leading-snug mt-0.5">Properti yang dilewati langsung dilelang</div>
+            <div class="text-[10px] sm:text-[10.5px] text-zinc-400 leading-tight sm:leading-snug mt-0.5">Properti yang dilewati langsung dilelang</div>
           </div>
-          <div id="onlineAuctionToggle" class="toggle-switch-track" data-checked="false">
+          <div id="onlineAuctionToggle" class="toggle-switch-track shrink-0" data-checked="false">
             <div class="toggle-knob"></div>
           </div>
         </div>
       </div>
 
       <!-- Create Room Button -->
-      <button id="btnCreateOnlineRoom" class="btn-menu-blue w-full py-3.5 mt-5 rounded-2xl text-white font-black text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer shadow-xl active:scale-95 transition">
+      <button id="btnCreateOnlineRoom" class="btn-menu-blue w-full py-3 sm:py-3.5 mt-3.5 sm:mt-4 rounded-xl sm:rounded-2xl text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95 transition">
         <span>🏠</span>
         <span>+ Buat Ruangan</span>
       </button>
 
       <!-- Divider & Join Room -->
-      <div class="relative flex py-3 items-center my-1">
+      <div class="relative flex py-2 sm:py-2.5 items-center my-0.5 sm:my-1">
         <div class="flex-grow border-t border-rose-500/20"></div>
-        <span class="flex-shrink mx-3 text-[10.5px] font-extrabold text-rose-300/80 uppercase tracking-widest font-outfit">ATAU GABUNG RUANGAN</span>
+        <span class="flex-shrink mx-2.5 text-[9.5px] sm:text-[10.5px] font-extrabold text-rose-300/80 uppercase tracking-widest font-outfit">ATAU GABUNG RUANGAN</span>
         <div class="flex-grow border-t border-rose-500/20"></div>
       </div>
 
-      <div class="flex gap-2">
-        <input type="text" id="onlineRoomCodeInput" placeholder="KODE (CTH: MONO-88)" class="gaming-input flex-1 px-3 py-2.5 text-xs font-black text-white uppercase outline-none text-center tracking-widest placeholder:text-zinc-500 placeholder:normal-case placeholder:font-medium placeholder:text-[11px]" />
-        <button id="btnJoinOnlineRoom" class="btn-menu-orange px-5 py-2.5 rounded-xl text-xs font-black text-white cursor-pointer active:scale-95 transition flex items-center gap-1.5 shrink-0">
+      <div class="flex gap-2 items-center">
+        <input type="text" id="onlineRoomCodeInput" placeholder="KODE (CTH: MONO-88)" class="gaming-input flex-1 min-w-0 px-3 py-2 sm:py-2.5 text-xs font-black text-white uppercase outline-none text-center tracking-wider placeholder:text-zinc-500 placeholder:normal-case placeholder:font-medium placeholder:text-[10px] sm:placeholder:text-[11px]" />
+        <button id="btnJoinOnlineRoom" class="btn-menu-orange px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs font-black text-white cursor-pointer active:scale-95 transition flex items-center justify-center gap-1.5 shrink-0 shadow-md">
           <span>🚪</span>
           <span>Gabung</span>
         </button>

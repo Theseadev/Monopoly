@@ -4954,7 +4954,15 @@ function isFullscreenActive() {
   return Boolean(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
 }
 
-function requestGameFullscreen() {
+function isMobileDevice() {
+  return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent || '');
+}
+
+function requestGameFullscreen(force = false) {
+  // Disable automatic fullscreen when starting/joining game on mobile devices
+  if (!force && isMobileDevice()) {
+    return;
+  }
   const elem = document.documentElement;
   try {
     if (!isFullscreenActive()) {
@@ -4995,7 +5003,7 @@ function toggleGameFullscreen() {
   if (isFullscreenActive()) {
     exitGameFullscreen();
   } else {
-    requestGameFullscreen();
+    requestGameFullscreen(true);
   }
 }
 

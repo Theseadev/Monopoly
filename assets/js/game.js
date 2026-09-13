@@ -3173,8 +3173,153 @@ function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = fals
         ${extraFooterHtml}
       </div>
     `;
+  } else if (space.type === 'corner') {
+    let headerBg = 'bg-zinc-800';
+    let headerIcon = GameIcons.freeParking;
+    let categoryTitle = 'SUDUT PAPAN';
+    let cardTitle = space.name || 'Petak Sudut';
+    let subTitle = '';
+    let infoTitle = 'Informasi Petak';
+    let infoContent = space.description || '';
+    let badgeText = 'Sudut Papan';
+    let badgeColor = 'text-zinc-400';
+
+    if (space.id === 20 || space.subType === 'free-parking') {
+      headerBg = 'bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900';
+      headerIcon = `<div class="w-12 h-12 mx-auto text-blue-200 mb-1">${GameIcons.freeParking}</div>`;
+      categoryTitle = 'ZONA AMAN • PERISTIRAHATAN';
+      cardTitle = 'PARKIR BEBAS';
+      subTitle = 'FREE PARKING';
+      infoTitle = 'Zona Aman Tanpa Biaya';
+      infoContent = 'Area peristirahatan aman di papan monopoli. Pemain yang mendarat di petak ini dapat bersantai tanpa dikenakan biaya sewa tanah, denda kas, maupun pajak apapun.';
+      badgeText = 'Bebas Sewa & Denda';
+      badgeColor = 'text-emerald-400';
+    } else if (space.id === 0 || space.subType === 'go') {
+      headerBg = 'bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-900';
+      headerIcon = `<div class="w-12 h-12 mx-auto text-emerald-200 mb-1 flex items-center justify-center text-4xl">🚩</div>`;
+      categoryTitle = 'GARIS AWAL • GAJI RESMI';
+      cardTitle = 'MULAI (GO)';
+      subTitle = 'STARTING POINT';
+      infoTitle = 'Ketentuan Bonus Gaji Rp 2.000.000';
+      infoContent = 'Bonus gaji Rp 2.000.000 dari Bank hanya diberikan saat bidak Anda <b>benar-benar melintas/melewati</b> petak Mulai. Jika langkah dadu berhenti tepat di petak Mulai, Anda tidak mendapatkan uang.';
+      badgeText = 'Gaji: +Rp 2.000.000 (Jika Melintas)';
+      badgeColor = 'text-emerald-400';
+    } else if (space.id === 10 || space.subType === 'jail') {
+      headerBg = 'bg-gradient-to-r from-amber-950 via-amber-900 to-orange-950';
+      headerIcon = `<div class="w-12 h-12 mx-auto text-amber-300 mb-1">${GameIcons.jailLock}</div>`;
+      categoryTitle = 'FASILITAS HUKUM • STATUS GANDA';
+      cardTitle = 'PENJARA';
+      subTitle = 'JUST VISITING / IN JAIL';
+      infoTitle = 'Ketentuan Hanya Lewat vs Tahanan';
+      infoContent = '• <b>Hanya Lewat:</b> Jika mendarat biasa, Anda hanya berkunjung dan bebas melangkah di putaran berikutnya.<br>• <b>Tahanan:</b> Jika dijebloskan, keluar dengan dadu kembar, tebusan Rp 500.000, atau Kartu Bebas Penjara.';
+      badgeText = 'Tebusan: Rp 500.000';
+      badgeColor = 'text-amber-400';
+    } else if (space.id === 30 || space.subType === 'go-to-jail') {
+      headerBg = 'bg-gradient-to-r from-rose-950 via-red-900 to-rose-900';
+      headerIcon = `<div class="w-12 h-12 mx-auto text-rose-200 mb-1">${GameIcons.police}</div>`;
+      categoryTitle = 'PERINTAH POLISI • TAHANAN';
+      cardTitle = 'MASUK PENJARA!';
+      subTitle = 'GO TO JAIL';
+      infoTitle = 'Perintah Penahanan Langsung';
+      infoContent = 'Bidak Anda langsung dipindahkan ke sel Penjara (posisi 10). Anda tidak melewati petak Mulai dan tidak mendapatkan gaji Rp 2.000.000.';
+      badgeText = 'Pindah ke Petak 10';
+      badgeColor = 'text-rose-400';
+    }
+
+    return `
+      <div class="title-deed-card-container mx-auto bg-white rounded-3xl border-4 border-zinc-900 overflow-hidden text-zinc-900 shadow-2xl max-w-[340px] w-full select-none text-left">
+        <div class="p-4 text-center ${headerBg} text-white">
+          ${headerIcon}
+          <div class="text-[9px] uppercase tracking-widest opacity-80 font-outfit font-bold">${categoryTitle}</div>
+          <div class="text-base md:text-lg font-black uppercase font-outfit leading-tight mt-0.5">${cardTitle}</div>
+          ${subTitle ? `<div class="text-[10px] font-semibold opacity-90 tracking-wider font-outfit">${subTitle}</div>` : ''}
+        </div>
+        <div class="p-4 space-y-3 text-xs text-zinc-700 leading-relaxed">
+          <div class="p-3 bg-zinc-50 border border-zinc-200 rounded-2xl space-y-1">
+            <div class="font-black text-zinc-900 flex items-center gap-1.5 font-outfit text-xs">
+              <span>📌</span> <span>${infoTitle}</span>
+            </div>
+            <p class="text-zinc-600 text-[11.5px] leading-relaxed">
+              ${infoContent}
+            </p>
+          </div>
+          <div class="px-3.5 py-2 bg-zinc-900 text-white rounded-xl flex items-center justify-between text-[11.5px] font-semibold font-outfit">
+            <span class="text-zinc-400">Status Petak:</span>
+            <span class="font-bold ${badgeColor}">${badgeText}</span>
+          </div>
+        </div>
+        ${extraFooterHtml}
+      </div>
+    `;
+  } else if (space.type === 'tax') {
+    const isLuxury = space.id === 38 || (space.name && space.name.includes('Istimewa'));
+    const taxAmount = space.amount || (isLuxury ? 1000000 : 2000000);
+    return `
+      <div class="title-deed-card-container mx-auto bg-white rounded-3xl border-4 border-zinc-900 overflow-hidden text-zinc-900 shadow-2xl max-w-[340px] w-full select-none text-left">
+        <div class="p-4 text-center bg-gradient-to-r from-rose-950 via-rose-900 to-red-950 text-white">
+          <div class="w-12 h-12 mx-auto text-rose-300 mb-1 flex items-center justify-center text-3xl">🧾</div>
+          <div class="text-[9px] uppercase tracking-widest opacity-80 font-outfit font-bold">KAS NEGARA • PAJAK WAJIB</div>
+          <div class="text-base md:text-lg font-black uppercase font-outfit leading-tight mt-0.5">${space.name}</div>
+          <div class="text-[10px] font-semibold opacity-90 tracking-wider font-outfit">${isLuxury ? 'LUXURY TAX' : 'INCOME TAX'}</div>
+        </div>
+        <div class="p-4 space-y-3 text-xs text-zinc-700 leading-relaxed">
+          <div class="p-3 bg-rose-50 border border-rose-200 rounded-2xl space-y-1">
+            <div class="font-black text-rose-950 flex items-center gap-1.5 font-outfit text-xs">
+              <span>⚠️</span> <span>Kewajiban Setor Kas</span>
+            </div>
+            <p class="text-rose-900/90 text-[11.5px] leading-relaxed">
+              ${space.description || 'Pemain yang mendarat di petak ini wajib membayar sejumlah dana pajak resmi langsung ke Bank kas negara.'}
+            </p>
+          </div>
+          <div class="py-2 bg-zinc-900 text-center text-white rounded-xl font-outfit">
+            <div class="text-[9px] uppercase tracking-wider text-rose-300 font-bold">NOMINAL PAJAK KAS</div>
+            <div class="text-base font-black text-rose-200 tracking-wide">${formatCurrency(taxAmount)}</div>
+          </div>
+        </div>
+        ${extraFooterHtml}
+      </div>
+    `;
+  } else if (space.type === 'special') {
+    const isChance = space.subType === 'chance' || (space.name && space.name.includes('Kesempatan'));
+    return `
+      <div class="title-deed-card-container mx-auto bg-white rounded-3xl border-4 border-zinc-900 overflow-hidden text-zinc-900 shadow-2xl max-w-[340px] w-full select-none text-left">
+        <div class="p-4 text-center ${isChance ? 'bg-gradient-to-r from-amber-700 via-amber-600 to-yellow-600' : 'bg-gradient-to-r from-sky-800 via-sky-700 to-blue-700'} text-white">
+          <div class="w-12 h-12 mx-auto text-white mb-1 flex items-center justify-center text-3xl">${isChance ? '🎲' : '💼'}</div>
+          <div class="text-[9px] uppercase tracking-widest opacity-80 font-outfit font-bold">${isChance ? 'KARTU KESEMPATAN' : 'KARTU DANA UMUM'}</div>
+          <div class="text-base md:text-lg font-black uppercase font-outfit leading-tight mt-0.5">${space.name}</div>
+          <div class="text-[10px] font-semibold opacity-90 tracking-wider font-outfit">${isChance ? 'CHANCE SPACE' : 'COMMUNITY CHEST SPACE'}</div>
+        </div>
+        <div class="p-4 space-y-3 text-xs text-zinc-700 leading-relaxed">
+          <div class="p-3 ${isChance ? 'bg-amber-50 border border-amber-200' : 'bg-sky-50 border border-sky-200'} rounded-2xl space-y-1">
+            <div class="font-black ${isChance ? 'text-amber-950' : 'text-sky-950'} flex items-center gap-1.5 font-outfit text-xs">
+              <span>✨</span> <span>Ambil Kartu Kejutan</span>
+            </div>
+            <p class="${isChance ? 'text-amber-900/90' : 'text-sky-900/90'} text-[11.5px] leading-relaxed">
+              ${isChance ? 'Mendarat di petak ini akan memicu penarikan satu Kartu Kesempatan. Bersiaplah untuk hadiah uang, tagihan pajak tak terduga, jalan-jalan dinas, atau pilihan keputusan satir!' : 'Mendarat di petak ini akan memicu penarikan satu Kartu Dana Umum kas warga. Dapatkan bantuan subsidi, denda iuran, perbaikan rumah, atau pilihan sosial!'}
+            </p>
+          </div>
+          <div class="px-3.5 py-2 bg-zinc-900 text-white rounded-xl flex items-center justify-between text-[11.5px] font-semibold font-outfit">
+            <span class="text-zinc-400">Efek Pendaratan:</span>
+            <span class="font-bold text-amber-300">Tarik Kartu Otomatis</span>
+          </div>
+        </div>
+        ${extraFooterHtml}
+      </div>
+    `;
   }
-  return '';
+
+  // Fallback untuk petak lainnya agar tidak pernah mengembalikan string kosong
+  return `
+    <div class="title-deed-card-container mx-auto bg-white rounded-3xl border-4 border-zinc-900 overflow-hidden text-zinc-900 shadow-2xl max-w-[340px] w-full select-none text-left">
+      <div class="p-4 text-center bg-zinc-800 text-white">
+        <div class="text-base font-black uppercase font-outfit leading-tight">${space.name || 'Petak Papan'}</div>
+      </div>
+      <div class="p-4 text-xs text-zinc-700 leading-relaxed">
+        <p>${space.description || 'Informasi petak pada papan permainan Monopoli Nusantara.'}</p>
+      </div>
+      ${extraFooterHtml}
+    </div>
+  `;
 }
 
 // Dialog Pembelian Properti Mewah - Full Kartu Sertifikat Modal
@@ -3767,29 +3912,32 @@ function showTitleDeed(space) {
   const sellPrice = Math.round((space.price || 0) * 0.5);
   const housesRefund = prop ? ((prop.houses || 0) * Math.round((space.housePrice || 0) * 0.5) + (prop.isHotel ? 5 * Math.round((space.housePrice || 0) * 0.5) : 0)) : 0;
   const totalSellPrice = sellPrice + housesRefund;
+  const isPurchasable = ['property', 'railroad', 'utility'].includes(space.type);
 
   const extraFooterHtml = `
-    <!-- Ownership Status -->
-    <div class="p-3 bg-zinc-950 text-white border-t border-zinc-800 text-xs space-y-1.5">
-      <div class="flex items-center justify-between">
-        <span class="text-zinc-400">Status Kepemilikan:</span>
-        ${owner ? `<span class="font-bold flex items-center gap-1.5" style="color: ${owner.color}"><span class="w-4 h-4 inline-flex items-center justify-center">${getChessPawnSVG(owner.color, owner.id, 18)}</span> <span>${owner.name}</span></span>` : `<span class="font-bold text-emerald-400">Tersedia (Bebas)</span>`}
+    ${isPurchasable ? `
+      <!-- Ownership Status -->
+      <div class="p-3 bg-zinc-950 text-white border-t border-zinc-800 text-xs space-y-1.5">
+        <div class="flex items-center justify-between">
+          <span class="text-zinc-400">Status Kepemilikan:</span>
+          ${owner ? `<span class="font-bold flex items-center gap-1.5" style="color: ${owner.color}"><span class="w-4 h-4 inline-flex items-center justify-center">${getChessPawnSVG(owner.color, owner.id, 18)}</span> <span>${owner.name}</span></span>` : `<span class="font-bold text-emerald-400">Tersedia (Bebas)</span>`}
+        </div>
+        ${prop?.houses > 0 && !prop?.isHotel ? `<div class="text-emerald-400 font-semibold flex items-center gap-1.5"><span class="w-3.5 h-3.5 inline-block">${GameIcons.house}</span> <span>Terbangun ${prop.houses} Rumah</span></div>` : ''}
+        ${prop?.isHotel ? `<div class="text-red-400 font-semibold flex items-center gap-1.5"><span class="w-3.5 h-3.5 inline-block">${GameIcons.hotel}</span> <span>Terbangun Hotel Megah</span></div>` : ''}
       </div>
-      ${prop?.houses > 0 && !prop?.isHotel ? `<div class="text-emerald-400 font-semibold flex items-center gap-1.5"><span class="w-3.5 h-3.5 inline-block">${GameIcons.house}</span> <span>Terbangun ${prop.houses} Rumah</span></div>` : ''}
-      ${prop?.isHotel ? `<div class="text-red-400 font-semibold flex items-center gap-1.5"><span class="w-3.5 h-3.5 inline-block">${GameIcons.hotel}</span> <span>Terbangun Hotel Megah</span></div>` : ''}
-    </div>
 
-    ${isOwnerAndTurn ? `
-      <div class="p-2.5 bg-zinc-900 border-t border-zinc-800 flex flex-col gap-2 font-outfit">
-        ${space.type === 'property' && !prop.isHotel ? `
-          <div class="p-2 bg-zinc-950/80 rounded-xl text-zinc-400 text-[11px] text-center border border-zinc-800/80 font-medium">
-            Pembangunan rumah dilakukan saat bidak Anda mendarat kembali di petak ini (maksimal 1 per pendaratan).
-          </div>
-        ` : ''}
-        <button id="btnSellPropertyDeed" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold bg-rose-950/90 hover:bg-rose-900 text-rose-200 border border-rose-500/50 shadow transition cursor-pointer active:scale-95 flex items-center justify-center gap-1.5">
-          <span>🏷️ Jual ke Bank (+${formatCurrency(totalSellPrice)})</span>
-        </button>
-      </div>
+      ${isOwnerAndTurn ? `
+        <div class="p-2.5 bg-zinc-900 border-t border-zinc-800 flex flex-col gap-2 font-outfit">
+          ${space.type === 'property' && !prop.isHotel ? `
+            <div class="p-2 bg-zinc-950/80 rounded-xl text-zinc-400 text-[11px] text-center border border-zinc-800/80 font-medium">
+              Pembangunan rumah dilakukan saat bidak Anda mendarat kembali di petak ini (maksimal 1 per pendaratan).
+            </div>
+          ` : ''}
+          <button id="btnSellPropertyDeed" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold bg-rose-950/90 hover:bg-rose-900 text-rose-200 border border-rose-500/50 shadow transition cursor-pointer active:scale-95 flex items-center justify-center gap-1.5">
+            <span>🏷️ Jual ke Bank (+${formatCurrency(totalSellPrice)})</span>
+          </button>
+        </div>
+      ` : ''}
     ` : ''}
 
     <div class="p-2.5 bg-zinc-950 border-t border-zinc-800">
@@ -3800,10 +3948,12 @@ function showTitleDeed(space) {
   `;
 
   const cardHtml = generateTitleDeedCardHTML(space, prop, false, extraFooterHtml);
+  if (!cardHtml) return;
 
   modalContainer.innerHTML = `
-    <div class="fixed inset-0 bg-black/40 backdrop-blur-[3px] flex items-center justify-center p-4 z-50 font-sans animate-fade-in select-none">
-      <div class="relative max-w-[340px] w-full animate-scale-up">
+    <div id="titleDeedBackdrop" class="fixed inset-0 bg-black/50 backdrop-blur-[3px] flex items-center justify-center p-4 z-50 font-sans animate-fade-in select-none">
+      <div class="relative max-w-[340px] w-full animate-scale-up" onclick="event.stopPropagation();">
+        <button id="btnCloseDeedTop" type="button" class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-zinc-900 border-2 border-zinc-400 text-zinc-200 hover:bg-rose-600 hover:border-rose-400 hover:text-white flex items-center justify-center shadow-2xl transition transform hover:scale-110 active:scale-95 cursor-pointer z-50 text-xs font-black" title="Tutup">✕</button>
         ${cardHtml}
       </div>
     </div>
@@ -3811,6 +3961,12 @@ function showTitleDeed(space) {
   modalContainer.classList.remove('hidden');
 
   document.getElementById('btnCloseDeed')?.addEventListener('click', closeModal);
+  document.getElementById('btnCloseDeedTop')?.addEventListener('click', closeModal);
+  document.getElementById('titleDeedBackdrop')?.addEventListener('click', (e) => {
+    if (e.target.id === 'titleDeedBackdrop') {
+      closeModal();
+    }
+  });
 
   // Konfirmasi Jual Properti ke Bank dengan SweetAlert
   document.getElementById('btnSellPropertyDeed')?.addEventListener('click', async () => {

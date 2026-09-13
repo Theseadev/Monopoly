@@ -5453,6 +5453,17 @@ function initMobileSectionTabs() {
     });
   });
 
+  // Mobile Bottom Bar Trading Button
+  const btnMobileTrade = document.getElementById('btnMobileBottomTrade');
+  if (btnMobileTrade) {
+    btnMobileTrade.addEventListener('click', () => {
+      closeMobileDrawer();
+      if (typeof openTradingDesk === 'function') {
+        openTradingDesk();
+      }
+    });
+  }
+
   // Close buttons inside mobile drawers
   document.querySelectorAll('.btn-close-mobile-drawer').forEach(btn => {
     btn.addEventListener('click', (e) => {

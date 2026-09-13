@@ -939,21 +939,26 @@ body:fullscreen .monopoly-board {
   border-color: #8c6738 !important;
 }
 
+.corner-go {
+  background: #ffffff !important;
+  border-color: #8c6738 !important;
+}
+
 .corner-go-sub {
-  font-size: clamp(7.5px, 0.85vw, 11px);
+  font-size: clamp(7.5px, 0.8vw, 11px);
 }
 
 .corner-go-main {
-  font-size: clamp(13px, 1.6vw, 20px);
+  font-size: clamp(14px, 1.6vw, 22px);
 }
 
 .corner-go-bonus {
-  font-size: clamp(8.5px, 0.95vw, 12px);
+  font-size: clamp(7.5px, 0.8vw, 11px);
 }
 
 .corner-go-arrow {
-  width: clamp(16px, 1.6vw, 22px);
-  height: clamp(16px, 1.6vw, 22px);
+  width: clamp(20px, 2vw, 28px);
+  height: clamp(20px, 2vw, 28px);
 }
 
 .corner-go-arrow svg {
@@ -973,7 +978,7 @@ body:fullscreen .monopoly-board {
 }
 
 .corner-jail-visiting-text {
-  font-size: clamp(7.5px, 0.75vw, 10px);
+  font-size: clamp(7px, 0.7vw, 9.5px);
 }
 
 .corner-jail-cell {
@@ -993,7 +998,7 @@ body:fullscreen .monopoly-board {
 }
 
 .corner-jail-text {
-  font-size: clamp(9.5px, 1vw, 14px);
+  font-size: clamp(9px, 0.95vw, 13px);
 }
 
 .corner-free-parking {
@@ -1001,9 +1006,15 @@ body:fullscreen .monopoly-board {
   border-color: #8c6738 !important;
 }
 
+.corner-parking-top,
+.corner-parking-bot {
+  font-size: clamp(8px, 0.85vw, 12px);
+  font-weight: 900;
+}
+
 .corner-parking-icon {
-  width: clamp(18px, 1.8vw, 26px);
-  height: clamp(13px, 1.3vw, 18px);
+  width: clamp(24px, 2.6vw, 38px);
+  height: clamp(16px, 1.8vw, 26px);
 }
 
 .corner-parking-icon svg {
@@ -1011,16 +1022,8 @@ body:fullscreen .monopoly-board {
   height: 100%;
 }
 
-.corner-parking-title {
-  font-size: clamp(7.5px, 0.8vw, 11px);
-  line-height: 1.05;
-  text-align: center;
-  white-space: normal;
-  display: block;
-}
-
 .corner-parking-sub {
-  font-size: clamp(7.5px, 0.75vw, 10px);
+  font-size: clamp(6.5px, 0.68vw, 9px);
 }
 
 .corner-go-to-jail {
@@ -1029,8 +1032,8 @@ body:fullscreen .monopoly-board {
 }
 
 .corner-gtj-police {
-  width: clamp(16px, 1.6vw, 22px);
-  height: clamp(16px, 1.6vw, 22px);
+  width: clamp(20px, 2.2vw, 32px);
+  height: clamp(20px, 2.2vw, 32px);
 }
 
 .corner-gtj-police svg {
@@ -1039,16 +1042,16 @@ body:fullscreen .monopoly-board {
 }
 
 .corner-gtj-sub {
-  font-size: clamp(8px, 0.85vw, 11px);
+  font-size: clamp(7.5px, 0.78vw, 10.5px);
 }
 
 .corner-gtj-main {
-  font-size: clamp(10px, 1.1vw, 15px);
+  font-size: clamp(9.5px, 1vw, 14px);
 }
 
 .corner-gtj-arrow {
-  width: clamp(11px, 1.2vw, 16px);
-  height: clamp(11px, 1.2vw, 16px);
+  width: clamp(12px, 1.3vw, 18px);
+  height: clamp(12px, 1.3vw, 18px);
 }
 
 .corner-gtj-arrow svg {
@@ -1120,72 +1123,69 @@ body.fullscreen-active .tile-top .tile-price-badge {
 /* Fullscreen Corner Tiles */
 :fullscreen .corner-parking-icon,
 body.fullscreen-active .corner-parking-icon {
-  width: clamp(20px, 2vw, 28px) !important;
-  height: clamp(15px, 1.5vw, 20px) !important;
-  margin-bottom: 1px !important;
+  width: clamp(36px, 3.8vw, 52px) !important;
+  height: clamp(24px, 2.6vw, 36px) !important;
 }
-:fullscreen .corner-parking-title,
-body.fullscreen-active .corner-parking-title {
-  font-size: clamp(9px, 0.95vw, 13px) !important;
-  line-height: 1.05 !important;
-  text-align: center !important;
-  white-space: normal !important;
-  display: block !important;
+:fullscreen .corner-parking-top,
+:fullscreen .corner-parking-bot,
+body.fullscreen-active .corner-parking-top,
+body.fullscreen-active .corner-parking-bot {
+  font-size: clamp(11.5px, 1.25vw, 16.5px) !important;
 }
 :fullscreen .corner-parking-sub,
 body.fullscreen-active .corner-parking-sub {
-  font-size: clamp(8px, 0.8vw, 11px) !important;
+  font-size: clamp(8.5px, 0.9vw, 12px) !important;
 }
 
 :fullscreen .corner-gtj-police,
 body.fullscreen-active .corner-gtj-police {
-  width: clamp(18px, 1.8vw, 24px) !important;
-  height: clamp(18px, 1.8vw, 24px) !important;
+  width: clamp(32px, 3.4vw, 46px) !important;
+  height: clamp(32px, 3.4vw, 46px) !important;
 }
 :fullscreen .corner-gtj-sub,
 body.fullscreen-active .corner-gtj-sub {
-  font-size: clamp(9px, 0.9vw, 12px) !important;
+  font-size: clamp(10px, 1.05vw, 14.5px) !important;
 }
 :fullscreen .corner-gtj-main,
 body.fullscreen-active .corner-gtj-main {
-  font-size: clamp(11px, 1.1vw, 16px) !important;
+  font-size: clamp(12.5px, 1.35vw, 18px) !important;
 }
 :fullscreen .corner-gtj-arrow,
 body.fullscreen-active .corner-gtj-arrow {
-  width: clamp(12px, 1.3vw, 18px) !important;
-  height: clamp(12px, 1.3vw, 18px) !important;
+  width: clamp(18px, 1.9vw, 26px) !important;
+  height: clamp(18px, 1.9vw, 26px) !important;
 }
 
 :fullscreen .corner-jail-icon,
 body.fullscreen-active .corner-jail-icon {
-  width: clamp(16px, 1.6vw, 22px) !important;
-  height: clamp(16px, 1.6vw, 22px) !important;
+  width: clamp(20px, 2.1vw, 28px) !important;
+  height: clamp(20px, 2.1vw, 28px) !important;
 }
 :fullscreen .corner-jail-text,
 body.fullscreen-active .corner-jail-text {
-  font-size: clamp(10.5px, 1.1vw, 15px) !important;
+  font-size: clamp(12px, 1.3vw, 17px) !important;
 }
 :fullscreen .corner-jail-visiting-text,
 body.fullscreen-active .corner-jail-visiting-text {
-  font-size: clamp(8px, 0.8vw, 11px) !important;
+  font-size: clamp(9px, 0.95vw, 12.5px) !important;
 }
 
 :fullscreen .corner-go-sub,
 body.fullscreen-active .corner-go-sub {
-  font-size: clamp(8px, 0.8vw, 11px) !important;
+  font-size: clamp(10px, 1.05vw, 14px) !important;
 }
 :fullscreen .corner-go-main,
 body.fullscreen-active .corner-go-main {
-  font-size: clamp(14px, 1.5vw, 20px) !important;
+  font-size: clamp(20px, 2.3vw, 30px) !important;
 }
 :fullscreen .corner-go-bonus,
 body.fullscreen-active .corner-go-bonus {
-  font-size: clamp(9px, 0.9vw, 13px) !important;
+  font-size: clamp(10.5px, 1.1vw, 14.5px) !important;
 }
 :fullscreen .corner-go-arrow,
 body.fullscreen-active .corner-go-arrow {
-  width: clamp(16px, 1.6vw, 22px) !important;
-  height: clamp(16px, 1.6vw, 22px) !important;
+  width: clamp(28px, 3vw, 40px) !important;
+  height: clamp(28px, 3vw, 40px) !important;
 }
 
 /* ==========================================================

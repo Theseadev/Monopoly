@@ -677,7 +677,9 @@ function formatShortPrice(num) {
 
 // Format Uang Standar Rupiah
 function formatCurrency(num) {
-  return `Rp ${(num || 0).toLocaleString('id-ID')}`;
+  if (Array.isArray(num)) num = num[0] || 0;
+  const n = typeof num === 'number' ? num : (parseInt(num, 10) || 0);
+  return `Rp ${n.toLocaleString('id-ID')}`;
 }
 
 // Menentukan Posisi Grid 11x11
@@ -1773,16 +1775,39 @@ function calculatePlayerNetWorth(playerId) {
 // Helper Penentu Monopoli Satu Kelompok Warna
 const PROPERTY_GROUPS = window.PROPERTY_GROUPS || {
   brown: [1, 3],
-  cyan: [6, 8, 9],
+  light_blue: [6, 8, 9],
   pink: [11, 13, 14],
   orange: [16, 18, 19],
   red: [21, 23, 24],
   yellow: [26, 27, 29],
   green: [31, 32, 34],
-  darkblue: [37, 39],
+  dark_blue: [37, 39],
   railroad: [5, 15, 25, 35],
   utility: [12, 28]
 };
+
+const PROPERTY_GROUP_NAMES = {
+  brown: 'COKELAT',
+  light_blue: 'BIRU MUDA',
+  pink: 'PINK',
+  orange: 'ORANYE',
+  red: 'MERAH',
+  yellow: 'KUNING',
+  green: 'HIJAU',
+  dark_blue: 'BIRU TUA',
+  railroad: 'STASIUN',
+  utility: 'UTILITAS'
+};
+
+function getGroupName(space) {
+  if (!space) return 'ASET';
+  if (space.type === 'railroad') return 'STASIUN';
+  if (space.type === 'utility') return 'UTILITAS';
+  if (space.group && PROPERTY_GROUP_NAMES[space.group]) {
+    return PROPERTY_GROUP_NAMES[space.group];
+  }
+  return space.group ? space.group.toUpperCase().replace('_', ' ') : 'ASET';
+}
 
 function isColorGroupMonopoly(groupKey, playerId) {
   if (!groupKey || !PROPERTY_GROUPS[groupKey] || !state || !state.properties) return false;
@@ -1790,22 +1815,49 @@ function isColorGroupMonopoly(groupKey, playerId) {
   return spaceIds.every(id => state.properties[id] && state.properties[id].ownerId === playerId);
 }
 
-// Helper Menghitung Nilai Sewa Cepat untuk Kartu Portofolio
+// Helper Menghitung Nilai Sewa Cepat untuk Kartu Portofolio (Selalu return Number)
 function getQuickRent(space, prop) {
   if (!space) return 0;
-  if (!prop) return space.rent || 0;
-  if (prop.isHotel && space.rentHotel) return space.rentHotel;
-  if (prop.houses && space.rentHouse && space.rentHouse[prop.houses - 1]) {
-    return space.rentHouse[prop.houses - 1];
+  if (!prop || prop.ownerId === null || prop.ownerId === undefined) {
+    if (Array.isArray(space.rent)) return space.rent[0] || 0;
+    return typeof space.rent === 'number' ? space.rent : 0;
   }
-  if (space.type === 'property' && space.group) {
-    const groupSpaces = BOARD_SPACES.filter(s => s.group === space.group);
-    const ownsAll = groupSpaces.length > 0 && groupSpaces.every(s => state.properties[s.id] && state.properties[s.id].ownerId === prop.ownerId);
-    if (ownsAll && (!prop.houses || prop.houses === 0) && !prop.isHotel) {
-      return (space.rent || 0) * 2;
+  if (prop.isMortgaged) return 0;
+
+  if (space.type === 'property') {
+    const rentArr = Array.isArray(space.rent) ? space.rent : [space.rent || 0];
+    if (prop.isHotel) {
+      return rentArr[5] || (rentArr[0] * 10);
     }
+    const houses = parseInt(prop.houses) || 0;
+    if (houses > 0) {
+      return rentArr[houses] || (rentArr[0] * (houses + 1));
+    }
+    // Cek apakah memiliki seluruh kelompok warna (Monopoli Sewa 2x lipat)
+    const isMonopoly = isColorGroupMonopoly(space.group, prop.ownerId);
+    return isMonopoly ? ((rentArr[0] || 0) * 2) : (rentArr[0] || 0);
   }
-  return space.rent || 0;
+
+  if (space.type === 'railroad') {
+    const rentArr = Array.isArray(space.rent) ? space.rent : [250000, 500000, 1000000, 2000000];
+    if (state && state.properties) {
+      const ownedRailroads = [5, 15, 25, 35].filter(id => state.properties[id] && state.properties[id].ownerId === prop.ownerId && !state.properties[id].isMortgaged);
+      const idx = Math.max(0, Math.min(ownedRailroads.length - 1, 3));
+      return rentArr[idx] || 250000;
+    }
+    return rentArr[0] || 250000;
+  }
+
+  if (space.type === 'utility') {
+    if (state && state.properties) {
+      const ownedUtils = [12, 28].filter(id => state.properties[id] && state.properties[id].ownerId === prop.ownerId && !state.properties[id].isMortgaged);
+      return ownedUtils.length >= 2 ? 700000 : 280000;
+    }
+    return 280000;
+  }
+
+  if (Array.isArray(space.rent)) return space.rent[0] || 0;
+  return typeof space.rent === 'number' ? space.rent : 0;
 }
 
 // Update Portfolio Tab & Property Deed Grid
@@ -1914,9 +1966,9 @@ function updatePortfolio() {
 
     card.innerHTML = `
       <!-- Top Colored Stripe with Level Indicators -->
-      <div class="portfolio-deed-stripe h-4.5 w-full flex items-center justify-between px-1.5 shadow-inner shrink-0" style="background-color: ${space.color || '#475569'}">
+      <div class="portfolio-deed-stripe h-4.5 w-full flex items-center justify-between px-1.5 shadow-inner shrink-0" style="background-color: ${space.color || (space.type === 'railroad' ? '#64748b' : '#6b7280')}">
         <span class="portfolio-deed-group text-[7.5px] font-black tracking-wider text-white drop-shadow font-outfit uppercase truncate">
-          ${space.group ? space.group.toUpperCase() : 'ASET'}
+          ${getGroupName(space)}
         </span>
         ${prop.isHotel ? `
           <span class="portfolio-deed-badge flex items-center gap-0.5 bg-red-950 text-red-200 px-1 py-0.2 rounded text-[6.5px] font-bold border border-red-400/60 shrink-0">

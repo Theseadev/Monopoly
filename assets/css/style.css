@@ -570,15 +570,15 @@ body:fullscreen .monopoly-board {
     width: clamp(10px, 2.5vw, 15px) !important;
     height: clamp(7px, 1.8vw, 10px) !important;
   }
-  .corner-parking-top,
-  .corner-parking-bot {
-    font-size: clamp(5px, 1.3vw, 7px) !important;
+  .corner-parking-title {
+    font-size: clamp(5px, 1.4vw, 7.2px) !important;
+    line-height: 1.1 !important;
   }
   .corner-parking-sub {
     font-size: clamp(3.8px, 1vw, 5px) !important;
   }
   .corner-parking-icon {
-    width: clamp(12px, 3vw, 17px) !important;
+    width: clamp(11px, 2.8vw, 16px) !important;
     height: clamp(8px, 2vw, 12px) !important;
   }
   .corner-gtj-police {
@@ -997,18 +997,18 @@ body:fullscreen .monopoly-board {
 }
 
 /* 3. Parkir Bebas / Free Parking */
-.corner-parking-top,
-.corner-parking-bot {
-  font-size: clamp(7.5px, 0.8vw, 10.5px);
-  font-weight: 900;
-}
 .corner-parking-icon {
-  width: clamp(20px, 2.2vw, 28px);
-  height: clamp(14px, 1.5vw, 20px);
+  width: clamp(16px, 1.8vw, 24px);
+  height: clamp(12px, 1.4vw, 18px);
 }
 .corner-parking-icon svg {
   width: 100%;
   height: 100%;
+}
+.corner-parking-title {
+  font-size: clamp(7.5px, 0.8vw, 10.5px);
+  font-weight: 900;
+  line-height: 1.15;
 }
 .corner-parking-sub {
   font-size: clamp(5.5px, 0.6vw, 8px);
@@ -1102,14 +1102,13 @@ body.fullscreen-active .tile-top .tile-price-badge {
 /* Fullscreen Corner Tiles - Clean, Proportional & Strictly Inside Boundaries */
 :fullscreen .corner-parking-icon,
 body.fullscreen-active .corner-parking-icon {
-  width: clamp(26px, 2.8vw, 38px) !important;
-  height: clamp(18px, 1.9vw, 26px) !important;
+  width: clamp(22px, 2.4vw, 32px) !important;
+  height: clamp(16px, 1.8vw, 24px) !important;
 }
-:fullscreen .corner-parking-top,
-:fullscreen .corner-parking-bot,
-body.fullscreen-active .corner-parking-top,
-body.fullscreen-active .corner-parking-bot {
+:fullscreen .corner-parking-title,
+body.fullscreen-active .corner-parking-title {
   font-size: clamp(9.5px, 1vw, 13.5px) !important;
+  line-height: 1.15 !important;
 }
 :fullscreen .corner-parking-sub,
 body.fullscreen-active .corner-parking-sub {

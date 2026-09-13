@@ -512,24 +512,79 @@ body:fullscreen .monopoly-board {
   }
 
   .tile-name {
-    font-size: clamp(5.6px, 1.75vw, 8px) !important;
+    font-size: clamp(5.2px, 1.55vw, 7.2px) !important;
     line-height: 1.1 !important;
+    word-break: normal !important;
+    hyphens: none !important;
   }
   .tile-price-badge {
-    font-size: clamp(4.8px, 1.45vw, 7px) !important;
+    font-size: clamp(4.5px, 1.3vw, 6.2px) !important;
     padding: 0 1px !important;
   }
   .color-bar {
-    height: clamp(5.5px, 1.8vw, 10px) !important;
+    height: clamp(5px, 1.5vw, 8px) !important;
+    width: 100% !important;
   }
   .tile-left .color-bar,
   .tile-right .color-bar {
-    width: clamp(5.5px, 1.8vw, 10px) !important;
+    width: 100% !important;
+    height: clamp(5px, 1.5vw, 8px) !important;
   }
   .tile-icon {
-    width: clamp(10px, 2.8vw, 15px) !important;
-    height: clamp(10px, 2.8vw, 15px) !important;
+    width: clamp(9px, 2.5vw, 13px) !important;
+    height: clamp(9px, 2.5vw, 13px) !important;
   }
+
+  /* Mobile Corner Tiles */
+  .corner-go-sub {
+    font-size: clamp(4.5px, 1.3vw, 6.5px) !important;
+  }
+  .corner-go-main {
+    font-size: clamp(8px, 2.3vw, 12px) !important;
+  }
+  .corner-go-bonus {
+    font-size: clamp(4.8px, 1.35vw, 6.8px) !important;
+  }
+  .corner-go-arrow {
+    width: clamp(8px, 1.8vw, 12px) !important;
+    height: clamp(8px, 1.8vw, 12px) !important;
+  }
+  .corner-parking-title {
+    font-size: clamp(5px, 1.4vw, 7px) !important;
+    white-space: normal !important;
+  }
+  .corner-parking-sub {
+    font-size: clamp(4px, 1.1vw, 5.5px) !important;
+  }
+  .corner-parking-icon {
+    width: clamp(10px, 2.4vw, 15px) !important;
+    height: clamp(7px, 1.8vw, 11px) !important;
+  }
+  .corner-gtj-police {
+    width: clamp(9px, 2.4vw, 14px) !important;
+    height: clamp(9px, 2.4vw, 14px) !important;
+  }
+  .corner-gtj-sub {
+    font-size: clamp(4.5px, 1.3vw, 6.2px) !important;
+  }
+  .corner-gtj-main {
+    font-size: clamp(6px, 1.7vw, 8.5px) !important;
+  }
+  .corner-gtj-arrow {
+    width: clamp(7px, 1.8vw, 10px) !important;
+    height: clamp(7px, 1.8vw, 10px) !important;
+  }
+  .corner-jail-icon {
+    width: clamp(8px, 2.2vw, 12px) !important;
+    height: clamp(8px, 2.2vw, 12px) !important;
+  }
+  .corner-jail-text {
+    font-size: clamp(5.2px, 1.5vw, 7.5px) !important;
+  }
+  .corner-jail-visiting-text {
+    font-size: clamp(4.5px, 1.2vw, 6px) !important;
+  }
+
   .center-header h1 {
     font-size: clamp(11px, 3.8vw, 18px) !important;
   }

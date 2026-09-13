@@ -838,13 +838,13 @@ function renderBoard() {
         // MULAI / GO
         cell.className += ' corner-go';
         cell.innerHTML = `
-          <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-1 z-0 w-full h-full select-none">
-            <span class="corner-go-sub font-black text-[#784419] uppercase tracking-wider leading-none pt-0.5 font-outfit">LEWAT AMBIL</span>
+          <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-0.5 sm:p-1 z-0 w-full h-full select-none overflow-hidden">
+            <span class="corner-go-sub font-black text-[#784419] uppercase tracking-wider leading-none font-outfit">LEWAT AMBIL</span>
             <div class="my-auto flex flex-col items-center justify-center">
               <span class="corner-go-main font-black text-[#b91c1c] font-outfit tracking-widest leading-none">MULAI</span>
-              <span class="corner-go-bonus font-mono text-[#b91c1c] font-bold leading-tight mt-0.5">+Rp 2 JT</span>
+              <span class="corner-go-bonus font-mono text-[#b91c1c] font-bold leading-none mt-0.5">+Rp 2 JT</span>
             </div>
-            <div class="corner-go-arrow text-[#b91c1c] flex items-center justify-center mb-0.5">${GameIcons.goArrow}</div>
+            <div class="corner-go-arrow text-[#b91c1c] flex items-center justify-center shrink-0 mb-0.5">${GameIcons.goArrow}</div>
           </div>
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-0.5 z-20 flex-wrap p-0.5"></div>
         `;
@@ -852,12 +852,12 @@ function renderBoard() {
         // PENJARA / JAIL
         cell.className += ' corner-jail';
         cell.innerHTML = `
-          <div class="w-full h-full flex flex-col justify-between items-center p-0.5 select-none z-0">
+          <div class="w-full h-full flex flex-col justify-between items-center p-0.5 select-none z-0 overflow-hidden">
             <div class="corner-jail-visiting w-full py-0.5 px-0.5 bg-[#ecdcc3] border-b border-[#8c6738] flex items-center justify-center gap-1 leading-none shrink-0">
               <span class="w-2 h-2 inline-block text-[#4a2c0c] shrink-0">${GameIcons.visiting}</span>
               <span class="corner-jail-visiting-text font-black text-[#4a2c0c] uppercase font-outfit">HANYA LEWAT</span>
             </div>
-            <div class="corner-jail-cell flex-1 w-[90%] my-0.5 bg-[#fef2f2] border border-[#ef4444] rounded flex flex-col items-center justify-center p-0.5 shadow-inner">
+            <div class="corner-jail-cell flex-1 w-[92%] my-0.5 bg-[#fef2f2] border border-[#ef4444] rounded flex flex-col items-center justify-center p-0.5 shadow-inner">
               <div class="corner-jail-icon text-[#c2410c] flex items-center justify-center shrink-0 mb-0.5">${GameIcons.jailLock}</div>
               <span class="corner-jail-text font-black text-[#c2410c] font-outfit tracking-wider leading-none">PENJARA</span>
             </div>
@@ -868,10 +868,12 @@ function renderBoard() {
         // PARKIR BEBAS / FREE PARKING
         cell.className += ' corner-free-parking';
         cell.innerHTML = `
-          <div class="tile-content flex-1 flex flex-col items-center justify-center text-center p-1 z-0 w-full h-full select-none">
-            <div class="corner-parking-icon text-[#1e3a8a] flex items-center justify-center shrink-0 mb-0.5">${GameIcons.freeParking}</div>
-            <span class="corner-parking-title text-[#1e3a8a] font-black leading-tight font-outfit">PARKIR BEBAS</span>
-            <span class="corner-parking-sub text-[#475569] font-bold leading-none mt-0.5">Istirahat</span>
+          <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-0.5 sm:p-1 z-0 w-full h-full select-none overflow-hidden">
+            <div class="corner-parking-icon text-[#1e3a8a] flex items-center justify-center shrink-0 mt-0.5">${GameIcons.freeParking}</div>
+            <div class="my-auto flex flex-col items-center justify-center">
+              <span class="corner-parking-title text-[#1e3a8a] font-black leading-tight font-outfit">PARKIR BEBAS</span>
+              <span class="corner-parking-sub text-[#475569] font-bold leading-none mt-0.5">Istirahat</span>
+            </div>
           </div>
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-0.5 z-20 flex-wrap p-0.5"></div>
         `;
@@ -879,11 +881,13 @@ function renderBoard() {
         // MASUK PENJARA / GO TO JAIL
         cell.className += ' corner-go-to-jail';
         cell.innerHTML = `
-          <div class="tile-content flex-1 flex flex-col items-center justify-center text-center p-1 z-0 w-full h-full select-none">
-            <div class="corner-gtj-police text-[#b91c1c] flex items-center justify-center shrink-0 mb-0.5">${GameIcons.police}</div>
-            <span class="corner-gtj-sub text-[#4a2c0c] font-extrabold leading-none font-outfit">MASUK</span>
-            <span class="corner-gtj-main font-black text-[#b91c1c] font-outfit leading-tight mt-0.5">PENJARA!</span>
-            <div class="corner-gtj-arrow text-[#b91c1c] flex items-center justify-center shrink-0 mt-0.5">${GameIcons.arrowDownLeft}</div>
+          <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-0.5 sm:p-1 z-0 w-full h-full select-none overflow-hidden">
+            <div class="corner-gtj-police text-[#b91c1c] flex items-center justify-center shrink-0 mt-0.5">${GameIcons.police}</div>
+            <div class="my-auto flex flex-col items-center justify-center">
+              <span class="corner-gtj-sub text-[#4a2c0c] font-extrabold leading-none font-outfit">MASUK</span>
+              <span class="corner-gtj-main font-black text-[#b91c1c] font-outfit leading-tight mt-0.5">PENJARA!</span>
+            </div>
+            <div class="corner-gtj-arrow text-[#b91c1c] flex items-center justify-center shrink-0 mb-0.5">${GameIcons.arrowDownLeft}</div>
           </div>
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-0.5 z-20 flex-wrap p-0.5"></div>
         `;
@@ -893,7 +897,7 @@ function renderBoard() {
       let colorBarHtml = '';
       let indicatorsHtml = '<div class="indicators-container absolute flex items-center gap-0.5 z-10 pointer-events-none"></div>';
       let iconHtml = '';
-      let priceText = space.price ? formatShortPrice(space.price) : (space.amount ? `Bayar ${formatShortPrice(space.amount)}` : '');
+      let priceText = space.price ? formatShortPrice(space.price) : (space.amount ? formatShortPrice(space.amount) : '');
       const displayName = space.shortName || space.name;
 
       if (space.type === 'property') {
@@ -911,7 +915,7 @@ function renderBoard() {
       const priceBadgeHtml = priceText ? `<span class="tile-price-badge">${priceText}</span>` : '';
 
       if (pos.side === 'top') {
-        // TOP TILES: Price at Top (outer edge), Name/Icon in middle, Color bar at Bottom (facing center)
+        // TOP TILES: Price at Top, Name/Icon in middle, Color bar at Bottom (facing center)
         cell.innerHTML = `
           ${priceBadgeHtml}
           ${indicatorsHtml}
@@ -923,31 +927,31 @@ function renderBoard() {
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
         `;
       } else if (pos.side === 'left') {
-        // LEFT TILES: Name/Icon/Price on left, Color bar at Right (vertical strip facing center)
+        // LEFT TILES: Color bar at Top, Name/Icon in middle, Price at Bottom
         cell.innerHTML = `
+          ${colorBarHtml}
           ${indicatorsHtml}
           <div class="tile-content">
             ${iconHtml}
             <span class="tile-name">${displayName}</span>
-            ${priceBadgeHtml}
           </div>
-          ${colorBarHtml}
+          ${priceBadgeHtml}
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
         `;
       } else if (pos.side === 'right') {
-        // RIGHT TILES: Color bar at Left (vertical strip facing center), Name/Icon/Price on right
+        // RIGHT TILES: Color bar at Top, Name/Icon in middle, Price at Bottom
         cell.innerHTML = `
           ${colorBarHtml}
           ${indicatorsHtml}
           <div class="tile-content">
             ${iconHtml}
             <span class="tile-name">${displayName}</span>
-            ${priceBadgeHtml}
           </div>
+          ${priceBadgeHtml}
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
         `;
       } else {
-        // BOTTOM TILES: Color bar at Top (facing center), Name/Icon in middle, Price at Bottom (outer edge)
+        // BOTTOM TILES: Color bar at Top, Name/Icon in middle, Price at Bottom
         cell.innerHTML = `
           ${colorBarHtml}
           ${indicatorsHtml}

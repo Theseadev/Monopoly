@@ -204,8 +204,8 @@ export class GameState {
       sound.playStep();
       this.notify('player_moved', { player, currentPosition: player.position });
 
-      // Jika melewati petak Mulai (GO)
-      if (player.position === 0) {
+      // Jika benar-benar melewati petak Mulai (GO) dan bukan berhenti di Mulai
+      if (player.position === 0 && i < steps - 1) {
         player.money += 2000000;
         sound.playCash();
         this.addLog(`${player.name} melewati Mulai (GO) dan menerima Rp 2.000.000!`, 'success');
@@ -221,7 +221,7 @@ export class GameState {
   // Pindahkan langsung ke posisi tertentu
   async movePlayerTo(player, targetIndex, canCollectGo = true) {
     const oldPos = player.position;
-    if (canCollectGo && targetIndex < oldPos && targetIndex !== 10) {
+    if (canCollectGo && targetIndex < oldPos && targetIndex > 0 && targetIndex !== 10) {
       player.money += 2000000;
       sound.playCash();
       this.addLog(`${player.name} melewati Mulai (GO) dan mendapat Rp 2.000.000!`, 'success');
@@ -238,6 +238,14 @@ export class GameState {
   // Eksekusi logika petak tempat pemain mendarat
   async handleLandedSpace(player) {
     const space = BOARD_SPACES[player.position];
+
+    // Jika mendarat tepat di Mulai (GO)
+    if (space.id === 0) {
+      this.addLog(`${player.name} mendarat tepat di Mulai (GO). Tidak mendapat Rp 2.000.000 karena berhenti di Mulai.`, 'info');
+      this.finishAction();
+      return;
+    }
+
     this.addLog(`${player.name} mendarat di ${space.name}.`, 'info');
 
     // 1. Petak Properti / Stasiun / Utilitas

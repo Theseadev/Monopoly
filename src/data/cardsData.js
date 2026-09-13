@@ -4,10 +4,10 @@ export const CHANCE_CARDS = [
     {
         "id": "c1",
         "title": "Balik ke Titik Mulai (GO)",
-        "description": "Lewati garis awal dan ambil gaji resmi Rp 2.000.000 dari kas. Lumayan buat modal putar uang lagi.",
+        "description": "Maju langsung ke titik Mulai. Sesuai aturan, bonus Rp 2.000.000 hanya didapat jika melintas/melewati, bukan berhenti di Mulai.",
         "type": "move_to",
         "target": 0,
-        "collectGo": true
+        "collectGo": false
     },
     {
         "id": "c2",

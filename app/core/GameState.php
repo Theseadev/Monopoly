@@ -225,8 +225,8 @@ class GameState {
         $oldPos = $player['position'];
         $newPos = ($oldPos + $steps) % 40;
 
-        // Melewati atau mendarat di Mulai (GO)
-        if ($newPos < $oldPos && $newPos >= 0) {
+        // Melewati Mulai (GO) - Hanya jika benar-benar melewati (tidak berhenti tepat di Mulai)
+        if ($newPos < $oldPos && $newPos > 0) {
             $player['money'] += 2000000;
             self::addLog($state, "{$player['name']} melewati Mulai (GO) dan menerima Rp 2.000.000!", 'success');
         }
@@ -238,6 +238,13 @@ class GameState {
     private static function handleLandedSpace(array &$state, array &$player): void {
         $space = BoardData::getSpace($player['position']);
         if (!$space) return;
+
+        // Jika mendarat tepat di Mulai (GO)
+        if ($space['id'] === 0) {
+            self::addLog($state, "{$player['name']} mendarat tepat di Mulai (GO). Tidak mendapat Rp 2.000.000 karena berhenti di Mulai.", 'info');
+            self::finishAction($state);
+            return;
+        }
 
         self::addLog($state, "{$player['name']} mendarat di {$space['name']}.", 'info');
 
@@ -591,7 +598,7 @@ class GameState {
             case 'move_to':
                 $oldPos = $player['position'];
                 $target = (int)$effect['target'];
-                if (!empty($effect['collectGo']) && $target < $oldPos) {
+                if (!empty($effect['collectGo']) && $target < $oldPos && $target > 0) {
                     $player['money'] += 2000000;
                     self::addLog($state, "{$player['name']} melewati Mulai dan mengambil Rp 2.000.000!", 'success');
                 }

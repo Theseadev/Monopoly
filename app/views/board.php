@@ -970,7 +970,7 @@
             <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.5 9h-4a1.5 1.5 0 0 0 0 3h3a1.5 1.5 0 0 1 0 3h-4"/><path d="M12 6v12"/></svg>
             <span>Melewati Petak Mulai (GO)</span>
           </h4>
-          <p>Setiap kali melewati atau mendarat di petak Mulai, Bank memberikan uang tunai <b>Rp 2.000.000</b>.</p>
+          <p>Hanya saat <b>benar-benar melintas/melewati</b> petak Mulai, Bank memberikan uang tunai <b>Rp 2.000.000</b>. Jika berhenti tepat di Mulai, pemain tidak mendapatkan uang.</p>
         </div>
       </div>
 

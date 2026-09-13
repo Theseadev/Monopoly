@@ -9,7 +9,7 @@ export const BOARD_SPACES = [
     shortName: "MULAI",
     type: "corner",
     subType: "go",
-    description: "Ambil Rp 2.000.000 setiap kali melewati petak ini",
+    description: "Ambil Rp 2.000.000 setiap kali melewati petak ini (harus melintas, tidak berlaku jika berhenti di Mulai)",
     icon: "flag"
   },
   {

@@ -390,14 +390,11 @@
       </svg>
     </div>
 
-    <!-- Title & Subtitle -->
+    <!-- Title -->
     <div class="text-center mb-4 sm:mb-7">
       <h1 class="text-nusantara-3d text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-wider">
         MONOPOLI NUSANTARA
       </h1>
-      <p class="text-nusantara-subtitle text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-widest mt-0.5">
-        EDISI NUSANTARA
-      </p>
     </div>
 
     <!-- Main Menu Buttons Stack -->

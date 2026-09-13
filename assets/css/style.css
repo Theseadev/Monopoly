@@ -1832,7 +1832,7 @@ body.fullscreen-active .corner-go-arrow {
 }
 
 /* OK Button for Dana Umum (Blue) */
-.btn-card-ok, #btnConfirmCardFlip {
+.btn-card-ok, #btnConfirmCardFlip.btn-card-ok {
   background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
   border: 2.5px solid #075985;
   box-shadow: 0 4px 0 #0c4a6e, 0 8px 15px rgba(0, 0, 0, 0.3);
@@ -1844,22 +1844,22 @@ body.fullscreen-active .corner-go-arrow {
   touch-action: manipulation;
 }
 
-.btn-card-ok:hover, #btnConfirmCardFlip:hover {
+.btn-card-ok:hover, #btnConfirmCardFlip.btn-card-ok:hover {
   background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
   transform: translateY(-2px);
   box-shadow: 0 6px 0 #0c4a6e, 0 12px 20px rgba(0, 0, 0, 0.4);
 }
 
-.btn-card-ok:active, #btnConfirmCardFlip:active {
+.btn-card-ok:active, #btnConfirmCardFlip.btn-card-ok:active {
   transform: translateY(2px);
   box-shadow: 0 1px 0 #0c4a6e;
 }
 
-/* OK Button for Chance (Orange) */
-.btn-card-ok-chance {
-  background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
-  border: 2.5px solid #78350f;
-  box-shadow: 0 4px 0 #451a03, 0 8px 15px rgba(0, 0, 0, 0.3);
+/* OK Button for Chance (Gold/Amber - matching user mockup) */
+.btn-card-ok-chance, #btnConfirmCardFlip.btn-card-ok-chance, #btnConfirmCardFlip {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+  border: 2.5px solid #b45309;
+  box-shadow: 0 4px 0 #78350f, 0 8px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.1s ease;
   pointer-events: auto !important;
   cursor: pointer !important;
@@ -1868,15 +1868,15 @@ body.fullscreen-active .corner-go-arrow {
   touch-action: manipulation;
 }
 
-.btn-card-ok-chance:hover {
-  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+.btn-card-ok-chance:hover, #btnConfirmCardFlip.btn-card-ok-chance:hover {
+  background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 0 #451a03, 0 12px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 0 #78350f, 0 12px 20px rgba(0, 0, 0, 0.4);
 }
 
-.btn-card-ok-chance:active {
+.btn-card-ok-chance:active, #btnConfirmCardFlip.btn-card-ok-chance:active {
   transform: translateY(2px);
-  box-shadow: 0 1px 0 #451a03;
+  box-shadow: 0 1px 0 #78350f;
 }
 
 /* Interactive Card Decision Buttons */

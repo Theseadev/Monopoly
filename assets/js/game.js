@@ -3382,114 +3382,152 @@ async function showCardDrawn(action, player) {
     else if (card.type === 'receive_money') mainIconHtml = `<div class="w-12 h-12 mx-auto text-emerald-600">${GameIcons.moneyBag}</div>`;
     else if (card.type === 'pay_money') mainIconHtml = `<div class="w-12 h-12 mx-auto text-red-500">${GameIcons.bill}</div>`;
     else if (card.type === 'go_to_jail') mainIconHtml = `<div class="w-12 h-12 mx-auto text-orange-600">${GameIcons.jailLock}</div>`;
-    else if (card.type === 'jail_card') mainIconHtml = `<div class="w-12 h-12 mx-auto text-amber-500">${GameIcons.key}</div>`;
+    else if (card.type === 'jail_card') mainIconHtml = `<div class="w-12 h-12 mx-auto text-emerald-500 text-4xl flex items-center justify-center">🍀</div>`;
     else if (card.type === 'move_to' || card.type === 'move_steps') mainIconHtml = `<div class="w-12 h-12 mx-auto text-blue-600">${GameIcons.compass}</div>`;
     else if (card.type === 'repairs') mainIconHtml = `<div class="w-12 h-12 mx-auto text-amber-700">${GameIcons.tools}</div>`;
 
-    sound.playCardFlip();
-
-    if (!hasChoices && card.amount) {
-      if (card.type === 'receive_money') {
-        sound.playCash();
-        showFloatingCash(card.amount, true);
-        triggerConfetti({ particleCount: 50 });
-      } else if (card.type === 'pay_money') {
-        sound.playCash();
-        showFloatingCash(card.amount, false);
-      }
-    }
-    if (!hasChoices && card.type === 'go_to_jail') {
-      triggerJailSiren();
-    }
-
     modalContainer.innerHTML = `
-      <div id="cardDrawnBackdrop" class="fixed inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center p-4 z-50 font-sans animate-fade-in select-none">
-        <div class="relative max-w-[340px] w-full animate-scale-up" onclick="event.stopPropagation();">
+      <div id="cardDrawnBackdrop" class="fixed inset-0 bg-black/75 backdrop-blur-[3px] flex items-center justify-center p-4 z-50 font-sans select-none animate-fade-in">
+        <!-- Container Kartu dengan Perspektif 3D -->
+        <div class="relative w-full max-w-[340px] sm:max-w-[350px] h-[480px]" style="perspective: 1200px;" onclick="event.stopPropagation();">
           
           <!-- Tombol Tutup Silang di Sudut Atas (✕) -->
-          <button id="btnCloseCardTop" type="button" onclick="event.stopPropagation(); window.handleCardConfirm();" class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-zinc-900 border-2 border-amber-400 text-amber-300 hover:bg-rose-600 hover:border-rose-400 hover:text-white flex items-center justify-center shadow-2xl transition transform hover:scale-110 active:scale-95 cursor-pointer z-50 text-sm font-black">
+          <button id="btnCloseCardTop" type="button" onclick="event.stopPropagation(); window.handleCardConfirm();" class="absolute -top-3.5 -right-3.5 w-9 h-9 rounded-full bg-zinc-900 border-2 border-amber-400 text-amber-300 hover:bg-rose-600 hover:border-rose-400 hover:text-white flex items-center justify-center shadow-2xl transition transform hover:scale-110 active:scale-95 cursor-pointer z-50 text-sm font-black">
             ✕
           </button>
 
-          <!-- Kartu Monopoli Deluxe -->
-          <div class="mx-auto bg-white rounded-3xl border-4 ${isChance ? 'border-[#78350f]' : 'border-[#0c4a6e]'} overflow-hidden text-zinc-900 shadow-2xl w-full flex flex-col justify-between" style="min-height: 440px; box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 30px ${isChance ? 'rgba(245,158,11,0.35)' : 'rgba(56,189,248,0.35)'};">
+          <!-- Tumpukan Kartu di Bawah (Efek Visual Deck Bertingkat sesuai Mockup) -->
+          <div class="absolute -bottom-2.5 inset-x-2 h-14 rounded-[30px] ${isChance ? 'bg-[#78350f] border-2 border-[#92400e]' : 'bg-[#0c4a6e] border-2 border-[#0369a1]'} -z-10 shadow-lg pointer-events-none transition-transform duration-300"></div>
+          <div class="absolute -bottom-5 inset-x-4 h-14 rounded-[30px] ${isChance ? 'bg-[#451a03] border-2 border-[#78350f]' : 'bg-[#082f49] border-2 border-[#0c4a6e]'} -z-20 shadow-md pointer-events-none transition-transform duration-300"></div>
+          <div class="absolute -bottom-7 inset-x-6 h-14 rounded-[30px] ${isChance ? 'bg-[#1c0a02] border-2 border-[#451a03]' : 'bg-[#021d30] border-2 border-[#082f49]'} -z-30 shadow-sm pointer-events-none transition-transform duration-300"></div>
+
+          <!-- Elemen Kartu yang Berputar 3D (Flip Card) -->
+          <div id="activeFlipCard" class="flip-card">
             
-            <!-- Banner Atas Berwarna -->
-            <div class="${isChance ? 'flip-card-header-chance' : 'flip-card-header-chest'} pt-3.5 pb-2.5 px-4 text-center text-white flex flex-col items-center justify-center shadow-md shrink-0">
-              <div class="w-8 h-8 rounded-xl bg-white/20 border border-white/40 flex items-center justify-center mb-1 shadow-inner">
-                ${cardHeaderIconHtml}
-              </div>
-              <div class="text-xs md:text-sm font-black tracking-widest uppercase font-outfit leading-tight">
-                ${isChance ? 'CHANCE' : 'COMMUNITY CHEST'}
-              </div>
-              <div class="text-[8.5px] font-semibold text-white/80 uppercase tracking-wider">
-                ${isChance ? 'KARTU KESEMPATAN' : 'KARTU DANA UMUM'}
+            <!-- SISI BELAKANG (Tertutup / Face-down saat pertama kali muncul) -->
+            <div class="flip-card-face flip-card-back ${isChance ? 'card-pattern-chance' : 'card-pattern-chest'} p-4 flex flex-col items-center justify-between text-center select-none cursor-pointer">
+              
+              <!-- Frame Hiasan Mewah Dalam -->
+              <div class="w-full h-full rounded-[22px] border-2 ${isChance ? 'border-amber-300/40 bg-black/15' : 'border-sky-300/40 bg-black/15'} p-4 flex flex-col items-center justify-between relative overflow-hidden">
+                
+                <!-- Badge Atas -->
+                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full ${isChance ? 'bg-amber-500/30 text-amber-200 border border-amber-400/40' : 'bg-sky-500/30 text-sky-200 border border-sky-400/40'} text-[10px] font-black tracking-widest uppercase">
+                  <span>${isChance ? '🎲' : '💼'}</span>
+                  <span>${isChance ? 'KARTU KESEMPATAN' : 'KARTU DANA UMUM'}</span>
+                </div>
+
+                <!-- Lambang Emblem Utama Bercahaya -->
+                <div class="my-auto flex flex-col items-center">
+                  <div class="w-24 h-24 rounded-full ${isChance ? 'bg-gradient-to-br from-amber-400 via-amber-500 to-amber-700 shadow-[0_0_35px_rgba(245,158,11,0.6)]' : 'bg-gradient-to-br from-sky-400 via-sky-500 to-blue-700 shadow-[0_0_35px_rgba(56,189,248,0.6)]'} border-4 border-white/80 flex items-center justify-center text-white mb-2.5">
+                    ${isChance ? `
+                      <span class="text-5xl font-black font-outfit drop-shadow-md">?</span>
+                    ` : `
+                      <div class="w-12 h-12 text-white drop-shadow-md">${GameIcons.chest}</div>
+                    `}
+                  </div>
+                  <div class="text-xl font-black text-white tracking-widest font-outfit uppercase drop-shadow-md">
+                    ${isChance ? 'KESEMPATAN' : 'DANA UMUM'}
+                  </div>
+                  <div class="text-[10px] font-bold text-white/70 tracking-widest uppercase mt-0.5 font-sans">
+                    MONOPOLI NUSANTARA
+                  </div>
+                </div>
+
+                <!-- Tombol Interaktif Buka Kartu -->
+                <div class="w-full flex flex-col items-center">
+                  <div class="w-full py-3 rounded-2xl bg-gradient-to-r ${isChance ? 'from-amber-400 via-yellow-300 to-amber-500 text-zinc-950 shadow-[0_0_25px_rgba(245,158,11,0.7)]' : 'from-sky-300 via-sky-100 to-sky-400 text-zinc-950 shadow-[0_0_25px_rgba(56,189,248,0.7)]'} font-black text-sm tracking-wider uppercase font-outfit flex items-center justify-center gap-2 transform hover:scale-105 active:scale-95 transition shadow-2xl animate-pulse">
+                    <span class="text-base">👆</span>
+                    <span>BUKA KARTU</span>
+                  </div>
+                  <div class="text-[11px] text-white/80 font-medium tracking-wide mt-1.5">
+                    Ketuk untuk membuka kartu
+                  </div>
+                </div>
+
               </div>
             </div>
 
-            <!-- Isi Konten Kartu -->
-            <div class="flex-1 py-3 px-4 flex flex-col items-center justify-center text-center bg-[#fdfbf7] overflow-y-auto">
-              <div class="mb-1.5 filter drop-shadow-sm shrink-0">
-                ${mainIconHtml}
+            <!-- SISI DEPAN (Terbuka / Face-up setelah animasi flip) -->
+            <div class="flip-card-face flip-card-front bg-[#fdfbf7] flex flex-col justify-between overflow-hidden border-4 ${isChance ? 'border-[#b45309]' : 'border-[#0369a1]'}">
+              
+              <!-- Banner Atas Berwarna Sesuai Desain Asli -->
+              <div class="${isChance ? 'flip-card-header-chance' : 'flip-card-header-chest'} pt-3.5 pb-2.5 px-4 text-center text-white flex flex-col items-center justify-center shadow-md shrink-0">
+                <div class="w-8 h-8 rounded-xl bg-white/20 border border-white/40 flex items-center justify-center mb-1 shadow-inner">
+                  ${cardHeaderIconHtml}
+                </div>
+                <div class="text-sm font-black tracking-widest uppercase font-outfit leading-tight">
+                  ${isChance ? 'KESEMPATAN' : 'DANA UMUM'}
+                </div>
+                <div class="text-[9px] font-semibold text-white/80 uppercase tracking-wider">
+                  ${isChance ? 'CHANCE CARD' : 'COMMUNITY CHEST'}
+                </div>
               </div>
 
-              <div class="text-base md:text-lg font-black text-zinc-900 font-outfit leading-tight mb-1.5 shrink-0">
-                ${card.title}
-              </div>
+              <!-- Isi Konten Kartu -->
+              <div class="flex-1 py-3 px-5 flex flex-col items-center justify-center text-center bg-[#fdfbf7] overflow-y-auto">
+                <div class="mb-2 filter drop-shadow-sm shrink-0">
+                  ${mainIconHtml}
+                </div>
 
-              <div class="text-xs text-zinc-700 leading-relaxed font-medium max-w-xs mx-auto mb-3">
-                ${card.description}
-              </div>
+                <div class="text-base sm:text-lg font-black text-zinc-900 font-outfit leading-tight mb-1.5 shrink-0">
+                  ${card.title}
+                </div>
 
-              ${hasChoices ? `
-                <!-- Pilihan Keputusan Interaktif -->
-                <div class="w-full space-y-2 my-1 shrink-0 text-left">
-                  ${card.choices.map((c, idx) => `
-                    <button type="button" data-choice-id="${c.id}" onclick="event.stopPropagation(); window.handleCardChoiceSelect('${c.id}');" class="card-choice-btn w-full p-2.5 rounded-xl border text-left flex items-center justify-between gap-2 shadow-sm transition transform active:scale-[0.97] cursor-pointer select-none ${
-                      c.theme === 'emerald' ? 'bg-emerald-50 hover:bg-emerald-100 border-emerald-500/60 text-emerald-950 font-bold' :
-                      c.theme === 'rose' ? 'bg-rose-50 hover:bg-rose-100 border-rose-500/60 text-rose-950 font-bold' :
-                      c.theme === 'amber' ? 'bg-amber-50 hover:bg-amber-100 border-amber-500/60 text-amber-950 font-bold' :
-                      c.theme === 'purple' ? 'bg-purple-50 hover:bg-purple-100 border-purple-500/60 text-purple-950 font-bold' :
-                      c.theme === 'blue' ? 'bg-blue-50 hover:bg-blue-100 border-blue-500/60 text-blue-950 font-bold' :
-                      'bg-zinc-100 hover:bg-zinc-200 border-zinc-300 text-zinc-900 font-bold'
-                    }">
-                      <div class="flex items-center gap-2 min-w-0 pointer-events-none">
-                        <span class="text-xl shrink-0">${c.icon || '👉'}</span>
-                        <div class="min-w-0">
-                          <div class="text-xs font-black font-outfit leading-snug tracking-tight">${escapeHtml(c.title)}</div>
-                          <div class="text-[10px] text-zinc-600 font-medium leading-tight truncate">${escapeHtml(c.desc)}</div>
+                <div class="text-xs sm:text-sm text-zinc-700 leading-relaxed font-medium max-w-xs mx-auto mb-3">
+                  ${card.description}
+                </div>
+
+                ${hasChoices ? `
+                  <!-- Pilihan Keputusan Interaktif -->
+                  <div class="w-full space-y-2 my-1 shrink-0 text-left">
+                    ${card.choices.map((c, idx) => `
+                      <button type="button" data-choice-id="${c.id}" onclick="event.stopPropagation(); window.handleCardChoiceSelect('${c.id}');" class="card-choice-btn w-full p-2.5 rounded-xl border text-left flex items-center justify-between gap-2 shadow-sm transition transform active:scale-[0.97] cursor-pointer select-none ${
+                        c.theme === 'emerald' ? 'bg-emerald-50 hover:bg-emerald-100 border-emerald-500/60 text-emerald-950 font-bold' :
+                        c.theme === 'rose' ? 'bg-rose-50 hover:bg-rose-100 border-rose-500/60 text-rose-950 font-bold' :
+                        c.theme === 'amber' ? 'bg-amber-50 hover:bg-amber-100 border-amber-500/60 text-amber-950 font-bold' :
+                        c.theme === 'purple' ? 'bg-purple-50 hover:bg-purple-100 border-purple-500/60 text-purple-950 font-bold' :
+                        c.theme === 'blue' ? 'bg-blue-50 hover:bg-blue-100 border-blue-500/60 text-blue-950 font-bold' :
+                        'bg-zinc-100 hover:bg-zinc-200 border-zinc-300 text-zinc-900 font-bold'
+                      }">
+                        <div class="flex items-center gap-2 min-w-0 pointer-events-none">
+                          <span class="text-xl shrink-0">${c.icon || '👉'}</span>
+                          <div class="min-w-0">
+                            <div class="text-xs font-black font-outfit leading-snug tracking-tight">${escapeHtml(c.title)}</div>
+                            <div class="text-[10px] text-zinc-600 font-medium leading-tight truncate">${escapeHtml(c.desc)}</div>
+                          </div>
                         </div>
-                      </div>
-                      ${c.badge ? `<span class="shrink-0 text-[9.5px] font-black px-2 py-0.5 rounded-full font-mono shadow-xs pointer-events-none ${
-                        c.theme === 'rose' ? 'bg-rose-500 text-white' :
-                        c.theme === 'emerald' ? 'bg-emerald-600 text-white' :
-                        c.theme === 'purple' ? 'bg-purple-600 text-white' :
-                        c.theme === 'blue' ? 'bg-blue-600 text-white' :
-                        'bg-amber-500 text-black'
-                      }">${escapeHtml(c.badge)}</span>` : ''}
-                    </button>
-                  `).join('')}
-                </div>
-              ` : `
-                <!-- Indikator Pemain Terkena Efek -->
-                <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-zinc-200/90 border border-zinc-300 text-xs font-bold text-zinc-800 shadow-sm shrink-0">
-                  <span class="w-4 h-4 inline-flex items-center justify-center">${getChessPawnSVG(player.color, player.id, 18)}</span>
-                  <span class="font-outfit font-black" style="color: ${player.color}">${player.name}</span>
-                </div>
-              `}
-            </div>
+                        ${c.badge ? `<span class="shrink-0 text-[9.5px] font-black px-2 py-0.5 rounded-full font-mono shadow-xs pointer-events-none ${
+                          c.theme === 'rose' ? 'bg-rose-500 text-white' :
+                          c.theme === 'emerald' ? 'bg-emerald-600 text-white' :
+                          c.theme === 'purple' ? 'bg-purple-600 text-white' :
+                          c.theme === 'blue' ? 'bg-blue-600 text-white' :
+                          'bg-amber-500 text-black'
+                        }">${escapeHtml(c.badge)}</span>` : ''}
+                      </button>
+                    `).join('')}
+                  </div>
+                ` : `
+                  <!-- Indikator Pemain Terkena Efek (Pawn + Player Name sesuai Mockup) -->
+                  <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-200/80 border border-zinc-300 text-xs font-bold text-zinc-800 shadow-sm shrink-0">
+                    <span class="w-4 h-4 inline-flex items-center justify-center">${getChessPawnSVG(player.color, player.id, 18)}</span>
+                    <span class="font-outfit font-black" style="color: ${player.color}">${player.name}</span>
+                  </div>
+                `}
+              </div>
 
-            <!-- Tombol Aksi di Bawah -->
-            <div class="p-3 bg-[#fdfbf7] border-t border-zinc-200/80 shrink-0">
-              ${hasChoices ? `
-                <div class="text-center text-[10.5px] font-bold text-zinc-500 tracking-wide uppercase font-outfit">
-                  👆 Pilih salah satu tindakan di atas
-                </div>
-              ` : `
-                <button id="btnConfirmCardFlip" type="button" onclick="event.stopPropagation(); window.handleCardConfirm();" class="w-full py-3 rounded-2xl ${isChance ? 'btn-card-ok-chance' : 'btn-card-ok'} text-white font-black text-sm tracking-wider font-outfit shadow-lg cursor-pointer transform active:scale-95 transition flex items-center justify-center gap-2">
-                  <span>OK</span>
-                </button>
-              `}
+              <!-- Tombol Aksi di Bawah (Tombol OK Emas/Biru sesuai Mockup) -->
+              <div class="p-3 bg-[#fdfbf7] border-t border-zinc-200/80 shrink-0">
+                ${hasChoices ? `
+                  <div class="text-center text-[10.5px] font-bold text-zinc-500 tracking-wide uppercase font-outfit">
+                    👆 Pilih salah satu tindakan di atas
+                  </div>
+                ` : `
+                  <button id="btnConfirmCardFlip" type="button" onclick="event.stopPropagation(); window.handleCardConfirm();" class="w-full py-3.5 rounded-2xl ${isChance ? 'btn-card-ok-chance' : 'btn-card-ok'} text-white font-black text-base tracking-wider font-outfit shadow-lg cursor-pointer transform active:scale-95 transition flex items-center justify-center gap-2">
+                    <span>OK</span>
+                  </button>
+                `}
+              </div>
+
             </div>
 
           </div>
@@ -3497,6 +3535,64 @@ async function showCardDrawn(action, player) {
       </div>
     `;
     modalContainer.classList.remove('hidden');
+
+    // Mekanisme Interaksi Flip Kartu 3D
+    let isCardFlipped = false;
+    const flipCardEl = document.getElementById('activeFlipCard');
+
+    const doFlip = () => {
+      if (isCardFlipped || !flipCardEl) return;
+      isCardFlipped = true;
+
+      sound.playCardFlip();
+      flipCardEl.classList.add('is-flipped');
+
+      setTimeout(() => {
+        flipCardEl.classList.add('flip-done');
+
+        // Normalisasi DOM setelah rotasi selesai agar tombol bebas dari batasan 3D rendering
+        const backFace = flipCardEl.querySelector('.flip-card-back');
+        if (backFace) {
+          backFace.style.display = 'none';
+          backFace.style.pointerEvents = 'none';
+          backFace.style.visibility = 'hidden';
+        }
+        const frontFace = flipCardEl.querySelector('.flip-card-front');
+        if (frontFace) {
+          frontFace.style.position = 'relative';
+          frontFace.style.transform = 'none';
+          frontFace.style.pointerEvents = 'auto';
+          frontFace.style.zIndex = '1000';
+          frontFace.style.visibility = 'visible';
+        }
+        flipCardEl.style.transform = 'none';
+        flipCardEl.style.transformStyle = 'flat';
+
+        // Efek audio & visual setelah kartu terbuka
+        if (!hasChoices && card.amount) {
+          if (card.type === 'receive_money') {
+            sound.playCash();
+            showFloatingCash(card.amount, true);
+            triggerConfetti({ particleCount: 50 });
+          } else if (card.type === 'pay_money') {
+            sound.playCash();
+            showFloatingCash(card.amount, false);
+          }
+        }
+        if (!hasChoices && card.type === 'go_to_jail') {
+          triggerJailSiren();
+        }
+      }, 480);
+    };
+
+    if (flipCardEl) {
+      flipCardEl.addEventListener('click', (e) => {
+        if (!isCardFlipped) {
+          e.stopPropagation();
+          doFlip();
+        }
+      });
+    }
 
     // Klik backdrop luar untuk menutup modal
     const backdropEl = document.getElementById('cardDrawnBackdrop');
@@ -3516,6 +3612,7 @@ async function showCardDrawn(action, player) {
       };
       btnOk.addEventListener('click', handleOk);
       btnOk.addEventListener('pointerup', handleOk);
+      btnOk.addEventListener('touchend', handleOk);
     }
 
     const btnCloseTop = document.getElementById('btnCloseCardTop');
@@ -3527,6 +3624,7 @@ async function showCardDrawn(action, player) {
       };
       btnCloseTop.addEventListener('click', handleCloseTop);
       btnCloseTop.addEventListener('pointerup', handleCloseTop);
+      btnCloseTop.addEventListener('touchend', handleCloseTop);
     }
 
     modalContainer.querySelectorAll('.card-choice-btn').forEach(btn => {
@@ -3539,6 +3637,7 @@ async function showCardDrawn(action, player) {
         };
         btn.addEventListener('click', handleChoice);
         btn.addEventListener('pointerup', handleChoice);
+        btn.addEventListener('touchend', handleChoice);
       }
     });
 

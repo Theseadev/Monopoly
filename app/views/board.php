@@ -834,94 +834,94 @@
     </div>
 
     <!-- Main Workspace -->
-    <div class="flex-1 p-1 sm:p-1.5 flex flex-col xl:flex-row items-center xl:items-stretch justify-center gap-1.5 xl:gap-3 max-w-[1650px] mx-auto w-full min-h-0 overflow-hidden">
+    <div class="flex-1 p-1.5 sm:p-2 lg:p-2.5 flex flex-col xl:flex-row items-center xl:items-stretch justify-center gap-2 xl:gap-3.5 max-w-[1920px] mx-auto w-full min-h-0 overflow-hidden">
       <!-- Left Column: Player Cards & Chat -->
-      <aside id="asideLeft" class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-1.5 xl:gap-2 order-2 xl:order-1 min-h-0">
+      <aside id="asideLeft" class="w-full xl:w-72 2xl:w-80 shrink-0 flex flex-col gap-2 xl:gap-2.5 order-2 xl:order-1 min-h-0">
         <!-- 1. Daftar Pemain (Card) -->
-        <div id="playerInfoCard" class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl shrink-0">
-          <div class="flex items-center justify-between mb-1.5 pb-1 border-b border-zinc-800">
-            <h3 class="text-[11px] uppercase font-extrabold tracking-wider text-rose-300 font-outfit">Daftar Pemain</h3>
-            <span class="text-[9px] text-gray-400 font-medium">Status & Giliran</span>
+        <div id="playerInfoCard" class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-2.5 sm:p-3 shadow-xl shrink-0">
+          <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-zinc-800">
+            <h3 class="text-xs uppercase font-extrabold tracking-wider text-rose-300 font-outfit">Daftar Pemain</h3>
+            <span class="text-[9.5px] text-gray-400 font-medium">Status & Giliran</span>
           </div>
-          <div id="playersListContainer" class="space-y-1"></div>
+          <div id="playersListContainer" class="space-y-1.5"></div>
 
           <!-- Jail Actions (Aktif jika pemain sedang di penjara) -->
-          <div id="jailActions" class="hidden pt-1.5 border-t border-zinc-800 space-y-1 mt-1.5">
-            <div class="text-[9.5px] text-red-400 font-semibold text-center flex items-center justify-center gap-1">
-              <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
+          <div id="jailActions" class="hidden pt-2 border-t border-zinc-800 space-y-1 mt-2">
+            <div class="text-[10px] text-red-400 font-semibold text-center flex items-center justify-center gap-1">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                 <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
               </svg>
               <span>Anda Ditahan di Penjara</span>
             </div>
-            <button id="btnPayJailFine" class="w-full py-1.5 rounded-lg bg-red-950/80 hover:bg-red-900 border border-red-500/50 text-red-200 text-[10.5px] font-bold transition cursor-pointer font-outfit">
+            <button id="btnPayJailFine" class="w-full py-1.5 rounded-xl bg-red-950/80 hover:bg-red-900 border border-red-500/50 text-red-200 text-xs font-bold transition cursor-pointer font-outfit">
               Bayar Denda Rp 1.500.000
             </button>
-            <button id="btnUseJailCard" class="hidden w-full py-1.5 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-200 text-[10.5px] font-bold transition cursor-pointer font-outfit">
+            <button id="btnUseJailCard" class="hidden w-full py-1.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-200 text-xs font-bold transition cursor-pointer font-outfit">
               Gunakan Kartu Bebas Penjara
             </button>
           </div>
         </div>
 
         <!-- 2. Obrolan Pemain & Reaksi Emoticon -->
-        <div id="playerChatCard" class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col flex-1 min-h-0 gap-1.5">
+        <div id="playerChatCard" class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-2.5 sm:p-3 shadow-xl flex flex-col flex-1 min-h-0 gap-2">
           <!-- Header -->
-          <div class="flex items-center justify-between pb-1 border-b border-zinc-800 shrink-0">
-            <div class="flex items-center gap-1">
-              <svg class="w-3.5 h-3.5 fill-current text-red-400" viewBox="0 0 24 24">
+          <div class="flex items-center justify-between pb-1.5 border-b border-zinc-800 shrink-0">
+            <div class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 fill-current text-rose-400" viewBox="0 0 24 24">
                 <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
               </svg>
-              <h3 class="text-[11px] uppercase font-extrabold tracking-wider text-rose-300 font-outfit">Obrolan Pemain</h3>
+              <h3 class="text-xs uppercase font-extrabold tracking-wider text-rose-300 font-outfit">Obrolan Pemain</h3>
             </div>
-            <span class="flex items-center gap-1 text-[8.5px] text-emerald-400 font-bold bg-emerald-950/80 px-1.5 py-0.2 rounded-full border border-emerald-500/40">
-              <span class="w-1 h-1 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="flex items-center gap-1 text-[9px] text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-500/40">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               Live
             </span>
           </div>
 
-          <!-- Quick Reaction Emoticon Bar (Rata Atas di Bawah Header) -->
+          <!-- Quick Reaction Emoticon Bar -->
           <div class="shrink-0">
-            <div class="text-[8px] font-bold text-gray-400 uppercase tracking-wider mb-0.5 flex items-center justify-between">
+            <div class="text-[8.5px] font-bold text-gray-400 uppercase tracking-wider mb-1 flex items-center justify-between">
               <span>Reaksi Cepat</span>
-              <span class="text-[7.5px] text-rose-400/80 lowercase">klik di papan</span>
+              <span class="text-[8px] text-rose-400/80 lowercase">klik di papan</span>
             </div>
-            <div id="quickEmoteBar" class="grid grid-cols-5 gap-0.5 bg-zinc-950/80 border border-zinc-800/80 rounded-lg p-0.5 overflow-hidden">
-              <button type="button" class="btn-quick-emote h-5 hover:bg-zinc-800/90 rounded text-xs hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="😂" title="Tertawa (wkwk)">😂</button>
-              <button type="button" class="btn-quick-emote h-5 hover:bg-zinc-800/90 rounded text-xs hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="🤣" title="Ngakak">🤣</button>
-              <button type="button" class="btn-quick-emote h-5 hover:bg-zinc-800/90 rounded text-xs hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="🤑" title="Cuan / Kaya">🤑</button>
-              <button type="button" class="btn-quick-emote h-5 hover:bg-zinc-800/90 rounded text-xs hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="😭" title="Nangis / Apes">😭</button>
-              <button type="button" class="btn-quick-emote h-5 hover:bg-zinc-800/90 rounded text-xs hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="😡" title="Marah / Emosi">😡</button>
-              <button type="button" class="btn-quick-emote h-5 hover:bg-zinc-800/90 rounded text-xs hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="😎" title="Santai / Bos">😎</button>
-              <button type="button" class="btn-quick-emote h-5 hover:bg-zinc-800/90 rounded text-xs hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="💀" title="Tamat / Apes">💀</button>
-              <button type="button" class="btn-quick-emote h-5 hover:bg-zinc-800/90 rounded text-xs hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="🎲" title="Hoki Dadu">🎲</button>
-              <button type="button" class="btn-quick-emote h-5 hover:bg-zinc-800/90 rounded text-xs hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="🔥" title="Membara">🔥</button>
-              <button type="button" class="btn-quick-emote h-5 hover:bg-zinc-800/90 rounded text-xs hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="👏" title="Tepuk Tangan">👏</button>
+            <div id="quickEmoteBar" class="grid grid-cols-5 gap-1 bg-zinc-950/80 border border-zinc-800/80 rounded-xl p-1 overflow-hidden">
+              <button type="button" class="btn-quick-emote h-6 hover:bg-zinc-800/90 rounded text-sm hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="😂" title="Tertawa (wkwk)">😂</button>
+              <button type="button" class="btn-quick-emote h-6 hover:bg-zinc-800/90 rounded text-sm hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="🤣" title="Ngakak">🤣</button>
+              <button type="button" class="btn-quick-emote h-6 hover:bg-zinc-800/90 rounded text-sm hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="🤑" title="Cuan / Kaya">🤑</button>
+              <button type="button" class="btn-quick-emote h-6 hover:bg-zinc-800/90 rounded text-sm hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="😭" title="Nangis / Apes">😭</button>
+              <button type="button" class="btn-quick-emote h-6 hover:bg-zinc-800/90 rounded text-sm hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="😡" title="Marah / Emosi">😡</button>
+              <button type="button" class="btn-quick-emote h-6 hover:bg-zinc-800/90 rounded text-sm hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="😎" title="Santai / Bos">😎</button>
+              <button type="button" class="btn-quick-emote h-6 hover:bg-zinc-800/90 rounded text-sm hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="💀" title="Tamat / Apes">💀</button>
+              <button type="button" class="btn-quick-emote h-6 hover:bg-zinc-800/90 rounded text-sm hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="🎲" title="Hoki Dadu">🎲</button>
+              <button type="button" class="btn-quick-emote h-6 hover:bg-zinc-800/90 rounded text-sm hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="🔥" title="Membara">🔥</button>
+              <button type="button" class="btn-quick-emote h-6 hover:bg-zinc-800/90 rounded text-sm hover:scale-125 active:scale-90 transition transform cursor-pointer select-none flex items-center justify-center" data-emote="👏" title="Tepuk Tangan">👏</button>
             </div>
           </div>
 
-          <!-- Chat Message Feed (Mengisi ruang hingga bawah) -->
-          <div id="chatMessagesList" class="flex-1 min-h-[50px] overflow-y-auto overflow-x-hidden space-y-1 pr-1 text-[10.5px] custom-chat-scroll flex flex-col justify-start">
-            <div class="text-[9px] text-zinc-500 text-center py-2 italic">
+          <!-- Chat Message Feed -->
+          <div id="chatMessagesList" class="flex-1 min-h-[50px] overflow-y-auto overflow-x-hidden space-y-1.5 pr-1 text-xs custom-chat-scroll flex flex-col justify-start">
+            <div class="text-[9.5px] text-zinc-500 text-center py-2 italic">
               Ketik pesan di bawah untuk mengobrol dengan sesama pemain.
             </div>
           </div>
 
           <!-- Chat Input Form -->
-          <form id="chatInputForm" class="flex items-center gap-1 pt-1 border-t border-zinc-800/80 shrink-0 mt-auto">
+          <form id="chatInputForm" class="flex items-center gap-1.5 pt-1.5 border-t border-zinc-800/80 shrink-0 mt-auto">
             <input 
               type="text" 
               id="inputChatMessage" 
               placeholder="Ketik pesan..." 
               maxlength="80" 
               autocomplete="off"
-              class="flex-1 bg-zinc-950 border border-zinc-700/80 rounded-lg px-2 py-0.5 text-[10.5px] text-white placeholder-zinc-500 focus:outline-none focus:border-red-500 transition"
+              class="flex-1 bg-zinc-950 border border-zinc-700/80 rounded-xl px-2.5 py-1 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition"
             />
             <button 
               type="submit" 
               id="btnSendChatMessage" 
-              class="p-1 rounded-lg bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold transition flex items-center justify-center shadow cursor-pointer active:scale-95 shrink-0"
+              class="p-1.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold transition flex items-center justify-center shadow cursor-pointer active:scale-95 shrink-0"
               title="Kirim Pesan"
             >
-              <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                 <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
               </svg>
             </button>
@@ -934,62 +934,52 @@
         <div id="monopolyBoard" class="monopoly-board"></div>
       </section>
 
-      <!-- Right Column: Asset Portfolio & Player-to-Player Trading System -->
-      <aside id="asideRight" class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-1.5 xl:gap-2 order-3 min-h-0">
-        <!-- 3. Aset & Properti (Card Grid Mini Title Deed) -->
-        <div id="portfolioCard" class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col flex-1 min-h-[140px] overflow-hidden">
-          <div class="flex items-center justify-between pb-1 border-b border-zinc-800 mb-1 shrink-0">
-            <div class="flex items-center gap-1">
-              <svg class="w-3.5 h-3.5 fill-current text-red-400" viewBox="0 0 24 24">
+      <!-- Right Column: Asset Portfolio & Sleek Trading Hub -->
+      <aside id="asideRight" class="w-full xl:w-72 2xl:w-80 shrink-0 flex flex-col gap-2 xl:gap-2.5 order-3 min-h-0">
+        <!-- Aset & Properti Card (Spacious, full height) -->
+        <div id="portfolioCard" class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-2.5 sm:p-3 shadow-xl flex flex-col flex-1 min-h-0 overflow-hidden">
+          <!-- Card Header -->
+          <div class="flex items-center justify-between pb-1.5 border-b border-zinc-800 mb-1.5 shrink-0">
+            <div class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 fill-current text-rose-400" viewBox="0 0 24 24">
                 <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
               </svg>
-              <div class="text-[11px] uppercase font-extrabold tracking-wider text-rose-300 font-outfit">Aset & Properti</div>
+              <h3 class="text-xs uppercase font-extrabold tracking-wider text-rose-300 font-outfit">Aset & Properti</h3>
             </div>
-            <span id="portfolioStatsBadge" class="text-[8.5px] text-rose-300 bg-red-950/80 px-2 py-0.5 rounded-full border border-red-500/40 font-bold whitespace-nowrap shrink-0">0 Properti</span>
+            <span id="portfolioStatsBadge" class="text-[9px] text-rose-300 bg-red-950/80 px-2.5 py-0.5 rounded-full border border-red-500/40 font-bold whitespace-nowrap shrink-0">0 Properti</span>
           </div>
 
           <!-- Filter Pemain / Tabs Switcher -->
-          <div id="portfolioPlayerTabs" class="flex items-center gap-1 overflow-x-auto pb-0.5 mb-0.5 scrollbar-none text-[9.5px] shrink-0">
+          <div id="portfolioPlayerTabs" class="flex items-center gap-1 overflow-x-auto pb-1 mb-1.5 scrollbar-none text-[10px] shrink-0">
             <!-- Populated by JavaScript -->
           </div>
 
-          <!-- Cards Grid Container with Smooth Scrollbar (Scrolls on 9+ cards) -->
-          <div id="portfolioList" class="flex-1 min-h-0 overflow-y-auto pr-1 text-[11px] grid grid-cols-2 gap-1.5 content-start custom-portfolio-scroll">
+          <!-- Cards Grid Container with Smooth Scrollbar -->
+          <div id="portfolioList" class="flex-1 min-h-0 overflow-y-auto pr-1 text-xs grid grid-cols-2 gap-2 content-start custom-portfolio-scroll">
             <p class="text-gray-500 text-center py-4 col-span-2 text-[10px]">Belum ada properti yang dibeli.</p>
           </div>
-          <div id="portfolioScrollHint" class="hidden text-center text-[8.5px] text-rose-400/90 pt-1 border-t border-zinc-800/80 font-medium shrink-0 flex items-center justify-center gap-1">
+          <div id="portfolioScrollHint" class="hidden text-center text-[9px] text-rose-400/90 pt-1 border-t border-zinc-800/80 font-medium shrink-0 flex items-center justify-center gap-1">
             <span class="animate-bounce">↓</span> <span id="portfolioScrollHintText">Gulir untuk melihat properti lainnya</span>
           </div>
-        </div>
 
-        <!-- 4. Sistem Trading Sesama Pemain (Player-to-Player Trading Desk) -->
-        <div id="tradingCard" class="bg-zinc-900/90 border-2 border-red-500/40 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col gap-1 bg-gradient-to-b from-zinc-900/95 to-zinc-950/95 shrink-0">
-          <div class="flex items-center justify-between pb-1 border-b border-zinc-800">
-            <div class="flex items-center gap-1">
-              <svg class="w-3.5 h-3.5 fill-current text-red-400" viewBox="0 0 24 24">
+          <!-- Sleek Compact Trading Hub at bottom of card -->
+          <div id="tradingCard" class="mt-2 pt-2 border-t border-zinc-800/80 shrink-0 flex flex-col gap-1.5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1 text-[10.5px] font-extrabold text-rose-300 font-outfit">
+                <span>🤝</span>
+                <span>Trading Aset</span>
+              </div>
+              <div id="tradingPartnersStatus" class="flex items-center gap-1 text-[9.5px]">
+                <!-- Opponent quick chips populated by JS -->
+              </div>
+            </div>
+            <button id="btnOpenTradingDesk" class="w-full py-2 rounded-xl btn-menu-orange text-white font-black text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 cursor-pointer font-outfit shadow-md active:scale-95">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
                 <path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
               </svg>
-              <div class="text-[11px] uppercase font-extrabold tracking-wider text-rose-300 font-outfit">Trading Pemain</div>
-            </div>
-            <span class="text-[8.5px] text-emerald-400 font-bold bg-emerald-950/80 px-1.5 py-0.2 rounded-full border border-emerald-500/40">
-              Tukar Aset
-            </span>
+              <span>Buka Meja Trading</span>
+            </button>
           </div>
-
-          <p class="text-[9.5px] text-gray-300 leading-tight">
-            Tukar-tambah tanah, stasiun, utilitas, atau uang tunai dengan lawan / Bot AI.
-          </p>
-
-          <div id="tradingPartnersStatus" class="flex items-center gap-1.5 text-[9.5px] text-gray-400">
-            <!-- Partner indicators populated dynamically -->
-          </div>
-
-          <button id="btnOpenTradingDesk" class="w-full py-1.5 rounded-xl btn-menu-orange text-white font-black text-xs uppercase tracking-wider transition flex items-center justify-center gap-1.5 cursor-pointer font-outfit shadow-lg active:scale-95">
-            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-              <path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
-            </svg>
-            <span>Buka Meja Trading</span>
-          </button>
         </div>
       </aside>
     </div>

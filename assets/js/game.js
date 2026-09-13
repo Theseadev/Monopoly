@@ -1646,33 +1646,52 @@ function updatePlayersList() {
   if (!playersListContainer || !state) return;
   playersListContainer.innerHTML = '';
   const current = state.players[state.currentPlayerIndex];
+  const humanPlayer = getCurrentHumanPlayer();
 
   state.players.forEach(p => {
     const isCurrent = current && p.id === current.id;
     const isBankrupt = p.isBankrupt;
     const isSelf = currentOnlineRoom && currentOnlinePlayer && p.id === currentOnlinePlayer.id;
+    const isHumanSelf = humanPlayer && p.id === humanPlayer.id;
+    const isOpponent = !isBankrupt && !isHumanSelf && !(currentOnlineRoom && isSelf);
 
     const el = document.createElement('div');
-    el.className = `p-2.5 rounded-xl border transition flex items-center justify-between ${isCurrent ? 'bg-amber-950/40 border-amber-500/60 shadow-md' : 'bg-zinc-800/60 border-zinc-700/60'} ${isBankrupt ? 'opacity-40 grayscale' : ''}`;
+    el.className = `p-2 sm:p-2.5 rounded-xl border transition flex items-center justify-between gap-1.5 ${isCurrent ? 'bg-amber-950/40 border-amber-500/60 shadow-md' : 'bg-zinc-800/60 border-zinc-700/60'} ${isBankrupt ? 'opacity-40 grayscale' : ''}`;
 
     el.innerHTML = `
-      <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 flex items-center justify-center rounded-xl bg-zinc-900 border border-zinc-700/80 shadow-inner">
+      <div class="flex items-center gap-2 min-w-0 flex-1">
+        <div class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-xl bg-zinc-900 border border-zinc-700/80 shadow-inner shrink-0">
           ${getChessPawnSVG(p.color, p.id)}
         </div>
-        <div>
-          <div class="font-bold text-xs text-white flex items-center gap-1">
-            <span>${p.name}</span>
-            ${isSelf ? '<span class="text-[9px] bg-amber-500 text-zinc-950 px-1 rounded font-black">Anda</span>' : ''}
-            ${p.isAI ? '<span class="text-[9px] bg-zinc-700 text-gray-300 px-1 rounded font-semibold">Bot</span>' : ''}
-            ${p.inJail ? '<span class="text-[9px] bg-red-900 text-red-300 px-1 rounded font-semibold">Penjara</span>' : ''}
-            ${isBankrupt ? '<span class="text-[9px] bg-red-800 text-white px-1 rounded font-bold">BANGKRUT</span>' : ''}
+        <div class="min-w-0 flex-1">
+          <div class="font-bold text-xs text-white flex items-center gap-1 truncate">
+            <span class="truncate">${p.name}</span>
+            ${isSelf || isHumanSelf ? '<span class="text-[8.5px] bg-amber-500 text-zinc-950 px-1 rounded font-black shrink-0">Anda</span>' : ''}
+            ${p.isAI ? '<span class="text-[8.5px] bg-zinc-700 text-gray-300 px-1 rounded font-semibold shrink-0">Bot</span>' : ''}
+            ${p.inJail ? '<span class="text-[8.5px] bg-red-900 text-red-300 px-1 rounded font-semibold shrink-0">Penjara</span>' : ''}
+            ${isBankrupt ? '<span class="text-[8.5px] bg-red-800 text-white px-1 rounded font-bold shrink-0">BANGKRUT</span>' : ''}
           </div>
           <div class="text-[11px] font-semibold text-emerald-400">${formatCurrency(p.money)}</div>
         </div>
       </div>
-      ${isCurrent && !isBankrupt ? '<span class="text-[10px] text-amber-400 font-extrabold animate-pulse">AKTIF</span>' : ''}
+      <div class="flex items-center gap-1 shrink-0">
+        ${isOpponent ? `
+          <button type="button" class="btn-player-quick-trade px-1.5 py-1 rounded-lg bg-zinc-900/90 hover:bg-rose-950 border border-zinc-700/80 hover:border-rose-500/50 text-rose-300 hover:text-white transition cursor-pointer active:scale-95 flex items-center gap-1 font-outfit text-[10px] font-bold shadow-sm" data-player-id="${p.id}" title="Ajak trading barter aset dengan ${p.name}">
+            <span>🤝</span>
+            <span class="hidden sm:inline">Trade</span>
+          </button>
+        ` : ''}
+        ${isCurrent && !isBankrupt ? '<span class="text-[9.5px] text-amber-400 font-extrabold animate-pulse bg-amber-950/60 border border-amber-500/40 px-1.5 py-0.5 rounded-md">AKTIF</span>' : ''}
+      </div>
     `;
+
+    const tradeBtn = el.querySelector('.btn-player-quick-trade');
+    if (tradeBtn) {
+      tradeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openTradingDesk(p.id);
+      });
+    }
 
     playersListContainer.appendChild(el);
   });
@@ -1748,12 +1767,12 @@ function getQuickRent(space, prop) {
     return (space.rent && space.rent[0] !== undefined) ? space.rent[0] : 250000;
   }
   if (space.type === 'utility') {
-    return 280000;
+    return (space.rent && space.rent[0] !== undefined) ? space.rent[0] : 150000;
   }
   return 0;
 }
 
-// Render Portfolio Card Grid (Mini Title Deeds)
+// Update Portfolio Tab & Property Deed Grid
 function updatePortfolio() {
   if (!portfolioList || !state) return;
   const current = state.players[state.currentPlayerIndex];
@@ -1854,7 +1873,7 @@ function updatePortfolio() {
   ownedProps.forEach(space => {
     const prop = state.properties[space.id];
     const card = document.createElement('div');
-    card.className = `group relative rounded-xl overflow-hidden bg-[#faf8f4] border-2 border-[#d5cbbe] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition duration-150 cursor-pointer flex flex-col justify-between active:scale-95 select-none text-center h-[74px] min-h-[74px]`;
+    card.className = `group relative rounded-xl overflow-hidden bg-[#faf8f4] border-2 border-[#d5cbbe] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition duration-150 cursor-pointer flex flex-col justify-between active:scale-95 select-none text-center h-[78px] min-h-[78px]`;
     card.title = `Klik untuk kelola ${space.name}`;
 
     card.innerHTML = `
@@ -1875,14 +1894,14 @@ function updatePortfolio() {
       </div>
       
       <!-- Card Body: Clean Prominent Title -->
-      <div class="px-1 py-1 text-center flex flex-col items-center justify-center flex-1 bg-gradient-to-b from-[#faf8f4] to-[#f2ece0] min-h-0">
-        <div class="font-extrabold text-[11px] text-zinc-900 font-outfit leading-tight truncate w-full" title="${space.name}">
+      <div class="px-1.5 py-1 text-center flex flex-col items-center justify-center flex-1 bg-gradient-to-b from-[#faf8f4] to-[#f2ece0] min-h-0">
+        <div class="font-extrabold text-[11.5px] text-zinc-900 font-outfit leading-tight truncate w-full" title="${space.name}">
           ${space.name}
         </div>
       </div>
 
       <!-- Bottom Rent Status -->
-      <div class="px-1.5 py-0.5 bg-[#ebe3d3] border-t border-[#d8cdb8] flex items-center justify-between text-[7.5px] shrink-0 font-outfit">
+      <div class="px-1.5 py-0.5 bg-[#ebe3d3] border-t border-[#d8cdb8] flex items-center justify-between text-[8px] shrink-0 font-outfit">
         <span class="text-zinc-600 font-semibold truncate">Sewa:</span>
         <span class="text-emerald-800 font-black">${formatCurrency(getQuickRent(space, prop))}</span>
       </div>
@@ -1924,23 +1943,24 @@ function updateTradingWidget() {
 
   const opponents = state.players.filter(p => !p.isBankrupt && p.id !== humanPlayer.id);
   if (opponents.length === 0) {
-    tradingPartnersStatus.innerHTML = '<span class="text-gray-500 text-[10px]">Tidak ada lawan aktif.</span>';
+    tradingPartnersStatus.innerHTML = '<span class="text-zinc-500 text-[9.5px]">Tidak ada lawan</span>';
     return;
   }
 
   tradingPartnersStatus.innerHTML = opponents.map(op => {
     const pProps = BOARD_SPACES.filter(s => state.properties[s.id] && state.properties[s.id].ownerId === op.id);
     return `
-      <button type="button" class="btn-trade-partner px-2 py-0.5 rounded-full bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-gray-300 hover:text-white flex items-center gap-1 font-semibold text-[10px] transition cursor-pointer active:scale-95" data-player-id="${op.id}" title="Ajak trading dengan ${op.name}">
-        <span class="w-2 h-2 rounded-full" style="background-color: ${op.color}"></span>
-        <span>${op.name.split(' ')[0]}</span>
-        <span class="text-amber-400 font-bold">(${pProps.length})</span>
+      <button type="button" class="btn-trade-partner px-2 py-0.5 rounded-full bg-zinc-800/90 hover:bg-rose-950 border border-zinc-700/80 hover:border-rose-500/50 text-gray-200 hover:text-white flex items-center gap-1 font-bold text-[9.5px] transition cursor-pointer active:scale-95 shadow-sm" data-player-id="${op.id}" title="Ajak trading dengan ${op.name}">
+        <span class="w-1.5 h-1.5 rounded-full inline-block shrink-0" style="background-color: ${op.color}"></span>
+        <span class="truncate">${op.name.split(' ')[0]}</span>
+        <span class="text-amber-400 font-extrabold">(${pProps.length})</span>
       </button>
     `;
   }).join('');
 
   tradingPartnersStatus.querySelectorAll('.btn-trade-partner').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
       const pid = parseInt(btn.dataset.playerId);
       openTradingDesk(pid);
     });

@@ -838,11 +838,11 @@ function renderBoard() {
         // MULAI / GO
         cell.className += ' corner-go';
         cell.innerHTML = `
-          <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-1 z-0 w-full h-full select-none overflow-hidden">
+          <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-1 sm:p-1.5 z-0 w-full h-full select-none overflow-hidden box-border">
             <span class="corner-go-sub font-black text-[#784419] uppercase tracking-wider leading-none font-outfit">LEWAT AMBIL</span>
-            <div class="my-auto flex flex-col items-center justify-center">
-              <span class="corner-go-main font-black text-[#b91c1c] font-outfit tracking-widest leading-none">MULAI</span>
-              <span class="corner-go-bonus font-mono text-[#b91c1c] font-extrabold leading-none mt-1 px-1.5 py-0.5 rounded-full bg-red-50 border border-red-300 shadow-sm">+Rp 2 JT</span>
+            <div class="my-auto flex flex-col items-center justify-center leading-none">
+              <span class="corner-go-main font-black text-[#b91c1c] font-outfit tracking-wider leading-none">MULAI</span>
+              <span class="corner-go-bonus font-mono text-[#b91c1c] font-black leading-none mt-0.5">+Rp 2 JT</span>
             </div>
             <div class="corner-go-arrow text-[#b91c1c] flex items-center justify-center shrink-0 mb-0.5">${GameIcons.goArrow}</div>
           </div>
@@ -852,9 +852,9 @@ function renderBoard() {
         // PENJARA / JAIL
         cell.className += ' corner-jail';
         cell.innerHTML = `
-          <div class="w-full h-full flex flex-col justify-between items-center p-0.5 select-none z-0 overflow-hidden">
+          <div class="w-full h-full flex flex-col justify-between items-center p-0.5 select-none z-0 overflow-hidden box-border">
             <div class="corner-jail-visiting w-full py-0.5 px-0.5 bg-[#ecdcc3] border-b border-[#8c6738] flex items-center justify-center gap-1 leading-none shrink-0">
-              <span class="w-2.5 h-2.5 inline-block text-[#4a2c0c] shrink-0">${GameIcons.visiting}</span>
+              <span class="corner-jail-visiting-icon inline-block text-[#4a2c0c] shrink-0">${GameIcons.visiting}</span>
               <span class="corner-jail-visiting-text font-black text-[#4a2c0c] uppercase font-outfit">HANYA LEWAT</span>
             </div>
             <div class="corner-jail-cell flex-1 w-[92%] my-0.5 bg-[#fef2f2] border border-[#ef4444] rounded flex flex-col items-center justify-center p-0.5 shadow-inner">
@@ -868,10 +868,10 @@ function renderBoard() {
         // PARKIR BEBAS / FREE PARKING
         cell.className += ' corner-free-parking';
         cell.innerHTML = `
-          <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-1 z-0 w-full h-full select-none overflow-hidden">
+          <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-1 sm:p-1.5 z-0 w-full h-full select-none overflow-hidden box-border">
             <span class="corner-parking-top font-black text-[#1e3a8a] font-outfit uppercase tracking-wider leading-none">PARKIR</span>
             <div class="corner-parking-icon text-[#1e3a8a] flex items-center justify-center my-auto shrink-0">${GameIcons.freeParking}</div>
-            <div class="flex flex-col items-center justify-center leading-none">
+            <div class="flex flex-col items-center justify-center leading-none mb-0.5">
               <span class="corner-parking-bot font-black text-[#1e3a8a] font-outfit uppercase tracking-wider leading-none">BEBAS</span>
               <span class="corner-parking-sub text-[#475569] font-bold leading-none mt-0.5">Istirahat</span>
             </div>
@@ -882,12 +882,12 @@ function renderBoard() {
         // MASUK PENJARA / GO TO JAIL
         cell.className += ' corner-go-to-jail';
         cell.innerHTML = `
-          <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-1 z-0 w-full h-full select-none overflow-hidden">
+          <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-1 sm:p-1.5 z-0 w-full h-full select-none overflow-hidden box-border">
             <span class="corner-gtj-sub text-[#784419] font-black uppercase tracking-wider leading-none font-outfit">MASUK</span>
             <div class="corner-gtj-police text-[#b91c1c] flex items-center justify-center my-auto shrink-0">${GameIcons.police}</div>
-            <div class="flex flex-col items-center justify-center leading-none">
+            <div class="flex items-center justify-center gap-0.5 leading-none mb-0.5">
               <span class="corner-gtj-main font-black text-[#b91c1c] font-outfit tracking-wide leading-none">PENJARA!</span>
-              <div class="corner-gtj-arrow text-[#b91c1c] flex items-center justify-center shrink-0 mt-0.5">${GameIcons.arrowDownLeft}</div>
+              <span class="corner-gtj-arrow text-[#b91c1c] flex items-center justify-center shrink-0">${GameIcons.arrowDownLeft}</span>
             </div>
           </div>
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-0.5 z-20 flex-wrap p-0.5"></div>

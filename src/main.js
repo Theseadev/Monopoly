@@ -344,7 +344,7 @@ gameState.subscribe((eventType, data) => {
         modalManager.showCardDrawn(
           data,
           current,
-          () => gameState.resolveCardAction()
+          (choiceId) => gameState.resolveCardAction(choiceId)
         );
       }
     }

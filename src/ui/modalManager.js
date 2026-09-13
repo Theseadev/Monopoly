@@ -191,37 +191,65 @@ export class ModalManager {
 
   // 3. Modal Kartu Kesempatan / Dana Umum
   showCardDrawn(action, player, onContinue) {
-    const isChance = action.cardType === 'Kesempatan';
+    const isChance = action.cardType === 'Kesempatan' || action.cardType === 'Chance';
     const card = action.card;
+    const hasChoices = card.choices && Array.isArray(card.choices) && card.choices.length > 0;
 
     this.container.innerHTML = `
-      <div class="fixed inset-0 bg-black/35 flex items-center justify-center p-4 z-50 animate-fade-in">
-        <div class="relative bg-gradient-to-b ${isChance ? 'from-amber-900/90 to-zinc-900 border-amber-500' : 'from-blue-900/90 to-zinc-900 border-blue-500'} border-2 rounded-2xl max-w-sm w-full shadow-2xl p-6 text-center animate-scale-up">
+      <div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 animate-fade-in select-none">
+        <div class="relative bg-gradient-to-b ${isChance ? 'from-amber-900/95 to-zinc-950 border-amber-500' : 'from-blue-900/95 to-zinc-950 border-blue-500'} border-2 rounded-2xl max-w-sm w-full shadow-2xl p-6 text-center animate-scale-up">
           <div class="text-4xl mb-2">${isChance ? '❓' : '📦'}</div>
           <div class="text-xs uppercase tracking-widest font-extrabold ${isChance ? 'text-amber-400' : 'text-blue-400'}">
-            KARTU ${action.cardType.toUpperCase()}
+            KARTU ${(action.cardType || '').toUpperCase()}
           </div>
 
           <h3 class="text-xl font-black text-white mt-3">${card.title}</h3>
           <p class="text-sm text-gray-300 mt-2 px-2 leading-relaxed">${card.description}</p>
 
-          <div class="mt-4 pt-3 border-t border-white/10 text-xs text-gray-400">
-            Ditarik oleh: <span class="font-bold text-white">${player.name}</span>
-          </div>
+          ${hasChoices ? `
+            <div class="mt-4 space-y-2 text-left">
+              ${card.choices.map(c => `
+                <button type="button" data-choice-id="${c.id}" class="card-choice-btn w-full p-2.5 rounded-xl border border-zinc-700 bg-zinc-800/80 hover:bg-zinc-700/90 text-white flex items-center justify-between gap-2 shadow-sm transition transform active:scale-95 cursor-pointer">
+                  <div class="flex items-center gap-2">
+                    <span class="text-lg">${c.icon || '👉'}</span>
+                    <div>
+                      <div class="text-xs font-bold">${c.title}</div>
+                      <div class="text-[10px] text-gray-400">${c.desc || ''}</div>
+                    </div>
+                  </div>
+                  ${c.badge ? `<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-amber-500 text-black">${c.badge}</span>` : ''}
+                </button>
+              `).join('')}
+            </div>
+          ` : `
+            <div class="mt-4 pt-3 border-t border-white/10 text-xs text-gray-400">
+              Ditarik oleh: <span class="font-bold text-white">${player.name}</span>
+            </div>
 
-          <button id="btnCardContinue" class="mt-6 w-full py-2.5 rounded-xl font-bold text-sm text-white shadow-lg transition ${isChance ? 'bg-amber-600 hover:bg-amber-500' : 'bg-blue-600 hover:bg-blue-500'}">
-            Lanjutkan Permainan
-          </button>
+            <button id="btnCardContinue" class="mt-6 w-full py-2.5 rounded-xl font-bold text-sm text-white shadow-lg transition ${isChance ? 'bg-amber-600 hover:bg-amber-500' : 'bg-blue-600 hover:bg-blue-500'}">
+              Lanjutkan Permainan
+            </button>
+          `}
         </div>
       </div>
     `;
 
     this.container.classList.remove('hidden');
 
-    document.getElementById('btnCardContinue')?.addEventListener('click', () => {
-      this.close();
-      onContinue();
-    });
+    if (hasChoices) {
+      this.container.querySelectorAll('.card-choice-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const choiceId = btn.getAttribute('data-choice-id');
+          this.close();
+          onContinue(choiceId);
+        });
+      });
+    } else {
+      document.getElementById('btnCardContinue')?.addEventListener('click', () => {
+        this.close();
+        onContinue();
+      });
+    }
   }
 
   // 4. Modal Setup Permainan Awal

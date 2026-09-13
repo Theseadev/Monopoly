@@ -3500,9 +3500,9 @@ async function showCardDrawn(action, player) {
 
                 ${hasChoices ? `
                   <!-- Pilihan Keputusan Interaktif -->
-                  <div class="w-full space-y-2 my-1 shrink-0 text-left relative z-30">
+                  <div class="w-full space-y-2 my-1 shrink-0 text-left relative z-50 pointer-events-auto">
                     ${card.choices.map((c, idx) => `
-                      <button type="button" data-choice-id="${c.id}" onclick="event.stopPropagation(); window.handleCardChoiceSelect('${c.id}');" class="card-choice-btn w-full p-2.5 rounded-xl border text-left flex items-center justify-between gap-2 shadow-sm transition transform active:scale-[0.97] cursor-pointer select-none ${
+                      <button type="button" data-choice-id="${c.id}" onclick="event.stopPropagation(); event.preventDefault(); window.handleCardChoiceSelect('${c.id}');" onpointerup="event.stopPropagation(); window.handleCardChoiceSelect('${c.id}');" class="card-choice-btn w-full p-2.5 rounded-xl border text-left flex items-center justify-between gap-2 shadow-sm transition transform active:scale-[0.97] cursor-pointer select-none relative z-50 pointer-events-auto ${
                         c.theme === 'emerald' ? 'bg-emerald-50 hover:bg-emerald-100/90 border-emerald-500/50 text-emerald-950' :
                         c.theme === 'rose' ? 'bg-rose-50 hover:bg-rose-100/90 border-rose-500/50 text-rose-950' :
                         c.theme === 'amber' ? 'bg-amber-50 hover:bg-amber-100/90 border-amber-500/50 text-amber-950' :
@@ -3537,13 +3537,13 @@ async function showCardDrawn(action, player) {
               </div>
 
               <!-- Tombol Aksi di Bawah -->
-              <div class="p-2.5 bg-[#fdfbf7] border-t border-zinc-200/80 shrink-0">
+              <div class="p-2.5 bg-[#fdfbf7] border-t border-zinc-200/80 shrink-0 relative z-40">
                 ${hasChoices ? `
                   <div class="text-center text-[10.5px] font-bold text-zinc-500 tracking-wide uppercase font-outfit">
                     👆 Pilih salah satu tindakan di atas
                   </div>
                 ` : `
-                  <button id="btnConfirmCardFlip" class="w-full py-2.5 rounded-xl ${isChance ? 'btn-card-ok-chance' : 'btn-card-ok'} text-white font-black text-sm tracking-wider font-outfit shadow-md cursor-pointer transform active:scale-95 transition">
+                  <button id="btnConfirmCardFlip" class="w-full py-2.5 rounded-xl ${isChance ? 'btn-card-ok-chance' : 'btn-card-ok'} text-white font-black text-sm tracking-wider font-outfit shadow-md cursor-pointer transform active:scale-95 transition relative z-50 pointer-events-auto">
                     OK
                   </button>
                 `}
@@ -3568,6 +3568,7 @@ async function showCardDrawn(action, player) {
       flipCardEl.classList.add('is-flipped');
 
       setTimeout(() => {
+        flipCardEl.classList.add('flip-done');
         if (!hasChoices && card.amount) {
           if (card.type === 'receive_money') {
             sound.playCash();
@@ -3581,7 +3582,7 @@ async function showCardDrawn(action, player) {
         if (!hasChoices && card.type === 'go_to_jail') {
           triggerJailSiren();
         }
-      }, 420);
+      }, 450);
     };
 
     flipCardEl.addEventListener('click', (e) => {
@@ -3603,7 +3604,48 @@ async function showCardDrawn(action, player) {
           window.handleCardChoiceSelect(choiceId);
         }
       });
+      btn.addEventListener('pointerup', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const choiceId = btn.getAttribute('data-choice-id');
+        if (choiceId) {
+          window.handleCardChoiceSelect(choiceId);
+        }
+      });
     });
+
+    // Delegasi event di modalContainer dengan capture phase untuk menjamin klik selalu tembus
+    modalContainer.addEventListener('click', (e) => {
+      const choiceBtn = e.target.closest('.card-choice-btn');
+      if (choiceBtn) {
+        e.stopPropagation();
+        e.preventDefault();
+        const choiceId = choiceBtn.getAttribute('data-choice-id');
+        if (choiceId) {
+          window.handleCardChoiceSelect(choiceId);
+        }
+        return;
+      }
+      const confirmBtn = e.target.closest('#btnConfirmCardFlip');
+      if (confirmBtn) {
+        e.stopPropagation();
+        e.preventDefault();
+        btnConfirmEl?.click();
+        return;
+      }
+    }, true);
+
+    modalContainer.addEventListener('pointerup', (e) => {
+      const choiceBtn = e.target.closest('.card-choice-btn');
+      if (choiceBtn) {
+        e.stopPropagation();
+        e.preventDefault();
+        const choiceId = choiceBtn.getAttribute('data-choice-id');
+        if (choiceId) {
+          window.handleCardChoiceSelect(choiceId);
+        }
+      }
+    }, true);
 
     btnConfirmEl?.addEventListener('click', async (e) => {
       e.stopPropagation();
@@ -3630,7 +3672,12 @@ async function showCardDrawn(action, player) {
 }
 
 // Handler pemilihan opsi keputusan pada kartu
+window._isResolvingCardChoice = false;
+
 window.handleCardChoiceSelect = async function(choiceId) {
+  if (window._isResolvingCardChoice) return;
+  window._isResolvingCardChoice = true;
+
   sound.playClick();
   closeModal();
   forceCloseAllModals();
@@ -3652,6 +3699,7 @@ window.handleCardChoiceSelect = async function(choiceId) {
   } finally {
     isProcessingAction = false;
     isModalOpen = false;
+    window._isResolvingCardChoice = false;
     updateHUD();
   }
 };

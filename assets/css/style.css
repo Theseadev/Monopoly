@@ -1668,7 +1668,7 @@ body.fullscreen-active .corner-go-arrow {
   height: 100%;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.75s cubic-bezier(0.34, 1.35, 0.64, 1);
+  transition: transform 0.6s cubic-bezier(0.34, 1.35, 0.64, 1);
   z-index: 2;
   cursor: pointer;
 }
@@ -1676,6 +1676,29 @@ body.fullscreen-active .corner-go-arrow {
 .flip-card.is-flipped {
   transform: rotateY(180deg);
   cursor: default;
+}
+
+.flip-card.flip-done {
+  transform: none !important;
+  transform-style: flat !important;
+}
+
+.flip-card.flip-done .flip-card-back {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+.flip-card.flip-done .flip-card-front {
+  transform: none !important;
+  position: relative !important;
+  z-index: 100 !important;
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  backface-visibility: visible !important;
+  -webkit-backface-visibility: visible !important;
 }
 
 .flip-card-face {
@@ -1758,15 +1781,18 @@ body.fullscreen-active .corner-go-arrow {
   pointer-events: auto !important;
   visibility: visible !important;
   opacity: 1 !important;
-  z-index: 20 !important;
+  z-index: 50 !important;
+  backface-visibility: visible !important;
+  -webkit-backface-visibility: visible !important;
 }
 
 .card-choice-btn {
   position: relative !important;
-  z-index: 50 !important;
+  z-index: 100 !important;
   pointer-events: auto !important;
   cursor: pointer !important;
   user-select: none;
+  touch-action: manipulation;
 }
 
 .flip-card-header-chest {

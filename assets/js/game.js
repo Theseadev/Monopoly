@@ -100,6 +100,29 @@ class SoundEngine {
     });
   }
 
+  playPayCash() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      [783.99, 587.33, 392.00].forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const time = now + idx * 0.08;
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, time);
+        osc.frequency.exponentialRampToValueAtTime(freq * 0.7, time + 0.16);
+        gain.gain.setValueAtTime(0.22, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.16);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(time);
+        osc.stop(time + 0.16);
+      });
+    } catch (e) {}
+  }
+
   playCardFlip() {
     if (!this.enabled) return;
     this.init();
@@ -1180,35 +1203,44 @@ function triggerJailSiren() {
   setTimeout(() => overlay.remove(), 1600);
 }
 
-function showFloatingCash(amount, isPositive = true, startPosElement = null) {
+function showFloatingCash(amount, isPositive = true, label = '', startPosElement = null) {
+  if (!amount || isNaN(amount)) return;
+  const rawAmt = Math.abs(amount);
+
   const bubble = document.createElement('div');
-  bubble.className = `floating-cash-bubble ${isPositive ? 'floating-cash-positive' : 'floating-cash-negative'}`;
+  bubble.className = `floating-cash-notification ${isPositive ? 'floating-cash-positive' : 'floating-cash-negative'}`;
 
   const prefix = isPositive ? '+ ' : '- ';
-  const iconHtml = isPositive ? `<span class="w-4 h-4 inline-block">${GameIcons.moneyBag}</span>` : `<span class="w-4 h-4 inline-block">${GameIcons.bill}</span>`;
-  bubble.innerHTML = `${iconHtml}<span>${prefix}${formatCurrency(Math.abs(amount))}</span>`;
+  const iconEmoji = isPositive ? '💰' : '💸';
+  bubble.innerHTML = `
+    <div class="flex items-center gap-1.5 leading-none">
+      <span class="text-xl sm:text-2xl">${iconEmoji}</span>
+      <span class="text-base sm:text-lg font-black font-outfit tracking-tight">${prefix}${formatCurrency(rawAmt)}</span>
+    </div>
+    ${label ? `<div class="text-[9.5px] sm:text-[10.5px] font-bold text-white/90 tracking-wide uppercase font-outfit mt-0.5">${escapeHtml(label)}</div>` : ''}
+  `;
 
-  let left = window.innerWidth / 2;
-  let top = window.innerHeight / 2;
-
-  if (startPosElement) {
-    const rect = startPosElement.getBoundingClientRect();
-    left = rect.left + rect.width / 2;
-    top = rect.top;
+  // Posisikan tepat di tengah papan permainan (Center Hub)
+  const boardEl = document.getElementById('monopolyBoard');
+  if (boardEl) {
+    const rect = boardEl.getBoundingClientRect();
+    bubble.style.left = `${rect.left + rect.width / 2}px`;
+    bubble.style.top = `${rect.top + rect.height / 2}px`;
+  } else {
+    bubble.style.left = `${window.innerWidth / 2}px`;
+    bubble.style.top = `${window.innerHeight / 2}px`;
   }
 
-  bubble.style.left = `${left}px`;
-  bubble.style.top = `${top}px`;
   document.body.appendChild(bubble);
-
-  setTimeout(() => bubble.remove(), 1650);
+  setTimeout(() => bubble.remove(), 2100);
 }
 
-// Animasi Langkah Bidak Per Petak (Hopping Arc + Glow)
-async function animateTokenStepByStep(playerId, fromPos, toPos, totalSteps) {
+// Animasi Langkah Bidak Per Petak (Hopping Arc + Glow + Audio Step)
+async function animateTokenStepByStep(playerId, fromPos, toPos, totalSteps, isBackward = false) {
   if (totalSteps <= 0) return;
+  isAnimating = true;
   for (let s = 1; s <= totalSteps; s++) {
-    const tempPos = (fromPos + s) % 40;
+    const tempPos = isBackward ? (fromPos - s + 40) % 40 : (fromPos + s) % 40;
     renderPlayerTokens({ [playerId]: tempPos });
     sound.playStep();
 
@@ -1236,14 +1268,15 @@ async function animateTokenStepByStep(playerId, fromPos, toPos, totalSteps) {
     }
 
     // Lewat Mulai (GO)
-    if (tempPos === 0 && s < totalSteps) {
+    if (!isBackward && tempPos === 0 && s < totalSteps) {
       sound.playCash();
-      showFloatingCash(2000000, true);
+      showFloatingCash(2000000, true, 'Lewat Mulai (+2 Jt)');
       triggerConfetti({ particleCount: 35 });
     }
 
-    await new Promise(r => setTimeout(r, 150));
+    await new Promise(r => setTimeout(r, 155));
   }
+  isAnimating = false;
 }
 
 // Update Board UI Real-Estate Indicators & Badges
@@ -2858,12 +2891,17 @@ async function runBotTurn() {
 
       if (newState.logs && newState.logs.length > 0) {
         const latestMsg = newState.logs[0].message;
-        if (latestMsg.includes('membayar sewa') || latestMsg.includes('membayar Pajak') || latestMsg.includes('membayar denda')) {
-          sound.playCash();
+        if (latestMsg.includes('membayar sewa') || latestMsg.includes('membayar Pajak') || latestMsg.includes('membayar denda') || latestMsg.includes('membayar Rp') || latestMsg.includes('kehilangan modal')) {
+          sound.playPayCash();
           const match = latestMsg.match(/Rp\s*([\d\.]+)/);
           const rawAmount = match ? parseInt(match[1].replace(/\./g, '')) : 0;
           if (rawAmount > 0) {
-            showFloatingCash(rawAmount, false);
+            let label = 'Keluar Uang';
+            if (latestMsg.includes('membayar sewa')) label = 'Bayar Sewa Properti';
+            else if (latestMsg.includes('membayar Pajak')) label = 'Bayar Pajak';
+            else if (latestMsg.includes('membayar denda')) label = 'Denda';
+            else if (latestMsg.includes('membayar Rp')) label = 'Bayar Biaya';
+            showFloatingCash(rawAmount, false, label);
           }
         }
       }
@@ -2963,12 +3001,17 @@ async function handleRollDice() {
 
       if (newState.logs && newState.logs.length > 0) {
         const latestMsg = newState.logs[0].message;
-        if (latestMsg.includes('membayar sewa') || latestMsg.includes('membayar Pajak') || latestMsg.includes('membayar denda')) {
-          sound.playCash();
+        if (latestMsg.includes('membayar sewa') || latestMsg.includes('membayar Pajak') || latestMsg.includes('membayar denda') || latestMsg.includes('membayar Rp') || latestMsg.includes('kehilangan modal')) {
+          sound.playPayCash();
           const match = latestMsg.match(/Rp\s*([\d\.]+)/);
           const rawAmount = match ? parseInt(match[1].replace(/\./g, '')) : 0;
           if (rawAmount > 0) {
-            showFloatingCash(rawAmount, false);
+            let label = 'Keluar Uang';
+            if (latestMsg.includes('membayar sewa')) label = 'Bayar Sewa Properti';
+            else if (latestMsg.includes('membayar Pajak')) label = 'Bayar Pajak';
+            else if (latestMsg.includes('membayar denda')) label = 'Denda';
+            else if (latestMsg.includes('membayar Rp')) label = 'Bayar Biaya';
+            showFloatingCash(rawAmount, false, label);
           }
         }
       }
@@ -3386,7 +3429,7 @@ async function showBuyProposal(action, player) {
 
     if (userChoice === 'buy' && canAfford) {
       sound.playBuy();
-      showFloatingCash(action.price, false);
+      showFloatingCash(action.price, false, 'Beli Properti');
       triggerConfetti({ particleCount: 40 });
       const newState = await apiCall('/api/game/buy', { spaceId: space.id, playerId: player.id });
       if (newState) {
@@ -3484,7 +3527,7 @@ async function showBuildProposal(action, player) {
 
     if (userChoice === 'build' && canAfford) {
       sound.playBuy();
-      showFloatingCash(action.cost, false);
+      showFloatingCash(action.cost, false, isHotel ? 'Bangun Hotel' : 'Bangun Rumah');
       triggerConfetti({ particleCount: 45 });
       const newState = await apiCall('/api/game/build', { spaceId: space.id, playerId: player.id });
       if (newState) {
@@ -3717,11 +3760,11 @@ async function showCardDrawn(action, player) {
         if (!hasChoices && card.amount) {
           if (card.type === 'receive_money') {
             sound.playCash();
-            showFloatingCash(card.amount, true);
+            showFloatingCash(card.amount, true, card.title || 'Hadiah Kartu');
             triggerConfetti({ particleCount: 50 });
           } else if (card.type === 'pay_money') {
-            sound.playCash();
-            showFloatingCash(card.amount, false);
+            sound.playPayCash();
+            showFloatingCash(card.amount, false, card.title || 'Denda Kartu');
           }
         }
         if (!hasChoices && card.type === 'go_to_jail') {
@@ -3817,6 +3860,11 @@ window.handleCardConfirm = async function() {
   window._isResolvingCardConfirm = true;
 
   try {
+    const currentP = state ? state.players[state.currentPlayerIndex] : null;
+    const prevPos = currentP ? currentP.position : 0;
+    const prevPlayerId = currentP ? currentP.id : 0;
+    const prevInJail = currentP ? currentP.inJail : false;
+
     const payload = {};
     if (window._activeTestCard) {
       payload.testCard = window._activeTestCard;
@@ -3827,12 +3875,62 @@ window.handleCardConfirm = async function() {
     window._activeTestCard = null;
     window._activeTestCardType = null;
     if (newState) {
+      const updatedP = newState.players[prevPlayerId];
+      const newPos = updatedP ? updatedP.position : prevPos;
+
+      // 1. Jika kartu menginstruksikan langkah gerak maju / mundur (ada animasi jalan dan sound effect)
+      if (!prevInJail && updatedP && !updatedP.inJail && newPos !== prevPos) {
+        let totalSteps = (newPos - prevPos + 40) % 40;
+        let isBackward = false;
+
+        // Cek jika perpindahan adalah langkah mundur (misal: mundur 3 langkah)
+        const diff = (prevPos - newPos + 40) % 40;
+        if (diff > 0 && diff <= 10 && ((prevPos - newPos === 3) || (prevPos === 0 && newPos === 37) || (prevPos === 1 && newPos === 38) || (prevPos === 2 && newPos === 39))) {
+          totalSteps = diff;
+          isBackward = true;
+        }
+
+        if (totalSteps > 0) {
+          await animateTokenStepByStep(prevPlayerId, prevPos, newPos, totalSteps, isBackward);
+        }
+      }
+
+      // 2. Deteksi keluar/masuk uang dari efek kartu & log permainan
+      if (newState.logs && newState.logs.length > 0) {
+        const latestMsg = newState.logs[0].message;
+        if (latestMsg.includes('membayar sewa') || latestMsg.includes('membayar Pajak') || latestMsg.includes('membayar denda') || latestMsg.includes('membayar Rp') || latestMsg.includes('kehilangan modal')) {
+          sound.playPayCash();
+          const match = latestMsg.match(/Rp\s*([\d\.]+)/);
+          const rawAmount = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+          if (rawAmount > 0) {
+            let label = 'Keluar Uang';
+            if (latestMsg.includes('membayar sewa')) label = 'Bayar Sewa Properti';
+            else if (latestMsg.includes('membayar Pajak')) label = 'Bayar Pajak';
+            else if (latestMsg.includes('membayar denda')) label = 'Denda Kartu';
+            else if (latestMsg.includes('kehilangan modal')) label = 'Rugi Trading';
+            else if (latestMsg.includes('membayar Rp')) label = 'Pembayaran Kartu';
+            showFloatingCash(rawAmount, false, label);
+          }
+        } else if (latestMsg.includes('memperoleh') || latestMsg.includes('mengambil Rp') || latestMsg.includes('menang jackpot')) {
+          sound.playCash();
+          const match = latestMsg.match(/Rp\s*([\d\.]+)/);
+          const rawAmount = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+          if (rawAmount > 0) {
+            let label = 'Terima Uang';
+            if (latestMsg.includes('melewati Mulai')) label = 'Gaji Lewat Mulai';
+            else if (latestMsg.includes('menang jackpot')) label = '🎉 Cuan Jackpot!';
+            else if (latestMsg.includes('memperoleh')) label = 'Hadiah Kartu';
+            showFloatingCash(rawAmount, true, label);
+            triggerConfetti({ particleCount: 40 });
+          }
+        }
+      }
+
       state = newState;
       updateBoardUI();
 
       // Cek apakah aksi menyebabkan masuk penjara
-      const currentP = state.players[state.currentPlayerIndex];
-      if (currentP && currentP.inJail) {
+      if (updatedP && updatedP.inJail && !prevInJail) {
         triggerJailSiren();
       }
     }
@@ -3869,6 +3967,11 @@ window.handleCardChoiceSelect = async function(choiceId) {
   window._isResolvingCardChoice = true;
 
   try {
+    const currentP = state ? state.players[state.currentPlayerIndex] : null;
+    const prevPos = currentP ? currentP.position : 0;
+    const prevPlayerId = currentP ? currentP.id : 0;
+    const prevInJail = currentP ? currentP.inJail : false;
+
     const payload = { choice: choiceId };
     if (window._activeTestCard) {
       payload.testCard = window._activeTestCard;
@@ -3879,12 +3982,62 @@ window.handleCardChoiceSelect = async function(choiceId) {
     window._activeTestCard = null;
     window._activeTestCardType = null;
     if (newState) {
+      const updatedP = newState.players[prevPlayerId];
+      const newPos = updatedP ? updatedP.position : prevPos;
+
+      // 1. Jika kartu menginstruksikan langkah gerak maju / mundur (ada animasi jalan dan sound effect)
+      if (!prevInJail && updatedP && !updatedP.inJail && newPos !== prevPos) {
+        let totalSteps = (newPos - prevPos + 40) % 40;
+        let isBackward = false;
+
+        // Cek jika perpindahan adalah langkah mundur (misal: mundur 3 langkah)
+        const diff = (prevPos - newPos + 40) % 40;
+        if (diff > 0 && diff <= 10 && (choiceId === 'choice_step_back' || (prevPos - newPos === 3) || (prevPos === 0 && newPos === 37) || (prevPos === 1 && newPos === 38) || (prevPos === 2 && newPos === 39))) {
+          totalSteps = diff;
+          isBackward = true;
+        }
+
+        if (totalSteps > 0) {
+          await animateTokenStepByStep(prevPlayerId, prevPos, newPos, totalSteps, isBackward);
+        }
+      }
+
+      // 2. Deteksi keluar/masuk uang dari efek kartu & log permainan
+      if (newState.logs && newState.logs.length > 0) {
+        const latestMsg = newState.logs[0].message;
+        if (latestMsg.includes('membayar sewa') || latestMsg.includes('membayar Pajak') || latestMsg.includes('membayar denda') || latestMsg.includes('membayar Rp') || latestMsg.includes('kehilangan modal')) {
+          sound.playPayCash();
+          const match = latestMsg.match(/Rp\s*([\d\.]+)/);
+          const rawAmount = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+          if (rawAmount > 0) {
+            let label = 'Keluar Uang';
+            if (latestMsg.includes('membayar sewa')) label = 'Bayar Sewa Properti';
+            else if (latestMsg.includes('membayar Pajak')) label = 'Bayar Pajak';
+            else if (latestMsg.includes('membayar denda')) label = 'Denda Kartu';
+            else if (latestMsg.includes('kehilangan modal')) label = 'Rugi Trading';
+            else if (latestMsg.includes('membayar Rp')) label = 'Pembayaran Kartu';
+            showFloatingCash(rawAmount, false, label);
+          }
+        } else if (latestMsg.includes('memperoleh') || latestMsg.includes('mengambil Rp') || latestMsg.includes('menang jackpot')) {
+          sound.playCash();
+          const match = latestMsg.match(/Rp\s*([\d\.]+)/);
+          const rawAmount = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+          if (rawAmount > 0) {
+            let label = 'Terima Uang';
+            if (latestMsg.includes('melewati Mulai')) label = 'Gaji Lewat Mulai';
+            else if (latestMsg.includes('menang jackpot')) label = '🎉 Cuan Jackpot!';
+            else if (latestMsg.includes('memperoleh')) label = 'Hadiah Kartu';
+            showFloatingCash(rawAmount, true, label);
+            triggerConfetti({ particleCount: 40 });
+          }
+        }
+      }
+
       state = newState;
       updateBoardUI();
 
       // Cek apakah aksi menyebabkan masuk penjara
-      const currentP = state.players[state.currentPlayerIndex];
-      if (currentP && currentP.inJail) {
+      if (updatedP && updatedP.inJail && !prevInJail) {
         triggerJailSiren();
       }
     }
@@ -4794,8 +4947,8 @@ btnPayJailFine?.addEventListener('click', async () => {
     forceCloseAllModals();
 
     if (result.isConfirmed) {
-      sound.playCash();
-      showFloatingCash(1500000, false);
+      sound.playPayCash();
+      showFloatingCash(1500000, false, 'Denda Bebas Penjara');
       const newState = await apiCall('/api/game/jail-fine', {}, 'POST');
       if (newState) {
         state = newState;

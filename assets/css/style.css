@@ -406,12 +406,28 @@ body:fullscreen .monopoly-board {
   }
 }
 
+/* Strict Hidden Overrides for All Screens & Modals */
+.hidden,
+section.hidden,
+div.hidden,
+aside.hidden,
+nav.hidden,
+#inGameBoardScreen.hidden,
+#homeMenuScreen.hidden,
+#settingsAiScreen.hidden,
+#settingsPvpScreen.hidden,
+#settingsOnlineScreen.hidden,
+#onlineLobbyScreen.hidden,
+#inGameBoardScreen.hidden #mobileBottomNav {
+  display: none !important;
+}
+
 /* ===================================================
    SMARTPHONE & COMPACT MOBILE LAYOUT (< 1023px)
    Dedicated Mobile Bottom Nav Bar & Slide-up Drawers
    =================================================== */
 @media (max-width: 1023px) {
-  #inGameBoardScreen {
+  #inGameBoardScreen:not(.hidden) {
     height: 100vh !important;
     height: 100dvh !important;
     max-height: 100dvh !important;

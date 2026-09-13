@@ -621,6 +621,9 @@ const btnInGameBackHome = document.getElementById('btnInGameBackHome');
 
 // Helper Navigasi Layar (Screen Switcher)
 function showScreen(screenId) {
+  if (typeof closeMobileDrawer === 'function') {
+    closeMobileDrawer();
+  }
   [homeMenuScreen, settingsAiScreen, settingsPvpScreen, settingsOnlineScreen, onlineLobbyScreen, inGameBoardScreen].forEach(scr => {
     if (scr) scr.classList.add('hidden');
   });

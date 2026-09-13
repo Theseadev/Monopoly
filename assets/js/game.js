@@ -904,6 +904,8 @@ function renderBoard() {
       let iconHtml = '';
       let priceText = space.price ? formatShortPrice(space.price) : (space.amount ? formatShortPrice(space.amount) : '');
       const displayName = space.shortName || space.name;
+      const isLongWord = displayName.split(/\s+/).some(w => w.length >= 8) || displayName.length >= 10;
+      const nameClass = isLongWord ? 'tile-name tile-name-long' : 'tile-name';
 
       if (space.type === 'property') {
         colorBarHtml = `<div class="color-bar" style="background-color: ${space.color}"></div>`;
@@ -926,7 +928,7 @@ function renderBoard() {
           ${indicatorsHtml}
           <div class="tile-content">
             ${iconHtml}
-            <span class="tile-name">${displayName}</span>
+            <span class="${nameClass}">${displayName}</span>
           </div>
           ${colorBarHtml}
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
@@ -937,7 +939,7 @@ function renderBoard() {
           ${indicatorsHtml}
           <div class="tile-content">
             ${iconHtml}
-            <span class="tile-name">${displayName}</span>
+            <span class="${nameClass}">${displayName}</span>
             ${priceBadgeHtml}
           </div>
           ${colorBarHtml}
@@ -950,7 +952,7 @@ function renderBoard() {
           ${indicatorsHtml}
           <div class="tile-content">
             ${iconHtml}
-            <span class="tile-name">${displayName}</span>
+            <span class="${nameClass}">${displayName}</span>
             ${priceBadgeHtml}
           </div>
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
@@ -962,7 +964,7 @@ function renderBoard() {
           ${indicatorsHtml}
           <div class="tile-content">
             ${iconHtml}
-            <span class="tile-name">${displayName}</span>
+            <span class="${nameClass}">${displayName}</span>
           </div>
           ${priceBadgeHtml}
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>

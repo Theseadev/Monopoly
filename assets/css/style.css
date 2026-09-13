@@ -1188,6 +1188,161 @@ body.fullscreen-active .corner-go-arrow {
   height: clamp(16px, 1.6vw, 22px) !important;
 }
 
+/* ==========================================================
+   FULLSCREEN MODE: DELUXE EXPANDED CENTER AREA
+   ========================================================== */
+:fullscreen .board-center,
+#inGameBoardScreen:fullscreen .board-center,
+body.fullscreen-active .board-center,
+html.fullscreen-active .board-center {
+  padding: clamp(12px, 1.8vh, 22px) clamp(14px, 1.8vw, 26px) !important;
+  justify-content: space-between !important;
+}
+
+:fullscreen .center-header,
+body.fullscreen-active .center-header {
+  padding-top: 4px !important;
+}
+
+:fullscreen .center-header .w-7.h-7,
+:fullscreen .center-header .w-8.h-8,
+body.fullscreen-active .center-header .w-7.h-7,
+body.fullscreen-active .center-header .w-8.h-8 {
+  width: clamp(34px, 3.5vw, 48px) !important;
+  height: clamp(34px, 3.5vw, 48px) !important;
+  margin-bottom: 3px !important;
+}
+
+:fullscreen .center-header h1,
+body.fullscreen-active .center-header h1 {
+  font-size: clamp(26px, 2.8vw, 40px) !important;
+  letter-spacing: 0.16em !important;
+  line-height: 1 !important;
+}
+
+:fullscreen .center-header .text-\[8px\],
+:fullscreen .center-header .text-\[10px\],
+body.fullscreen-active .center-header .text-\[8px\],
+body.fullscreen-active .center-header .text-\[10px\] {
+  font-size: clamp(11px, 1.1vw, 15px) !important;
+  letter-spacing: 0.35em !important;
+  margin-top: 4px !important;
+}
+
+/* Fullscreen Decks */
+:fullscreen .center-horizontal-decks-row,
+body.fullscreen-active .center-horizontal-decks-row {
+  max-width: 600px !important;
+  width: 94% !important;
+  gap: clamp(14px, 2vw, 28px) !important;
+}
+
+:fullscreen .board-deck-slot-h,
+body.fullscreen-active .board-deck-slot-h {
+  max-width: 280px !important;
+}
+
+:fullscreen .board-deck-wrapper-h,
+body.fullscreen-active .board-deck-wrapper-h {
+  height: clamp(98px, 12.5vh, 138px) !important;
+}
+
+:fullscreen .deck-card-frame-h,
+body.fullscreen-active .deck-card-frame-h {
+  padding: 6px clamp(10px, 1.2vw, 18px) !important;
+  gap: clamp(10px, 1.2vw, 18px) !important;
+}
+
+:fullscreen .card-badge-h,
+body.fullscreen-active .card-badge-h {
+  width: clamp(44px, 4.6vw, 60px) !important;
+  height: clamp(44px, 4.6vw, 60px) !important;
+}
+
+:fullscreen .badge-chance span,
+body.fullscreen-active .badge-chance span {
+  font-size: clamp(24px, 2.6vw, 34px) !important;
+}
+
+:fullscreen .badge-chest div,
+body.fullscreen-active .badge-chest div {
+  width: clamp(26px, 2.8vw, 36px) !important;
+  height: clamp(26px, 2.8vw, 36px) !important;
+}
+
+:fullscreen .deck-card-frame-h span.font-outfit.leading-none,
+body.fullscreen-active .deck-card-frame-h span.font-outfit.leading-none {
+  font-size: clamp(9px, 0.9vw, 12px) !important;
+}
+
+:fullscreen .card-title-h,
+body.fullscreen-active .card-title-h {
+  font-size: clamp(12.5px, 1.3vw, 17.5px) !important;
+}
+
+:fullscreen .card-sub-h,
+body.fullscreen-active .card-sub-h {
+  font-size: clamp(8.5px, 0.85vw, 11px) !important;
+  margin-top: 2px !important;
+}
+
+:fullscreen .deck-card-frame-h span.rounded-full,
+body.fullscreen-active .deck-card-frame-h span.rounded-full {
+  font-size: clamp(8px, 0.8vw, 10.5px) !important;
+  padding: 2px 8px !important;
+  margin-top: 4px !important;
+}
+
+/* Fullscreen Dice & Rolling Station */
+:fullscreen .center-dice-station,
+body.fullscreen-active .center-dice-station {
+  gap: clamp(10px, 1.4vh, 18px) !important;
+}
+
+:fullscreen #diceCenterContainer,
+body.fullscreen-active #diceCenterContainer {
+  gap: clamp(18px, 2.2vw, 32px) !important;
+}
+
+:fullscreen .dice-box,
+body.fullscreen-active .dice-box {
+  width: clamp(54px, 5.8vw, 72px) !important;
+  height: clamp(54px, 5.8vw, 72px) !important;
+  border-radius: clamp(14px, 1.4vw, 18px) !important;
+  box-shadow: 0 clamp(4px, 0.6vw, 8px) 0 #73431a, 0 clamp(8px, 1.2vw, 16px) rgba(0, 0, 0, 0.3) !important;
+}
+
+:fullscreen .dice-pip.active::after,
+body.fullscreen-active .dice-pip.active::after {
+  width: clamp(11px, 1.2vw, 15px) !important;
+  height: clamp(11px, 1.2vw, 15px) !important;
+}
+
+:fullscreen .dice-tap-pill,
+body.fullscreen-active .dice-tap-pill {
+  font-size: clamp(11.5px, 1.2vw, 15.5px) !important;
+  padding: clamp(6px, 0.8vh, 10px) clamp(18px, 2vw, 30px) !important;
+  letter-spacing: 0.12em !important;
+}
+
+:fullscreen .center-turn-capsule,
+body.fullscreen-active .center-turn-capsule {
+  font-size: clamp(11px, 1.1vw, 14.5px) !important;
+  padding: clamp(5px, 0.7vh, 8px) clamp(14px, 1.6vw, 22px) !important;
+}
+
+:fullscreen .turn-dot-indicator,
+body.fullscreen-active .turn-dot-indicator {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+:fullscreen .board-center > .text-center:last-child,
+body.fullscreen-active .board-center > .text-center:last-child {
+  font-size: clamp(10.5px, 1.1vw, 13.5px) !important;
+  padding-bottom: 4px !important;
+}
+
 /* 3D Warm Parchment Center Area */
 .board-center {
   background: #cbb077;
@@ -1205,7 +1360,7 @@ body.fullscreen-active .corner-go-arrow {
   min-height: 0;
   width: 100%;
   height: 100%;
-  padding: clamp(3px, 0.8vh, 10px) clamp(4px, 0.8vw, 12px);
+  padding: clamp(4px, 1vh, 12px) clamp(6px, 1vw, 16px);
 }
 
 .center-header {
@@ -1214,7 +1369,7 @@ body.fullscreen-active .corner-go-arrow {
 }
 
 .center-header h1 {
-  font-size: clamp(13px, 2.2vw, 24px) !important;
+  font-size: clamp(15px, 2.4vw, 28px) !important;
 }
 
 /* ==========================================================
@@ -1225,9 +1380,9 @@ body.fullscreen-active .corner-go-arrow {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(8px, 1.6vw, 18px);
+  gap: clamp(8px, 1.8vw, 20px);
   width: 100%;
-  max-width: 410px;
+  max-width: 460px;
   margin: 0;
   box-sizing: border-box;
   min-width: 0;
@@ -1242,7 +1397,7 @@ body.fullscreen-active .corner-go-arrow {
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   min-width: 0;
   flex: 1 1 0;
-  max-width: 180px;
+  max-width: 210px;
 }
 
 .board-deck-slot-h:hover {
@@ -1252,7 +1407,7 @@ body.fullscreen-active .corner-go-arrow {
 .board-deck-wrapper-h {
   position: relative;
   width: 100%;
-  height: clamp(68px, 9.2vh, 94px);
+  height: clamp(74px, 10.2vh, 104px);
   min-width: 0;
 }
 

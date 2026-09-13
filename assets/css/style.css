@@ -372,27 +372,36 @@ body:fullscreen .monopoly-board {
   }
 }
 
-/* Mobile Segmented Tab Navigation */
+/* Mobile App Fixed Bottom Navigation Bar */
+#mobileBottomNav {
+  background: rgba(18, 4, 8, 0.96);
+  border-top: 1.5px solid rgba(244, 63, 94, 0.3);
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
 .mobile-tab-btn {
-  background: rgba(30, 8, 12, 0.85);
-  border: 1.5px solid rgba(244, 63, 94, 0.25);
-  color: #fecdd3;
+  color: #94a3b8;
+  background: transparent;
+  border: 1px solid transparent;
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
-  transition: all 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .mobile-tab-btn:hover {
-  border-color: rgba(244, 63, 94, 0.6);
-  background: rgba(50, 12, 20, 0.95);
+  color: #fecdd3;
+  background: rgba(244, 63, 94, 0.12);
 }
 
 .mobile-tab-btn.active {
-  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%) !important;
-  border-color: #fb7185 !important;
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.3), rgba(190, 18, 60, 0.45)) !important;
+  border-color: rgba(251, 113, 133, 0.5) !important;
   color: #ffffff !important;
-  box-shadow: 0 0 12px rgba(225, 29, 72, 0.45);
+  box-shadow: 0 0 14px rgba(225, 29, 72, 0.45) !important;
+  transform: translateY(-2px);
 }
 
 @media (max-width: 1279px) {
@@ -402,20 +411,21 @@ body:fullscreen .monopoly-board {
     max-height: 100vh !important;
     max-height: 100dvh !important;
     overflow: hidden !important;
+    padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
   }
   #inGameBoardScreen > div {
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: space-between !important;
-    height: calc(100% - 48px) !important;
+    justify-content: center !important;
+    height: 100% !important;
     min-height: 0 !important;
     overflow: hidden !important;
-    padding: 4px 4px 6px 4px !important;
-    gap: 4px !important;
+    padding: 4px !important;
+    gap: 0 !important;
   }
   .monopoly-board {
-    width: min(96vw, calc(100dvh - 125px), 480px) !important;
-    height: min(96vw, calc(100dvh - 125px), 480px) !important;
+    width: min(96vw, calc(100dvh - 120px), 480px) !important;
+    height: min(96vw, calc(100dvh - 120px), 480px) !important;
     max-width: 96vw !important;
     max-height: 96vw !important;
     border-width: 2px !important;
@@ -429,29 +439,37 @@ body:fullscreen .monopoly-board {
 
   .mobile-panel-section {
     position: fixed !important;
-    top: 0 !important;
     bottom: 0 !important;
+    left: 0 !important;
     right: 0 !important;
-    width: min(88vw, 380px) !important;
-    max-width: 88vw !important;
-    height: 100vh !important;
-    height: 100dvh !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 80vh !important;
+    height: 80dvh !important;
+    max-height: 80vh !important;
+    max-height: 80dvh !important;
     background: #140407 !important;
-    border-left: 2px solid rgba(244, 63, 94, 0.7) !important;
-    box-shadow: -10px 0 35px rgba(0, 0, 0, 0.9) !important;
+    border-top: 2.5px solid rgba(244, 63, 94, 0.7) !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-top-left-radius: 24px !important;
+    border-top-right-radius: 24px !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.95) !important;
     z-index: 50 !important;
-    transform: translateX(105%) !important;
-    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transform: translateY(105%) !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
     display: flex !important;
     flex-direction: column !important;
-    padding: 14px 12px 16px 12px !important;
+    padding: 10px 14px calc(16px + env(safe-area-inset-bottom, 0px)) 14px !important;
     overflow-y: auto !important;
     box-sizing: border-box !important;
-    border-radius: 0 !important;
   }
 
   .mobile-panel-section.drawer-open {
-    transform: translateX(0) !important;
+    transform: translateY(0) !important;
   }
   .tile-name {
     font-size: clamp(5.5px, 1.8vw, 8.5px) !important;

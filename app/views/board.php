@@ -840,6 +840,7 @@
       <aside id="asideLeft" class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-1.5 xl:gap-2 order-2 xl:order-1 min-h-0">
         <!-- 1. Daftar Pemain (Card) -->
         <div id="playerInfoCard" class="mobile-panel-section bg-zinc-900/95 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl shrink-0">
+          <div class="w-10 h-1 bg-zinc-700/80 rounded-full mx-auto mb-1.5 shrink-0 xl:hidden"></div>
           <div class="flex items-center justify-between mb-1.5 pb-1 border-b border-zinc-800 shrink-0">
             <div class="flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5 fill-current text-red-400" viewBox="0 0 24 24">
@@ -849,7 +850,7 @@
             </div>
             <div class="flex items-center gap-1.5">
               <span class="text-[9px] text-gray-400 font-medium">Status & Giliran</span>
-              <button type="button" class="btn-close-mobile-drawer xl:hidden text-zinc-400 hover:text-white p-1 rounded-lg bg-zinc-800/80 cursor-pointer active:scale-90" title="Tutup Sidebar">
+              <button type="button" class="btn-close-mobile-drawer xl:hidden text-zinc-400 hover:text-white p-1 rounded-lg bg-zinc-800/80 cursor-pointer active:scale-90" title="Tutup">
                 <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
               </button>
             </div>
@@ -875,6 +876,7 @@
 
         <!-- 2. Obrolan Pemain (Card) -->
         <div id="playerChatCard" class="mobile-panel-section bg-zinc-900/95 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col flex-1 min-h-0 gap-1.5">
+          <div class="w-10 h-1 bg-zinc-700/80 rounded-full mx-auto mb-0.5 shrink-0 xl:hidden"></div>
           <!-- Header -->
           <div class="flex items-center justify-between pb-1 border-b border-zinc-800 shrink-0">
             <div class="flex items-center gap-1">
@@ -888,7 +890,7 @@
                 <span class="w-1 h-1 rounded-full bg-emerald-400 animate-pulse"></span>
                 Live
               </span>
-              <button type="button" class="btn-close-mobile-drawer xl:hidden text-zinc-400 hover:text-white p-1 rounded-lg bg-zinc-800/80 cursor-pointer active:scale-90" title="Tutup Sidebar">
+              <button type="button" class="btn-close-mobile-drawer xl:hidden text-zinc-400 hover:text-white p-1 rounded-lg bg-zinc-800/80 cursor-pointer active:scale-90" title="Tutup">
                 <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
               </button>
             </div>
@@ -945,35 +947,16 @@
         </div>
       </aside>
 
-      <!-- Center Column: The Monopoly Board & Mobile Floating Tab Bar -->
+      <!-- Center Column: The Monopoly Board -->
       <section class="flex flex-col items-center justify-center order-1 xl:order-2 shrink-0 min-w-0 min-h-0 w-full xl:w-auto">
         <div id="monopolyBoard" class="monopoly-board"></div>
-
-        <!-- Mobile Quick Dock (Opens the Mobile Slide-out Sidebar Drawer) -->
-        <div id="mobileSectionTabs" class="flex xl:hidden items-center justify-between gap-1.5 w-full max-w-[480px] mx-auto px-1.5 mt-2 mb-1 z-20">
-          <button type="button" class="mobile-tab-btn flex-1 py-1.5 px-1 rounded-xl text-xs font-bold font-outfit flex items-center justify-center gap-1 cursor-pointer active:scale-95 transition" data-target="playerInfoCard">
-            <span class="text-sm">👥</span>
-            <span class="text-[10.5px]">Pemain</span>
-          </button>
-          <button type="button" class="mobile-tab-btn flex-1 py-1.5 px-1 rounded-xl text-xs font-bold font-outfit flex items-center justify-center gap-1 cursor-pointer active:scale-95 transition" data-target="portfolioCard">
-            <span class="text-sm">🏠</span>
-            <span class="text-[10.5px]">Aset</span>
-          </button>
-          <button type="button" class="mobile-tab-btn flex-1 py-1.5 px-1 rounded-xl text-xs font-bold font-outfit flex items-center justify-center gap-1 cursor-pointer active:scale-95 transition" data-target="tradingCard">
-            <span class="text-sm">🤝</span>
-            <span class="text-[10.5px]">Trading</span>
-          </button>
-          <button type="button" class="mobile-tab-btn flex-1 py-1.5 px-1 rounded-xl text-xs font-bold font-outfit flex items-center justify-center gap-1 cursor-pointer active:scale-95 transition" data-target="playerChatCard">
-            <span class="text-sm">💬</span>
-            <span class="text-[10.5px]">Obrolan</span>
-          </button>
-        </div>
       </section>
 
       <!-- Right Column: Asset Portfolio & Player-to-Player Trading System -->
       <aside id="asideRight" class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-1.5 xl:gap-2 order-3 min-h-0">
         <!-- 3. Aset & Properti (Card Grid Mini Title Deed) -->
         <div id="portfolioCard" class="mobile-panel-section bg-zinc-900/95 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col flex-1 min-h-[140px] overflow-hidden">
+          <div class="w-10 h-1 bg-zinc-700/80 rounded-full mx-auto mb-1 shrink-0 xl:hidden"></div>
           <div class="flex items-center justify-between pb-1 border-b border-zinc-800 mb-1 shrink-0">
             <div class="flex items-center gap-1">
               <svg class="w-3.5 h-3.5 fill-current text-red-400" viewBox="0 0 24 24">
@@ -983,7 +966,7 @@
             </div>
             <div class="flex items-center gap-1.5">
               <span id="portfolioStatsBadge" class="text-[8.5px] text-rose-300 bg-red-950/80 px-2 py-0.5 rounded-full border border-red-500/40 font-bold whitespace-nowrap shrink-0">0 Properti</span>
-              <button type="button" class="btn-close-mobile-drawer xl:hidden text-zinc-400 hover:text-white p-1 rounded-lg bg-zinc-800/80 cursor-pointer active:scale-90" title="Tutup Sidebar">
+              <button type="button" class="btn-close-mobile-drawer xl:hidden text-zinc-400 hover:text-white p-1 rounded-lg bg-zinc-800/80 cursor-pointer active:scale-90" title="Tutup">
                 <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
               </button>
             </div>
@@ -1005,6 +988,7 @@
 
         <!-- 4. Sistem Trading Sesama Pemain (Player-to-Player Trading Desk) -->
         <div id="tradingCard" class="mobile-panel-section bg-zinc-900/95 border-2 border-red-500/40 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col gap-1 bg-gradient-to-b from-zinc-900/95 to-zinc-950/95 shrink-0">
+          <div class="w-10 h-1 bg-zinc-700/80 rounded-full mx-auto mb-1 shrink-0 xl:hidden"></div>
           <div class="flex items-center justify-between pb-1 border-b border-zinc-800 shrink-0">
             <div class="flex items-center gap-1">
               <svg class="w-3.5 h-3.5 fill-current text-red-400" viewBox="0 0 24 24">
@@ -1016,7 +1000,7 @@
               <span class="text-[8.5px] text-emerald-400 font-bold bg-emerald-950/80 px-1.5 py-0.2 rounded-full border border-emerald-500/40">
                 Tukar Aset
               </span>
-              <button type="button" class="btn-close-mobile-drawer xl:hidden text-zinc-400 hover:text-white p-1 rounded-lg bg-zinc-800/80 cursor-pointer active:scale-90" title="Tutup Sidebar">
+              <button type="button" class="btn-close-mobile-drawer xl:hidden text-zinc-400 hover:text-white p-1 rounded-lg bg-zinc-800/80 cursor-pointer active:scale-90" title="Tutup">
                 <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
               </button>
             </div>
@@ -1041,7 +1025,27 @@
     </div>
 
     <!-- Mobile Drawer Backdrop Overlay -->
-    <div id="mobileDrawerBackdrop" class="hidden xl:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40 transition-opacity duration-300"></div>
+    <div id="mobileDrawerBackdrop" class="hidden xl:hidden fixed inset-0 bg-black/75 backdrop-blur-sm z-40 transition-opacity duration-300"></div>
+
+    <!-- Mobile App Fixed Bottom Navigation Bar -->
+    <nav id="mobileBottomNav" class="xl:hidden fixed bottom-0 inset-x-0 z-40 bg-zinc-950/95 backdrop-blur-xl border-t border-rose-500/30 px-2 py-1.5 flex items-center justify-around shadow-[0_-5px_25px_rgba(0,0,0,0.85)] pb-[max(0.375rem,env(safe-area-inset-bottom))]">
+      <button type="button" class="mobile-tab-btn flex-1 py-1 px-1 rounded-xl text-xs font-bold font-outfit flex flex-col items-center justify-center gap-0.5 cursor-pointer active:scale-95 transition text-zinc-400 hover:text-white" data-target="playerInfoCard">
+        <span class="text-base leading-none">👥</span>
+        <span class="text-[9.5px] tracking-wide">Pemain</span>
+      </button>
+      <button type="button" class="mobile-tab-btn flex-1 py-1 px-1 rounded-xl text-xs font-bold font-outfit flex flex-col items-center justify-center gap-0.5 cursor-pointer active:scale-95 transition text-zinc-400 hover:text-white" data-target="portfolioCard">
+        <span class="text-base leading-none">🏠</span>
+        <span class="text-[9.5px] tracking-wide">Aset</span>
+      </button>
+      <button type="button" class="mobile-tab-btn flex-1 py-1 px-1 rounded-xl text-xs font-bold font-outfit flex flex-col items-center justify-center gap-0.5 cursor-pointer active:scale-95 transition text-zinc-400 hover:text-white" data-target="tradingCard">
+        <span class="text-base leading-none">🤝</span>
+        <span class="text-[9.5px] tracking-wide">Trading</span>
+      </button>
+      <button type="button" class="mobile-tab-btn flex-1 py-1 px-1 rounded-xl text-xs font-bold font-outfit flex flex-col items-center justify-center gap-0.5 cursor-pointer active:scale-95 transition text-zinc-400 hover:text-white" data-target="playerChatCard">
+        <span class="text-base leading-none">💬</span>
+        <span class="text-[9.5px] tracking-wide">Obrolan</span>
+      </button>
+    </nav>
   </section>
 
   <!-- Modal Container Overlay -->

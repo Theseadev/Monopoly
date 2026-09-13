@@ -870,8 +870,8 @@ function renderBoard() {
         cell.innerHTML = `
           <div class="tile-content flex-1 flex flex-col items-center justify-between text-center p-0.5 sm:p-1 z-0 w-full h-full select-none overflow-hidden">
             <div class="corner-parking-icon text-[#1e3a8a] flex items-center justify-center shrink-0 mt-0.5">${GameIcons.freeParking}</div>
-            <div class="my-auto flex flex-col items-center justify-center">
-              <span class="corner-parking-title text-[#1e3a8a] font-black leading-tight font-outfit">PARKIR BEBAS</span>
+            <div class="my-auto flex flex-col items-center justify-center leading-none">
+              <span class="corner-parking-title text-[#1e3a8a] font-black font-outfit leading-tight">PARKIR<br>BEBAS</span>
               <span class="corner-parking-sub text-[#475569] font-bold leading-none mt-0.5">Istirahat</span>
             </div>
           </div>

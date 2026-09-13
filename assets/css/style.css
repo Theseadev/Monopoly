@@ -1012,8 +1012,11 @@ body:fullscreen .monopoly-board {
 }
 
 .corner-parking-title {
-  font-size: clamp(9px, 0.95vw, 13px);
-  white-space: nowrap;
+  font-size: clamp(7.5px, 0.8vw, 11px);
+  line-height: 1.05;
+  text-align: center;
+  white-space: normal;
+  display: block;
 }
 
 .corner-parking-sub {
@@ -1123,7 +1126,11 @@ body.fullscreen-active .corner-parking-icon {
 }
 :fullscreen .corner-parking-title,
 body.fullscreen-active .corner-parking-title {
-  font-size: clamp(10px, 1vw, 14px) !important;
+  font-size: clamp(9px, 0.95vw, 13px) !important;
+  line-height: 1.05 !important;
+  text-align: center !important;
+  white-space: normal !important;
+  display: block !important;
 }
 :fullscreen .corner-parking-sub,
 body.fullscreen-active .corner-parking-sub {

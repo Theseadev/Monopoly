@@ -1635,7 +1635,9 @@ function updateHUD() {
   }
 
   try { updatePlayersList(); } catch (e) { console.error('updatePlayersList error:', e); }
+  try { updateMobileTopStrip(); } catch (e) { console.error('updateMobileTopStrip error:', e); }
   try { renderLogs(); } catch (e) { console.error('renderLogs error:', e); }
+  try { updateMobileBottomTicker(); } catch (e) { console.error('updateMobileBottomTicker error:', e); }
   try { processFinancialLogs(state.logs); } catch (e) { console.error('processFinancialLogs error:', e); }
   try { updatePortfolio(); } catch (e) { console.error('updatePortfolio error:', e); }
   try { updateTradingWidget(); } catch (e) { console.error('updateTradingWidget error:', e); }
@@ -1648,6 +1650,62 @@ function updateHUD() {
       runBotTurn();
     }
   }
+}
+
+// Update Mobile Top Player Strip (Khusus Tampilan Smartphone)
+function updateMobileTopStrip() {
+  const container = document.getElementById('mobileTopPlayerStrip');
+  if (!container || !state || !state.players) return;
+  const current = state.players[state.currentPlayerIndex];
+  const humanPlayer = getCurrentHumanPlayer();
+
+  container.innerHTML = state.players.map(p => {
+    const isCurrent = current && p.id === current.id;
+    const isBankrupt = p.isBankrupt;
+    const isHumanSelf = humanPlayer && p.id === humanPlayer.id;
+
+    return `
+      <div class="flex-1 min-w-0 px-1.5 py-1 rounded-xl flex items-center gap-1 border transition-all ${isCurrent ? 'bg-amber-950/80 border-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.4)] scale-[1.02]' : 'bg-zinc-900/80 border-zinc-800'} ${isBankrupt ? 'opacity-30 grayscale' : ''}">
+        <div class="w-5 h-5 rounded-lg bg-zinc-950 border border-zinc-700/80 flex items-center justify-center shrink-0">
+          ${getChessPawnSVG(p.color, p.id)}
+        </div>
+        <div class="min-w-0 flex-1 leading-tight">
+          <div class="text-[8.5px] font-bold text-white flex items-center gap-0.5 truncate">
+            <span class="truncate">${p.name}</span>
+            ${isHumanSelf ? '<span class="text-[7px] bg-amber-500 text-black px-0.5 rounded font-black shrink-0">Anda</span>' : ''}
+          </div>
+          <div class="text-[8px] font-bold text-emerald-400 truncate font-mono">
+            ${formatShortPrice(p.money)}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Update Mobile Bottom Live Event Ticker (Khusus Tampilan Smartphone)
+function updateMobileBottomTicker() {
+  const container = document.getElementById('mobileBottomEventTicker');
+  if (!container || !state) return;
+  
+  const lastLog = (state.logs && state.logs.length > 0) ? state.logs[state.logs.length - 1] : null;
+  const rawMsg = lastLog ? (lastLog.message || lastLog.text || '') : 'Permainan dimulai. Lempar dadu untuk jalan!';
+  const cleanMsg = typeof rawMsg === 'string' ? rawMsg.replace(/<[^>]+>/g, '') : '';
+
+  container.innerHTML = `
+    <div class="flex-1 bg-zinc-900/90 border border-red-950/70 rounded-xl px-2.5 py-1 flex items-center gap-1.5 shadow-sm min-w-0">
+      <span class="text-[8.5px] bg-red-950 text-rose-300 font-black px-1.5 py-0.2 rounded border border-red-500/30 shrink-0 font-outfit uppercase tracking-wider">
+        LIVE
+      </span>
+      <span class="text-[9.5px] text-zinc-300 font-medium truncate flex-1">
+        ${cleanMsg}
+      </span>
+    </div>
+    <button type="button" class="h-7 px-2.5 rounded-xl bg-zinc-900 border border-zinc-700/80 text-rose-300 hover:text-white flex items-center justify-center gap-1 shrink-0 text-[10px] font-bold cursor-pointer active:scale-95 shadow-sm font-outfit" onclick="openMobileDrawer('playerChatCard')" title="Buka Obrolan & Reaksi">
+      <span>💬</span>
+      <span class="text-[9px]">Chat</span>
+    </button>
+  `;
 }
 
 // Update Players List

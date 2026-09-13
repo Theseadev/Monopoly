@@ -304,6 +304,8 @@
     #settingsOnlineScreen.hidden,
     #onlineLobbyScreen.hidden,
     #inGameBoardScreen.hidden #mobileBottomNav,
+    #inGameBoardScreen.hidden #mobileTopPlayerStrip,
+    #inGameBoardScreen.hidden #mobileBottomEventTicker,
     #inGameBoardScreen.hidden header {
       display: none !important;
     }
@@ -334,9 +336,11 @@
       flex-direction: column !important;
     }
 
-    /* Desktop hides mobile navigation bar completely */
+    /* Desktop hides mobile navigation bar & mobile strips */
     @media (min-width: 1024px) {
-      #mobileBottomNav {
+      #mobileBottomNav,
+      #mobileTopPlayerStrip,
+      #mobileBottomEventTicker {
         display: none !important;
       }
     }
@@ -1012,7 +1016,13 @@
 
       <!-- Center Column: The Monopoly Board -->
       <section class="flex flex-col items-center justify-center order-1 lg:order-2 shrink-0 min-w-0 min-h-0 w-full lg:w-auto">
+        <!-- Mobile Top Player Strip (Visible on mobile < 1024px only) -->
+        <div id="mobileTopPlayerStrip" class="w-full max-w-[440px] mb-1 px-1 lg:hidden flex items-center justify-between gap-1"></div>
+
         <div id="monopolyBoard" class="monopoly-board"></div>
+
+        <!-- Mobile Bottom Quick Bar (Visible on mobile < 1024px only) -->
+        <div id="mobileBottomEventTicker" class="w-full max-w-[440px] mt-1 px-1 lg:hidden flex items-center gap-1.5"></div>
       </section>
 
       <!-- Right Column: Asset Portfolio & Sleek Trading Hub -->

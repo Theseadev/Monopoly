@@ -389,7 +389,9 @@ body:fullscreen .monopoly-board {
   #mobileBottomNav,
   #mobileDrawerBackdrop,
   .mobile-drawer-header,
-  .btn-close-mobile-drawer {
+  .btn-close-mobile-drawer,
+  #mobileTopPlayerStrip,
+  #mobileBottomEventTicker {
     display: none !important;
   }
 
@@ -418,7 +420,9 @@ nav.hidden,
 #settingsPvpScreen.hidden,
 #settingsOnlineScreen.hidden,
 #onlineLobbyScreen.hidden,
-#inGameBoardScreen.hidden #mobileBottomNav {
+#inGameBoardScreen.hidden #mobileBottomNav,
+#inGameBoardScreen.hidden #mobileTopPlayerStrip,
+#inGameBoardScreen.hidden #mobileBottomEventTicker {
   display: none !important;
 }
 
@@ -439,10 +443,10 @@ nav.hidden,
   #inGameBoardScreen > div {
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: center !important;
+    justify-content: space-evenly !important;
     height: 100% !important;
     width: 100% !important;
-    padding: 2px !important;
+    padding: 2px 4px !important;
     gap: 0 !important;
     overflow: hidden !important;
   }
@@ -450,20 +454,30 @@ nav.hidden,
     width: 100% !important;
     height: 100% !important;
     display: flex !important;
+    flex-direction: column !important;
     align-items: center !important;
-    justify-content: center !important;
-    padding: 0 !important;
+    justify-content: space-between !important;
+    padding: 2px 0 !important;
     margin: 0 !important;
   }
   .monopoly-board {
-    width: min(98vw, calc(100dvh - 105px)) !important;
-    height: min(98vw, calc(100dvh - 105px)) !important;
-    max-width: min(98vw, calc(100dvh - 105px)) !important;
-    max-height: min(98vw, calc(100dvh - 105px)) !important;
+    width: min(97vw, calc(100dvh - 160px)) !important;
+    height: min(97vw, calc(100dvh - 160px)) !important;
+    max-width: min(97vw, calc(100dvh - 160px)) !important;
+    max-height: min(97vw, calc(100dvh - 160px)) !important;
     aspect-ratio: 1 / 1 !important;
-    border-width: 2px !important;
-    border-radius: 8px !important;
+    border-width: 2.5px !important;
+    border-radius: 12px !important;
     margin: auto !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(225, 29, 72, 0.25) !important;
+  }
+  #mobileTopPlayerStrip {
+    display: flex !important;
+    flex-shrink: 0 !important;
+  }
+  #mobileBottomEventTicker {
+    display: flex !important;
+    flex-shrink: 0 !important;
   }
   aside {
     display: contents !important;

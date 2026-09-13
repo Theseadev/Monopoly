@@ -80,6 +80,7 @@ class GameState {
                 'inJail' => false,
                 'jailTurns' => 0,
                 'getOutOfJailFreeCards' => 0,
+                'taxFreeCards' => 0,
                 'isBankrupt' => false
             ];
         }
@@ -317,10 +318,24 @@ class GameState {
         // 2. Petak Pajak
         if ($space['type'] === 'tax') {
             $amount = (int)$space['amount'];
-            self::addLog($state, "{$player['name']} membayar {$space['name']} sebesar Rp " . number_format($amount, 0, ',', '.') . " ke Bank.", 'warning');
-            $player['money'] -= $amount;
-            if ($player['money'] < 0) {
-                self::checkBankruptcy($state, $player, null);
+            if (!empty($player['taxFreeCards']) && $player['taxFreeCards'] > 0) {
+                $player['taxFreeCards']--;
+                // Masukkan kembali kartu bebas pajak ke dek agar bisa didapatkan lagi kalau hoki
+                $taxCardRecirculated = [
+                    'id' => 'special_tax_recirculated',
+                    'title' => 'Kartu Bebas Pajak (Tax Free Shield)',
+                    'description' => 'Sertifikat Bebas Pajak Resmi! Simpan kartu ini di inventori untuk membebaskan 100% biaya saat Anda menginjak petak Pajak Istimewa atau Pajak Jalan. (Hanya bisa dipakai 1x & masuk kembali ke dek saat dipakai).',
+                    'category' => 'special',
+                    'type' => 'tax_free_card'
+                ];
+                $state['communityChestDeck'][] = $taxCardRecirculated;
+                self::addLog($state, "🛡️ BEBAS PAJAK! {$player['name']} menggunakan Kartu Bebas Pajak untuk membebaskan {$space['name']} (Hemat Rp " . number_format($amount, 0, ',', '.') . ")! Kartu telah terpakai dan kembali ke tumpukan dek.", 'highlight');
+            } else {
+                self::addLog($state, "{$player['name']} membayar {$space['name']} sebesar Rp " . number_format($amount, 0, ',', '.') . " ke Bank.", 'warning');
+                $player['money'] -= $amount;
+                if ($player['money'] < 0) {
+                    self::checkBankruptcy($state, $player, null);
+                }
             }
             self::finishAction($state);
             return;
@@ -338,13 +353,26 @@ class GameState {
         if ($space['type'] === 'special') {
             $isChance = ($space['subType'] ?? '') === 'chance';
             $deckKey = $isChance ? 'chanceDeck' : 'communityChestDeck';
+
+            if (empty($state[$deckKey])) {
+                $baseCards = $isChance ? CardsData::CHANCE_CARDS : CardsData::COMMUNITY_CHEST_CARDS;
+                $state[$deckKey] = self::createBalancedDeck($baseCards);
+            }
+
             $card = array_shift($state[$deckKey]);
-            $state[$deckKey][] = $card; // kembalikan ke tumpukan bawah
+            $cardType = $card['type'] ?? '';
+
+            // Kartu sakti disimpan di inventori pemain dan baru kembali ke dek setelah dipakai (single-use).
+            // Kartu biasa langsung dikembalikan ke urutan bawah tumpukan dek.
+            if (!in_array($cardType, ['jail_card', 'tax_free_card'])) {
+                $state[$deckKey][] = $card;
+            }
 
             $state['phase'] = 'ACTION_REQUIRED';
             $state['currentAction'] = [
                 'type' => 'CARD_DRAWN',
                 'cardType' => $isChance ? 'Kesempatan' : 'Dana Umum',
+                'deckKey' => $deckKey,
                 'card' => $card
             ];
             return;
@@ -483,11 +511,22 @@ class GameState {
     public static function useJailCard(): array {
         $state = self::load();
         $player = &$state['players'][$state['currentPlayerIndex']];
-        if ($player['inJail'] && $player['getOutOfJailFreeCards'] > 0) {
+        if ($player['inJail'] && !empty($player['getOutOfJailFreeCards']) && $player['getOutOfJailFreeCards'] > 0) {
             $player['getOutOfJailFreeCards']--;
             $player['inJail'] = false;
             $player['jailTurns'] = 0;
-            self::addLog($state, "{$player['name']} menggunakan Kartu Bebas Penjara!", 'success');
+
+            // Masukkan kembali kartu bebas penjara ke dek agar bisa didapatkan lagi kalau hoki
+            $jailCardRecirculated = [
+                'id' => 'special_jail_recirculated',
+                'title' => 'Kartu Bebas Penjara',
+                'description' => 'Surat sakti koneksi orang dalam! Simpan kartu ini di inventori untuk langsung bebas dari Penjara tanpa membayar denda Rp 1.500.000. (Hanya bisa dipakai 1x & masuk kembali ke dek saat dipakai).',
+                'category' => 'special',
+                'type' => 'jail_card'
+            ];
+            $state['chanceDeck'][] = $jailCardRecirculated;
+
+            self::addLog($state, "📜 {$player['name']} menggunakan Kartu Bebas Penjara! Kartu telah terpakai dan kembali ke tumpukan dek.", 'success');
         }
         self::save($state);
         return $state;
@@ -542,21 +581,23 @@ class GameState {
 
     /**
      * Menyusun urutan tumpukan kartu yang seimbang, seru, dan adil.
-     * Menjamin awal permainan tidak dibanjiri denda/kerugian berturut-turut,
-     * serta mendistribusikan kartu keuntungan, pilihan interaktif, dan denda secara ritmis.
+     * Komposisi terstandar: 30% Rugi, 30% Untung, 30% Gacha/Taruhan, 10% Kartu Sakti Single-Use.
      */
     private static function createBalancedDeck(array $cards): array {
         $gains = [];
         $choices = [];
         $penalties = [];
+        $specials = [];
 
         foreach ($cards as $card) {
+            $cat = $card['category'] ?? '';
             $type = $card['type'] ?? '';
-            if ($type === 'choice') {
+
+            if ($cat === 'special' || in_array($type, ['jail_card', 'tax_free_card'])) {
+                $specials[] = $card;
+            } elseif ($cat === 'gacha' || $type === 'gamble' || $type === 'choice') {
                 $choices[] = $card;
-            } elseif (in_array($type, ['receive_money', 'collect_all_players', 'jail_card'])) {
-                $gains[] = $card;
-            } elseif ($type === 'move_to' || ($type === 'move_steps' && ($card['steps'] ?? 0) > 0)) {
+            } elseif ($cat === 'profit' || in_array($type, ['receive_money', 'collect_all_players', 'move_to'])) {
                 $gains[] = $card;
             } else {
                 $penalties[] = $card;
@@ -566,25 +607,35 @@ class GameState {
         shuffle($gains);
         shuffle($choices);
         shuffle($penalties);
+        shuffle($specials);
 
         $balanced = [];
 
-        // Pola distribusi ritmis berimbang (Gain, Gain, Choice/Gain, Penalty, Gain...)
-        while (!empty($gains) || !empty($choices) || !empty($penalties)) {
+        // Distribusi ritmis: Untung -> Gacha -> Rugi -> Sakti -> Untung -> Gacha -> Rugi...
+        while (!empty($gains) || !empty($choices) || !empty($penalties) || !empty($specials)) {
             if (!empty($gains)) {
                 $balanced[] = array_shift($gains);
             }
-            if (!empty($choices) && (count($balanced) % 4 === 1 || empty($penalties))) {
+            if (!empty($choices)) {
                 $balanced[] = array_shift($choices);
             }
-            if (!empty($gains)) {
-                $balanced[] = array_shift($gains);
+            if (!empty($specials) && (count($balanced) % 4 === 2 || empty($penalties))) {
+                $balanced[] = array_shift($specials);
             }
             if (!empty($penalties)) {
                 $balanced[] = array_shift($penalties);
             }
-            if (!empty($choices) && count($balanced) % 3 === 0) {
+            if (!empty($gains)) {
+                $balanced[] = array_shift($gains);
+            }
+            if (!empty($choices)) {
                 $balanced[] = array_shift($choices);
+            }
+            if (!empty($specials)) {
+                $balanced[] = array_shift($specials);
+            }
+            if (!empty($penalties)) {
+                $balanced[] = array_shift($penalties);
             }
         }
 
@@ -647,10 +698,10 @@ class GameState {
                 if ($isWin) {
                     $netWin = $reward - $cost;
                     $player['money'] += $netWin;
-                    self::addLog($state, "🎉 CUAN BESAR! {$player['name']} menang jackpot Rp " . number_format($reward, 0, ',', '.') . " dari robot trading!", 'success');
+                    self::addLog($state, "🎉 CUAN BESAR! {$player['name']} MENANG GACHA Rp " . number_format($reward, 0, ',', '.') . " (" . ($effect['title'] ?? $cardTitle) . ")!", 'success');
                 } else {
                     $player['money'] = max(0, $player['money'] - $cost);
-                    self::addLog($state, "💥 RUG PULL! {$player['name']} kena scam dan kehilangan modal Rp " . number_format($cost, 0, ',', '.') . "!", 'danger');
+                    self::addLog($state, "💥 RUG PULL/ZONK! {$player['name']} kalah taruhan dan modal Rp " . number_format($cost, 0, ',', '.') . " hangus (" . ($effect['title'] ?? $cardTitle) . ")!", 'danger');
                     if ($player['money'] <= 0) {
                         self::checkBankruptcy($state, $player, null);
                     }
@@ -659,8 +710,14 @@ class GameState {
                 break;
 
             case 'jail_card':
-                $player['getOutOfJailFreeCards']++;
-                self::addLog($state, "{$player['name']} menyimpan Kartu Bebas Penjara.", 'success');
+                $player['getOutOfJailFreeCards'] = ($player['getOutOfJailFreeCards'] ?? 0) + 1;
+                self::addLog($state, "📜 {$player['name']} memperoleh dan menyimpan KARTU BEBAS PENJARA di inventori! (Dapat dipakai 1x saat di penjara).", 'success');
+                self::finishAction($state);
+                break;
+
+            case 'tax_free_card':
+                $player['taxFreeCards'] = ($player['taxFreeCards'] ?? 0) + 1;
+                self::addLog($state, "🛡️ {$player['name']} memperoleh dan menyimpan KARTU BEBAS PAJAK di inventori! (Dapat dipakai 1x saat menginjak petak pajak).", 'success');
                 self::finishAction($state);
                 break;
 

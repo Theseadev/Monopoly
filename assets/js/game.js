@@ -1679,6 +1679,8 @@ function updateMobileTopStrip() {
             <span class="truncate">${p.name.split(' ')[0]}</span>
             ${isHumanSelf ? '<span class="text-[6.5px] bg-amber-500 text-zinc-950 px-0.5 rounded font-black shrink-0">Anda</span>' : ''}
             ${p.inJail ? '<span class="text-[7.5px]" title="Di Penjara">⛓️</span>' : ''}
+            ${p.getOutOfJailFreeCards > 0 ? '<span class="text-[7.5px]" title="Punya Kartu Bebas Penjara">📜</span>' : ''}
+            ${p.taxFreeCards > 0 ? '<span class="text-[7.5px]" title="Punya Kartu Bebas Pajak">🛡️</span>' : ''}
             ${isBankrupt ? '<span class="text-[7.5px]" title="Bangkrut">💀</span>' : ''}
           </div>
           <div class="text-[8px] font-extrabold text-emerald-400 truncate font-mono mt-0.5">
@@ -1744,6 +1746,8 @@ function updatePlayersList() {
             ${isSelf || isHumanSelf ? '<span class="text-[8.5px] bg-amber-500 text-zinc-950 px-1 rounded font-black shrink-0">Anda</span>' : ''}
             ${p.isAI ? '<span class="text-[8.5px] bg-zinc-700 text-gray-300 px-1 rounded font-semibold shrink-0">Bot</span>' : ''}
             ${p.inJail ? '<span class="text-[8.5px] bg-red-900 text-red-300 px-1 rounded font-semibold shrink-0">Penjara</span>' : ''}
+            ${p.getOutOfJailFreeCards > 0 ? `<span class="text-[8.5px] bg-emerald-950 text-emerald-300 border border-emerald-500/40 px-1 rounded font-bold shrink-0" title="Punya Kartu Bebas Penjara">📜 ${p.getOutOfJailFreeCards > 1 ? `x${p.getOutOfJailFreeCards}` : 'Penjara'}</span>` : ''}
+            ${p.taxFreeCards > 0 ? `<span class="text-[8.5px] bg-amber-950 text-amber-300 border border-amber-500/40 px-1 rounded font-bold shrink-0" title="Punya Kartu Bebas Pajak">🛡️ ${p.taxFreeCards > 1 ? `x${p.taxFreeCards}` : 'Pajak'}</span>` : ''}
             ${isBankrupt ? '<span class="text-[8.5px] bg-red-800 text-white px-1 rounded font-bold shrink-0">BANGKRUT</span>' : ''}
           </div>
           <div class="player-money text-[11px] font-semibold text-emerald-400">${formatCurrency(p.money)}</div>
@@ -3943,9 +3947,13 @@ async function showCardDrawn(action, player) {
     else if (card.type === 'receive_money') mainIconHtml = `<div class="w-12 h-12 mx-auto text-emerald-600">${GameIcons.moneyBag}</div>`;
     else if (card.type === 'pay_money') mainIconHtml = `<div class="w-12 h-12 mx-auto text-red-500">${GameIcons.bill}</div>`;
     else if (card.type === 'go_to_jail') mainIconHtml = `<div class="w-12 h-12 mx-auto text-orange-600">${GameIcons.jailLock}</div>`;
-    else if (card.type === 'jail_card') mainIconHtml = `<div class="w-12 h-12 mx-auto text-emerald-500 text-4xl flex items-center justify-center">🍀</div>`;
+    else if (card.type === 'jail_card') mainIconHtml = `<div class="w-12 h-12 mx-auto text-emerald-400 text-4xl flex items-center justify-center">📜</div>`;
+    else if (card.type === 'tax_free_card') mainIconHtml = `<div class="w-12 h-12 mx-auto text-amber-400 text-4xl flex items-center justify-center">🛡️</div>`;
+    else if (card.type === 'gamble') mainIconHtml = `<div class="w-12 h-12 mx-auto text-purple-400 text-4xl flex items-center justify-center">🎰</div>`;
     else if (card.type === 'move_to' || card.type === 'move_steps') mainIconHtml = `<div class="w-12 h-12 mx-auto text-blue-600">${GameIcons.compass}</div>`;
     else if (card.type === 'repairs') mainIconHtml = `<div class="w-12 h-12 mx-auto text-amber-700">${GameIcons.tools}</div>`;
+    else if (card.type === 'pay_all_players') mainIconHtml = `<div class="w-12 h-12 mx-auto text-rose-400 text-4xl flex items-center justify-center">💸</div>`;
+    else if (card.type === 'collect_all_players') mainIconHtml = `<div class="w-12 h-12 mx-auto text-emerald-400 text-4xl flex items-center justify-center">💎</div>`;
 
     modalContainer.innerHTML = `
       <div id="cardDrawnBackdrop" class="fixed inset-0 bg-black/75 backdrop-blur-[3px] flex items-center justify-center p-4 z-50 font-sans select-none animate-fade-in">
@@ -4131,17 +4139,24 @@ async function showCardDrawn(action, player) {
 
         // Efek audio & visual setelah kartu terbuka
         if (!hasChoices && card.amount) {
-          if (card.type === 'receive_money') {
+          if (card.type === 'receive_money' || card.type === 'collect_all_players') {
             sound.playCash();
             showFloatingCash(card.amount, true, card.title || 'Hadiah Kartu');
             triggerConfetti({ particleCount: 50 });
-          } else if (card.type === 'pay_money') {
+          } else if (card.type === 'pay_money' || card.type === 'pay_all_players' || card.type === 'repairs') {
             sound.playPayCash();
             showFloatingCash(card.amount, false, card.title || 'Denda Kartu');
           }
         }
         if (!hasChoices && card.type === 'go_to_jail') {
           triggerJailSiren();
+        }
+        if (!hasChoices && (card.type === 'jail_card' || card.type === 'tax_free_card')) {
+          sound.playBuy();
+          triggerConfetti({ particleCount: 65 });
+        }
+        if (!hasChoices && card.type === 'gamble') {
+          sound.playDiceRoll();
         }
       }, 480);
     };

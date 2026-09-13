@@ -99,6 +99,7 @@ export class GameState {
       inJail: false,
       jailTurns: 0,
       getOutOfJailFreeCards: 0,
+      taxFreeCards: 0,
       isBankrupt: false
     }));
 
@@ -291,9 +292,14 @@ export class GameState {
 
     // 2. Petak Pajak
     if (space.type === 'tax') {
-      this.addLog(`${player.name} terkena ${space.name} sebesar Rp ${space.amount.toLocaleString('id-ID')}.`, 'warning');
-      this.deductMoney(player, space.amount);
-      sound.playCash();
+      if (player.taxFreeCards > 0) {
+        player.taxFreeCards -= 1;
+        this.addLog(`🛡️ BEBAS PAJAK! ${player.name} menggunakan Kartu Bebas Pajak untuk membebaskan ${space.name} (Hemat Rp ${space.amount.toLocaleString('id-ID')})!`, 'highlight');
+      } else {
+        this.addLog(`${player.name} terkena ${space.name} sebesar Rp ${space.amount.toLocaleString('id-ID')}.`, 'warning');
+        this.deductMoney(player, space.amount);
+        sound.playCash();
+      }
       this.finishAction();
       return;
     }
@@ -527,6 +533,11 @@ export class GameState {
       case 'jail_card':
         player.getOutOfJailFreeCards = (player.getOutOfJailFreeCards || 0) + 1;
         this.addLog(`${player.name} menyimpan Kartu Bebas Penjara.`, 'success');
+        this.finishAction();
+        break;
+      case 'tax_free_card':
+        player.taxFreeCards = (player.taxFreeCards || 0) + 1;
+        this.addLog(`${player.name} menyimpan Kartu Bebas Pajak (Tax Free Shield).`, 'success');
         this.finishAction();
         break;
       case 'go_to_jail':

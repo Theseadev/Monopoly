@@ -291,23 +291,33 @@
       overflow: hidden !important;
     }
 
-    /* Screen display control: hidden means totally hidden */
-    .hidden,
+    /* Screen display control: specific containers when hidden */
     section.hidden,
-    div.hidden,
-    aside.hidden,
-    nav.hidden,
     #inGameBoardScreen.hidden,
     #homeMenuScreen.hidden,
     #settingsAiScreen.hidden,
     #settingsPvpScreen.hidden,
     #settingsOnlineScreen.hidden,
     #onlineLobbyScreen.hidden,
+    #modalContainer.hidden,
+    #mobileDrawerBackdrop.hidden,
     #inGameBoardScreen.hidden #mobileBottomNav,
     #inGameBoardScreen.hidden #mobileTopPlayerStrip,
     #inGameBoardScreen.hidden #mobileBottomEventTicker,
     #inGameBoardScreen.hidden header {
       display: none !important;
+    }
+
+    /* Fullscreen Toggle Button: strictly hidden on mobile (<768px), visible on PC/Laptop (>=768px) */
+    @media (max-width: 767px) {
+      #btnFullscreenToggle {
+        display: none !important;
+      }
+    }
+    @media (min-width: 768px) {
+      #btnFullscreenToggle {
+        display: inline-flex !important;
+      }
     }
 
     #homeMenuScreen:not(.hidden),
@@ -868,13 +878,13 @@
         </div>
 
         <!-- Tombol Layar Penuh (Fullscreen) - Khusus PC / Laptop -->
-        <button id="btnFullscreenToggle" class="hidden md:flex p-1.5 sm:px-2 sm:py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-rose-200 text-xs font-bold transition items-center justify-center gap-1 border border-zinc-700 shadow cursor-pointer active:scale-95 shrink-0" title="Layar Penuh (Tekan ESC untuk keluar)">
+        <button id="btnFullscreenToggle" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-rose-200 text-xs font-bold transition items-center justify-center gap-1.5 border border-zinc-700 shadow cursor-pointer active:scale-95 shrink-0" title="Layar Penuh (Tekan ESC untuk keluar)">
           <span id="fullscreenIcon" class="w-3.5 h-3.5 inline-flex items-center justify-center">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
               <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
             </svg>
           </span>
-          <span class="hidden lg:inline text-[11px]" id="fullscreenLabel">Layar Penuh</span>
+          <span class="text-[11px]" id="fullscreenLabel">Layar Penuh</span>
         </button>
 
         <button id="btnSoundToggle" class="p-1 sm:px-2 sm:py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-emerald-400 text-xs font-bold transition flex items-center justify-center gap-1 border border-zinc-700 shadow cursor-pointer active:scale-95 shrink-0" title="Aktif/Nonaktifkan Suara">

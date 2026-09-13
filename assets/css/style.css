@@ -409,21 +409,31 @@ body:fullscreen .monopoly-board {
 }
 
 /* Strict Hidden Overrides for All Screens & Modals */
-.hidden,
 section.hidden,
-div.hidden,
-aside.hidden,
-nav.hidden,
 #inGameBoardScreen.hidden,
 #homeMenuScreen.hidden,
 #settingsAiScreen.hidden,
 #settingsPvpScreen.hidden,
 #settingsOnlineScreen.hidden,
 #onlineLobbyScreen.hidden,
+#modalContainer.hidden,
+#mobileDrawerBackdrop.hidden,
 #inGameBoardScreen.hidden #mobileBottomNav,
 #inGameBoardScreen.hidden #mobileTopPlayerStrip,
 #inGameBoardScreen.hidden #mobileBottomEventTicker {
   display: none !important;
+}
+
+/* Fullscreen Toggle Button: strictly hidden on mobile (<768px), visible on PC/Laptop (>=768px) */
+@media (max-width: 767px) {
+  #btnFullscreenToggle {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) {
+  #btnFullscreenToggle {
+    display: inline-flex !important;
+  }
 }
 
 /* ===================================================

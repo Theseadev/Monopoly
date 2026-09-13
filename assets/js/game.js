@@ -4873,6 +4873,14 @@ btnLogsDropdown?.addEventListener('click', (e) => {
   }
 });
 
+document.getElementById('btnCloseLogsDropdown')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  logsDropdownMenu?.classList.add('hidden');
+  if (logsDropdownArrow) {
+    logsDropdownArrow.style.transform = 'rotate(0deg)';
+  }
+});
+
 document.addEventListener('click', (e) => {
   if (logsDropdownMenu && !logsDropdownMenu.classList.contains('hidden')) {
     if (!logsDropdownMenu.contains(e.target) && !btnLogsDropdown?.contains(e.target)) {
@@ -5042,9 +5050,30 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// Mobile Navigation Segmented Tabs Handler
+function initMobileSectionTabs() {
+  const tabs = document.querySelectorAll('.mobile-tab-btn');
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      if (!targetId) return;
+
+      tabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll('.mobile-panel-section').forEach(sec => sec.classList.remove('mobile-active'));
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        targetEl.classList.add('mobile-active');
+      }
+    });
+  });
+}
+
 // Page Load Setup
 window.addEventListener('DOMContentLoaded', () => {
   initSettingsControls();
+  initMobileSectionTabs();
   renderChats();
   showScreen('homeMenuScreen');
   updateFullscreenUI();

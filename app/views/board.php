@@ -737,38 +737,39 @@
   <!-- ========================================== -->
   <section id="inGameBoardScreen" class="hidden w-full h-screen max-h-screen flex flex-col bg-zinc-950/85 overflow-hidden">
     <!-- Top In-Game Header Bar -->
-    <header class="h-11 md:h-12 border-b border-red-950/70 bg-zinc-900/90 backdrop-blur px-3 flex items-center justify-between shadow-lg sticky top-0 z-30">
-      <div class="flex items-center gap-2">
-        <button id="btnInGameBackHome" class="btn-home-pill px-2.5 py-1 rounded-lg flex items-center gap-1.5 text-rose-200 font-bold text-xs cursor-pointer" title="Kembali ke Menu Utama">
+    <!-- Top In-Game Header Bar -->
+    <header class="h-11 sm:h-12 border-b border-red-950/70 bg-zinc-900/95 backdrop-blur px-2 sm:px-3 flex items-center justify-between shadow-lg sticky top-0 z-30 overflow-x-hidden">
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink min-w-0">
+        <button id="btnInGameBackHome" class="btn-home-pill p-1.5 sm:px-2.5 sm:py-1 rounded-lg flex items-center justify-center gap-1.5 text-rose-200 font-bold text-xs cursor-pointer shrink-0 active:scale-95" title="Kembali ke Menu Utama">
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
           </svg>
-          <span class="hidden sm:inline">Menu Utama</span>
+          <span class="hidden md:inline">Menu Utama</span>
         </button>
-        <span class="font-black text-sm md:text-base tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-200 to-white font-outfit">
+        <span class="font-black text-xs sm:text-sm md:text-base tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-200 to-white font-outfit truncate max-w-[125px] sm:max-w-none">
           MONOPOLI NUSANTARA
         </span>
-        <span id="inGameModeBadge" class="hidden md:inline-block ml-1 text-[9.5px] bg-red-950 text-rose-200 border border-red-600/40 px-2 py-0.2 rounded-full font-bold">
+        <span id="inGameModeBadge" class="hidden lg:inline-block ml-1 text-[9.5px] bg-red-950 text-rose-200 border border-red-600/40 px-2 py-0.2 rounded-full font-bold">
           vs Bot AI
         </span>
       </div>
 
-      <div class="flex items-center gap-1.5">
+      <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
         <!-- Riwayat Permainan Dropdown Menu -->
         <div class="relative">
-          <button id="btnLogsDropdown" class="p-1.5 px-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-rose-200 text-xs font-bold transition flex items-center gap-1.5 border border-zinc-700 shadow cursor-pointer active:scale-95" title="Riwayat Permainan">
+          <button id="btnLogsDropdown" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-rose-200 text-xs font-bold transition flex items-center justify-center gap-1 border border-zinc-700 shadow cursor-pointer active:scale-95" title="Riwayat Permainan">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
               <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
             </svg>
-            <span class="hidden sm:inline">Riwayat</span>
-            <span id="logsBadgeCount" class="bg-red-950/80 text-rose-300 text-[9px] px-1.5 py-0.2 rounded-full border border-red-500/40">0</span>
-            <svg class="w-3 h-3 fill-current opacity-70 transition-transform duration-200" id="logsDropdownArrow" viewBox="0 0 24 24">
+            <span class="hidden md:inline">Riwayat</span>
+            <span id="logsBadgeCount" class="bg-red-950/80 text-rose-300 text-[9px] px-1.5 py-0.2 rounded-full border border-red-500/40 font-bold">0</span>
+            <svg class="w-3 h-3 fill-current opacity-70 transition-transform duration-200 hidden sm:inline" id="logsDropdownArrow" viewBox="0 0 24 24">
               <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
             </svg>
           </button>
 
-          <!-- Dropdown Popup Card (Solid Opaque 100% Contrast) -->
-          <div id="logsDropdownMenu" class="hidden absolute right-0 mt-2 w-72 sm:w-80 bg-[#190407] border-2 border-red-500/70 rounded-2xl p-3 shadow-[0_20px_60px_rgba(0,0,0,0.95)] z-50 animate-fadeIn">
+          <!-- Dropdown Popup Card (Solid Opaque 100% Contrast & Centered on Mobile) -->
+          <div id="logsDropdownMenu" class="hidden fixed inset-x-3 top-14 sm:absolute sm:right-0 sm:top-full sm:mt-2 sm:inset-x-auto w-auto sm:w-80 bg-[#190407] border-2 border-red-500/70 rounded-2xl p-3 shadow-[0_20px_60px_rgba(0,0,0,0.95)] z-50 animate-fadeIn">
             <div class="flex items-center justify-between pb-2 border-b border-zinc-800 mb-2">
               <div class="flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5 fill-current text-red-400" viewBox="0 0 24 24">
@@ -776,46 +777,51 @@
                 </svg>
                 <div class="text-[11px] uppercase font-extrabold tracking-wider text-rose-300 font-outfit">Riwayat Permainan</div>
               </div>
-              <span class="text-[9px] text-emerald-400 font-bold flex items-center gap-1 bg-emerald-950/80 px-1.5 py-0.2 rounded-full border border-emerald-500/40">
-                <span class="w-1 h-1 rounded-full bg-emerald-400 animate-ping"></span>
-                Live
-              </span>
+              <div class="flex items-center gap-2">
+                <span class="text-[9px] text-emerald-400 font-bold flex items-center gap-1 bg-emerald-950/80 px-1.5 py-0.2 rounded-full border border-emerald-500/40">
+                  <span class="w-1 h-1 rounded-full bg-emerald-400 animate-ping"></span>
+                  Live
+                </span>
+                <button type="button" id="btnCloseLogsDropdown" class="sm:hidden text-zinc-400 hover:text-white p-0.5" title="Tutup">
+                  <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+              </div>
             </div>
-            <div id="gameLogsList" class="h-64 overflow-y-auto space-y-1.5 pr-1 text-[11px]"></div>
+            <div id="gameLogsList" class="h-60 sm:h-64 overflow-y-auto space-y-1.5 pr-1 text-[11px]"></div>
           </div>
         </div>
 
-        <!-- Tombol Layar Penuh (Fullscreen) -->
-        <button id="btnFullscreenToggle" class="p-1.5 px-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-rose-200 text-xs font-bold transition flex items-center gap-1 border border-zinc-700 shadow cursor-pointer active:scale-95" title="Layar Penuh (Tekan ESC untuk keluar)">
+        <!-- Tombol Layar Penuh (Fullscreen) - Desktop/Tablet Only -->
+        <button id="btnFullscreenToggle" class="hidden md:flex p-1.5 sm:px-2 sm:py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-rose-200 text-xs font-bold transition items-center gap-1 border border-zinc-700 shadow cursor-pointer active:scale-95" title="Layar Penuh (Tekan ESC untuk keluar)">
           <span id="fullscreenIcon" class="w-3.5 h-3.5 inline-flex items-center justify-center">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
               <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
             </svg>
           </span>
-          <span class="hidden sm:inline text-[11px]" id="fullscreenLabel">Layar Penuh</span>
+          <span class="hidden lg:inline text-[11px]" id="fullscreenLabel">Layar Penuh</span>
         </button>
 
-        <button id="btnSoundToggle" class="p-1.5 px-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-emerald-400 text-xs font-bold transition flex items-center gap-1 border border-zinc-700 shadow cursor-pointer" title="Aktif/Nonaktifkan Suara">
+        <button id="btnSoundToggle" class="p-1.5 sm:px-2 sm:py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-emerald-400 text-xs font-bold transition flex items-center justify-center gap-1 border border-zinc-700 shadow cursor-pointer active:scale-95" title="Aktif/Nonaktifkan Suara">
           <span id="soundIcon" class="w-3.5 h-3.5 inline-flex items-center justify-center">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
             </svg>
           </span>
-          <span class="hidden sm:inline text-[11px]" id="soundLabel">Suara</span>
+          <span class="hidden md:inline text-[11px]" id="soundLabel">Suara</span>
         </button>
 
-        <button id="btnGameRules" class="p-1.5 px-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-rose-200 text-xs font-bold transition flex items-center gap-1 border border-zinc-700 shadow cursor-pointer" title="Panduan Aturan Main">
+        <button id="btnGameRules" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-amber-300 text-xs font-bold transition flex items-center justify-center gap-1 border border-zinc-700 shadow cursor-pointer active:scale-95" title="Panduan Aturan Main">
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
             <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
           </svg>
-          <span class="hidden sm:inline text-[11px]">Aturan</span>
+          <span class="hidden md:inline text-[11px]">Aturan</span>
         </button>
 
-        <button id="btnNewGame" class="p-1.5 px-3 rounded-lg bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white text-xs font-bold transition flex items-center gap-1 shadow-lg active:scale-95 cursor-pointer">
+        <button id="btnNewGame" class="p-1.5 sm:px-3 sm:py-1.5 rounded-lg bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white text-xs font-bold transition flex items-center justify-center gap-1 shadow-lg active:scale-95 cursor-pointer shrink-0" title="Mulai Ulang / Keluar">
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
             <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
           </svg>
-          <span class="text-[11px]">Mulai Ulang</span>
+          <span class="hidden md:inline text-[11px]">Mulai Ulang</span>
         </button>
       </div>
     </header>
@@ -830,9 +836,10 @@
 
     <!-- Main Workspace -->
     <div class="flex-1 p-1 sm:p-1.5 flex flex-col xl:flex-row items-center xl:items-stretch justify-center gap-1.5 xl:gap-3 max-w-[1650px] mx-auto w-full min-h-0 overflow-hidden">
-      <!-- Left Column: Player Cards -->
+      <!-- Left Column: Player Cards & Chat -->
       <aside class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-1.5 xl:gap-2 order-2 xl:order-1 min-h-0">
-        <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl shrink-0">
+        <!-- 1. Daftar Pemain (Card) -->
+        <div id="playerInfoCard" class="mobile-panel-section mobile-active bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl shrink-0">
           <div class="flex items-center justify-between mb-1.5 pb-1 border-b border-zinc-800">
             <h3 class="text-[11px] uppercase font-extrabold tracking-wider text-rose-300 font-outfit">Daftar Pemain</h3>
             <span class="text-[9px] text-gray-400 font-medium">Status & Giliran</span>
@@ -856,8 +863,8 @@
           </div>
         </div>
 
-        <!-- Obrolan Pemain & Reaksi Emoticon -->
-        <div id="playerChatCard" class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col flex-1 min-h-0 gap-1.5">
+        <!-- 2. Obrolan Pemain (Card) -->
+        <div id="playerChatCard" class="mobile-panel-section bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col flex-1 min-h-0 gap-1.5">
           <!-- Header -->
           <div class="flex items-center justify-between pb-1 border-b border-zinc-800 shrink-0">
             <div class="flex items-center gap-1">
@@ -923,15 +930,35 @@
         </div>
       </aside>
 
-      <!-- Center Column: The Monopoly Board -->
-      <section class="flex flex-col items-center justify-center order-1 xl:order-2 shrink-0 min-w-0 min-h-0">
+      <!-- Center Column: The Monopoly Board & Mobile Tab Navigation -->
+      <section class="flex flex-col items-center justify-center order-1 xl:order-2 shrink-0 min-w-0 min-h-0 w-full xl:w-auto">
         <div id="monopolyBoard" class="monopoly-board"></div>
+
+        <!-- Mobile Navigation Tabs Switcher (Visible on < xl screens) -->
+        <div id="mobileSectionTabs" class="flex xl:hidden items-center justify-between gap-1 w-full max-w-[500px] mx-auto px-1 mt-2 mb-1">
+          <button type="button" class="mobile-tab-btn active flex-1 py-1.5 px-1 rounded-xl text-xs font-bold font-outfit flex items-center justify-center gap-1 transition" data-target="playerInfoCard">
+            <span>👥</span>
+            <span class="text-[10.5px]">Pemain</span>
+          </button>
+          <button type="button" class="mobile-tab-btn flex-1 py-1.5 px-1 rounded-xl text-xs font-bold font-outfit flex items-center justify-center gap-1 transition" data-target="portfolioCard">
+            <span>🏠</span>
+            <span class="text-[10.5px]">Aset</span>
+          </button>
+          <button type="button" class="mobile-tab-btn flex-1 py-1.5 px-1 rounded-xl text-xs font-bold font-outfit flex items-center justify-center gap-1 transition" data-target="tradingCard">
+            <span>🤝</span>
+            <span class="text-[10.5px]">Trading</span>
+          </button>
+          <button type="button" class="mobile-tab-btn flex-1 py-1.5 px-1 rounded-xl text-xs font-bold font-outfit flex items-center justify-center gap-1 transition" data-target="playerChatCard">
+            <span>💬</span>
+            <span class="text-[10.5px]">Obrolan</span>
+          </button>
+        </div>
       </section>
 
       <!-- Right Column: Asset Portfolio & Player-to-Player Trading System -->
       <aside class="w-full xl:w-56 2xl:w-64 shrink-0 flex flex-col gap-1.5 xl:gap-2 order-3 min-h-0">
-        <!-- 1. Aset & Properti (Card Grid Mini Title Deed) -->
-        <div class="bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col flex-1 min-h-[140px] overflow-hidden">
+        <!-- 3. Aset & Properti (Card Grid Mini Title Deed) -->
+        <div id="portfolioCard" class="mobile-panel-section bg-zinc-900/90 border border-zinc-800 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col flex-1 min-h-[140px] overflow-hidden">
           <div class="flex items-center justify-between pb-1 border-b border-zinc-800 mb-1 shrink-0">
             <div class="flex items-center gap-1">
               <svg class="w-3.5 h-3.5 fill-current text-red-400" viewBox="0 0 24 24">
@@ -956,8 +983,8 @@
           </div>
         </div>
 
-        <!-- 2. Sistem Trading Sesama Pemain (Player-to-Player Trading Desk) -->
-        <div class="bg-zinc-900/90 border-2 border-red-500/40 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col gap-1 bg-gradient-to-b from-zinc-900/95 to-zinc-950/95 shrink-0">
+        <!-- 4. Sistem Trading Sesama Pemain (Player-to-Player Trading Desk) -->
+        <div id="tradingCard" class="mobile-panel-section bg-zinc-900/90 border-2 border-red-500/40 rounded-xl p-2 sm:p-2.5 shadow-xl flex flex-col gap-1 bg-gradient-to-b from-zinc-900/95 to-zinc-950/95 shrink-0">
           <div class="flex items-center justify-between pb-1 border-b border-zinc-800">
             <div class="flex items-center gap-1">
               <svg class="w-3.5 h-3.5 fill-current text-red-400" viewBox="0 0 24 24">

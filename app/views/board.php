@@ -52,33 +52,32 @@
       color: #ffffff;
       font-family: 'Outfit', sans-serif;
       font-weight: 900;
-      letter-spacing: 0.08em;
-      text-shadow: 
-        0 1px 0 #e11d48,
-        0 2px 0 #be123c,
-        0 3px 0 #9f1239,
-        0 4px 0 #881337,
-        0 6px 14px rgba(0, 0, 0, 0.7);
+      letter-spacing: 0.04em;
+      background: linear-gradient(180deg, #ffffff 15%, #ffd5df 65%, #f43f5e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 0 #9f1239) drop-shadow(0 4px 12px rgba(225, 29, 72, 0.5));
     }
 
     .text-gold-subtitle {
       color: #fecdd3;
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
-      letter-spacing: 0.24em;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      letter-spacing: 0.22em;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     }
 
     .btn-menu-orange {
       background: linear-gradient(180deg, #e11d48 0%, #be123c 50%, #9f1239 100%) !important;
-      border: 2px solid #881337 !important;
-      box-shadow: 0 5px 0 #4c0519, 0 10px 18px rgba(0, 0, 0, 0.45), inset 0 1.5px 1px rgba(255, 255, 255, 0.35) !important;
+      border: 2px solid #fb7185 !important;
+      box-shadow: 0 5px 0 #4c0519, 0 12px 22px rgba(225, 29, 72, 0.35), inset 0 1.5px 1px rgba(255, 255, 255, 0.4) !important;
       font-family: 'Outfit', sans-serif;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .btn-menu-orange:hover {
       background: linear-gradient(180deg, #f43f5e 0%, #e11d48 50%, #be123c 100%) !important;
       transform: translateY(-2px);
-      box-shadow: 0 7px 0 #4c0519, 0 14px 22px rgba(0, 0, 0, 0.5), inset 0 1.5px 1px rgba(255, 255, 255, 0.45) !important;
+      box-shadow: 0 7px 0 #4c0519, 0 16px 26px rgba(225, 29, 72, 0.45), inset 0 1.5px 1px rgba(255, 255, 255, 0.5) !important;
     }
     .btn-menu-orange:active {
       transform: translateY(3px);
@@ -91,11 +90,9 @@
       box-shadow: 0 5px 0 #94a3b8, 0 10px 18px rgba(0, 0, 0, 0.45), inset 0 1.5px 1px rgba(255, 255, 255, 0.8) !important;
       font-family: 'Outfit', sans-serif;
       color: #be123c !important;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .btn-menu-green svg {
-      color: #be123c !important;
-    }
-    .btn-menu-green span {
+    .btn-menu-green svg, .btn-menu-green span {
       color: #be123c !important;
     }
     .btn-menu-green:hover {
@@ -109,19 +106,20 @@
     }
 
     .btn-menu-blue {
-      background: linear-gradient(180deg, #881337 0%, #4c0519 100%) !important;
-      border: 2px solid #3b0312 !important;
-      box-shadow: 0 5px 0 #25020b, 0 10px 18px rgba(0, 0, 0, 0.45), inset 0 1.5px 1px rgba(255, 255, 255, 0.3) !important;
+      background: linear-gradient(180deg, #be123c 0%, #9f1239 50%, #881337 100%) !important;
+      border: 2px solid #f43f5e !important;
+      box-shadow: 0 5px 0 #4c0519, 0 12px 22px rgba(225, 29, 72, 0.35), inset 0 1.5px 1px rgba(255, 255, 255, 0.35) !important;
       font-family: 'Outfit', sans-serif;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .btn-menu-blue:hover {
-      background: linear-gradient(180deg, #9f1239 0%, #5c0720 100%) !important;
+      background: linear-gradient(180deg, #e11d48 0%, #be123c 50%, #9f1239 100%) !important;
       transform: translateY(-2px);
-      box-shadow: 0 7px 0 #25020b, 0 14px 22px rgba(0, 0, 0, 0.5), inset 0 1.5px 1px rgba(255, 255, 255, 0.4) !important;
+      box-shadow: 0 7px 0 #4c0519, 0 16px 26px rgba(225, 29, 72, 0.45), inset 0 1.5px 1px rgba(255, 255, 255, 0.45) !important;
     }
     .btn-menu-blue:active {
       transform: translateY(3px);
-      box-shadow: 0 2px 0 #25020b, 0 4px 8px rgba(0, 0, 0, 0.4) !important;
+      box-shadow: 0 2px 0 #4c0519, 0 4px 8px rgba(0, 0, 0, 0.4) !important;
     }
 
     .btn-home-pill {
@@ -130,21 +128,68 @@
       box-shadow: 0 3px 0 #150204, 0 6px 12px rgba(0, 0, 0, 0.45) !important;
       font-family: 'Plus Jakarta Sans', sans-serif;
       color: #fecdd3 !important;
+      transition: all 0.15s ease;
+    }
+    .btn-home-pill:hover {
+      background: #3b0d13 !important;
+      transform: translateY(-1px);
+    }
+    .btn-home-pill:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #150204 !important;
     }
 
     .settings-card {
-      background-color: #24080b !important;
-      border: 2px solid #5c141d !important;
-      border-radius: 24px !important;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+      background: linear-gradient(175deg, rgba(38, 8, 14, 0.96) 0%, rgba(20, 3, 6, 0.98) 100%) !important;
+      border: 1.5px solid rgba(244, 63, 94, 0.3) !important;
+      border-radius: 28px !important;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(225, 29, 72, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;
+      backdrop-filter: blur(20px);
+    }
+
+    .form-setting-row {
+      background: rgba(18, 3, 6, 0.7);
+      border: 1.5px solid rgba(255, 255, 255, 0.07);
+      border-radius: 18px;
+      padding: 11px 13px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+    .form-setting-row:focus-within, .form-setting-row:hover {
+      border-color: rgba(244, 63, 94, 0.35);
+      background: rgba(26, 4, 9, 0.85);
+    }
+
+    .gaming-input {
+      background: rgba(14, 2, 4, 0.85) !important;
+      border: 1.5px solid rgba(244, 63, 94, 0.25) !important;
+      border-radius: 13px !important;
+      color: #ffffff !important;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      transition: all 0.2s ease !important;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.7) !important;
+    }
+    .gaming-input:focus {
+      border-color: #f43f5e !important;
+      box-shadow: 0 0 16px rgba(244, 63, 94, 0.3), inset 0 2px 5px rgba(0, 0, 0, 0.7) !important;
     }
 
     .btn-card-back {
-      background-color: #3f0e15 !important;
-      border: 1.5px solid #28080d !important;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+      background-color: rgba(45, 10, 16, 0.85) !important;
+      border: 1.5px solid rgba(244, 63, 94, 0.3) !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4) !important;
       font-family: 'Plus Jakarta Sans', sans-serif;
       color: #fecdd3 !important;
+      transition: all 0.15s ease;
+    }
+    .btn-card-back:hover {
+      background-color: rgba(70, 15, 25, 0.95) !important;
+      border-color: rgba(244, 63, 94, 0.6) !important;
+      transform: translateY(-1px);
+    }
+    .btn-card-back:active {
+      transform: scale(0.96);
     }
 
     input[type="range"].monopoly-slider {
@@ -152,74 +197,75 @@
       appearance: none;
       width: 100%;
       height: 8px;
-      background: #28080c;
-      border-radius: 4px;
+      background: #200508;
+      border-radius: 9999px;
       outline: none;
-      border: 1px solid #1a0306;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.7);
+      border: 1px solid #3d0a11;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
     }
     input[type="range"].monopoly-slider::-webkit-slider-runnable-track {
       height: 8px;
-      border-radius: 4px;
+      border-radius: 9999px;
       background: linear-gradient(to right, #e11d48 var(--slider-progress, 50%), #3a0d13 var(--slider-progress, 50%));
     }
     input[type="range"].monopoly-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #ffffff 0%, #f8fafc 50%, #cbd5e1 100%);
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.8);
-      border: 2px solid #e11d48;
+      background: radial-gradient(circle at 35% 35%, #ffffff 0%, #f8fafc 50%, #f43f5e 100%);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.9), 0 0 10px rgba(244, 63, 94, 0.5);
+      border: 2px solid #ffffff;
       cursor: pointer;
-      margin-top: -10px;
+      margin-top: -9px;
+      transition: transform 0.15s ease;
+    }
+    input[type="range"].monopoly-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+    }
+    input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
+      transform: scale(0.95);
     }
 
+    /* Ultra-Clean Modern Toggle Switch (No Text Clipping Bug) */
     .toggle-switch-track {
-      width: 58px;
+      width: 50px;
       height: 28px;
       background-color: #2b080c;
-      border: 1.5px solid #190306;
-      border-radius: 14px;
+      border: 1.5px solid #52131b;
+      border-radius: 9999px;
       position: relative;
       cursor: pointer;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 6px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
+    .toggle-switch-track:hover {
+      border-color: #f43f5e;
     }
     .toggle-switch-track.active {
-      background-color: #be123c;
-      border-color: #881337;
+      background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+      border-color: #fb7185;
+      box-shadow: 0 0 15px rgba(225, 29, 72, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.35);
     }
     .toggle-knob {
       width: 22px;
       height: 22px;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #a8a8a8 0%, #707070 50%, #444444 100%);
-      border: 1px solid #333333;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+      background: radial-gradient(circle at 35% 35%, #ffffff 0%, #f1f5f9 60%, #cbd5e1 100%);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
       position: absolute;
-      left: 3px;
-      top: 2px;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      left: 2px;
+      top: 1.5px;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .toggle-switch-track.active .toggle-knob {
-      transform: translateX(28px);
-      background: radial-gradient(circle at 35% 35%, #ffffff 0%, #ffffff 50%, #e2e8f0 100%);
+      transform: translateX(22px);
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 255, 255, 0.9);
     }
-    .toggle-label-no, .toggle-label-yes {
-      font-size: 9px;
-      font-weight: 800;
-      color: #8c8c8c;
-      pointer-events: none;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    .toggle-label-yes { display: none; }
-    .toggle-switch-track.active .toggle-label-no { display: none; }
-    .toggle-switch-track.active .toggle-label-yes { display: inline-block; color: #ffffff; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-center items-center text-slate-100">
@@ -295,87 +341,92 @@
   <!-- ========================================== -->
   <!-- 2. LAYAR PENGATURAN "MAIN VS BOT AI"       -->
   <!-- ========================================== -->
-  <section id="settingsAiScreen" class="hidden w-full max-w-md min-h-screen flex flex-col items-center justify-center p-4 mx-auto">
-    <div class="settings-card w-full p-6 relative">
+  <section id="settingsAiScreen" class="hidden w-full max-w-[440px] min-h-screen flex flex-col items-center justify-center p-4 sm:p-5 mx-auto animate-fade-in">
+    <div class="settings-card w-full p-5 sm:p-6 relative">
       <!-- Top Sub-Header -->
       <div class="flex items-center justify-between mb-4">
-        <button id="btnBackFromAi" class="btn-card-back px-3 py-1.5 rounded-lg text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer">
+        <button id="btnBackFromAi" class="btn-card-back px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer active:scale-95 transition">
           <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-[2.5]" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           <span>Kembali</span>
         </button>
-        <div class="flex items-center gap-1.5 text-xs font-bold text-rose-300">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+        <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-950/70 border border-rose-500/30 text-[11px] font-extrabold text-rose-300 font-outfit shadow-sm">
+          <svg class="w-3.5 h-3.5 fill-current text-purple-400" viewBox="0 0 24 24">
             <path d="M12 2a2 2 0 0 1 2 2v1h1a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-1v1a2 2 0 0 1-4 0v-1H9a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h1V4a2 2 0 0 1 2-2zm-3 8a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
           </svg>
           <span>Main vs Bot AI</span>
         </div>
-        <div class="w-12"></div>
+        <div class="w-10"></div>
       </div>
 
       <!-- Title -->
-      <h2 class="text-gold-3d text-2xl font-black text-center tracking-wider mb-6">
-        PENGATURAN
-      </h2>
+      <div class="text-center mb-5">
+        <h2 class="text-gold-3d text-2xl sm:text-3xl font-black uppercase tracking-wider">
+          PENGATURAN
+        </h2>
+        <p class="text-rose-300/80 text-xs font-semibold mt-0.5">
+          Konfigurasi permainan melawan kecerdasan buatan
+        </p>
+      </div>
 
       <!-- Form Controls -->
-      <div class="space-y-5">
+      <div class="space-y-3.5">
         <!-- 1. Jumlah Pemain -->
-        <div>
-          <div class="flex justify-between items-center text-sm font-bold text-white mb-2">
-            <span>Jumlah Pemain</span>
-            <span id="aiPlayersVal" class="text-white font-extrabold text-base">4 Orang</span>
+        <div class="form-setting-row space-y-2">
+          <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
+            <span class="flex items-center gap-1.5"><span>👥</span> <span>Jumlah Pemain</span></span>
+            <span id="aiPlayersVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">4 Orang</span>
           </div>
           <input type="range" id="aiPlayersSlider" min="2" max="4" value="4" step="1" class="monopoly-slider" />
         </div>
 
         <!-- 2. Tingkat Kecerdasan Bot -->
-        <div>
-          <div class="flex justify-between items-center text-sm font-bold text-white mb-2">
-            <span>Tingkat Kecerdasan Bot</span>
-            <span id="aiRobotsVal" class="text-white font-extrabold text-base">Sedang</span>
+        <div class="form-setting-row space-y-2">
+          <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
+            <span class="flex items-center gap-1.5"><span>🧠</span> <span>Tingkat Kecerdasan Bot</span></span>
+            <span id="aiRobotsVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">Sedang</span>
           </div>
           <input type="range" id="aiRobotsSlider" min="1" max="3" value="2" step="1" class="monopoly-slider" />
         </div>
 
         <!-- 3. Modal Awal Uang -->
-        <div>
-          <div class="flex justify-between items-center text-sm font-bold text-white mb-2">
-            <span>Modal Awal Uang</span>
-            <span id="aiMoneyVal" class="text-white font-extrabold text-base">Rp 15.000.000</span>
+        <div class="form-setting-row space-y-2">
+          <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
+            <span class="flex items-center gap-1.5"><span>💰</span> <span>Modal Awal Uang</span></span>
+            <span id="aiMoneyVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">Rp 15.000.000</span>
           </div>
           <input type="range" id="aiMoneySlider" min="5000000" max="25000000" value="15000000" step="2500000" class="monopoly-slider" />
         </div>
 
         <!-- 4. Tarik Sewa di Penjara -->
-        <div class="flex items-center justify-between pt-2">
-          <div>
-            <div class="text-sm font-bold text-white">Tarik Sewa di Penjara</div>
-            <div class="text-[11px] text-zinc-400">Pemilik yang ditahan di penjara tidak dapat menarik sewa</div>
+        <div class="form-setting-row flex items-center justify-between gap-3">
+          <div class="flex-1">
+            <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">
+              <span>🔒</span> <span>Tarik Sewa di Penjara</span>
+            </div>
+            <div class="text-[10.5px] text-zinc-400 leading-snug mt-0.5">Pemilik yang dipenjara tidak menerima uang sewa</div>
           </div>
           <div id="aiJailToggle" class="toggle-switch-track" data-checked="false">
             <div class="toggle-knob"></div>
-            <span class="toggle-label-no">TIDAK</span>
-            <span class="toggle-label-yes">YA</span>
           </div>
         </div>
 
         <!-- 5. Mode Lelang Properti -->
-        <div class="flex items-center justify-between">
-          <div>
-            <div class="text-sm font-bold text-white">Mode Lelang Properti</div>
-            <div class="text-[11px] text-zinc-400">Properti yang tidak mampu dibeli langsung dilewati</div>
+        <div class="form-setting-row flex items-center justify-between gap-3">
+          <div class="flex-1">
+            <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">
+              <span>🏷️</span> <span>Mode Lelang Properti</span>
+            </div>
+            <div class="text-[10.5px] text-zinc-400 leading-snug mt-0.5">Properti yang dilewati langsung dilelang</div>
           </div>
           <div id="aiAuctionToggle" class="toggle-switch-track" data-checked="false">
             <div class="toggle-knob"></div>
-            <span class="toggle-label-no">TIDAK</span>
-            <span class="toggle-label-yes">YA</span>
           </div>
         </div>
       </div>
 
       <!-- Next Button -->
-      <button id="btnStartAiGame" class="btn-menu-orange w-full py-3.5 mt-8 rounded-2xl text-white font-extrabold text-base flex items-center justify-center gap-2 cursor-pointer shadow-xl">
-        <span>Lanjut</span>
+      <button id="btnStartAiGame" class="btn-menu-orange w-full py-3.5 mt-6 rounded-2xl text-white font-black text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer shadow-xl active:scale-95 transition">
+        <span>Lanjut ke Permainan</span>
         <svg class="w-4 h-4 fill-none stroke-current stroke-[2.5]" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
     </div>
@@ -385,78 +436,83 @@
   <!-- ============================================== -->
   <!-- 3. LAYAR PENGATURAN "PEMAIN VS PEMAIN"         -->
   <!-- ============================================== -->
-  <section id="settingsPvpScreen" class="hidden w-full max-w-md min-h-screen flex flex-col items-center justify-center p-4 mx-auto">
-    <div class="settings-card w-full p-6 relative">
+  <section id="settingsPvpScreen" class="hidden w-full max-w-[440px] min-h-screen flex flex-col items-center justify-center p-4 sm:p-5 mx-auto animate-fade-in">
+    <div class="settings-card w-full p-5 sm:p-6 relative">
       <!-- Top Sub-Header -->
       <div class="flex items-center justify-between mb-4">
-        <button id="btnBackFromPvp" class="btn-card-back px-3 py-1.5 rounded-lg text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer">
+        <button id="btnBackFromPvp" class="btn-card-back px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer active:scale-95 transition">
           <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-[2.5]" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           <span>Kembali</span>
         </button>
-        <div class="flex items-center gap-1.5 text-xs font-bold text-rose-300">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+        <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-950/70 border border-rose-500/30 text-[11px] font-extrabold text-rose-300 font-outfit shadow-sm">
+          <svg class="w-3.5 h-3.5 fill-current text-emerald-400" viewBox="0 0 24 24">
             <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
           </svg>
           <span>Pemain vs Pemain</span>
         </div>
-        <div class="w-12"></div>
+        <div class="w-10"></div>
       </div>
 
       <!-- Title -->
-      <h2 class="text-gold-3d text-2xl font-black text-center tracking-wider mb-6">
-        PENGATURAN
-      </h2>
+      <div class="text-center mb-5">
+        <h2 class="text-gold-3d text-2xl sm:text-3xl font-black uppercase tracking-wider">
+          PENGATURAN
+        </h2>
+        <p class="text-rose-300/80 text-xs font-semibold mt-0.5">
+          Main bersama teman secara bergiliran di 1 perangkat
+        </p>
+      </div>
 
       <!-- Form Controls -->
-      <div class="space-y-5">
+      <div class="space-y-3.5">
         <!-- 1. Jumlah Pemain -->
-        <div>
-          <div class="flex justify-between items-center text-sm font-bold text-white mb-2">
-            <span>Jumlah Pemain</span>
-            <span id="pvpPlayersVal" class="text-white font-extrabold text-base">2 Orang</span>
+        <div class="form-setting-row space-y-2">
+          <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
+            <span class="flex items-center gap-1.5"><span>👥</span> <span>Jumlah Pemain</span></span>
+            <span id="pvpPlayersVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">2 Orang</span>
           </div>
           <input type="range" id="pvpPlayersSlider" min="2" max="4" value="2" step="1" class="monopoly-slider" />
         </div>
 
         <!-- 2. Modal Awal Uang -->
-        <div>
-          <div class="flex justify-between items-center text-sm font-bold text-white mb-2">
-            <span>Modal Awal Uang</span>
-            <span id="pvpMoneyVal" class="text-white font-extrabold text-base">Rp 15.000.000</span>
+        <div class="form-setting-row space-y-2">
+          <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
+            <span class="flex items-center gap-1.5"><span>💰</span> <span>Modal Awal Uang</span></span>
+            <span id="pvpMoneyVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">Rp 15.000.000</span>
           </div>
           <input type="range" id="pvpMoneySlider" min="5000000" max="25000000" value="15000000" step="2500000" class="monopoly-slider" />
         </div>
 
         <!-- 3. Tarik Sewa di Penjara -->
-        <div class="flex items-center justify-between pt-2">
-          <div>
-            <div class="text-sm font-bold text-white">Tarik Sewa di Penjara</div>
-            <div class="text-[11px] text-zinc-400">Pemilik yang ditahan di penjara tidak dapat menarik sewa</div>
+        <div class="form-setting-row flex items-center justify-between gap-3">
+          <div class="flex-1">
+            <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">
+              <span>🔒</span> <span>Tarik Sewa di Penjara</span>
+            </div>
+            <div class="text-[10.5px] text-zinc-400 leading-snug mt-0.5">Pemilik yang dipenjara tidak menerima uang sewa</div>
           </div>
           <div id="pvpJailToggle" class="toggle-switch-track" data-checked="false">
             <div class="toggle-knob"></div>
-            <span class="toggle-label-no">TIDAK</span>
-            <span class="toggle-label-yes">YA</span>
           </div>
         </div>
 
         <!-- 4. Mode Lelang Properti -->
-        <div class="flex items-center justify-between">
-          <div>
-            <div class="text-sm font-bold text-white">Mode Lelang Properti</div>
-            <div class="text-[11px] text-zinc-400">Properti yang tidak mampu dibeli langsung dilewati</div>
+        <div class="form-setting-row flex items-center justify-between gap-3">
+          <div class="flex-1">
+            <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">
+              <span>🏷️</span> <span>Mode Lelang Properti</span>
+            </div>
+            <div class="text-[10.5px] text-zinc-400 leading-snug mt-0.5">Properti yang dilewati langsung dilelang</div>
           </div>
           <div id="pvpAuctionToggle" class="toggle-switch-track" data-checked="false">
             <div class="toggle-knob"></div>
-            <span class="toggle-label-no">TIDAK</span>
-            <span class="toggle-label-yes">YA</span>
           </div>
         </div>
       </div>
 
       <!-- Next Button -->
-      <button id="btnStartPvpGame" class="btn-menu-orange w-full py-3.5 mt-8 rounded-2xl text-white font-extrabold text-base flex items-center justify-center gap-2 cursor-pointer shadow-xl">
-        <span>Lanjut</span>
+      <button id="btnStartPvpGame" class="btn-menu-orange w-full py-3.5 mt-6 rounded-2xl text-white font-black text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer shadow-xl active:scale-95 transition">
+        <span>Lanjut ke Permainan</span>
         <svg class="w-4 h-4 fill-none stroke-current stroke-[2.5]" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
     </div>
@@ -466,85 +522,98 @@
   <!-- ============================================== -->
   <!-- 4. LAYAR "MULTIPLAYER ONLINE"                  -->
   <!-- ============================================== -->
-  <section id="settingsOnlineScreen" class="hidden w-full max-w-md min-h-screen flex flex-col items-center justify-center p-4 mx-auto">
-    <div class="settings-card w-full p-6 relative">
+  <section id="settingsOnlineScreen" class="hidden w-full max-w-[440px] min-h-screen flex flex-col items-center justify-center p-4 sm:p-5 mx-auto animate-fade-in">
+    <div class="settings-card w-full p-5 sm:p-6 relative">
       <!-- Top Sub-Header -->
       <div class="flex items-center justify-between mb-4">
-        <button id="btnBackFromOnline" class="btn-card-back px-3 py-1.5 rounded-lg text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer">
+        <button id="btnBackFromOnline" class="btn-card-back px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer active:scale-95 transition">
           <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-[2.5]" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           <span>Kembali</span>
         </button>
-        <div class="flex items-center gap-1.5 text-xs font-bold text-rose-300">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+        <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-950/70 border border-rose-500/30 text-[11px] font-extrabold text-rose-300 font-outfit shadow-sm">
+          <svg class="w-3.5 h-3.5 fill-current text-emerald-400" viewBox="0 0 24 24">
             <path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4zm0 4.5c3.34 0 6.4 1.25 8.74 3.32L12 19.34 3.26 11.82A13.2 13.2 0 0 1 12 8.5z"/>
           </svg>
           <span>Multiplayer Online</span>
         </div>
-        <div class="w-12"></div>
+        <div class="w-10"></div>
       </div>
 
       <!-- Title -->
-      <h2 class="text-gold-3d text-2xl font-black text-center tracking-wider mb-6">
-        GAME ONLINE
-      </h2>
+      <div class="text-center mb-5">
+        <h2 class="text-gold-3d text-2xl sm:text-3xl font-black uppercase tracking-wider">
+          GAME ONLINE
+        </h2>
+        <p class="text-rose-300/80 text-xs font-semibold mt-0.5">
+          Buat ruangan baru atau gabung dengan teman
+        </p>
+      </div>
 
       <!-- Form Controls -->
-      <div class="space-y-4">
+      <div class="space-y-3.5">
         <!-- 1. Nama Anda -->
-        <div>
-          <label class="block text-xs font-bold text-rose-200 mb-1.5">Nama Anda</label>
-          <input type="text" id="onlinePlayerName" value="Pemain 1" class="w-full bg-[#1e0609] border border-[#450e14] rounded-xl px-3.5 py-2.5 text-white font-bold text-sm outline-none focus:border-red-500 shadow-inner" />
+        <div class="form-setting-row space-y-1.5">
+          <label class="block text-xs font-extrabold text-rose-200 font-outfit flex items-center gap-1.5">
+            <span class="text-sm">👤</span> <span>Nama Anda</span>
+          </label>
+          <div class="relative">
+            <input type="text" id="onlinePlayerName" value="Pemain 1" maxlength="15" placeholder="Ketik nama Anda..." class="gaming-input w-full px-3.5 py-2.5 text-white font-bold text-sm outline-none placeholder:text-zinc-500" />
+          </div>
         </div>
 
         <!-- 2. Maksimal Pemain -->
-        <div>
-          <div class="flex justify-between items-center text-sm font-bold text-white mb-2">
-            <span>Maksimal Pemain</span>
-            <span id="onlineMaxPlayersVal" class="text-white font-extrabold text-base">4 Orang</span>
+        <div class="form-setting-row space-y-2">
+          <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
+            <span class="flex items-center gap-1.5"><span>👥</span> <span>Maksimal Pemain</span></span>
+            <span id="onlineMaxPlayersVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">4 Orang</span>
           </div>
           <input type="range" id="onlineMaxPlayersSlider" min="2" max="4" value="4" step="1" class="monopoly-slider" />
         </div>
 
         <!-- 3. Tarik Sewa di Penjara -->
-        <div class="flex items-center justify-between pt-1">
-          <div>
-            <div class="text-sm font-bold text-white">Tarik Sewa di Penjara</div>
-            <div class="text-[11px] text-zinc-400">Pemilik yang ditahan di penjara tidak dapat menarik sewa</div>
+        <div class="form-setting-row flex items-center justify-between gap-3">
+          <div class="flex-1">
+            <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">
+              <span>🔒</span> <span>Tarik Sewa di Penjara</span>
+            </div>
+            <div class="text-[10.5px] text-zinc-400 leading-snug mt-0.5">Pemilik yang dipenjara tidak menerima uang sewa</div>
           </div>
           <div id="onlineJailToggle" class="toggle-switch-track" data-checked="false">
             <div class="toggle-knob"></div>
-            <span class="toggle-label-no">TIDAK</span>
-            <span class="toggle-label-yes">YA</span>
           </div>
         </div>
 
         <!-- 4. Mode Lelang Properti -->
-        <div class="flex items-center justify-between">
-          <div>
-            <div class="text-sm font-bold text-white">Mode Lelang Properti</div>
-            <div class="text-[11px] text-zinc-400">Properti yang tidak mampu dibeli langsung dilewati</div>
+        <div class="form-setting-row flex items-center justify-between gap-3">
+          <div class="flex-1">
+            <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">
+              <span>🏷️</span> <span>Mode Lelang Properti</span>
+            </div>
+            <div class="text-[10.5px] text-zinc-400 leading-snug mt-0.5">Properti yang dilewati langsung dilelang</div>
           </div>
           <div id="onlineAuctionToggle" class="toggle-switch-track" data-checked="false">
             <div class="toggle-knob"></div>
-            <span class="toggle-label-no">TIDAK</span>
-            <span class="toggle-label-yes">YA</span>
           </div>
         </div>
       </div>
 
       <!-- Create Room Button -->
-      <button id="btnCreateOnlineRoom" class="btn-menu-blue w-full py-3.5 mt-6 rounded-2xl text-white font-extrabold text-base flex items-center justify-center gap-2 cursor-pointer shadow-xl">
+      <button id="btnCreateOnlineRoom" class="btn-menu-blue w-full py-3.5 mt-5 rounded-2xl text-white font-black text-sm sm:text-base flex items-center justify-center gap-2 cursor-pointer shadow-xl active:scale-95 transition">
+        <span>🏠</span>
         <span>+ Buat Ruangan</span>
       </button>
 
       <!-- Divider & Join Room -->
-      <div class="text-center my-4">
-        <span class="text-[11px] font-extrabold text-rose-400/80 uppercase tracking-widest">— ATAU GABUNG RUANGAN —</span>
+      <div class="relative flex py-3 items-center my-1">
+        <div class="flex-grow border-t border-rose-500/20"></div>
+        <span class="flex-shrink mx-3 text-[10.5px] font-extrabold text-rose-300/80 uppercase tracking-widest font-outfit">ATAU GABUNG RUANGAN</span>
+        <div class="flex-grow border-t border-rose-500/20"></div>
       </div>
 
       <div class="flex gap-2">
-        <input type="text" id="onlineRoomCodeInput" placeholder="Masukkan Kode (cth: MONO-88)" class="flex-1 bg-[#1e0609] border border-[#450e14] rounded-xl px-3 py-2 text-xs font-bold text-white uppercase outline-none focus:border-red-500 text-center tracking-widest placeholder:text-zinc-500" />
-        <button id="btnJoinOnlineRoom" class="btn-menu-orange px-5 py-2 rounded-xl text-xs font-extrabold text-white cursor-pointer">
+        <input type="text" id="onlineRoomCodeInput" placeholder="KODE (CTH: MONO-88)" class="gaming-input flex-1 px-3 py-2.5 text-xs font-black text-white uppercase outline-none text-center tracking-widest placeholder:text-zinc-500 placeholder:normal-case placeholder:font-medium placeholder:text-[11px]" />
+        <button id="btnJoinOnlineRoom" class="btn-menu-orange px-5 py-2.5 rounded-xl text-xs font-black text-white cursor-pointer active:scale-95 transition flex items-center gap-1.5 shrink-0">
+          <span>🚪</span>
           <span>Gabung</span>
         </button>
       </div>
@@ -555,75 +624,77 @@
   <!-- ======================================================== -->
   <!-- 4.5. LAYAR LOBBY MENUNGGU PEMAIN (ONLINE LOBBY SCREEN)   -->
   <!-- ======================================================== -->
-  <section id="onlineLobbyScreen" class="hidden w-full max-w-lg min-h-screen flex flex-col items-center justify-center p-4 mx-auto">
-    <div class="settings-card w-full p-6 relative">
+  <section id="onlineLobbyScreen" class="hidden w-full max-w-[440px] min-h-screen flex flex-col items-center justify-center p-4 sm:p-5 mx-auto animate-fade-in">
+    <div class="settings-card w-full p-5 sm:p-6 relative">
       <!-- Top Sub-Header -->
       <div class="flex items-center justify-between mb-4">
-        <button id="btnLeaveLobby" class="btn-card-back px-3 py-1.5 rounded-lg text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer">
+        <button id="btnLeaveLobby" class="btn-card-back px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-200 flex items-center gap-1.5 cursor-pointer active:scale-95 transition">
           <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-[2.5]" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           <span>Keluar</span>
         </button>
-        <div class="flex items-center gap-1.5 text-xs font-bold text-rose-300">
+        <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-950/70 border border-rose-500/30 text-[11px] font-extrabold text-rose-300 font-outfit shadow-sm">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
           <span>Lobby Online</span>
         </div>
-        <div class="w-12"></div>
+        <div class="w-10"></div>
       </div>
 
       <!-- Header Title -->
-      <h2 class="text-gold-3d text-2xl font-black text-center tracking-wider mb-2">
-        RUANG TUNGGU
-      </h2>
-      <p class="text-xs text-center text-rose-200/80 mb-5 font-medium">
-        Kumpulkan temanmu sebelum memulai kompetisi!
-      </p>
+      <div class="text-center mb-4">
+        <h2 class="text-gold-3d text-2xl sm:text-3xl font-black uppercase tracking-wider">
+          RUANG TUNGGU
+        </h2>
+        <p class="text-rose-300/80 text-xs font-semibold mt-0.5">
+          Kumpulkan teman sebelum memulai kompetisi
+        </p>
+      </div>
 
       <!-- Room Code Banner -->
-      <div class="bg-[#1e0609] border-2 border-red-500/60 rounded-2xl p-4 mb-5 text-center shadow-inner relative overflow-hidden">
-        <div class="text-[11px] uppercase tracking-widest font-extrabold text-rose-300/80 mb-1 font-outfit">
+      <div class="bg-gradient-to-b from-[#24060b] to-[#140205] border-2 border-rose-500/40 rounded-2xl p-4 mb-4 text-center shadow-inner relative overflow-hidden">
+        <div class="text-[10px] uppercase tracking-widest font-black text-rose-300/80 mb-1 font-outfit">
           KODE RUANGAN
         </div>
-        <div class="flex items-center justify-center gap-3">
-          <span id="lobbyRoomCodeDisplay" class="text-2xl md:text-3xl font-black tracking-widest text-white font-mono drop-shadow">
+        <div class="flex items-center justify-center gap-2.5">
+          <span id="lobbyRoomCodeDisplay" class="text-2xl sm:text-3xl font-black tracking-widest text-white font-mono drop-shadow bg-black/40 px-3.5 py-1 rounded-xl border border-white/10">
             ------
           </span>
-          <button id="btnCopyRoomCode" class="px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-black text-xs transition flex items-center gap-1.5 shadow cursor-pointer active:scale-95" title="Salin Kode ke Clipboard">
+          <button id="btnCopyRoomCode" class="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-black text-xs transition flex items-center gap-1.5 shadow-lg cursor-pointer active:scale-95 border border-rose-400/50" title="Salin Kode ke Clipboard">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
               <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
             </svg>
             <span id="copyLabel">Salin</span>
           </button>
         </div>
-        <p class="text-[11px] text-zinc-400 mt-2">
-          Bagikan kode ini ke pemain lain agar mereka dapat masuk dari peramban masing-masing.
+        <p class="text-[10.5px] text-zinc-400 mt-2">
+          Bagikan kode ini ke teman agar mereka dapat bergabung.
         </p>
       </div>
 
       <!-- Capacity & Status Badge -->
-      <div class="flex items-center justify-between px-2 mb-3">
-        <span class="text-xs font-bold text-zinc-300">Daftar Pemain di Ruangan</span>
-        <span id="lobbyPlayerCountBadge" class="text-xs font-black px-2.5 py-0.5 rounded-full bg-red-950/80 text-rose-300 border border-red-500/40">
+      <div class="flex items-center justify-between px-1 mb-2.5">
+        <span class="text-xs font-extrabold text-zinc-300 font-outfit">Daftar Pemain</span>
+        <span id="lobbyPlayerCountBadge" class="text-xs font-black px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-300 border border-rose-500/40">
           1 / 4 Pemain
         </span>
       </div>
 
       <!-- Player Slots Grid (1 to 4) -->
-      <div id="lobbySlotsContainer" class="space-y-2.5 mb-6">
+      <div id="lobbySlotsContainer" class="space-y-2 mb-5">
         <!-- Rendered dynamically via JS -->
       </div>
 
       <!-- Host Controls -->
-      <div id="lobbyHostControls" class="space-y-3">
+      <div id="lobbyHostControls" class="space-y-2.5">
         <div class="flex gap-2">
-          <button id="btnLobbyAddBot" class="flex-1 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-rose-200 font-bold text-xs flex items-center justify-center gap-2 transition active:scale-95 cursor-pointer">
-            <svg class="w-4 h-4 fill-current text-rose-400" viewBox="0 0 24 24">
+          <button id="btnLobbyAddBot" class="flex-1 py-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-700/80 text-rose-200 font-bold text-xs flex items-center justify-center gap-2 transition active:scale-95 cursor-pointer shadow-sm">
+            <svg class="w-4 h-4 fill-current text-purple-400" viewBox="0 0 24 24">
               <path d="M12 2a2 2 0 0 1 2 2v1h1a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-1v1a2 2 0 0 1-4 0v-1H9a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h1V4a2 2 0 0 1 2-2zm-3 8a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
             </svg>
             <span>+ Tambah Bot AI</span>
           </button>
         </div>
 
-        <button id="btnLobbyStartGame" disabled class="btn-menu-orange w-full py-3.5 rounded-2xl text-white font-black text-base flex items-center justify-center gap-2 cursor-not-allowed opacity-50 shadow-xl transition">
+        <button id="btnLobbyStartGame" disabled class="btn-menu-orange w-full py-3.5 rounded-2xl text-white font-black text-sm sm:text-base flex items-center justify-center gap-2 cursor-not-allowed opacity-50 shadow-xl transition">
           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
             <path d="M8 5v14l11-7z"/>
           </svg>
@@ -636,9 +707,9 @@
       </div>
 
       <!-- Guest Waiting Notice -->
-      <div id="lobbyGuestControls" class="hidden text-center py-3 bg-zinc-900/60 rounded-xl border border-zinc-800 p-3">
-        <div class="flex items-center justify-center gap-2 text-rose-300 font-bold text-xs mb-1">
-          <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+      <div id="lobbyGuestControls" class="hidden text-center py-3 bg-zinc-900/70 rounded-xl border border-zinc-800 p-3">
+        <div class="flex items-center justify-center gap-2 text-rose-300 font-bold text-xs mb-1 font-outfit">
+          <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
           <span>Menunggu Host Memulai Permainan...</span>
         </div>
         <p class="text-[11px] text-zinc-400">

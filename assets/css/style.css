@@ -133,20 +133,30 @@ body {
 
 /* Settings Dark Chocolate Modal Card */
 .settings-card {
-  background-color: #351c0e;
-  border: 2px solid #231107;
-  border-radius: 24px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  background: linear-gradient(175deg, rgba(38, 8, 14, 0.96) 0%, rgba(20, 3, 6, 0.98) 100%) !important;
+  border: 1.5px solid rgba(244, 63, 94, 0.3) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(225, 29, 72, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(20px);
 }
 
 .btn-card-back {
-  background-color: #4a2714;
-  border: 1.5px solid #241107;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: rgba(45, 10, 16, 0.85) !important;
+  border: 1.5px solid rgba(244, 63, 94, 0.3) !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4) !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #fecdd3 !important;
+  transition: all 0.15s ease;
 }
 
 .btn-card-back:hover {
-  background-color: #5c321b;
+  background-color: rgba(70, 15, 25, 0.95) !important;
+  border-color: rgba(244, 63, 94, 0.6) !important;
+  transform: translateY(-1px);
+}
+
+.btn-card-back:active {
+  transform: scale(0.96);
 }
 
 /* Custom 3D Sliders */
@@ -155,36 +165,36 @@ input[type="range"].monopoly-slider {
   appearance: none;
   width: 100%;
   height: 8px;
-  background: #241208;
-  border-radius: 4px;
+  background: #200508;
+  border-radius: 9999px;
   outline: none;
-  border: 1px solid #170b04;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.7);
+  border: 1px solid #3d0a11;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
   position: relative;
 }
 
 input[type="range"].monopoly-slider::-webkit-slider-runnable-track {
   height: 8px;
-  border-radius: 4px;
-  background: linear-gradient(to right, #d49c20 var(--slider-progress, 50%), #241208 var(--slider-progress, 50%));
+  border-radius: 9999px;
+  background: linear-gradient(to right, #e11d48 var(--slider-progress, 50%), #3a0d13 var(--slider-progress, 50%));
 }
 
 input[type="range"].monopoly-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #ff4d94 0%, #c4185d 50%, #7d0838 100%);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.6);
-  border: 1.5px solid #5a0426;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #f8fafc 50%, #f43f5e 100%);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.9), 0 0 10px rgba(244, 63, 94, 0.5);
+  border: 2px solid #ffffff;
   cursor: pointer;
-  margin-top: -10px;
-  transition: transform 0.1s ease;
+  margin-top: -9px;
+  transition: transform 0.15s ease;
 }
 
 input[type="range"].monopoly-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.1);
+  transform: scale(1.12);
 }
 
 input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
@@ -193,42 +203,45 @@ input[type="range"].monopoly-slider::-webkit-slider-thumb:active {
 
 /* Custom Toggle Switch */
 .toggle-switch-track {
-  width: 54px;
-  height: 26px;
-  background-color: #231208;
-  border: 1.5px solid #140803;
-  border-radius: 13px;
+  width: 50px;
+  height: 28px;
+  background-color: #2b080c;
+  border: 1.5px solid #52131b;
+  border-radius: 9999px;
   position: relative;
   cursor: pointer;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
-  transition: background-color 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 6px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.toggle-switch-track:hover {
+  border-color: #f43f5e;
 }
 
 .toggle-switch-track.active {
-  background-color: #174229;
-  border-color: #0d2818;
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  border-color: #fb7185;
+  box-shadow: 0 0 15px rgba(225, 29, 72, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.35);
 }
 
 .toggle-knob {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #a8a8a8 0%, #707070 50%, #444444 100%);
-  border: 1px solid #333333;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #f1f5f9 60%, #cbd5e1 100%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   position: absolute;
-  left: 3px;
-  top: 2px;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  left: 2px;
+  top: 1.5px;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .toggle-switch-track.active .toggle-knob {
-  transform: translateX(26px);
-  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #cccccc 50%, #999999 100%);
+  transform: translateX(22px);
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 255, 255, 0.9);
 }
 
 .toggle-label-no,

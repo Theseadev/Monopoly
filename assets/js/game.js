@@ -915,7 +915,7 @@ function renderBoard() {
       const priceBadgeHtml = priceText ? `<span class="tile-price-badge">${priceText}</span>` : '';
 
       if (pos.side === 'top') {
-        // TOP TILES: Price at Top, Name/Icon in middle, Color bar at Bottom (facing center)
+        // TOP TILES: Price at Top (outer edge), Name/Icon in middle, Color bar at Bottom (facing center)
         cell.innerHTML = `
           ${priceBadgeHtml}
           ${indicatorsHtml}
@@ -927,19 +927,19 @@ function renderBoard() {
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
         `;
       } else if (pos.side === 'left') {
-        // LEFT TILES: Color bar at Top, Name/Icon in middle, Price at Bottom
+        // LEFT TILES: Price on Left (outer edge, vertical), Name/Icon in middle, Color bar on Right (facing center, vertical)
         cell.innerHTML = `
-          ${colorBarHtml}
+          ${priceBadgeHtml}
           ${indicatorsHtml}
           <div class="tile-content">
             ${iconHtml}
             <span class="tile-name">${displayName}</span>
           </div>
-          ${priceBadgeHtml}
+          ${colorBarHtml}
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
         `;
       } else if (pos.side === 'right') {
-        // RIGHT TILES: Color bar at Top, Name/Icon in middle, Price at Bottom
+        // RIGHT TILES: Color bar on Left (facing center, vertical), Name/Icon in middle, Price on Right (outer edge, vertical)
         cell.innerHTML = `
           ${colorBarHtml}
           ${indicatorsHtml}
@@ -951,7 +951,7 @@ function renderBoard() {
           <div class="tokens-container absolute inset-0 pointer-events-none flex items-center justify-center gap-1 z-20 flex-wrap p-1"></div>
         `;
       } else {
-        // BOTTOM TILES: Color bar at Top, Name/Icon in middle, Price at Bottom
+        // BOTTOM TILES: Color bar at Top (facing center), Name/Icon in middle, Price at Bottom (outer edge)
         cell.innerHTML = `
           ${colorBarHtml}
           ${indicatorsHtml}

@@ -528,13 +528,11 @@ body:fullscreen .monopoly-board {
   .tile-left .tile-price-badge,
   .tile-right .tile-price-badge {
     font-size: clamp(4.2px, 1.15vw, 5.8px) !important;
-    width: clamp(7px, 1.8vw, 9.5px) !important;
-    padding: 1px 0.5px !important;
-    writing-mode: vertical-rl !important;
-    height: 100% !important;
-  }
-  .tile-left .tile-price-badge {
-    transform: rotate(180deg) !important;
+    width: auto !important;
+    padding: 0 !important;
+    writing-mode: horizontal-tb !important;
+    height: auto !important;
+    transform: none !important;
   }
   .tile-left .color-bar,
   .tile-right .color-bar {
@@ -544,6 +542,7 @@ body:fullscreen .monopoly-board {
   .tile-left .tile-content,
   .tile-right .tile-content {
     padding: 1px 1px !important;
+    gap: 0.5px !important;
   }
   .tile-left .tile-name,
   .tile-right .tile-name {
@@ -819,55 +818,45 @@ body:fullscreen .monopoly-board {
   left: auto;
 }
 
-/* 3. LEFT TILES (Spaces 11-19): Price on LEFT (outer edge, vertical), Content in middle, Color bar on RIGHT (facing center, vertical) */
+/* 3. LEFT TILES (Spaces 11-19): Content (Icon, Name, Price below) on Left, Color bar on Right (facing center, vertical) */
 .tile-left {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.tile-left .tile-price-badge {
-  order: 1;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  text-orientation: mixed;
-  letter-spacing: 0.02em;
-  padding: 1px 1px;
-  width: clamp(12px, 1.2vw, 16px);
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: clamp(7.5px, 0.72vw, 9.5px);
-  font-weight: 800;
-  color: #44403c;
-  line-height: 1;
-  white-space: nowrap;
-}
 .tile-left .tile-content {
-  order: 2;
   flex: 1;
   height: 100%;
   min-width: 0;
   width: auto;
-  padding: 1.5px 2px;
+  padding: 2px 2.5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  gap: 1.5px;
 }
 .tile-left .tile-name {
-  font-size: clamp(7.5px, 0.75vw, 10.5px);
-  line-height: 1.1;
+  font-size: clamp(8px, 0.8vw, 11px);
+  line-height: 1.12;
   width: 100%;
   text-align: center;
   word-break: normal;
   overflow-wrap: break-word;
   hyphens: none;
 }
+.tile-left .tile-price-badge {
+  font-size: clamp(7px, 0.7vw, 9.5px);
+  font-weight: 800;
+  color: #44403c;
+  line-height: 1;
+  padding: 0 1px;
+  white-space: nowrap;
+  writing-mode: horizontal-tb;
+  transform: none;
+}
 .tile-left .color-bar {
-  order: 3;
   width: clamp(10px, 1.15vw, 15px);
   height: 100%;
   border-left: 1.5px solid rgba(0, 0, 0, 0.25);
@@ -884,14 +873,13 @@ body:fullscreen .monopoly-board {
   flex-direction: column;
 }
 
-/* 4. RIGHT TILES (Spaces 31-39): Color bar on LEFT (facing center, vertical), Content in middle, Price on RIGHT (outer edge, vertical) */
+/* 4. RIGHT TILES (Spaces 31-39): Color bar on Left (facing center, vertical), Content (Icon, Name, Price below) on Right */
 .tile-right {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 .tile-right .color-bar {
-  order: 1;
   width: clamp(10px, 1.15vw, 15px);
   height: 100%;
   border-right: 1.5px solid rgba(0, 0, 0, 0.25);
@@ -901,21 +889,21 @@ body:fullscreen .monopoly-board {
   flex-shrink: 0;
 }
 .tile-right .tile-content {
-  order: 2;
   flex: 1;
   height: 100%;
   min-width: 0;
   width: auto;
-  padding: 1.5px 2px;
+  padding: 2px 2.5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  gap: 1.5px;
 }
 .tile-right .tile-name {
-  font-size: clamp(7.5px, 0.75vw, 10.5px);
-  line-height: 1.1;
+  font-size: clamp(8px, 0.8vw, 11px);
+  line-height: 1.12;
   width: 100%;
   text-align: center;
   word-break: normal;
@@ -923,22 +911,14 @@ body:fullscreen .monopoly-board {
   hyphens: none;
 }
 .tile-right .tile-price-badge {
-  order: 3;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  letter-spacing: 0.02em;
-  padding: 1px 1px;
-  width: clamp(12px, 1.2vw, 16px);
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: clamp(7.5px, 0.72vw, 9.5px);
+  font-size: clamp(7px, 0.7vw, 9.5px);
   font-weight: 800;
   color: #44403c;
   line-height: 1;
+  padding: 0 1px;
   white-space: nowrap;
+  writing-mode: horizontal-tb;
+  transform: none;
 }
 .tile-right .indicators-container {
   top: 1px;

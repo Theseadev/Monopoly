@@ -1326,6 +1326,280 @@ body.fullscreen-active .board-center > .text-center:last-child {
   padding-bottom: 4px !important;
 }
 
+/* ==========================================================
+   FULLSCREEN MODE: EXPANDED SIDEBAR PANELS (CHAT, ASSETS & PLAYERS)
+   ========================================================== */
+
+/* 1. Sidebar Columns Width Expansion */
+:fullscreen #asideLeft,
+:fullscreen #asideRight,
+#inGameBoardScreen:fullscreen #asideLeft,
+#inGameBoardScreen:fullscreen #asideRight,
+body.fullscreen-active #asideLeft,
+body.fullscreen-active #asideRight {
+  width: clamp(330px, 22vw, 420px) !important;
+  max-width: 420px !important;
+  gap: clamp(10px, 1.4vh, 16px) !important;
+}
+
+/* 2. Fullscreen Player Info Card (#playerInfoCard) */
+:fullscreen #playerInfoCard,
+body.fullscreen-active #playerInfoCard {
+  padding: clamp(12px, 1.4vh, 18px) !important;
+}
+
+:fullscreen #playerInfoCard h3,
+body.fullscreen-active #playerInfoCard h3 {
+  font-size: clamp(13px, 1.15vw, 16px) !important;
+}
+
+:fullscreen .player-card-item,
+body.fullscreen-active .player-card-item {
+  padding: clamp(8px, 1vh, 12px) 12px !important;
+  border-radius: 14px !important;
+}
+
+:fullscreen .player-avatar,
+body.fullscreen-active .player-avatar {
+  width: clamp(34px, 2.5vw, 42px) !important;
+  height: clamp(34px, 2.5vw, 42px) !important;
+  border-radius: 12px !important;
+}
+
+:fullscreen .player-name,
+body.fullscreen-active .player-name {
+  font-size: clamp(13px, 1.15vw, 16px) !important;
+}
+
+:fullscreen .player-money,
+body.fullscreen-active .player-money {
+  font-size: clamp(12px, 1.1vw, 15px) !important;
+}
+
+/* 3. Fullscreen Chat Panel (#playerChatCard) */
+:fullscreen #playerChatCard,
+body.fullscreen-active #playerChatCard {
+  padding: clamp(12px, 1.4vh, 18px) !important;
+}
+
+:fullscreen #playerChatCard h3,
+body.fullscreen-active #playerChatCard h3 {
+  font-size: clamp(13px, 1.15vw, 16px) !important;
+}
+
+/* Quick Emote Bar in Fullscreen (Enlarged and Prominent) */
+:fullscreen #quickEmoteBar,
+body.fullscreen-active #quickEmoteBar {
+  padding: 6px 8px !important;
+  gap: clamp(4px, 0.5vw, 8px) !important;
+  border-radius: 14px !important;
+}
+
+:fullscreen .btn-quick-emote,
+body.fullscreen-active .btn-quick-emote {
+  height: clamp(34px, 3.8vh, 44px) !important;
+  font-size: clamp(20px, 1.9vw, 28px) !important;
+  border-radius: 10px !important;
+}
+
+:fullscreen #playerChatCard .text-\[8\.5px\],
+body.fullscreen-active #playerChatCard .text-\[8\.5px\] {
+  font-size: clamp(10px, 0.9vw, 12.5px) !important;
+}
+
+:fullscreen #playerChatCard .text-\[8px\],
+body.fullscreen-active #playerChatCard .text-\[8px\] {
+  font-size: clamp(9.5px, 0.85vw, 11.5px) !important;
+}
+
+/* Chat Messages in Fullscreen */
+:fullscreen #chatMessagesList,
+body.fullscreen-active #chatMessagesList {
+  gap: 8px !important;
+}
+
+:fullscreen .chat-msg-row,
+body.fullscreen-active .chat-msg-row {
+  gap: 4px !important;
+  margin-bottom: 6px !important;
+}
+
+:fullscreen .chat-msg-row .text-\[9\.5px\],
+body.fullscreen-active .chat-msg-row .text-\[9\.5px\] {
+  font-size: clamp(11.5px, 1vw, 14px) !important;
+}
+
+:fullscreen .chat-msg-row .text-\[8\.5px\],
+body.fullscreen-active .chat-msg-row .text-\[8\.5px\] {
+  font-size: clamp(10px, 0.85vw, 12px) !important;
+}
+
+:fullscreen .chat-bubble,
+body.fullscreen-active .chat-bubble {
+  padding: 8px 14px !important;
+  border-radius: 16px !important;
+  font-size: clamp(13px, 1.15vw, 16px) !important;
+  line-height: 1.4 !important;
+  max-width: 90% !important;
+}
+
+/* Chat Input in Fullscreen */
+:fullscreen #inputChatMessage,
+body.fullscreen-active #inputChatMessage {
+  padding: clamp(8px, 1vh, 12px) 14px !important;
+  font-size: clamp(12.5px, 1.1vw, 15px) !important;
+  border-radius: 14px !important;
+}
+
+:fullscreen #btnSendChatMessage,
+body.fullscreen-active #btnSendChatMessage {
+  padding: clamp(8px, 1vh, 12px) 14px !important;
+  border-radius: 14px !important;
+}
+
+:fullscreen #btnSendChatMessage svg,
+body.fullscreen-active #btnSendChatMessage svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* 4. Fullscreen Asset & Property Portfolio (#portfolioCard) */
+:fullscreen #portfolioCard,
+body.fullscreen-active #portfolioCard {
+  padding: clamp(12px, 1.4vh, 18px) !important;
+}
+
+:fullscreen #portfolioCard h3,
+body.fullscreen-active #portfolioCard h3 {
+  font-size: clamp(13px, 1.15vw, 16px) !important;
+}
+
+:fullscreen #portfolioStatsBadge,
+body.fullscreen-active #portfolioStatsBadge {
+  font-size: clamp(10.5px, 0.95vw, 13px) !important;
+  padding: 3px 10px !important;
+}
+
+:fullscreen #portfolioPlayerTabs button,
+:fullscreen #portfolioPlayerTabs div,
+body.fullscreen-active #portfolioPlayerTabs button,
+body.fullscreen-active #portfolioPlayerTabs div {
+  padding: 6px 12px !important;
+  font-size: clamp(11px, 1vw, 13.5px) !important;
+  border-radius: 10px !important;
+  gap: 6px !important;
+}
+
+:fullscreen #portfolioPlayerTabs .w-2.h-2,
+body.fullscreen-active #portfolioPlayerTabs .w-2.h-2 {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+:fullscreen #portfolioList,
+body.fullscreen-active #portfolioList {
+  gap: clamp(8px, 1vh, 14px) !important;
+}
+
+/* Fullscreen Property Deed Card Miniatures */
+:fullscreen .portfolio-deed-card,
+body.fullscreen-active .portfolio-deed-card {
+  height: clamp(96px, 11.5vh, 125px) !important;
+  min-height: clamp(96px, 11.5vh, 125px) !important;
+  border-radius: 14px !important;
+}
+
+:fullscreen .portfolio-deed-stripe,
+body.fullscreen-active .portfolio-deed-stripe {
+  height: clamp(20px, 2.4vh, 26px) !important;
+  padding: 0 8px !important;
+}
+
+:fullscreen .portfolio-deed-group,
+body.fullscreen-active .portfolio-deed-group {
+  font-size: clamp(9px, 0.85vw, 12px) !important;
+  font-weight: 900 !important;
+}
+
+:fullscreen .portfolio-deed-badge,
+body.fullscreen-active .portfolio-deed-badge {
+  font-size: clamp(8.5px, 0.8vw, 11px) !important;
+  padding: 2px 6px !important;
+}
+
+:fullscreen .portfolio-deed-badge .w-2.h-2,
+body.fullscreen-active .portfolio-deed-badge .w-2.h-2 {
+  width: 11px !important;
+  height: 11px !important;
+}
+
+:fullscreen .portfolio-deed-body,
+body.fullscreen-active .portfolio-deed-body {
+  padding: 4px 8px !important;
+}
+
+:fullscreen .portfolio-deed-name,
+body.fullscreen-active .portfolio-deed-name {
+  font-size: clamp(13px, 1.15vw, 16px) !important;
+  font-weight: 800 !important;
+  line-height: 1.25 !important;
+}
+
+:fullscreen .portfolio-deed-bottom,
+body.fullscreen-active .portfolio-deed-bottom {
+  padding: 4px 8px !important;
+}
+
+:fullscreen .portfolio-deed-rent-lbl,
+body.fullscreen-active .portfolio-deed-rent-lbl {
+  font-size: clamp(9.5px, 0.9vw, 12.5px) !important;
+}
+
+:fullscreen .portfolio-deed-rent-val,
+body.fullscreen-active .portfolio-deed-rent-val {
+  font-size: clamp(10.5px, 1vw, 13.5px) !important;
+  font-weight: 900 !important;
+}
+
+/* Fullscreen Empty Portfolio State */
+:fullscreen .portfolio-empty-state,
+body.fullscreen-active .portfolio-empty-state {
+  padding: 32px 12px !important;
+  gap: 10px !important;
+}
+
+:fullscreen .portfolio-empty-icon,
+body.fullscreen-active .portfolio-empty-icon {
+  width: 48px !important;
+  height: 48px !important;
+}
+
+:fullscreen .portfolio-empty-text,
+body.fullscreen-active .portfolio-empty-text {
+  font-size: clamp(12.5px, 1.1vw, 15px) !important;
+}
+
+/* Fullscreen Trading Desk Button */
+:fullscreen #tradingCard,
+body.fullscreen-active #tradingCard {
+  margin-top: 8px !important;
+  padding-top: 8px !important;
+  gap: 6px !important;
+}
+
+:fullscreen #btnOpenTradingDesk,
+body.fullscreen-active #btnOpenTradingDesk {
+  padding: clamp(10px, 1.2vh, 14px) 16px !important;
+  font-size: clamp(12.5px, 1.1vw, 15px) !important;
+  border-radius: 14px !important;
+}
+
+:fullscreen #btnOpenTradingDesk svg,
+body.fullscreen-active #btnOpenTradingDesk svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
 /* 3D Warm Parchment Center Area */
 .board-center {
   background: #cbb077;

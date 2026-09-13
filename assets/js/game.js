@@ -1660,22 +1660,22 @@ function updatePlayersList() {
     const isOpponent = !isBankrupt && !isHumanSelf && !(currentOnlineRoom && isSelf);
 
     const el = document.createElement('div');
-    el.className = `p-2 sm:p-2.5 rounded-xl border transition flex items-center justify-between gap-1.5 ${isCurrent ? 'bg-amber-950/40 border-amber-500/60 shadow-md' : 'bg-zinc-800/60 border-zinc-700/60'} ${isBankrupt ? 'opacity-40 grayscale' : ''}`;
+    el.className = `player-card-item p-2 sm:p-2.5 rounded-xl border transition flex items-center justify-between gap-1.5 ${isCurrent ? 'bg-amber-950/40 border-amber-500/60 shadow-md' : 'bg-zinc-800/60 border-zinc-700/60'} ${isBankrupt ? 'opacity-40 grayscale' : ''}`;
 
     el.innerHTML = `
       <div class="flex items-center gap-2 min-w-0 flex-1">
-        <div class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-xl bg-zinc-900 border border-zinc-700/80 shadow-inner shrink-0">
+        <div class="player-avatar w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-xl bg-zinc-900 border border-zinc-700/80 shadow-inner shrink-0">
           ${getChessPawnSVG(p.color, p.id)}
         </div>
         <div class="min-w-0 flex-1">
-          <div class="font-bold text-xs text-white flex items-center gap-1 truncate">
+          <div class="player-name font-bold text-xs text-white flex items-center gap-1 truncate">
             <span class="truncate">${p.name}</span>
             ${isSelf || isHumanSelf ? '<span class="text-[8.5px] bg-amber-500 text-zinc-950 px-1 rounded font-black shrink-0">Anda</span>' : ''}
             ${p.isAI ? '<span class="text-[8.5px] bg-zinc-700 text-gray-300 px-1 rounded font-semibold shrink-0">Bot</span>' : ''}
             ${p.inJail ? '<span class="text-[8.5px] bg-red-900 text-red-300 px-1 rounded font-semibold shrink-0">Penjara</span>' : ''}
             ${isBankrupt ? '<span class="text-[8.5px] bg-red-800 text-white px-1 rounded font-bold shrink-0">BANGKRUT</span>' : ''}
           </div>
-          <div class="text-[11px] font-semibold text-emerald-400">${formatCurrency(p.money)}</div>
+          <div class="player-money text-[11px] font-semibold text-emerald-400">${formatCurrency(p.money)}</div>
         </div>
       </div>
       <div class="flex items-center gap-1 shrink-0">
@@ -1713,10 +1713,9 @@ function renderLogs() {
     gameLogsList.innerHTML = `
       <div class="text-zinc-500 text-center py-6 text-xs flex flex-col items-center justify-center gap-1.5">
         <svg class="w-6 h-6 text-zinc-600 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"></circle>
-          <polyline points="12 6 12 12 14 14"></polyline>
+          <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
         </svg>
-        <span>Belum ada catatan aktivitas permainan.</span>
+        <span class="font-medium">Belum ada riwayat giliran permainan.</span>
       </div>
     `;
     return;
@@ -1724,19 +1723,51 @@ function renderLogs() {
 
   state.logs.forEach(log => {
     const item = document.createElement('div');
-    let colorClass = 'text-zinc-100 bg-[#1e2029] border-zinc-700';
-    if (log.type === 'success') colorClass = 'text-emerald-200 bg-[#0c281e] border-emerald-600/70';
-    else if (log.type === 'warning') colorClass = 'text-amber-200 bg-[#2d1b06] border-amber-500/70';
-    else if (log.type === 'danger') colorClass = 'text-red-200 bg-[#2d0e0e] border-red-500/70';
-    else if (log.type === 'highlight') colorClass = 'text-yellow-100 bg-[#332408] border-yellow-400/80 font-bold';
-
-    item.className = `p-2.5 rounded-xl border text-xs leading-snug flex items-start gap-2.5 shadow-md ${colorClass}`;
+    item.className = 'p-2 rounded-xl bg-zinc-950/70 border border-zinc-800/80 text-zinc-300 leading-snug';
     item.innerHTML = `
-      <span class="text-[10px] text-amber-400 font-mono font-bold mt-0.5 bg-black/60 px-1.5 py-0.5 rounded border border-amber-500/30 shrink-0">${log.time}</span>
-      <span class="flex-1 font-medium">${log.message}</span>
+      <div class="flex items-center justify-between text-[9px] text-zinc-500 mb-0.5 font-mono">
+        <span class="text-rose-400/90 font-bold">#${log.turn || ''}</span>
+        <span>${log.time || ''}</span>
+      </div>
+      <div class="text-white">${escapeHtml(log.message || log.text || '')}</div>
     `;
     gameLogsList.appendChild(item);
   });
+}
+
+function addGameLog(message) {
+  if (!state) return;
+  if (!state.logs) state.logs = [];
+  const now = new Date();
+  const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+  state.logs.unshift({
+    turn: (state.turnNumber || 1),
+    time: timeStr,
+    message: message
+  });
+  renderLogs();
+}
+
+function calculatePlayerNetWorth(playerId) {
+  if (!state || !state.players) return 0;
+  const p = state.players.find(x => x.id === playerId);
+  if (!p) return 0;
+  let total = p.money || 0;
+  if (state.properties) {
+    BOARD_SPACES.forEach(space => {
+      const prop = state.properties[space.id];
+      if (prop && prop.ownerId === playerId) {
+        total += (space.price || 0);
+        if (prop.houses && space.housePrice) {
+          total += (prop.houses * space.housePrice);
+        }
+        if (prop.isHotel && space.housePrice) {
+          total += (5 * space.housePrice);
+        }
+      }
+    });
+  }
+  return total;
 }
 
 // Helper Penentu Monopoli Satu Kelompok Warna
@@ -1761,19 +1792,20 @@ function isColorGroupMonopoly(groupKey, playerId) {
 
 // Helper Menghitung Nilai Sewa Cepat untuk Kartu Portofolio
 function getQuickRent(space, prop) {
-  if (!space || !prop || prop.ownerId === null || prop.ownerId === undefined) return 0;
-  if (space.type === 'property') {
-    if (prop.isHotel) return (space.rent && space.rent[5] !== undefined) ? space.rent[5] : Math.round((space.price || 0) * 6.0);
-    if (prop.houses > 0) return (space.rent && space.rent[prop.houses] !== undefined) ? space.rent[prop.houses] : Math.round((space.price || 0) * 1.5);
-    return (space.rent && space.rent[0] !== undefined) ? space.rent[0] : Math.round((space.price || 0) * 0.1);
+  if (!space) return 0;
+  if (!prop) return space.rent || 0;
+  if (prop.isHotel && space.rentHotel) return space.rentHotel;
+  if (prop.houses && space.rentHouse && space.rentHouse[prop.houses - 1]) {
+    return space.rentHouse[prop.houses - 1];
   }
-  if (space.type === 'railroad') {
-    return (space.rent && space.rent[0] !== undefined) ? space.rent[0] : 250000;
+  if (space.type === 'property' && space.group) {
+    const groupSpaces = BOARD_SPACES.filter(s => s.group === space.group);
+    const ownsAll = groupSpaces.length > 0 && groupSpaces.every(s => state.properties[s.id] && state.properties[s.id].ownerId === prop.ownerId);
+    if (ownsAll && (!prop.houses || prop.houses === 0) && !prop.isHotel) {
+      return (space.rent || 0) * 2;
+    }
   }
-  if (space.type === 'utility') {
-    return (space.rent && space.rent[0] !== undefined) ? space.rent[0] : 150000;
-  }
-  return 0;
+  return space.rent || 0;
 }
 
 // Update Portfolio Tab & Property Deed Grid
@@ -1864,9 +1896,9 @@ function updatePortfolio() {
 
   if (ownedProps.length === 0) {
     portfolioList.innerHTML = `
-      <div class="col-span-2 text-gray-500 text-center py-8 text-xs flex flex-col items-center justify-center gap-1.5">
-        <div class="w-8 h-8 opacity-40">${GameIcons.house}</div>
-        <span class="font-medium">${viewedPlayer.name} belum memiliki kartu properti.</span>
+      <div class="portfolio-empty-state col-span-2 text-gray-400 text-center py-8 text-xs flex flex-col items-center justify-center gap-2">
+        <div class="portfolio-empty-icon w-8 h-8 opacity-40 text-rose-300">${GameIcons.house}</div>
+        <span class="portfolio-empty-text font-semibold text-zinc-400">${viewedPlayer.name} belum memiliki kartu properti.</span>
       </div>
     `;
     updateTradingWidget();
@@ -1877,37 +1909,37 @@ function updatePortfolio() {
   ownedProps.forEach(space => {
     const prop = state.properties[space.id];
     const card = document.createElement('div');
-    card.className = `group relative rounded-xl overflow-hidden bg-[#faf8f4] border-2 border-[#d5cbbe] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition duration-150 cursor-pointer flex flex-col justify-between active:scale-95 select-none text-center h-[78px] min-h-[78px]`;
+    card.className = `portfolio-deed-card group relative rounded-xl overflow-hidden bg-[#faf8f4] border-2 border-[#d5cbbe] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition duration-150 cursor-pointer flex flex-col justify-between active:scale-95 select-none text-center h-[78px] min-h-[78px]`;
     card.title = `Klik untuk kelola ${space.name}`;
 
     card.innerHTML = `
       <!-- Top Colored Stripe with Level Indicators -->
-      <div class="h-4.5 w-full flex items-center justify-between px-1.5 shadow-inner shrink-0" style="background-color: ${space.color || '#475569'}">
-        <span class="text-[7.5px] font-black tracking-wider text-white drop-shadow font-outfit uppercase truncate">
+      <div class="portfolio-deed-stripe h-4.5 w-full flex items-center justify-between px-1.5 shadow-inner shrink-0" style="background-color: ${space.color || '#475569'}">
+        <span class="portfolio-deed-group text-[7.5px] font-black tracking-wider text-white drop-shadow font-outfit uppercase truncate">
           ${space.group ? space.group.toUpperCase() : 'ASET'}
         </span>
         ${prop.isHotel ? `
-          <span class="flex items-center gap-0.5 bg-red-950 text-red-200 px-1 py-0.2 rounded text-[6.5px] font-bold border border-red-400/60 shrink-0">
+          <span class="portfolio-deed-badge flex items-center gap-0.5 bg-red-950 text-red-200 px-1 py-0.2 rounded text-[6.5px] font-bold border border-red-400/60 shrink-0">
             <span class="w-2 h-2 inline-block">${GameIcons.hotel}</span> 1H
           </span>
         ` : (prop.houses > 0 ? `
-          <span class="flex items-center gap-0.5 bg-emerald-950 text-emerald-200 px-1 py-0.2 rounded text-[6.5px] font-bold border border-emerald-400/60 shrink-0">
+          <span class="portfolio-deed-badge flex items-center gap-0.5 bg-emerald-950 text-emerald-200 px-1 py-0.2 rounded text-[6.5px] font-bold border border-emerald-400/60 shrink-0">
             <span class="w-2 h-2 inline-block">${GameIcons.house}</span> ${prop.houses}
           </span>
         ` : '')}
       </div>
       
       <!-- Card Body: Clean Prominent Title -->
-      <div class="px-1.5 py-1 text-center flex flex-col items-center justify-center flex-1 bg-gradient-to-b from-[#faf8f4] to-[#f2ece0] min-h-0">
-        <div class="font-extrabold text-[11.5px] text-zinc-900 font-outfit leading-tight truncate w-full" title="${space.name}">
+      <div class="portfolio-deed-body px-1.5 py-1 text-center flex flex-col items-center justify-center flex-1 bg-gradient-to-b from-[#faf8f4] to-[#f2ece0] min-h-0">
+        <div class="portfolio-deed-name font-extrabold text-[11.5px] text-zinc-900 font-outfit leading-tight truncate w-full" title="${space.name}">
           ${space.name}
         </div>
       </div>
 
       <!-- Bottom Rent Status -->
-      <div class="px-1.5 py-0.5 bg-[#ebe3d3] border-t border-[#d8cdb8] flex items-center justify-between text-[8px] shrink-0 font-outfit">
-        <span class="text-zinc-600 font-semibold truncate">Sewa:</span>
-        <span class="text-emerald-800 font-black">${formatCurrency(getQuickRent(space, prop))}</span>
+      <div class="portfolio-deed-bottom px-1.5 py-0.5 bg-[#ebe3d3] border-t border-[#d8cdb8] flex items-center justify-between text-[8px] shrink-0 font-outfit">
+        <span class="portfolio-deed-rent-lbl text-zinc-600 font-semibold truncate">Sewa:</span>
+        <span class="portfolio-deed-rent-val text-emerald-800 font-black">${formatCurrency(getQuickRent(space, prop))}</span>
       </div>
     `;
 

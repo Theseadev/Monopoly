@@ -1385,7 +1385,7 @@ function updateHUD() {
   if (jailActions && btnPayJailFine && btnUseJailCard) {
     if (isHuman && isMyTurn && current.inJail && isReady) {
       jailActions.classList.remove('hidden');
-      btnPayJailFine.disabled = current.money < 500000;
+      btnPayJailFine.disabled = current.money < 1500000;
       if (current.getOutOfJailFreeCards > 0) {
         btnUseJailCard.classList.remove('hidden');
       } else {
@@ -3211,8 +3211,8 @@ function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = fals
       cardTitle = 'PENJARA';
       subTitle = 'JUST VISITING / IN JAIL';
       infoTitle = 'Ketentuan Hanya Lewat vs Tahanan';
-      infoContent = '• <b>Hanya Lewat:</b> Jika mendarat biasa, Anda hanya berkunjung dan bebas melangkah di putaran berikutnya.<br>• <b>Tahanan:</b> Jika dijebloskan, keluar dengan dadu kembar, tebusan Rp 500.000, atau Kartu Bebas Penjara.';
-      badgeText = 'Tebusan: Rp 500.000';
+      infoContent = '• <b>Hanya Lewat:</b> Jika mendarat biasa, Anda hanya berkunjung dan bebas melangkah di putaran berikutnya.<br>• <b>Tahanan:</b> Jika dijebloskan, keluar dengan dadu kembar, tebusan Rp 1.500.000, atau Kartu Bebas Penjara.';
+      badgeText = 'Tebusan: Rp 1.500.000';
       badgeColor = 'text-amber-400';
     } else if (space.id === 30 || space.subType === 'go-to-jail') {
       headerBg = 'bg-gradient-to-r from-rose-950 via-red-900 to-rose-900';
@@ -4777,11 +4777,11 @@ btnPayJailFine?.addEventListener('click', async () => {
       html: `
         <div class="text-center text-xs text-zinc-300 font-sans">
           <div class="w-12 h-12 mx-auto text-emerald-400 my-2">${GameIcons.jailUnlock}</div>
-          <p class="mb-2">Bayar denda sebesar <b class="text-amber-400">Rp 500.000</b> ke Bank untuk langsung bebas dari Penjara sekarang?</p>
+          <p class="mb-2">Bayar denda sebesar <b class="text-amber-400">Rp 1.500.000</b> ke Bank untuk langsung bebas dari Penjara sekarang?</p>
         </div>
       `,
       showCancelButton: true,
-      confirmButtonText: `<span class="flex items-center justify-center gap-1.5"><span class="w-4 h-4 inline-block">${GameIcons.moneyBag}</span><span>Bayar Rp 500.000</span></span>`,
+      confirmButtonText: `<span class="flex items-center justify-center gap-1.5"><span class="w-4 h-4 inline-block">${GameIcons.moneyBag}</span><span>Bayar Rp 1.500.000</span></span>`,
       cancelButtonText: 'Tutup',
       customClass: {
         popup: 'swal2-monopoly-popup',
@@ -4795,7 +4795,7 @@ btnPayJailFine?.addEventListener('click', async () => {
 
     if (result.isConfirmed) {
       sound.playCash();
-      showFloatingCash(500000, false);
+      showFloatingCash(1500000, false);
       const newState = await apiCall('/api/game/jail-fine', {}, 'POST');
       if (newState) {
         state = newState;

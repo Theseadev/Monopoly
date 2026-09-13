@@ -164,8 +164,8 @@ export class GameState {
       } else {
         player.jailTurns += 1;
         if (player.jailTurns >= 3) {
-          this.addLog(`${player.name} sudah 3 putaran di penjara. Wajib bayar denda Rp 500.000.`, 'warning');
-          this.deductMoney(player, 500000);
+          this.addLog(`${player.name} sudah 3 putaran di penjara. Wajib bayar denda Rp 1.500.000.`, 'warning');
+          this.deductMoney(player, 1500000);
           player.inJail = false;
           player.jailTurns = 0;
           await this.stepPlayer(player, totalSteps);
@@ -436,14 +436,14 @@ export class GameState {
     return true;
   }
 
-  // Bayar denda keluar penjara (Rp 500.000)
+  // Bayar denda keluar penjara (Rp 1.500.000)
   payJailFine(player) {
-    if (!player.inJail || player.money < 500000) return false;
-    this.deductMoney(player, 500000);
+    if (!player.inJail || player.money < 1500000) return false;
+    this.deductMoney(player, 1500000);
     player.inJail = false;
     player.jailTurns = 0;
     sound.playCash();
-    this.addLog(`${player.name} membayar denda Rp 500.000 dan bebas dari penjara.`, 'success');
+    this.addLog(`${player.name} membayar denda Rp 1.500.000 dan bebas dari penjara.`, 'success');
     this.notify('jail_status_changed', player);
     return true;
   }

@@ -765,7 +765,7 @@
               <span>Anda Ditahan di Penjara</span>
             </div>
             <button id="btnPayJailFine" class="w-full py-1.5 rounded-lg bg-red-950/80 hover:bg-red-900 border border-red-500/50 text-red-200 text-[10.5px] font-bold transition cursor-pointer font-outfit">
-              Bayar Denda Rp 500.000
+              Bayar Denda Rp 1.500.000
             </button>
             <button id="btnUseJailCard" class="hidden w-full py-1.5 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-200 text-[10.5px] font-bold transition cursor-pointer font-outfit">
               Gunakan Kartu Bebas Penjara
@@ -962,7 +962,7 @@
             <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             <span>Aturan Penjara</span>
           </h4>
-          <p>Keluar dari penjara dengan 3 cara: melempar dadu kembar, membayar denda Rp 500.000, atau menggunakan Kartu Bebas Penjara.</p>
+          <p>Keluar dari penjara dengan 3 cara: melempar dadu kembar, membayar denda Rp 1.500.000, atau menggunakan Kartu Bebas Penjara.</p>
         </div>
 
         <div>

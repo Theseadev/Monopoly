@@ -116,7 +116,7 @@ function updateHUD() {
   // Opsi Penjara
   if (isHuman && current.inJail && isReady) {
     jailActions.classList.remove('hidden');
-    btnPayJailFine.disabled = current.money < 500000;
+    btnPayJailFine.disabled = current.money < 1500000;
     if (current.getOutOfJailFreeCards > 0) {
       btnUseJailCard.classList.remove('hidden');
     } else {

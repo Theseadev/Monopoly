@@ -188,8 +188,8 @@ class GameState {
             } else {
                 $player['jailTurns']++;
                 if ($player['jailTurns'] >= 3) {
-                    self::addLog($state, "{$player['name']} sudah 3 putaran di penjara. Wajib bayar denda Rp 500.000.", 'warning');
-                    $player['money'] = max(0, $player['money'] - 500000);
+                    self::addLog($state, "{$player['name']} sudah 3 putaran di penjara. Wajib bayar denda Rp 1.500.000.", 'warning');
+                    $player['money'] = max(0, $player['money'] - 1500000);
                     $player['inJail'] = false;
                     $player['jailTurns'] = 0;
                     self::stepPlayerInternal($state, $player, $totalSteps);
@@ -470,11 +470,11 @@ class GameState {
     public static function payJailFine(): array {
         $state = self::load();
         $player = &$state['players'][$state['currentPlayerIndex']];
-        if ($player['inJail'] && $player['money'] >= 500000) {
-            $player['money'] -= 500000;
+        if ($player['inJail'] && $player['money'] >= 1500000) {
+            $player['money'] -= 1500000;
             $player['inJail'] = false;
             $player['jailTurns'] = 0;
-            self::addLog($state, "{$player['name']} membayar denda Rp 500.000 dan bebas dari penjara.", 'success');
+            self::addLog($state, "{$player['name']} membayar denda Rp 1.500.000 dan bebas dari penjara.", 'success');
         }
         self::save($state);
         return $state;

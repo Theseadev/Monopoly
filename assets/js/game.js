@@ -904,8 +904,8 @@ function renderBoard() {
       let iconHtml = '';
       let priceText = space.price ? formatShortPrice(space.price) : (space.amount ? formatShortPrice(space.amount) : '');
       const displayName = space.shortName || space.name;
-      const isLongWord = displayName.split(/\s+/).some(w => w.length >= 8) || displayName.length >= 10;
-      const nameClass = isLongWord ? 'tile-name tile-name-long' : 'tile-name';
+      const isLongSingleWord = !displayName.includes(' ') && displayName.length >= 9;
+      const nameClass = isLongSingleWord ? 'tile-name tile-name-long' : 'tile-name';
 
       if (space.type === 'property') {
         colorBarHtml = `<div class="color-bar" style="background-color: ${space.color}"></div>`;

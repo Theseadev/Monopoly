@@ -816,8 +816,8 @@ section.hidden,
 .tile-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: clamp(8px, 0.78vw, 11px);
-  line-height: 1.1;
+  font-size: clamp(9px, 0.9vw, 12.5px);
+  line-height: 1.12;
   color: #1c1917;
   text-align: center;
   letter-spacing: -0.015em;
@@ -838,8 +838,8 @@ section.hidden,
 }
 
 .tile-name.tile-name-long {
-  font-size: clamp(6.2px, 0.58vw, 8.5px) !important;
-  letter-spacing: -0.035em !important;
+  font-size: clamp(7.5px, 0.75vw, 10.2px) !important;
+  letter-spacing: -0.025em !important;
   line-height: 1.05 !important;
 }
 
@@ -848,7 +848,7 @@ section.hidden,
   color: #44403c;
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: clamp(8px, 0.75vw, 11px);
+  font-size: clamp(8.5px, 0.82vw, 11.5px);
   line-height: 1;
   padding: 1px 2px;
   white-space: nowrap;
@@ -942,12 +942,12 @@ section.hidden,
   gap: 1.5px;
 }
 .tile-left .tile-name {
-  font-size: clamp(7.5px, 0.72vw, 10.2px);
-  line-height: 1.08;
+  font-size: clamp(8.5px, 0.82vw, 11.5px);
+  line-height: 1.1;
   width: 100%;
   max-width: 100%;
   text-align: center;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   word-break: keep-all;
   overflow-wrap: normal;
   hyphens: none;
@@ -955,12 +955,12 @@ section.hidden,
   text-overflow: ellipsis;
 }
 .tile-left .tile-name.tile-name-long {
-  font-size: clamp(6px, 0.54vw, 8px) !important;
-  letter-spacing: -0.035em !important;
+  font-size: clamp(7px, 0.68vw, 9.2px) !important;
+  letter-spacing: -0.03em !important;
   line-height: 1.05 !important;
 }
 .tile-left .tile-price-badge {
-  font-size: clamp(7px, 0.7vw, 9.5px);
+  font-size: clamp(8px, 0.78vw, 10.5px);
   font-weight: 800;
   color: #44403c;
   line-height: 1;
@@ -1015,12 +1015,12 @@ section.hidden,
   gap: 1.5px;
 }
 .tile-right .tile-name {
-  font-size: clamp(7.5px, 0.72vw, 10.2px);
-  line-height: 1.08;
+  font-size: clamp(8.5px, 0.82vw, 11.5px);
+  line-height: 1.1;
   width: 100%;
   max-width: 100%;
   text-align: center;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   word-break: keep-all;
   overflow-wrap: normal;
   hyphens: none;
@@ -1028,12 +1028,12 @@ section.hidden,
   text-overflow: ellipsis;
 }
 .tile-right .tile-name.tile-name-long {
-  font-size: clamp(6px, 0.54vw, 8px) !important;
-  letter-spacing: -0.035em !important;
+  font-size: clamp(7px, 0.68vw, 9.2px) !important;
+  letter-spacing: -0.03em !important;
   line-height: 1.05 !important;
 }
 .tile-right .tile-price-badge {
-  font-size: clamp(7px, 0.7vw, 9.5px);
+  font-size: clamp(8px, 0.78vw, 10.5px);
   font-weight: 800;
   color: #44403c;
   line-height: 1;
@@ -1180,8 +1180,8 @@ html.fullscreen-active .tile-icon {
 #inGameBoardScreen:fullscreen .tile-name,
 body.fullscreen-active .tile-name,
 html.fullscreen-active .tile-name {
-  font-size: clamp(9px, 0.85vw, 12.5px) !important;
-  line-height: 1.12 !important;
+  font-size: clamp(11.5px, 1.15vw, 15.5px) !important;
+  line-height: 1.15 !important;
   letter-spacing: -0.015em !important;
   word-break: keep-all !important;
   overflow-wrap: normal !important;
@@ -1194,9 +1194,9 @@ html.fullscreen-active .tile-name {
 #inGameBoardScreen:fullscreen .tile-name.tile-name-long,
 body.fullscreen-active .tile-name.tile-name-long,
 html.fullscreen-active .tile-name.tile-name-long {
-  font-size: clamp(7px, 0.65vw, 9.6px) !important;
-  letter-spacing: -0.035em !important;
-  line-height: 1.05 !important;
+  font-size: clamp(9.5px, 0.9vw, 12.5px) !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.08 !important;
 }
 
 :fullscreen .tile-left .tile-name,
@@ -1207,9 +1207,9 @@ body.fullscreen-active .tile-left .tile-name,
 body.fullscreen-active .tile-right .tile-name,
 html.fullscreen-active .tile-left .tile-name,
 html.fullscreen-active .tile-right .tile-name {
-  font-size: clamp(8.2px, 0.76vw, 11px) !important;
-  line-height: 1.08 !important;
-  letter-spacing: -0.02em !important;
+  font-size: clamp(10.5px, 1.05vw, 14px) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.015em !important;
   word-break: keep-all !important;
   overflow-wrap: normal !important;
   hyphens: none !important;
@@ -1225,8 +1225,8 @@ body.fullscreen-active .tile-left .tile-name.tile-name-long,
 body.fullscreen-active .tile-right .tile-name.tile-name-long,
 html.fullscreen-active .tile-left .tile-name.tile-name-long,
 html.fullscreen-active .tile-right .tile-name.tile-name-long {
-  font-size: clamp(6.5px, 0.58vw, 8.8px) !important;
-  letter-spacing: -0.035em !important;
+  font-size: clamp(9px, 0.85vw, 11.5px) !important;
+  letter-spacing: -0.03em !important;
   line-height: 1.05 !important;
 }
 
@@ -1234,7 +1234,7 @@ html.fullscreen-active .tile-right .tile-name.tile-name-long {
 #inGameBoardScreen:fullscreen .tile-price-badge,
 body.fullscreen-active .tile-price-badge,
 html.fullscreen-active .tile-price-badge {
-  font-size: clamp(9px, 0.85vw, 12px) !important;
+  font-size: clamp(10px, 0.95vw, 13px) !important;
   padding: 1px 2px !important;
 }
 

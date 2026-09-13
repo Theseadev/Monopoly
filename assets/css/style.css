@@ -397,42 +397,61 @@ body:fullscreen .monopoly-board {
 
 @media (max-width: 1279px) {
   #inGameBoardScreen {
-    height: auto !important;
-    min-height: 100vh !important;
-    max-height: none !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100vh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
   }
   #inGameBoardScreen > div {
     flex-direction: column !important;
     align-items: center !important;
-    height: auto !important;
+    justify-content: space-between !important;
+    height: calc(100% - 48px) !important;
     min-height: 0 !important;
-    overflow: visible !important;
-    padding: 6px 4px 28px 4px !important;
-    gap: 6px !important;
+    overflow: hidden !important;
+    padding: 4px 4px 6px 4px !important;
+    gap: 4px !important;
   }
   .monopoly-board {
-    width: min(96vw, calc(100dvh - 120px), 480px) !important;
-    height: min(96vw, calc(100dvh - 120px), 480px) !important;
+    width: min(96vw, calc(100dvh - 125px), 480px) !important;
+    height: min(96vw, calc(100dvh - 125px), 480px) !important;
     max-width: 96vw !important;
     max-height: 96vw !important;
     border-width: 2px !important;
     border-radius: 8px !important;
-    margin: 0 auto !important;
+    margin: auto !important;
   }
-  aside {
-    width: 100% !important;
-    max-width: min(96vw, 480px) !important;
-    margin: 0 auto !important;
-    gap: 0 !important;
+  
+  #asideLeft, #asideRight {
+    display: contents !important;
   }
+
   .mobile-panel-section {
-    display: none !important;
-  }
-  .mobile-panel-section.mobile-active {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    width: min(88vw, 380px) !important;
+    max-width: 88vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    background: #140407 !important;
+    border-left: 2px solid rgba(244, 63, 94, 0.7) !important;
+    box-shadow: -10px 0 35px rgba(0, 0, 0, 0.9) !important;
+    z-index: 50 !important;
+    transform: translateX(105%) !important;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
     display: flex !important;
+    flex-direction: column !important;
+    padding: 14px 12px 16px 12px !important;
+    overflow-y: auto !important;
+    box-sizing: border-box !important;
+    border-radius: 0 !important;
+  }
+
+  .mobile-panel-section.drawer-open {
+    transform: translateX(0) !important;
   }
   .tile-name {
     font-size: clamp(5.5px, 1.8vw, 8.5px) !important;

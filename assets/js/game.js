@@ -5050,7 +5050,38 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Mobile Navigation Segmented Tabs Handler
+// Mobile Slide-out Sidebar Drawer Navigation Handler
+function openMobileDrawer(targetId) {
+  const backdrop = document.getElementById('mobileDrawerBackdrop');
+  if (backdrop) backdrop.classList.remove('hidden');
+
+  document.querySelectorAll('.mobile-panel-section').forEach(sec => {
+    sec.classList.remove('drawer-open');
+  });
+
+  const targetEl = document.getElementById(targetId);
+  if (targetEl) {
+    targetEl.classList.add('drawer-open');
+  }
+
+  document.querySelectorAll('.mobile-tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-target') === targetId);
+  });
+}
+
+function closeMobileDrawer() {
+  const backdrop = document.getElementById('mobileDrawerBackdrop');
+  if (backdrop) backdrop.classList.add('hidden');
+
+  document.querySelectorAll('.mobile-panel-section').forEach(sec => {
+    sec.classList.remove('drawer-open');
+  });
+
+  document.querySelectorAll('.mobile-tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+}
+
 function initMobileSectionTabs() {
   const tabs = document.querySelectorAll('.mobile-tab-btn');
   tabs.forEach(btn => {
@@ -5058,15 +5089,38 @@ function initMobileSectionTabs() {
       const targetId = btn.getAttribute('data-target');
       if (!targetId) return;
 
-      tabs.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      document.querySelectorAll('.mobile-panel-section').forEach(sec => sec.classList.remove('mobile-active'));
       const targetEl = document.getElementById(targetId);
-      if (targetEl) {
-        targetEl.classList.add('mobile-active');
+      const isAlreadyOpen = targetEl && targetEl.classList.contains('drawer-open');
+
+      if (isAlreadyOpen) {
+        closeMobileDrawer();
+      } else {
+        openMobileDrawer(targetId);
       }
     });
+  });
+
+  // Close buttons inside mobile drawers
+  document.querySelectorAll('.btn-close-mobile-drawer').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeMobileDrawer();
+    });
+  });
+
+  // Backdrop click to close drawer
+  const backdrop = document.getElementById('mobileDrawerBackdrop');
+  if (backdrop) {
+    backdrop.addEventListener('click', () => {
+      closeMobileDrawer();
+    });
+  }
+
+  // Also close drawer on Escape key if open
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeMobileDrawer();
+    }
   });
 }
 

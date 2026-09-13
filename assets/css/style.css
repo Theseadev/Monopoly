@@ -387,7 +387,8 @@ body:fullscreen .monopoly-board {
 }
 
 .mobile-tab-btn {
-  color: #94a3b8;
+  color: #ffffff !important;
+  opacity: 0.75;
   background: transparent;
   border: 1px solid transparent;
   cursor: pointer;
@@ -396,17 +397,27 @@ body:fullscreen .monopoly-board {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.mobile-tab-btn svg {
+  color: #ffffff !important;
+  transition: transform 0.2s ease;
+}
+
 .mobile-tab-btn:hover {
-  color: #fecdd3;
-  background: rgba(244, 63, 94, 0.12);
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .mobile-tab-btn.active {
-  background: linear-gradient(135deg, rgba(225, 29, 72, 0.35), rgba(190, 18, 60, 0.5)) !important;
+  opacity: 1 !important;
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.4), rgba(190, 18, 60, 0.55)) !important;
   border-color: rgba(251, 113, 133, 0.6) !important;
   color: #ffffff !important;
   box-shadow: 0 0 16px rgba(225, 29, 72, 0.45) !important;
   transform: translateY(-2px);
+}
+
+.mobile-tab-btn.active svg {
+  transform: scale(1.1);
 }
 
 @media (max-width: 1279px) {

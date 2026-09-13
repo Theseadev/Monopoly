@@ -5576,10 +5576,10 @@ function updateFullscreenUI() {
     fullscreenLabel.textContent = isFull ? 'Keluar Full' : 'Layar Penuh';
   }
   if (btnFullscreenToggle) {
-    btnFullscreenToggle.title = isFull ? 'Keluar Layar Penuh (ESC)' : 'Layar Penuh (Tekan ESC untuk keluar)';
+    btnFullscreenToggle.title = isFull ? 'Perkecil Layar / Keluar Full (ESC)' : 'Layar Penuh';
   }
   if (isFull) {
-    showFullscreenToast('Mode Layar Penuh Aktif — Tekan <kbd class="px-1.5 py-0.5 bg-black/50 border border-amber-500/40 rounded text-[10px] font-mono text-white">ESC</kbd> untuk keluar');
+    showFullscreenToast('Mode Layar Penuh Aktif — Ketuk tombol untuk perkecil layar (ESC)');
   }
 }
 

@@ -867,8 +867,8 @@
           </div>
         </div>
 
-        <!-- Tombol Layar Penuh (Fullscreen) - Desktop/Tablet Only -->
-        <button id="btnFullscreenToggle" class="hidden md:flex p-1.5 sm:px-2 sm:py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-rose-200 text-xs font-bold transition items-center gap-1 border border-zinc-700 shadow cursor-pointer active:scale-95" title="Layar Penuh (Tekan ESC untuk keluar)">
+        <!-- Tombol Layar Penuh (Fullscreen) & Perkecil Layar -->
+        <button id="btnFullscreenToggle" class="p-1 sm:px-2 sm:py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-rose-200 text-xs font-bold transition flex items-center justify-center gap-1 border border-zinc-700 shadow cursor-pointer active:scale-95 shrink-0" title="Layar Penuh (Tekan ESC untuk keluar)">
           <span id="fullscreenIcon" class="w-3.5 h-3.5 inline-flex items-center justify-center">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
               <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>

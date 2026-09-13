@@ -196,8 +196,13 @@ export class ModalManager {
     const hasChoices = card.choices && Array.isArray(card.choices) && card.choices.length > 0;
 
     this.container.innerHTML = `
-      <div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 animate-fade-in select-none">
-        <div class="relative bg-gradient-to-b ${isChance ? 'from-amber-900/95 to-zinc-950 border-amber-500' : 'from-blue-900/95 to-zinc-950 border-blue-500'} border-2 rounded-2xl max-w-sm w-full shadow-2xl p-6 text-center animate-scale-up">
+      <div id="modalBackdropCard" class="fixed inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center p-4 z-50 animate-fade-in select-none">
+        <div class="relative bg-gradient-to-b ${isChance ? 'from-amber-900/95 to-zinc-950 border-amber-500' : 'from-blue-900/95 to-zinc-950 border-blue-500'} border-2 rounded-2xl max-w-sm w-full shadow-2xl p-6 text-center animate-scale-up" onclick="event.stopPropagation();">
+          
+          <button id="btnModalCloseTop" type="button" class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-zinc-900 border-2 border-amber-400 text-amber-300 hover:bg-rose-600 hover:text-white flex items-center justify-center shadow-xl transition cursor-pointer text-sm font-black">
+            ✕
+          </button>
+
           <div class="text-4xl mb-2">${isChance ? '❓' : '📦'}</div>
           <div class="text-xs uppercase tracking-widest font-extrabold ${isChance ? 'text-amber-400' : 'text-blue-400'}">
             KARTU ${(action.cardType || '').toUpperCase()}
@@ -226,8 +231,8 @@ export class ModalManager {
               Ditarik oleh: <span class="font-bold text-white">${player.name}</span>
             </div>
 
-            <button id="btnCardContinue" class="mt-6 w-full py-2.5 rounded-xl font-bold text-sm text-white shadow-lg transition ${isChance ? 'bg-amber-600 hover:bg-amber-500' : 'bg-blue-600 hover:bg-blue-500'}">
-              Lanjutkan Permainan
+            <button id="btnCardContinue" class="mt-6 w-full py-2.5 rounded-xl font-bold text-sm text-white shadow-lg transition cursor-pointer ${isChance ? 'bg-amber-600 hover:bg-amber-500' : 'bg-blue-600 hover:bg-blue-500'}">
+              OK
             </button>
           `}
         </div>
@@ -235,6 +240,19 @@ export class ModalManager {
     `;
 
     this.container.classList.remove('hidden');
+
+    const backdrop = document.getElementById('modalBackdropCard');
+    backdrop?.addEventListener('click', (e) => {
+      if (e.target === backdrop) {
+        this.close();
+        onContinue();
+      }
+    });
+
+    document.getElementById('btnModalCloseTop')?.addEventListener('click', () => {
+      this.close();
+      onContinue();
+    });
 
     if (hasChoices) {
       this.container.querySelectorAll('.card-choice-btn').forEach(btn => {

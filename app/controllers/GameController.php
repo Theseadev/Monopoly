@@ -42,6 +42,18 @@ class GameController {
         ]);
     }
 
+    private static function getRequestData(): array {
+        $data = Flight::request()->data->getData();
+        $rawBody = Flight::request()->getBody();
+        if ($rawBody) {
+            $json = json_decode($rawBody, true);
+            if (is_array($json)) {
+                $data = array_merge($data, $json);
+            }
+        }
+        return $data;
+    }
+
     public static function getState(): void {
         self::initRequestContext();
         Flight::json(GameState::load());
@@ -49,7 +61,7 @@ class GameController {
 
     public static function newGame(): void {
         $roomCode = self::initRequestContext();
-        $data = Flight::request()->data->getData();
+        $data = self::getRequestData();
         $players = $data['players'] ?? [
             ['name' => 'Pemain 1', 'isAI' => false, 'token' => 'Merah', 'color' => '#3b82f6'],
             ['name' => 'Bot Budi', 'isAI' => true, 'token' => 'Biru', 'color' => '#ef4444']
@@ -71,7 +83,7 @@ class GameController {
 
     public static function buy(): void {
         self::initRequestContext();
-        $data = Flight::request()->data->getData();
+        $data = self::getRequestData();
         $spaceId = (int)($data['spaceId'] ?? 0);
         $playerId = (int)($data['playerId'] ?? 0);
 
@@ -87,7 +99,7 @@ class GameController {
 
     public static function build(): void {
         self::initRequestContext();
-        $data = Flight::request()->data->getData();
+        $data = self::getRequestData();
         $spaceId = (int)($data['spaceId'] ?? 0);
         $playerId = (int)($data['playerId'] ?? 0);
 
@@ -97,7 +109,7 @@ class GameController {
 
     public static function mortgage(): void {
         self::initRequestContext();
-        $data = Flight::request()->data->getData();
+        $data = self::getRequestData();
         $spaceId = (int)($data['spaceId'] ?? 0);
         $playerId = (int)($data['playerId'] ?? 0);
 
@@ -107,7 +119,7 @@ class GameController {
 
     public static function unmortgage(): void {
         self::initRequestContext();
-        $data = Flight::request()->data->getData();
+        $data = self::getRequestData();
         $spaceId = (int)($data['spaceId'] ?? 0);
         $playerId = (int)($data['playerId'] ?? 0);
 
@@ -139,6 +151,19 @@ class GameController {
         } elseif (isset(Flight::request()->query->choice)) {
             $choice = (string)Flight::request()->query->choice;
         }
+
+        $testCard = $json['testCard'] ?? Flight::request()->data->testCard ?? null;
+        if ($testCard && is_array($testCard)) {
+            $state = GameState::load();
+            $state['phase'] = 'ACTION_REQUIRED';
+            $state['currentAction'] = [
+                'type' => 'CARD_DRAWN',
+                'cardType' => $json['cardType'] ?? 'Kesempatan',
+                'card' => $testCard
+            ];
+            GameState::save($state);
+        }
+
         $state = GameState::resolveCardAction($choice);
         Flight::json($state);
     }

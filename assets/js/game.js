@@ -22,6 +22,26 @@ class SoundEngine {
     return this.enabled;
   }
 
+  playClick() {
+    if (!this.enabled) return;
+    try {
+      this.init();
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      const now = this.ctx.currentTime;
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(600, now);
+      osc.frequency.exponentialRampToValueAtTime(300, now + 0.05);
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.05);
+    } catch (e) {}
+  }
+
   playStep() {
     if (!this.enabled) return;
     this.init();
@@ -1025,51 +1045,77 @@ function renderBoard() {
 
   boardElement.appendChild(centerArea);
 
+  // State indeks pengujian kartu deck
+  let activeTestCard = null;
+  let activeTestCardType = null;
+  let testChanceIndex = 0;
+  let testChestIndex = 0;
+
+  function drawTestCard(type) {
+    const isChance = (type === 'chance');
+    const cards = isChance 
+      ? (window.CHANCE_CARDS || state?.chanceDeck || [])
+      : (window.COMMUNITY_CHEST_CARDS || state?.communityChestDeck || []);
+    
+    if (!cards || cards.length === 0) return;
+
+    const idx = isChance ? testChanceIndex : testChestIndex;
+    const card = { ...cards[idx % cards.length] };
+    const total = cards.length;
+    const currentNum = (idx % cards.length) + 1;
+    
+    if (isChance) testChanceIndex = (testChanceIndex + 1) % cards.length;
+    else testChestIndex = (testChestIndex + 1) % cards.length;
+
+    activeTestCard = card;
+    activeTestCardType = isChance ? 'Kesempatan' : 'Dana Umum';
+    window._activeTestCard = activeTestCard;
+    window._activeTestCardType = activeTestCardType;
+
+    const humanPlayer = getCurrentHumanPlayer();
+
+    // Pastikan modal state bersih
+    closeModal();
+    forceCloseAllModals();
+    isModalOpen = false;
+    isProcessingAction = false;
+
+    if (state) {
+      state.phase = 'ACTION_REQUIRED';
+      state.currentAction = {
+        type: 'CARD_DRAWN',
+        cardType: activeTestCardType,
+        card: card
+      };
+    }
+
+    showCardDrawn({
+      cardType: activeTestCardType,
+      card: card,
+      testIndex: currentNum,
+      testTotal: total
+    }, humanPlayer);
+  }
+
   const deckChance = centerArea.querySelector('#boardDeckChance');
   if (deckChance) {
+    deckChance.style.cursor = 'pointer';
+    deckChance.setAttribute('title', '🧪 Klik untuk menguji Kartu Kesempatan');
     deckChance.addEventListener('click', (e) => {
       e.stopPropagation();
       sound.playCardFlip();
-      Swal.fire({
-        title: 'Tumpukan Kartu Kesempatan',
-        html: `
-          <div class="text-left space-y-2 text-sm text-stone-700">
-            <p>Deck ini berisi <strong>50 Kartu Kesempatan</strong> yang diambil secara otomatis saat bidak pemain mendarat di petak <strong>Kesempatan</strong>.</p>
-            <div class="p-2.5 bg-amber-50 rounded-lg border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
-              <span class="w-5 h-5 flex-shrink-0 text-amber-600">${GameIcons.chance}</span>
-              <span>Berisi bonus keberuntungan, tiket perjalanan kilat ke kota lain, pilihan kartu cuan/zonk, atau denda pembangunan.</span>
-            </div>
-          </div>
-        `,
-        iconHtml: `<div class="w-10 h-10 text-amber-600">${GameIcons.chance}</div>`,
-        customClass: { icon: 'border-0' },
-        confirmButtonColor: '#ea580c',
-        confirmButtonText: 'Tutup'
-      });
+      drawTestCard('chance');
     });
   }
 
   const deckChest = centerArea.querySelector('#boardDeckChest');
   if (deckChest) {
+    deckChest.style.cursor = 'pointer';
+    deckChest.setAttribute('title', '🧪 Klik untuk menguji Kartu Dana Umum');
     deckChest.addEventListener('click', (e) => {
       e.stopPropagation();
       sound.playCardFlip();
-      Swal.fire({
-        title: 'Tumpukan Kartu Dana Umum',
-        html: `
-          <div class="text-left space-y-2 text-sm text-stone-700">
-            <p>Deck ini berisi <strong>50 Kartu Dana Umum</strong> yang diambil secara otomatis saat bidak pemain mendarat di petak <strong>Dana Umum</strong>.</p>
-            <div class="p-2.5 bg-sky-50 rounded-lg border border-sky-200 text-xs text-sky-900 flex items-start gap-2">
-              <span class="w-5 h-5 flex-shrink-0 text-sky-600">${GameIcons.chest}</span>
-              <span>Berisi bantuan dana sosial nusantara, dividen bank nasional, pilihan kartu cuan/zonk, atau kartu bebas penjara.</span>
-            </div>
-          </div>
-        `,
-        iconHtml: `<div class="w-10 h-10 text-sky-600">${GameIcons.chest}</div>`,
-        customClass: { icon: 'border-0' },
-        confirmButtonColor: '#0284c7',
-        confirmButtonText: 'Tutup'
-      });
+      drawTestCard('chest');
     });
   }
 
@@ -3404,8 +3450,7 @@ async function showBuildProposal(action, player) {
   }
 }
 
-// Dialog Kartu Satir Interaktif dengan 3D Flip Card Animation (Sesuai Referensi Gambar)
-// Dialog Kartu Satir Interaktif dengan 3D Flip Card Animation & Decision Choices
+// Dialog Kartu Satir Interaktif dengan Tampilan Deluxe & Keputusan Interaktif
 async function showCardDrawn(action, player) {
   if (isModalOpen || isProcessingAction) return;
   isModalOpen = true;
@@ -3430,124 +3475,110 @@ async function showCardDrawn(action, player) {
     else if (card.type === 'move_to' || card.type === 'move_steps') mainIconHtml = `<div class="w-12 h-12 mx-auto text-blue-600">${GameIcons.compass}</div>`;
     else if (card.type === 'repairs') mainIconHtml = `<div class="w-12 h-12 mx-auto text-amber-700">${GameIcons.tools}</div>`;
 
-    sound.playDiceRoll();
+    sound.playCardFlip();
+
+    if (!hasChoices && card.amount) {
+      if (card.type === 'receive_money') {
+        sound.playCash();
+        showFloatingCash(card.amount, true);
+        triggerConfetti({ particleCount: 50 });
+      } else if (card.type === 'pay_money') {
+        sound.playCash();
+        showFloatingCash(card.amount, false);
+      }
+    }
+    if (!hasChoices && card.type === 'go_to_jail') {
+      triggerJailSiren();
+    }
 
     modalContainer.innerHTML = `
-      <div class="fixed inset-0 bg-black/40 backdrop-blur-[3px] flex items-center justify-center p-4 z-50 font-sans animate-fade-in select-none">
-        <div class="card-deck-container">
-          <!-- Lapisan Tumpukan Kartu di Bawah (Efek Deck 3D) -->
-          <div class="deck-stack-layer-2 ${isChance ? '' : 'deck-stack-chest-2'}"></div>
-          <div class="deck-stack-layer-1 ${isChance ? '' : 'deck-stack-chest-1'}"></div>
+      <div id="cardDrawnBackdrop" class="fixed inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center p-4 z-50 font-sans animate-fade-in select-none">
+        <div class="relative max-w-[340px] w-full animate-scale-up" onclick="event.stopPropagation();">
+          
+          <!-- Tombol Tutup Silang di Sudut Atas (✕) -->
+          <button id="btnCloseCardTop" type="button" onclick="event.stopPropagation(); window.handleCardConfirm();" class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-zinc-900 border-2 border-amber-400 text-amber-300 hover:bg-rose-600 hover:border-rose-400 hover:text-white flex items-center justify-center shadow-2xl transition transform hover:scale-110 active:scale-95 cursor-pointer z-50 text-sm font-black">
+            ✕
+          </button>
 
-          <!-- Kartu 3D Interaktif (Bisa Dibalik) -->
-          <div id="interactiveFlipCard" class="flip-card">
+          <!-- Kartu Monopoli Deluxe -->
+          <div class="mx-auto bg-white rounded-3xl border-4 ${isChance ? 'border-[#78350f]' : 'border-[#0c4a6e]'} overflow-hidden text-zinc-900 shadow-2xl w-full flex flex-col justify-between" style="min-height: 440px; box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 30px ${isChance ? 'rgba(245,158,11,0.35)' : 'rgba(56,189,248,0.35)'};">
             
-            <!-- 1. SISI BELAKANG (Tertutup / Face-Down Awal) -->
-            <div class="flip-card-face flip-card-back ${isChance ? 'card-pattern-chance' : 'card-pattern-chest'} p-4 text-white">
-              <div class="w-full h-full border-2 ${isChance ? 'border-amber-400/70' : 'border-sky-300/70'} rounded-2xl p-4 flex flex-col items-center justify-between relative overflow-hidden bg-black/20">
-                <div class="text-[10px] font-black uppercase tracking-widest ${isChance ? 'text-amber-300' : 'text-sky-300'} font-outfit">
-                  MONOPOLI NUSANTARA
-                </div>
-
-                <div class="flex flex-col items-center my-auto">
-                  <div class="w-20 h-20 rounded-3xl bg-black/40 border-2 ${isChance ? 'border-amber-400 text-amber-300' : 'border-sky-400 text-sky-300'} flex items-center justify-center p-4 shadow-inner mb-3 transform hover:scale-105 transition">
-                    ${isChance ? GameIcons.chance : GameIcons.chest}
-                  </div>
-                  <div class="text-2xl font-black ${isChance ? 'text-amber-300' : 'text-sky-300'} font-outfit tracking-widest uppercase drop-shadow">
-                    ${headerTitle}
-                  </div>
-                  <div class="text-[10px] ${isChance ? 'text-amber-200/80' : 'text-sky-200/80'} font-bold tracking-wider uppercase mt-0.5">
-                    ${cardSubtitle}
-                  </div>
-                </div>
-
-                <!-- Tombol Animasi Berkedip untuk Membuka -->
-                <div class="py-2 px-4 rounded-full ${isChance ? 'bg-amber-500/30 border-amber-400 text-amber-200' : 'bg-sky-500/30 border-sky-400 text-sky-200'} border text-xs font-black animate-bounce-gentle shadow-lg flex items-center gap-2 font-outfit">
-                  <span class="w-4 h-4 inline-block">${GameIcons.tap}</span>
-                  <span>KETUK UNTUK BUKA KARTU</span>
-                </div>
+            <!-- Banner Atas Berwarna -->
+            <div class="${isChance ? 'flip-card-header-chance' : 'flip-card-header-chest'} pt-3.5 pb-2.5 px-4 text-center text-white flex flex-col items-center justify-center shadow-md shrink-0">
+              <div class="w-8 h-8 rounded-xl bg-white/20 border border-white/40 flex items-center justify-center mb-1 shadow-inner">
+                ${cardHeaderIconHtml}
+              </div>
+              <div class="text-xs md:text-sm font-black tracking-widest uppercase font-outfit leading-tight">
+                ${isChance ? 'CHANCE' : 'COMMUNITY CHEST'}
+              </div>
+              <div class="text-[8.5px] font-semibold text-white/80 uppercase tracking-wider">
+                ${isChance ? 'KARTU KESEMPATAN' : 'KARTU DANA UMUM'}
               </div>
             </div>
 
-            <!-- 2. SISI DEPAN (Terbuka / Face-Up) -->
-            <div class="flip-card-face flip-card-front text-zinc-900 flex flex-col justify-between overflow-hidden">
-              <!-- Banner Atas Berwarna -->
-              <div class="${isChance ? 'flip-card-header-chance' : 'flip-card-header-chest'} pt-3.5 pb-2.5 px-4 text-center text-white flex flex-col items-center justify-center shadow-md shrink-0">
-                <div class="w-7 h-7 rounded-lg bg-white/20 border border-white/40 flex items-center justify-center mb-0.5 shadow-inner">
-                  ${cardHeaderIconHtml}
-                </div>
-                <div class="text-xs md:text-sm font-black tracking-widest uppercase font-outfit leading-tight">
-                  ${isChance ? 'CHANCE' : 'COMMUNITY CHEST'}
-                </div>
-                <div class="text-[8.5px] font-semibold text-white/80 uppercase tracking-wider">
-                  ${isChance ? 'KARTU KESEMPATAN' : 'KARTU DANA UMUM'}
-                </div>
+            <!-- Isi Konten Kartu -->
+            <div class="flex-1 py-3 px-4 flex flex-col items-center justify-center text-center bg-[#fdfbf7] overflow-y-auto">
+              <div class="mb-1.5 filter drop-shadow-sm shrink-0">
+                ${mainIconHtml}
               </div>
 
-              <!-- Isi Konten Kartu (Flex-1 dengan proteksi overflow) -->
-              <div class="flex-1 py-2.5 px-3.5 flex flex-col items-center justify-center text-center bg-[#fdfbf7] overflow-y-auto min-h-0">
-                <div class="mb-1 filter drop-shadow-sm shrink-0">
-                  ${mainIconHtml}
-                </div>
+              <div class="text-base md:text-lg font-black text-zinc-900 font-outfit leading-tight mb-1.5 shrink-0">
+                ${card.title}
+              </div>
 
-                <div class="text-sm md:text-base font-black text-zinc-900 font-outfit leading-tight mb-1 shrink-0">
-                  ${card.title}
-                </div>
+              <div class="text-xs text-zinc-700 leading-relaxed font-medium max-w-xs mx-auto mb-3">
+                ${card.description}
+              </div>
 
-                <div class="text-[11.5px] text-zinc-700 leading-relaxed font-medium max-w-xs mx-auto mb-2">
-                  ${card.description}
-                </div>
-
-                ${hasChoices ? `
-                  <!-- Pilihan Keputusan Interaktif -->
-                  <div class="w-full space-y-2 my-1 shrink-0 text-left relative z-50 pointer-events-auto">
-                    ${card.choices.map((c, idx) => `
-                      <button type="button" data-choice-id="${c.id}" onclick="event.stopPropagation(); event.preventDefault(); window.handleCardChoiceSelect('${c.id}');" onpointerup="event.stopPropagation(); window.handleCardChoiceSelect('${c.id}');" class="card-choice-btn w-full p-2.5 rounded-xl border text-left flex items-center justify-between gap-2 shadow-sm transition transform active:scale-[0.97] cursor-pointer select-none relative z-50 pointer-events-auto ${
-                        c.theme === 'emerald' ? 'bg-emerald-50 hover:bg-emerald-100/90 border-emerald-500/50 text-emerald-950' :
-                        c.theme === 'rose' ? 'bg-rose-50 hover:bg-rose-100/90 border-rose-500/50 text-rose-950' :
-                        c.theme === 'amber' ? 'bg-amber-50 hover:bg-amber-100/90 border-amber-500/50 text-amber-950' :
-                        c.theme === 'purple' ? 'bg-purple-50 hover:bg-purple-100/90 border-purple-500/50 text-purple-950' :
-                        c.theme === 'blue' ? 'bg-blue-50 hover:bg-blue-100/90 border-blue-500/50 text-blue-950' :
-                        'bg-zinc-100 hover:bg-zinc-200 border-zinc-300 text-zinc-900'
-                      }">
-                        <div class="flex items-center gap-2 min-w-0 pointer-events-none">
-                          <span class="text-xl shrink-0">${c.icon || '👉'}</span>
-                          <div class="min-w-0">
-                            <div class="text-xs font-black font-outfit leading-snug tracking-tight">${escapeHtml(c.title)}</div>
-                            <div class="text-[10px] text-zinc-600 font-medium leading-tight truncate">${escapeHtml(c.desc)}</div>
-                          </div>
+              ${hasChoices ? `
+                <!-- Pilihan Keputusan Interaktif -->
+                <div class="w-full space-y-2 my-1 shrink-0 text-left">
+                  ${card.choices.map((c, idx) => `
+                    <button type="button" data-choice-id="${c.id}" onclick="event.stopPropagation(); window.handleCardChoiceSelect('${c.id}');" class="card-choice-btn w-full p-2.5 rounded-xl border text-left flex items-center justify-between gap-2 shadow-sm transition transform active:scale-[0.97] cursor-pointer select-none ${
+                      c.theme === 'emerald' ? 'bg-emerald-50 hover:bg-emerald-100 border-emerald-500/60 text-emerald-950 font-bold' :
+                      c.theme === 'rose' ? 'bg-rose-50 hover:bg-rose-100 border-rose-500/60 text-rose-950 font-bold' :
+                      c.theme === 'amber' ? 'bg-amber-50 hover:bg-amber-100 border-amber-500/60 text-amber-950 font-bold' :
+                      c.theme === 'purple' ? 'bg-purple-50 hover:bg-purple-100 border-purple-500/60 text-purple-950 font-bold' :
+                      c.theme === 'blue' ? 'bg-blue-50 hover:bg-blue-100 border-blue-500/60 text-blue-950 font-bold' :
+                      'bg-zinc-100 hover:bg-zinc-200 border-zinc-300 text-zinc-900 font-bold'
+                    }">
+                      <div class="flex items-center gap-2 min-w-0 pointer-events-none">
+                        <span class="text-xl shrink-0">${c.icon || '👉'}</span>
+                        <div class="min-w-0">
+                          <div class="text-xs font-black font-outfit leading-snug tracking-tight">${escapeHtml(c.title)}</div>
+                          <div class="text-[10px] text-zinc-600 font-medium leading-tight truncate">${escapeHtml(c.desc)}</div>
                         </div>
-                        ${c.badge ? `<span class="shrink-0 text-[9.5px] font-black px-2 py-0.5 rounded-full font-mono shadow-xs pointer-events-none ${
-                          c.theme === 'rose' ? 'bg-rose-500 text-white' :
-                          c.theme === 'emerald' ? 'bg-emerald-600 text-white' :
-                          c.theme === 'purple' ? 'bg-purple-600 text-white' :
-                          c.theme === 'blue' ? 'bg-blue-600 text-white' :
-                          'bg-amber-500 text-black'
-                        }">${escapeHtml(c.badge)}</span>` : ''}
-                      </button>
-                    `).join('')}
-                  </div>
-                ` : `
-                  <!-- Indikator Pemain Terkena Efek -->
-                  <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-200/90 border border-zinc-350 text-xs font-bold text-zinc-800 shadow-sm shrink-0">
-                    <span class="w-4 h-4 inline-flex items-center justify-center">${getChessPawnSVG(player.color, player.id, 18)}</span>
-                    <span class="font-outfit font-black" style="color: ${player.color}">${player.name}</span>
-                  </div>
-                `}
-              </div>
+                      </div>
+                      ${c.badge ? `<span class="shrink-0 text-[9.5px] font-black px-2 py-0.5 rounded-full font-mono shadow-xs pointer-events-none ${
+                        c.theme === 'rose' ? 'bg-rose-500 text-white' :
+                        c.theme === 'emerald' ? 'bg-emerald-600 text-white' :
+                        c.theme === 'purple' ? 'bg-purple-600 text-white' :
+                        c.theme === 'blue' ? 'bg-blue-600 text-white' :
+                        'bg-amber-500 text-black'
+                      }">${escapeHtml(c.badge)}</span>` : ''}
+                    </button>
+                  `).join('')}
+                </div>
+              ` : `
+                <!-- Indikator Pemain Terkena Efek -->
+                <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-zinc-200/90 border border-zinc-300 text-xs font-bold text-zinc-800 shadow-sm shrink-0">
+                  <span class="w-4 h-4 inline-flex items-center justify-center">${getChessPawnSVG(player.color, player.id, 18)}</span>
+                  <span class="font-outfit font-black" style="color: ${player.color}">${player.name}</span>
+                </div>
+              `}
+            </div>
 
-              <!-- Tombol Aksi di Bawah -->
-              <div class="p-2.5 bg-[#fdfbf7] border-t border-zinc-200/80 shrink-0 relative z-40">
-                ${hasChoices ? `
-                  <div class="text-center text-[10.5px] font-bold text-zinc-500 tracking-wide uppercase font-outfit">
-                    👆 Pilih salah satu tindakan di atas
-                  </div>
-                ` : `
-                  <button id="btnConfirmCardFlip" class="w-full py-2.5 rounded-xl ${isChance ? 'btn-card-ok-chance' : 'btn-card-ok'} text-white font-black text-sm tracking-wider font-outfit shadow-md cursor-pointer transform active:scale-95 transition relative z-50 pointer-events-auto">
-                    OK
-                  </button>
-                `}
-              </div>
+            <!-- Tombol Aksi di Bawah -->
+            <div class="p-3 bg-[#fdfbf7] border-t border-zinc-200/80 shrink-0">
+              ${hasChoices ? `
+                <div class="text-center text-[10.5px] font-bold text-zinc-500 tracking-wide uppercase font-outfit">
+                  👆 Pilih salah satu tindakan di atas
+                </div>
+              ` : `
+                <button id="btnConfirmCardFlip" type="button" onclick="event.stopPropagation(); window.handleCardConfirm();" class="w-full py-3 rounded-2xl ${isChance ? 'btn-card-ok-chance' : 'btn-card-ok'} text-white font-black text-sm tracking-wider font-outfit shadow-lg cursor-pointer transform active:scale-95 transition flex items-center justify-center gap-2">
+                  <span>OK</span>
+                </button>
+              `}
             </div>
 
           </div>
@@ -3556,114 +3587,54 @@ async function showCardDrawn(action, player) {
     `;
     modalContainer.classList.remove('hidden');
 
-    const flipCardEl = document.getElementById('interactiveFlipCard');
-    const btnConfirmEl = document.getElementById('btnConfirmCardFlip');
-
-    let isFlipped = false;
-
-    const doFlip = () => {
-      if (isFlipped) return;
-      isFlipped = true;
-      sound.playCardFlip();
-      flipCardEl.classList.add('is-flipped');
-
-      setTimeout(() => {
-        flipCardEl.classList.add('flip-done');
-        if (!hasChoices && card.amount) {
-          if (card.type === 'receive_money') {
-            sound.playCash();
-            showFloatingCash(card.amount, true);
-            triggerConfetti({ particleCount: 50 });
-          } else if (card.type === 'pay_money') {
-            sound.playCash();
-            showFloatingCash(card.amount, false);
-          }
-        }
-        if (!hasChoices && card.type === 'go_to_jail') {
-          triggerJailSiren();
-        }
-      }, 450);
-    };
-
-    flipCardEl.addEventListener('click', (e) => {
-      if (e.target.closest('.card-choice-btn') || e.target.closest('#btnConfirmCardFlip')) {
-        return;
-      }
-      if (!isFlipped) {
-        doFlip();
+    // Klik backdrop luar untuk menutup modal
+    const backdropEl = document.getElementById('cardDrawnBackdrop');
+    backdropEl?.addEventListener('click', (e) => {
+      if (e.target === backdropEl) {
+        window.handleCardConfirm();
       }
     });
 
-    // Pasang direct event listener ke semua tombol pilihan kartu
+    // Pasang direct event listener ke tombol OK dan Tutup Silang
+    const btnOk = document.getElementById('btnConfirmCardFlip');
+    if (btnOk) {
+      const handleOk = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.handleCardConfirm();
+      };
+      btnOk.addEventListener('click', handleOk);
+      btnOk.addEventListener('pointerup', handleOk);
+    }
+
+    const btnCloseTop = document.getElementById('btnCloseCardTop');
+    if (btnCloseTop) {
+      const handleCloseTop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.handleCardConfirm();
+      };
+      btnCloseTop.addEventListener('click', handleCloseTop);
+      btnCloseTop.addEventListener('pointerup', handleCloseTop);
+    }
+
     modalContainer.querySelectorAll('.card-choice-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        const choiceId = btn.getAttribute('data-choice-id');
-        if (choiceId) {
+      const choiceId = btn.getAttribute('data-choice-id');
+      if (choiceId) {
+        const handleChoice = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
           window.handleCardChoiceSelect(choiceId);
-        }
-      });
-      btn.addEventListener('pointerup', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        const choiceId = btn.getAttribute('data-choice-id');
-        if (choiceId) {
-          window.handleCardChoiceSelect(choiceId);
-        }
-      });
-    });
-
-    // Delegasi event di modalContainer dengan capture phase untuk menjamin klik selalu tembus
-    modalContainer.addEventListener('click', (e) => {
-      const choiceBtn = e.target.closest('.card-choice-btn');
-      if (choiceBtn) {
-        e.stopPropagation();
-        e.preventDefault();
-        const choiceId = choiceBtn.getAttribute('data-choice-id');
-        if (choiceId) {
-          window.handleCardChoiceSelect(choiceId);
-        }
-        return;
+        };
+        btn.addEventListener('click', handleChoice);
+        btn.addEventListener('pointerup', handleChoice);
       }
-      const confirmBtn = e.target.closest('#btnConfirmCardFlip');
-      if (confirmBtn) {
-        e.stopPropagation();
-        e.preventDefault();
-        btnConfirmEl?.click();
-        return;
-      }
-    }, true);
-
-    modalContainer.addEventListener('pointerup', (e) => {
-      const choiceBtn = e.target.closest('.card-choice-btn');
-      if (choiceBtn) {
-        e.stopPropagation();
-        e.preventDefault();
-        const choiceId = choiceBtn.getAttribute('data-choice-id');
-        if (choiceId) {
-          window.handleCardChoiceSelect(choiceId);
-        }
-      }
-    }, true);
-
-    btnConfirmEl?.addEventListener('click', async (e) => {
-      e.stopPropagation();
-      closeModal();
-      forceCloseAllModals();
-
-      const newState = await apiCall('/api/game/resolve-card');
-      if (newState) {
-        state = newState;
-        updateBoardUI();
-      }
-      isProcessingAction = false;
-      isModalOpen = false;
-      updateHUD();
     });
 
   } catch (err) {
     console.error('Card display error:', err);
+    window._activeTestCard = null;
+    window._activeTestCardType = null;
     isProcessingAction = false;
     isModalOpen = false;
     forceCloseAllModals();
@@ -3671,19 +3642,87 @@ async function showCardDrawn(action, player) {
   }
 }
 
+// Handler konfirmasi tombol OK pada kartu
+window._isResolvingCardConfirm = false;
+
+window.handleCardConfirm = async function() {
+  // 1. TUTUP MODAL LANGSUNG SECARA INSTAN DI DOM TANPA MENUNGGU APAPUN
+  try {
+    const mc = document.getElementById('modalContainer');
+    if (mc) {
+      mc.innerHTML = '';
+      mc.classList.add('hidden');
+    }
+  } catch (e) {}
+  isModalOpen = false;
+  isProcessingAction = false;
+  try { sound?.playClick?.(); } catch (e) {}
+
+  if (window._isResolvingCardConfirm) return;
+  window._isResolvingCardConfirm = true;
+
+  try {
+    const payload = {};
+    if (window._activeTestCard) {
+      payload.testCard = window._activeTestCard;
+      payload.cardType = window._activeTestCardType;
+    }
+
+    const newState = await apiCall('/api/game/resolve-card', payload);
+    window._activeTestCard = null;
+    window._activeTestCardType = null;
+    if (newState) {
+      state = newState;
+      updateBoardUI();
+
+      // Cek apakah aksi menyebabkan masuk penjara
+      const currentP = state.players[state.currentPlayerIndex];
+      if (currentP && currentP.inJail) {
+        triggerJailSiren();
+      }
+    }
+  } catch (err) {
+    console.error('Resolve confirm card error:', err);
+    window._activeTestCard = null;
+    window._activeTestCardType = null;
+  } finally {
+    isProcessingAction = false;
+    isModalOpen = false;
+    window._isResolvingCardConfirm = false;
+    forceCloseAllModals();
+    updateHUD();
+  }
+};
+
 // Handler pemilihan opsi keputusan pada kartu
 window._isResolvingCardChoice = false;
 
 window.handleCardChoiceSelect = async function(choiceId) {
+  // 1. TUTUP MODAL LANGSUNG SECARA INSTAN DI DOM TANPA MENUNGGU APAPUN
+  try {
+    const mc = document.getElementById('modalContainer');
+    if (mc) {
+      mc.innerHTML = '';
+      mc.classList.add('hidden');
+    }
+  } catch (e) {}
+  isModalOpen = false;
+  isProcessingAction = false;
+  try { sound?.playClick?.(); } catch (e) {}
+
   if (window._isResolvingCardChoice) return;
   window._isResolvingCardChoice = true;
 
-  sound.playClick();
-  closeModal();
-  forceCloseAllModals();
-
   try {
-    const newState = await apiCall('/api/game/resolve-card', { choice: choiceId });
+    const payload = { choice: choiceId };
+    if (window._activeTestCard) {
+      payload.testCard = window._activeTestCard;
+      payload.cardType = window._activeTestCardType;
+    }
+
+    const newState = await apiCall('/api/game/resolve-card', payload);
+    window._activeTestCard = null;
+    window._activeTestCardType = null;
     if (newState) {
       state = newState;
       updateBoardUI();
@@ -3696,10 +3735,13 @@ window.handleCardChoiceSelect = async function(choiceId) {
     }
   } catch (err) {
     console.error('Resolve choice card error:', err);
+    window._activeTestCard = null;
+    window._activeTestCardType = null;
   } finally {
     isProcessingAction = false;
     isModalOpen = false;
     window._isResolvingCardChoice = false;
+    forceCloseAllModals();
     updateHUD();
   }
 };

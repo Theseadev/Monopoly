@@ -986,6 +986,8 @@
     window.INITIAL_STATE = <?= json_encode($initialState, JSON_UNESCAPED_UNICODE) ?>;
     window.BOARD_SPACES = <?= json_encode($boardSpaces, JSON_UNESCAPED_UNICODE) ?>;
     window.PROPERTY_GROUPS = <?= json_encode($propertyGroups, JSON_UNESCAPED_UNICODE) ?>;
+    window.CHANCE_CARDS = <?= json_encode(\App\Data\CardsData::CHANCE_CARDS, JSON_UNESCAPED_UNICODE) ?>;
+    window.COMMUNITY_CHEST_CARDS = <?= json_encode(\App\Data\CardsData::COMMUNITY_CHEST_CARDS, JSON_UNESCAPED_UNICODE) ?>;
   </script>
   <script src="./assets/js/game.js?v=<?= time() ?>"></script>
 </body>

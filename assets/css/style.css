@@ -1805,21 +1805,52 @@ body.fullscreen-active .corner-go-arrow {
   border-bottom: 3px solid #78350f;
 }
 
+/* Ensure Modal Container and Backdrop always sit at top and receive clicks */
+#modalContainer {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+}
+
+#modalContainer.hidden {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+#cardDrawnBackdrop {
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+}
+
+#btnCloseCardTop {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  position: absolute !important;
+  z-index: 1000001 !important;
+  touch-action: manipulation;
+}
+
 /* OK Button for Dana Umum (Blue) */
-.btn-card-ok {
+.btn-card-ok, #btnConfirmCardFlip {
   background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
   border: 2.5px solid #075985;
   box-shadow: 0 4px 0 #0c4a6e, 0 8px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.1s ease;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 1000000 !important;
+  touch-action: manipulation;
 }
 
-.btn-card-ok:hover {
+.btn-card-ok:hover, #btnConfirmCardFlip:hover {
   background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
   transform: translateY(-2px);
   box-shadow: 0 6px 0 #0c4a6e, 0 12px 20px rgba(0, 0, 0, 0.4);
 }
 
-.btn-card-ok:active {
+.btn-card-ok:active, #btnConfirmCardFlip:active {
   transform: translateY(2px);
   box-shadow: 0 1px 0 #0c4a6e;
 }
@@ -1830,6 +1861,11 @@ body.fullscreen-active .corner-go-arrow {
   border: 2.5px solid #78350f;
   box-shadow: 0 4px 0 #451a03, 0 8px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.1s ease;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 1000000 !important;
+  touch-action: manipulation;
 }
 
 .btn-card-ok-chance:hover {

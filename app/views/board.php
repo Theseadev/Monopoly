@@ -48,7 +48,8 @@
       font-family: 'Outfit', sans-serif;
     }
 
-    .text-gold-3d {
+    .text-gold-3d,
+    .text-nusantara-3d {
       color: #ffffff;
       font-family: 'Outfit', sans-serif;
       font-weight: 900;
@@ -59,7 +60,8 @@
       filter: drop-shadow(0 2px 0 #9f1239) drop-shadow(0 4px 12px rgba(225, 29, 72, 0.5));
     }
 
-    .text-gold-subtitle {
+    .text-gold-subtitle,
+    .text-nusantara-subtitle {
       color: #fecdd3;
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
@@ -390,11 +392,11 @@
 
     <!-- Title & Subtitle -->
     <div class="text-center mb-4 sm:mb-7">
-      <h1 class="text-gold-3d text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-wider">
-        MONOPOLI
+      <h1 class="text-nusantara-3d text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-wider">
+        MONOPOLI NUSANTARA
       </h1>
-      <p class="text-gold-subtitle text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-widest mt-0.5">
-        GAME PAPAN KLASIK
+      <p class="text-nusantara-subtitle text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-widest mt-0.5">
+        EDISI NUSANTARA
       </p>
     </div>
 

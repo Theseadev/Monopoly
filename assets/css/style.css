@@ -38,25 +38,26 @@ body {
   background-size: cover;
 }
 
-/* 3D Gold Typography */
-.text-gold-3d {
-  color: #f1b32d;
-  font-family: Impact, 'Arial Black', sans-serif;
-  letter-spacing: 0.06em;
-  text-shadow: 
-    0 1px 0 #d1941a,
-    0 2px 0 #b37a0c,
-    0 3px 0 #8f5c04,
-    0 4px 0 #6e4300,
-    0 6px 10px rgba(0, 0, 0, 0.5);
+/* 3D Nusantara Red-White Typography (No Gold) */
+.text-gold-3d,
+.text-nusantara-3d {
+  color: #ffffff;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  background: linear-gradient(180deg, #ffffff 15%, #ffd5df 65%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 0 #9f1239) drop-shadow(0 4px 12px rgba(225, 29, 72, 0.5));
 }
 
-.text-gold-subtitle {
-  color: #e5be82;
-  font-family: system-ui, sans-serif;
-  font-weight: 700;
+.text-gold-subtitle,
+.text-nusantara-subtitle {
+  color: #fecdd3;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
   letter-spacing: 0.22em;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 /* 3D Menu Buttons */

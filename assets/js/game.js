@@ -991,7 +991,7 @@ function renderBoard() {
     <div class="center-header flex flex-col items-center pt-2 md:pt-3">
       <div class="w-7 h-7 md:w-8 md:h-8 text-[#784419] mb-0.5 drop-shadow-sm">${GameIcons.shield}</div>
       <h1 class="text-xl md:text-3xl font-black tracking-widest text-[#5c2d08] uppercase font-outfit leading-none drop-shadow-sm">
-        MONOPOLY
+        MONOPOLI
       </h1>
       <div class="text-[8px] md:text-[10px] uppercase tracking-[0.28em] font-black text-[#784419] mt-0.5 font-outfit">
         • EDISI NUSANTARA •

@@ -592,7 +592,8 @@ section.hidden,
   .tile-name {
     font-size: clamp(5.2px, 1.55vw, 7.2px) !important;
     line-height: 1.1 !important;
-    word-break: normal !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
     hyphens: none !important;
   }
   .tile-price-badge {
@@ -626,7 +627,8 @@ section.hidden,
   .tile-right .tile-name {
     font-size: clamp(4.8px, 1.35vw, 6.8px) !important;
     line-height: 1.08 !important;
-    word-break: normal !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
     hyphens: none !important;
   }
   .tile-icon {
@@ -801,16 +803,16 @@ section.hidden,
 .tile-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: clamp(8.5px, 0.82vw, 11.5px);
+  font-size: clamp(7.8px, 0.74vw, 10.5px);
   line-height: 1.12;
   color: #1c1917;
   text-align: center;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   max-width: 100%;
   width: 100%;
   overflow: visible;
-  word-break: normal;
-  overflow-wrap: break-word;
+  word-break: keep-all;
+  overflow-wrap: normal;
   hyphens: none;
   white-space: normal;
   display: -webkit-box;
@@ -920,12 +922,13 @@ section.hidden,
   gap: 1.5px;
 }
 .tile-left .tile-name {
-  font-size: clamp(8px, 0.8vw, 11px);
-  line-height: 1.12;
+  font-size: clamp(7.2px, 0.68vw, 9.8px);
+  line-height: 1.1;
   width: 100%;
   text-align: center;
-  word-break: normal;
-  overflow-wrap: break-word;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+  overflow-wrap: normal;
   hyphens: none;
 }
 .tile-left .tile-price-badge {
@@ -984,12 +987,13 @@ section.hidden,
   gap: 1.5px;
 }
 .tile-right .tile-name {
-  font-size: clamp(8px, 0.8vw, 11px);
-  line-height: 1.12;
+  font-size: clamp(7.2px, 0.68vw, 9.8px);
+  line-height: 1.1;
   width: 100%;
   text-align: center;
-  word-break: normal;
-  overflow-wrap: break-word;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+  overflow-wrap: normal;
   hyphens: none;
 }
 .tile-right .tile-price-badge {
@@ -1140,9 +1144,28 @@ html.fullscreen-active .tile-icon {
 #inGameBoardScreen:fullscreen .tile-name,
 body.fullscreen-active .tile-name,
 html.fullscreen-active .tile-name {
-  font-size: clamp(10.5px, 1vw, 14.5px) !important;
-  line-height: 1.15 !important;
-  letter-spacing: -0.01em !important;
+  font-size: clamp(8.5px, 0.8vw, 12px) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.015em !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+}
+
+:fullscreen .tile-left .tile-name,
+:fullscreen .tile-right .tile-name,
+#inGameBoardScreen:fullscreen .tile-left .tile-name,
+#inGameBoardScreen:fullscreen .tile-right .tile-name,
+body.fullscreen-active .tile-left .tile-name,
+body.fullscreen-active .tile-right .tile-name,
+html.fullscreen-active .tile-left .tile-name,
+html.fullscreen-active .tile-right .tile-name {
+  font-size: clamp(7.8px, 0.72vw, 10.5px) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.025em !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
 }
 
 :fullscreen .tile-price-badge,

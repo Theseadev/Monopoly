@@ -7,8 +7,8 @@ class CardsData {
   0 => 
   array (
     'id' => 'c1',
-    'title' => 'Gaskeun ke Petak Mulai (GO)!',
-    'description' => 'Rezeki anak sholeh! Langsung ngacir ke petak Mulai dan sikat gaji resmi Rp 2.000.000 dari Bank. Mayan buat beli seblak sekelurahan!',
+    'title' => 'Balik ke Titik Mulai (GO)',
+    'description' => 'Lewati garis awal dan ambil gaji resmi Rp 2.000.000 dari kas. Lumayan buat modal putar uang lagi.',
     'type' => 'move_to',
     'target' => 0,
     'collectGo' => true,
@@ -16,8 +16,8 @@ class CardsData {
   1 => 
   array (
     'id' => 'c2',
-    'title' => 'Healing Sultan ke Raja Ampat Papua!',
-    'description' => 'Lupakan beban hidup dan deadline kantor! Terbang VIP snorkeling liat terumbu karang di Papua. Kalo lewatin Mulai, kantongi gaji Rp 2.000.000!',
+    'title' => 'Dinas Sambil Liburan ke Raja Ampat',
+    'description' => 'Agenda rapat evaluasi di resort pinggir pantai Papua. Kalau lewat Mulai, ambil jatah Rp 2.000.000.',
     'type' => 'move_to',
     'target' => 39,
     'collectGo' => true,
@@ -25,8 +25,8 @@ class CardsData {
   2 => 
   array (
     'id' => 'c3',
-    'title' => 'Gaskeun Bagi-Bagi Kavling Proyek Megah IKN!',
-    'description' => 'Ditunjuk jadi konsultan bagi-bagi kavling proyek Ibu Kota Nusantara. Meluncur ke lokasi! Kalo lewatin Mulai, comot Rp 2.000.000.',
+    'title' => 'Bagi-Bagi Kavling Proyek IKN',
+    'description' => 'Dapat undangan khusus peninjauan kavling strategis di Ibu Kota Nusantara. Kalau lewat Mulai, ambil Rp 2.000.000.',
     'type' => 'move_to',
     'target' => 31,
     'collectGo' => true,
@@ -34,8 +34,8 @@ class CardsData {
   3 => 
   array (
     'id' => 'c4',
-    'title' => 'Piknik Santuy ke D.I. Yogyakarta!',
-    'description' => 'Gowes sore di Malioboro sambil ngemil bakpia anget bareng gebetan. Meluncur ke Yogya, lewatin Mulai sikat Rp 2.000.000!',
+    'title' => 'Kunjungan Budaya ke D.I. Yogyakarta',
+    'description' => 'Mampir santai ke Malioboro sebelum lanjut urusan kerjaan. Kalau lewat Mulai, klaim Rp 2.000.000.',
     'type' => 'move_to',
     'target' => 21,
     'collectGo' => true,
@@ -43,8 +43,8 @@ class CardsData {
   4 => 
   array (
     'id' => 'c5',
-    'title' => 'Ngebut ke Pelabuhan Tanjung Priok!',
-    'description' => 'Nyetir mobil sport sambil denger lagu jedag-jedug, meluncur ke Tanjung Priok! Kalo lewatin Mulai ambil jatah Rp 2.000.000.',
+    'title' => 'Cek Muatan di Tanjung Priok',
+    'description' => 'Meluncur ke Pelabuhan Tanjung Priok buat urus kelancaran kontainer. Lewat Mulai, ambil Rp 2.000.000.',
     'type' => 'move_to',
     'target' => 15,
     'collectGo' => true,
@@ -52,8 +52,8 @@ class CardsData {
   5 => 
   array (
     'id' => 'c6',
-    'title' => 'Kulineran Seblak Gedung Sate Bandung!',
-    'description' => 'Euy jalan-jalan santai ke Bandung nyari cuanki, cilok, dan seblak prasmanan! Meluncur ke Gedung Sate, lewatin Mulai klaim Rp 2.000.000.',
+    'title' => 'Agenda Kerja di Gedung Sate Bandung',
+    'description' => 'Meluncur ke Bandung buat rapat koordinasi lintas instansi. Lewat Mulai, ambil Rp 2.000.000.',
     'type' => 'move_to',
     'target' => 6,
     'collectGo' => true,
@@ -61,159 +61,159 @@ class CardsData {
   6 => 
   array (
     'id' => 'c7',
-    'title' => 'Ngebut Naik Kereta Cepat Whoosh Anggaran Bengkak!',
-    'description' => 'Wussshhh! Anggaran proyek bengkak puluhan triliun tapi keretanya sat-set ngebut 350 km/jam! Maju 4 petak ke depan.',
+    'title' => 'Naik Kereta Cepat Whoosh',
+    'description' => 'Naik kereta cepat biar gak kena macet tol. Maju 4 petak ke depan.',
     'type' => 'move_steps',
     'steps' => 4,
   ),
   7 => 
   array (
     'id' => 'c8',
-    'title' => 'Ngekor Iring-Iringan Patwal Pejabat Strobo!',
-    'description' => 'Tet-tot-tet-tot! Buntutin mobil pajero pelat dewa pake sirine strobo, rakyat jelata auto minggir sungkem! Tancap gas maju 5 petak!',
+    'title' => 'Ngekor Iring-Iringan Patwal Strobo',
+    'description' => 'Mengekor di belakang mobil pejabat sirine strobo, jalanan jadi lancar. Tancap gas maju 5 petak.',
     'type' => 'move_steps',
     'steps' => 5,
   ),
   8 => 
   array (
     'id' => 'c9',
-    'title' => 'Menang War Tiket Konser VIP Baris Depan!',
-    'description' => 'Jari lu emang paling dewa pas war tiket server jebol! Dapet baris VIP paling depan disenyumin idol tercinta. Maju 3 petak!',
+    'title' => 'Dapat Kursi VIP Baris Depan',
+    'description' => 'Dapat akses tiket VIP tanpa antre berkat koneksi ordal panitia. Maju 3 petak ke depan.',
     'type' => 'move_steps',
     'steps' => 3,
   ),
   9 => 
   array (
     'id' => 'c10',
-    'title' => 'Selamat! Anda Sukses Sunat Dana Bansos Sembako!',
-    'description' => 'Paket bansos beras & minyak goreng disunat jadi setengah kantong, sisanya masuk rekening pribadi lu tanpa ketahuan KPK! Sikat rezeki haram Rp 1.500.000!',
+    'title' => 'Sunat Alokasi Bansos Sembako',
+    'description' => 'Paket bantuan dipotong setengah dari kuota resmi, sisanya masuk rekening pribadi. Ambil Rp 1.500.000.',
     'type' => 'receive_money',
     'amount' => 1500000,
   ),
   10 => 
   array (
     'id' => 'c11',
-    'title' => 'Bagi Hasil Tambang Batubara & Nikel Ilegal!',
-    'description' => 'Galian tambang tanpa izin amdal jalan mulus berkat bekingan pejabat ordal! Cairkan dividen bagi hasil gelap Rp 2.000.000!',
+    'title' => 'Bagi Hasil Tambang Ilegal',
+    'description' => 'Galian tambang tanpa izin amdal jalan mulus berkat bekingan orang dalam. Cairkan setoran Rp 2.000.000.',
     'type' => 'receive_money',
     'amount' => 2000000,
   ),
   11 => 
   array (
     'id' => 'c12',
-    'title' => 'Begal Anggaran Proyek Tiang BTS 4G Fiktif!',
-    'description' => 'Tiang sinyal cuma berdiri di laporan PDF tapi anggaran cair 100% tanpa diaudit! Sikat jatah pelicin proyek Rp 2.500.000, auto jadi oligarki!',
+    'title' => 'Begal Anggaran Menara BTS Fiktif',
+    'description' => 'Tiang sinyal cuma berdiri di laporan kerja, anggarannya cair 100%. Ambil dana proyek Rp 2.500.000.',
     'type' => 'receive_money',
     'amount' => 2500000,
   ),
   12 => 
   array (
     'id' => 'c13',
-    'title' => 'Cairkan Dana Buzzer & Influencer Pencitraan Dinas!',
-    'description' => 'Menang tender kontrak narasi medsos bikin tagar trending bela dinas bermasalah! Sikat fee buzzer Rp 1.000.000!',
+    'title' => 'Kontrak Buzzer Pencitraan Dinas',
+    'description' => 'Menang proyek pengondisian opini medsos buat angkat citra pimpinan. Cairkan fee Rp 1.000.000.',
     'type' => 'receive_money',
     'amount' => 1000000,
   ),
   13 => 
   array (
     'id' => 'c14',
-    'title' => 'Kongkalikong Hapus Denda Pajak bareng Oknum Fiskus!',
-    'description' => 'Nego pengurangan denda pajak korporasi di restoran mewah, terima fee komisi atur angka SPT Rp 1.200.000!',
+    'title' => 'Atur Angka Pajak bareng Oknum Fiskus',
+    'description' => 'Negosiasi pengurangan tagihan pajak korporasi di restoran mewah. Terima komisi Rp 1.200.000.',
     'type' => 'receive_money',
     'amount' => 1200000,
   ),
   14 => 
   array (
     'id' => 'c15',
-    'title' => 'Markup Anggaran Pengadaan Seragam Safari Dinas!',
-    'description' => 'Bahan kain kiloan di-markup 1000% di e-Katalog, pejabat pengadaan langsung ttd acc! Ambil laba kotor proyek Rp 1.800.000!',
+    'title' => 'Markup Pengadaan Seragam Dinas',
+    'description' => 'Bahan kain kiloan biasa di-markup berkali lipat di e-Katalog dan langsung lolos acc. Ambil laba Rp 1.800.000.',
     'type' => 'receive_money',
     'amount' => 1800000,
   ),
   15 => 
   array (
     'id' => 'c16',
-    'title' => 'Jual Beli Kursi Jabatan & Mutasi Eselon Pemda!',
-    'description' => 'Buka jasa calo ordal mutasi lurah dan kepala dinas basah! Terima uang mahar pelicin jabatan Rp 1.500.000!',
+    'title' => 'Jual Beli Kursi Jabatan Pemda',
+    'description' => 'Jadi calo ordal mutasi posisi lurah dan kepala dinas basah. Terima uang pelicin Rp 1.500.000.',
     'type' => 'receive_money',
     'amount' => 1500000,
   ),
   16 => 
   array (
     'id' => 'c17',
-    'title' => 'Pungli Uang Pelicin Izin Tambang & Amdal Kilat!',
-    'description' => 'Tanda tangan izin amdal tambang keluar dalam semalam tanpa cek lapangan! Terima setoran amplop cokelat Rp 1.000.000!',
+    'title' => 'Pelicin Izin Amdal Kilat',
+    'description' => 'Tanda tangan persetujuan lingkungan keluar semalam tanpa survei lapangan. Terima amplop Rp 1.000.000.',
     'type' => 'receive_money',
     'amount' => 1000000,
   ),
   17 => 
   array (
     'id' => 'c18',
-    'title' => 'Sunat Honor Bimtek & Uang Saku Petugas KPPS!',
-    'description' => 'Jatah uang transport dan konsumsi pelatihan disunat setengahnya, masuk kantong sendiri Rp 800.000!',
+    'title' => 'Sunat Honor Pelatihan KPPS',
+    'description' => 'Uang transportasi dan konsumsi bimtek disunat setengahnya. Kantongi sisa anggaran Rp 800.000.',
     'type' => 'receive_money',
     'amount' => 800000,
   ),
   18 => 
   array (
     'id' => 'c19',
-    'title' => 'Tilep Sisa Anggaran Sosialisasi & Spanduk Partai!',
-    'description' => 'Cetak spanduk tipis sablon luntur, selisih anggaran dana kampanye masuk dompet pribadi Rp 600.000!',
+    'title' => 'Sisa Dana Kampanye & Spanduk Partai',
+    'description' => 'Cetak spanduk bahan tipis sablon luntur, selisih anggaran masuk dompet sendiri Rp 600.000.',
     'type' => 'receive_money',
     'amount' => 600000,
   ),
   19 => 
   array (
     'id' => 'c20',
-    'title' => 'Dana Hibah Yayasan Fiktif Cair 100%!',
-    'description' => 'Bikin yayasan bodong atas nama keponakan buat nampung dana hibah APBD! Sikat dana cair Rp 2.000.000!',
+    'title' => 'Pencairan Hibah Yayasan Bodong',
+    'description' => 'Bikin yayasan keluarga buat nampung alokasi dana hibah APBD. Tarik dana cair Rp 2.000.000.',
     'type' => 'receive_money',
     'amount' => 2000000,
   ),
   20 => 
   array (
     'id' => 'c21',
-    'title' => 'Monopoli Kuota Impor Bawang & Daging Sapi!',
-    'description' => 'Dapet kuota impor eksklusif berkat kedekatan dengan lingkaran dinas kementerian! Sikat margin keuntungan Rp 1.300.000!',
+    'title' => 'Monopoli Kuota Impor Sembako',
+    'description' => 'Mendapat jatah izin impor eksklusif karena lingkaran dekat kementerian. Ambil margin Rp 1.300.000.',
     'type' => 'receive_money',
     'amount' => 1300000,
   ),
   21 => 
   array (
     'id' => 'c22',
-    'title' => 'Uang Tutup Mulut Demo Warga Bau Limbah Pabrik!',
-    'description' => 'Warga protes bau limbah kimia, lu ditunjuk jadi juru damai dan dapet uang sogokan tutup mulut Rp 500.000!',
+    'title' => 'Uang Damai Protes Limbah Pabrik',
+    'description' => 'Ditunjuk jadi penengah aksi warga sekitar pabrik, dapat uang kompensasi tutup mulut Rp 500.000.',
     'type' => 'receive_money',
     'amount' => 500000,
   ),
   22 => 
   array (
     'id' => 'c23',
-    'title' => 'Gelar Hajatan & Minta Amplop Setoran Anak Buah!',
-    'description' => 'Anak lu nikahan megah, seluruh pemain lawan (bawahan dinas) wajib setor amplop amplop cokelat Rp 150.000 ke lu!',
+    'title' => 'Amplop Setoran Resepsi Pejabat',
+    'description' => 'Gelar hajatan mewah, seluruh pemain lawan (bawahan instansi) wajib setor amplop masing-masing Rp 150.000.',
     'type' => 'collect_all_players',
     'amount' => 150000,
   ),
   23 => 
   array (
     'id' => 'c24',
-    'title' => 'Kartu Sakti Ordal (Bebas Penjara Jalur Koneksi)',
-    'description' => 'Kartu nama sakti dari paman pejabat berpangkat bintang! Simpan kartu ini buat langsung kabur dari sel penjara gratis tanpa bayar denda!',
+    'title' => 'Kartu Sakti Ordal Bintang Tiga',
+    'description' => 'Kartu nama paman pejabat berpangkat tinggi. Simpan kartu ini untuk bebas dari sel penjara kapan saja.',
     'type' => 'jail_card',
   ),
   24 => 
   array (
     'id' => 'c25',
-    'title' => 'Tawaran Robot Trading Crazy Rich Flexing!',
-    'description' => 'Influencer flexing supercar sewaan nawarin bot kripto otomatis dengan janji "Pasti cuan 300% no tipu-tipu":',
+    'title' => 'Tawaran Robot Trading Kripto',
+    'description' => 'Influencer pamer mobil sewaan nawarin bot trading otomatis dengan janji pasti cuan:',
     'type' => 'choice',
     'choices' => 
     array (
       0 => 
       array (
         'id' => 'invest',
-        'title' => 'Gas All-In Hype (Taruhan Rp 400.000)',
-        'desc' => 'Peluang 50% digandakan jadi Rp 1.200.000 (Cuan 3x), atau 50% ludes kena rug pull dev kabur!',
+        'title' => 'Ikut Pasang Modal (Rp 400.000)',
+        'desc' => 'Peluang 50% modal berlipat jadi Rp 1.200.000, atau 50% hilang dibawa kabur.',
         'action' => 'gamble',
         'cost' => 400000,
         'reward' => 1200000,
@@ -224,8 +224,8 @@ class CardsData {
       1 => 
       array (
         'id' => 'pass',
-        'title' => 'Tolak & Beli Emas Batangan Antam',
-        'desc' => 'Pilih jalur waras anti judol, dompet aman tanpa risiko rugi.',
+        'title' => 'Tolak Tawaran',
+        'desc' => 'Simpan uang di tabungan biasa tanpa ambil risiko.',
         'action' => 'none',
         'icon' => '🛡️',
         'badge' => 'Lewati (Gratis)',
@@ -236,16 +236,16 @@ class CardsData {
   25 => 
   array (
     'id' => 'c26',
-    'title' => 'Mampus Kena Razia Operasi Patuh!',
-    'description' => 'Gaya elit ekonomi sulit! Motor lu knalpot brong, spion copotan, STNK mati 5 tahun dicegat polantas di perempatan. Pilih nasib lu:',
+    'title' => 'Razia Operasi Patuh',
+    'description' => 'Kelengkapan surat kendaraan mati dan kena razia petugas di lampu merah. Tentukan langkahmu:',
     'type' => 'choice',
     'choices' => 
     array (
       0 => 
       array (
         'id' => 'bribe',
-        'title' => 'Uang Damai (Sogok Polisi)',
-        'desc' => 'Keluarin Rp 150.000 buat "uang rokok & bensin" petugas daripada motor disita.',
+        'title' => 'Uang Damai (Rp 150.000)',
+        'desc' => 'Beri uang bensin ke petugas biar kendaraan tidak disita.',
         'action' => 'pay_money',
         'amount' => 150000,
         'icon' => '💸',
@@ -255,8 +255,8 @@ class CardsData {
       1 => 
       array (
         'id' => 'jail',
-        'title' => 'Ngeyel Masuk Sel (Penjara)',
-        'desc' => 'Sok keras gamau damai, motor dikandangin dan lu dijebloskan ke sel penjara!',
+        'title' => 'Ikut Sidang Pengadilan',
+        'desc' => 'Menolak damai, motor ditahan dan kamu harus masuk sel.',
         'action' => 'go_to_jail',
         'icon' => '⚖️',
         'badge' => 'Masuk Penjara',
@@ -267,16 +267,16 @@ class CardsData {
   26 => 
   array (
     'id' => 'c27',
-    'title' => 'Niat Jastip Malah Keciduk Bea Cukai!',
-    'description' => 'Koper lu gembung isi tas branded KW ketahuan mesin X-Ray bandara! Petugas melotot nunggu kejelasan:',
+    'title' => 'Koper Jastip Ditahan Bea Cukai',
+    'description' => 'Bawaan tas branded impor dicurigai petugas bandara dan diminta kejelasan:',
     'type' => 'choice',
     'choices' => 
     array (
       0 => 
       array (
         'id' => 'ordal',
-        'title' => 'Amplop Ordal Jalur Tikus (Rp 120.000)',
-        'desc' => 'Selipin amplop ke kenalan ordal bandara biar koper lolos tanpa dibongkar.',
+        'title' => 'Jalur Belakang Ordal (Rp 120.000)',
+        'desc' => 'Titip uang rokok ke kenalan bandara biar barang langsung lewat.',
         'action' => 'pay_money',
         'amount' => 120000,
         'icon' => '🤫',
@@ -286,8 +286,8 @@ class CardsData {
       1 => 
       array (
         'id' => 'official',
-        'title' => 'Bayar Pajak Resmi Negara (Rp 350.000)',
-        'desc' => 'Pasrah bayar bea masuk resmi ke Bank biar gak viral di berita TV.',
+        'title' => 'Bayar Bea Masuk Resmi (Rp 350.000)',
+        'desc' => 'Bayar tagihan pajak resmi negara sesuai aturan.',
         'action' => 'pay_money',
         'amount' => 350000,
         'icon' => '🧾',
@@ -299,16 +299,16 @@ class CardsData {
   27 => 
   array (
     'id' => 'c28',
-    'title' => 'Undangan Hajatan Anak Sultan Bikin Boncos!',
-    'description' => 'Gengsi gede dapet undangan hajatan orang kaya hotel bintang 5. Mau sok kaya apa mau numpang makan doang?',
+    'title' => 'Undangan Hajatan Hotel Bintang Lima',
+    'description' => 'Dapat undangan pesta nikahan megah anak pejabat:',
     'type' => 'choice',
     'choices' => 
     array (
       0 => 
       array (
         'id' => 'vip',
-        'title' => 'Kasih Amplop Tebal (Rp 200.000)',
-        'desc' => 'Sok jadi donatur VIP biar dipuji pejabat! Dapet koneksi & maju 3 langkah.',
+        'title' => 'Isi Amplop Tebal (Rp 200.000)',
+        'desc' => 'Beri sumbangan layak, dapat koneksi pejabat baru & maju 3 langkah.',
         'action' => 'pay_and_move',
         'cost' => 200000,
         'steps' => 3,
@@ -319,11 +319,11 @@ class CardsData {
       1 => 
       array (
         'id' => 'buffet',
-        'title' => 'Numpang Makan Gratisan',
-        'desc' => 'Muka tembok langsung serbu kambing guling tanpa ngisi kotak amplop.',
+        'title' => 'Datang Numpang Makan',
+        'desc' => 'Makan prasmanan tanpa isi amplop sumbangan.',
         'action' => 'none',
         'icon' => '🍲',
-        'badge' => 'Muka Tembok Gratis',
+        'badge' => 'Gratis',
         'theme' => 'slate',
       ),
     ),
@@ -331,150 +331,150 @@ class CardsData {
   28 => 
   array (
     'id' => 'c29',
-    'title' => 'Terciduk Tidur & Titip Absen Sidang Paripurna!',
-    'description' => 'Kamera wartawan zoom muka lu lagi mangap iler pas sidang paripurna! Terbukti jastip finger-print absen, langsung diseret ke penjara!',
+    'title' => 'Terciduk Titip Absen Sidang Paripurna',
+    'description' => 'Kamera wartawan merekam kursi kosong padahal daftar hadir penuh. Langsung digiring ke sel penjara.',
     'type' => 'go_to_jail',
   ),
   29 => 
   array (
     'id' => 'c30',
-    'title' => 'Kerepotan Digerebek Sabung Ayam & Judol Zeus!',
-    'description' => 'Lagi asik teriak "Maxwin Kakek Zeus!", eh pintu didobrak Densus! Lu digelandang ke sel penjara tanpa lewat Mulai, rasain tuh!',
+    'title' => 'Penggerebekan Tempat Perjudian',
+    'description' => 'Tempat nongkrong digerebek aparat saat main judi online. Masuk ke sel penjara tanpa lewat Mulai.',
     'type' => 'go_to_jail',
   ),
   30 => 
   array (
     'id' => 'c31',
-    'title' => 'Sukurin! Mobil Lu Digondol Derek Dishub!',
-    'description' => 'Otak di mana parkir mobil nutupin trotoar pejalan kaki? Pas balik mobil udah melayang di atas truk derek Dishub. Tebus denda Rp 500.000, kapok!',
+    'title' => 'Mobil Diderek Petugas Dishub',
+    'description' => 'Parkir sembarangan di atas trotoar, mobil langsung diangkut mobil derek. Bayar tebusan denda Rp 500.000.',
     'type' => 'pay_money',
     'amount' => 500000,
   ),
   31 => 
   array (
     'id' => 'c32',
-    'title' => 'Wkwkwk Kena Tipu APK Undangan Nikah!',
-    'description' => 'Katanya melek teknologi tapi disuruh klik "Undangan_Nikah.apk" langsung nurut. Saldo m-banking amblas Rp 1.000.000 digasak hacker!',
+    'title' => 'Tertipu File APK Undangan',
+    'description' => 'Sembarangan mengunduh file undangan nikah dari nomor tak dikenal, saldo rekening terkuras Rp 1.000.000.',
     'type' => 'pay_money',
     'amount' => 1000000,
   ),
   32 => 
   array (
     'id' => 'c33',
-    'title' => 'Mampus! Pajak Motor Mati 5 Tahun Kena Razia Samsat!',
-    'description' => 'Bangga beli motor second murah, giliran ditilang baru sadar pajaknya mati dari jaman megalitikum. Bayar denda tunggakan Rp 600.000!',
+    'title' => 'Tunggakan Pajak Kendaraan',
+    'description' => 'Terjaring razia pajak Samsat gabungan karena STNK mati bertahun-tahun. Bayar tunggakan Rp 600.000.',
     'type' => 'pay_money',
     'amount' => 600000,
   ),
   33 => 
   array (
     'id' => 'c34',
-    'title' => 'Kicep Dipalak Proposal Uang Keamanan Ormas!',
-    'description' => 'Didatengin abang-abang loreng bawa map tebel muka sangar, lu langsung gemeteran gak berani nolak. Bayar upeti paksa Rp 300.000!',
+    'title' => 'Iuran Keamanan Tak Resmi',
+    'description' => 'Didatangi perwakilan ormas setempat bawa proposal sumbangan kegiatan. Bayar Rp 300.000.',
     'type' => 'pay_money',
     'amount' => 300000,
   ),
   34 => 
   array (
     'id' => 'c35',
-    'title' => 'Kasian Deh Lu! Ketipu Calo Tiket Konser Barcode Palsu!',
-    'description' => 'Udah dandan heboh pake baju glitter, pas scan tiket bunyinya "TETTT INVALID". Calonya udah kabur ke Bali, nangis rugi Rp 750.000!',
+    'title' => 'Tertipu Calo Tiket Konser Palsu',
+    'description' => 'Beli tiket konser dari calo media sosial, barcode tidak terbaca di pintu masuk. Rugi Rp 750.000.',
     'type' => 'pay_money',
     'amount' => 750000,
   ),
   35 => 
   array (
     'id' => 'c36',
-    'title' => 'Rasain Tuh! Tagihan Kartu Kredit Meledak Usai Flexing!',
-    'description' => 'Waktu liburan sok jadi sultan traktir semua orang, pas tagihan gesek dateng langsung makan mie instan sebulan. Bayar cicilan Rp 900.000!',
+    'title' => 'Tagihan Kartu Kredit Bengkak',
+    'description' => 'Kebanyakan traktir teman pas liburan kemarin, tagihan bulanan tembus limit. Bayar cicilan Rp 900.000.',
     'type' => 'pay_money',
     'amount' => 900000,
   ),
   36 => 
   array (
     'id' => 'c37',
-    'title' => 'Kos-Kosan Lu Digedor Satpol PP & Warga!',
-    'description' => 'Bikin gaduh tengah malam sambil nyalain musik jedag-jedug, warga auto ngamuk panggil Satpol PP. Bayar denda bikin rusuh Rp 400.000!',
+    'title' => 'Teguran Keributan Satpol PP',
+    'description' => 'Warga sekitar komplek melapor karena suara musik terlalu keras tengah malam. Bayar denda ketertiban Rp 400.000.',
     'type' => 'pay_money',
     'amount' => 400000,
   ),
   37 => 
   array (
     'id' => 'c38',
-    'title' => 'Kamera ETLE Jepret Muka Panik Lu Terobos Busway!',
-    'description' => 'Niatnya sok pinter mau nyalip macet, eh di ujung jalur kamera tilang elektronik senyum manja. Surat tilang melayang ke rumah, bayar Rp 500.000!',
+    'title' => 'Surat Tilang Kamera ETLE',
+    'description' => 'Terekam kamera tilang elektronik saat menerobos jalur busway. Bayar denda tilang Rp 500.000.',
     'type' => 'pay_money',
     'amount' => 500000,
   ),
   38 => 
   array (
     'id' => 'c39',
-    'title' => 'Bisnis Franchise Boba Lu Bangkrut Total!',
-    'description' => 'Ikut-ikutan tren buka franchise boba pas zamannya udah basi, ruko sepi laler doang yang mampir. Rugi modal Rp 800.000, kasian!',
+    'title' => 'Modal Usaha Franchise Gagal',
+    'description' => 'Ikut tren buka gerai minuman kekinian pas pasarnya sudah sepi pembeli. Tanggung kerugian modal Rp 800.000.',
     'type' => 'pay_money',
     'amount' => 800000,
   ),
   39 => 
   array (
     'id' => 'c40',
-    'title' => 'Mobil Tua Lu Mogok Berasap di Tol Layang!',
-    'description' => 'Gaya-gayaan bawa mobil tua nanjak tol layang, radiator meledak ngebul kayak fogging nyamuk! Bayar derek & bengkel bubut Rp 650.000!',
+    'title' => 'Mobil Mogok di Tol Layang',
+    'description' => 'Mesin mobil overheat di tengah tol layang tanpa bahu jalan. Bayar biaya derek dan perbaikan bengkel Rp 650.000.',
     'type' => 'pay_money',
     'amount' => 650000,
   ),
   40 => 
   array (
     'id' => 'c41',
-    'title' => 'Knalpot Cumi-Cumi Lu Gagal Total Uji Emisi!',
-    'description' => 'Ngebulin asap hitam pekat ke muka pemotor lain, langsung dicegat petugas razia polusi udara. Denda knalpot beracun Rp 350.000, bersihin tuh mesin!',
+    'title' => 'Gagal Uji Emisi Kendaraan',
+    'description' => 'Asap knalpot hitam pekat terjaring razia uji emisi lingkungan. Bayar denda penalti Rp 350.000.',
     'type' => 'pay_money',
     'amount' => 350000,
   ),
   41 => 
   array (
     'id' => 'c42',
-    'title' => 'Surat Tagihan PBB Keselip di Keset Sampe Nunggak!',
-    'description' => 'Saking malesnya beresin rumah, surat pajak bumi dan bangunan dijadiin alas piring sampe telat setahun. Bayar denda bunga Rp 450.000!',
+    'title' => 'Denda Keterlambatan PBB',
+    'description' => 'Surat tagihan Pajak Bumi dan Bangunan terselip sampai lewat batas jatuh tempo. Bayar denda Rp 450.000.',
     'type' => 'pay_money',
     'amount' => 450000,
   ),
   42 => 
   array (
     'id' => 'c43',
-    'title' => 'Bocil Lu Pecahin Kaca Mobil Mewah Tetangga!',
-    'description' => 'Anak lu sok-sokan jadi Cristiano Ronaldo nendang bola nyasar ke kaca mobil Alphard tetangga. Siap-siap ganti rugi Rp 300.000!',
+    'title' => 'Ganti Rugi Kaca Mobil Tetangga',
+    'description' => 'Anak main bola di jalan komplek dan mengenai kaca spion tetangga. Bayar ganti rugi Rp 300.000.',
     'type' => 'pay_money',
     'amount' => 300000,
   ),
   43 => 
   array (
     'id' => 'c44',
-    'title' => 'Buta Kalender! Nyelonong Masuk Jalur Ganjil-Genap!',
-    'description' => 'Kiraian tanggal genap taunya ganjil, pak polantas udah nunggu sambil senyum lebar di bunderan. Bayar tilang kebodohan Rp 500.000!',
+    'title' => 'Salah Tanggal Jalur Ganjil-Genap',
+    'description' => 'Lupa cek plat nomor saat masuk kawasan jalan protokol pada jam sibuk. Bayar tilang Rp 500.000.',
     'type' => 'pay_money',
     'amount' => 500000,
   ),
   44 => 
   array (
     'id' => 'c45',
-    'title' => 'Dipalak Biaya IPL Apartemen Gak Masuk Akal!',
-    'description' => 'Kolam renang ijo lumutan dan lift sering anjlok tapi pengelola apartemen naikin iuran sepihak. Lu cuma bisa pasrah bayar Rp 550.000!',
+    'title' => 'Kenaikan Biaya IPL Apartemen',
+    'description' => 'Pengelola gedung menaikkan iuran pemeliharaan lingkungan sepihak. Bayar tagihan Rp 550.000.',
     'type' => 'pay_money',
     'amount' => 550000,
   ),
   45 => 
   array (
     'id' => 'c46',
-    'title' => 'Hahaha! Beli HP Murah Dikirim Sabun Batangan & Bata!',
-    'description' => 'Makanya jangan serakah tergiur HP iPhone 100 ribu di medsos! Pas unboxing isinya sabun colek sama potongan bata merah, rugi Rp 400.000!',
+    'title' => 'Barang Belanja Online Palsu',
+    'description' => 'Tergiur promo harga miring di marketplace, pesanan yang datang cuma kotak kosong. Rugi Rp 400.000.',
     'type' => 'pay_money',
     'amount' => 400000,
   ),
   46 => 
   array (
     'id' => 'c47',
-    'title' => 'Bencana Hujan Badai Bikin Atap Properti Lu Ambrol!',
-    'description' => 'Plafon jebol, genteng beterbangan, air rembes ke kasur semua properti lu! Bayar renovasi Rp 150.000 per Rumah dan Rp 600.000 per Hotel, derita lu!',
+    'title' => 'Perbaikan Atap Pasca Badai',
+    'description' => 'Hujan deras dan angin kencang merusak bagian atap bangunan. Bayar Rp 150.000 per Rumah dan Rp 600.000 per Hotel.',
     'type' => 'repairs',
     'perHouse' => 150000,
     'perHotel' => 600000,
@@ -482,8 +482,8 @@ class CardsData {
   47 => 
   array (
     'id' => 'c48',
-    'title' => 'Truk Galon Rem Blong Nyungsep ke Pagar Properti Lu!',
-    'description' => 'Bruk! Sopir truk ngantuk ngehantam deretan pagar rumah lu sampe rata tanah. Bayar tukang renovasi Rp 100.000 per Rumah dan Rp 400.000 per Hotel.',
+    'title' => 'Renovasi Pagar Properti',
+    'description' => 'Pagar pembatas properti roboh terkena muatan kendaraan proyek. Bayar tukang Rp 100.000 per Rumah dan Rp 400.000 per Hotel.',
     'type' => 'repairs',
     'perHouse' => 100000,
     'perHotel' => 400000,
@@ -491,16 +491,16 @@ class CardsData {
   48 => 
   array (
     'id' => 'c49',
-    'title' => 'Rasain Lu! Terjebak One-Way Puncak 12 Jam Gak Gerak!',
-    'description' => 'Sok-sokan mau healing ke Puncak pas weekend, eh mobil lu mati kutu di tengah kemacetan horor. Mundur 3 petak ke belakang, lemes lu!',
+    'title' => 'Terjebak Macet Jalur Wisata',
+    'description' => 'Pemberlakuan satu arah di jalur wisata bikin kendaraan tertahan berjam-jam. Mundur 3 petak ke belakang.',
     'type' => 'move_steps',
     'steps' => -3,
   ),
   49 => 
   array (
     'id' => 'c50',
-    'title' => 'Apes Banget! Duit Lu Ditelan Mesin ATM Rusak!',
-    'description' => 'Uang tunai gak keluar tapi saldo rekening lu langsung lenyap kepotong. Mau komplain ke CS disuruh nunggu 14 hari kerja, bayar rugi Rp 500.000!',
+    'title' => 'Masalah Transaksi Mesin ATM',
+    'description' => 'Uang tunai tidak keluar dari mesin tapi saldo terpotong otomatis di sistem. Rugi sementara Rp 500.000.',
     'type' => 'pay_money',
     'amount' => 500000,
   ),
@@ -510,55 +510,55 @@ class CardsData {
   0 => 
   array (
     'id' => 'cc1',
-    'title' => 'Selamat! Anda Sukses Sunat Dana Bansos BLT Kemensos!',
-    'description' => 'Paket BLT tunai warga disunat lewat rekening fiktif dan calo desa! Sikat rezeki haram Rp 1.000.000 dari Kas Negara.',
+    'title' => 'Penyaluran Dana Bantuan Tunai',
+    'description' => 'Alokasi dana bantuan tunai cair lewat kantor pos tanpa potongan calo. Ambil Rp 1.000.000 dari Kas.',
     'type' => 'receive_money',
     'amount' => 1000000,
   ),
   1 => 
   array (
     'id' => 'cc2',
-    'title' => 'Ganti Untung 10x Lipat Trase Tol Ordal!',
-    'description' => 'Bocoran jalur proyek jalan tol dari pejabat BPN bikin tanah sawah tandus lu dibeli negara harga sultan! Sikat ganti untung Rp 2.500.000!',
+    'title' => 'Ganti Untung Pembebasan Lahan Tol',
+    'description' => 'Lahan warisan keluarga terkena proyek perluasan jalur jalan tol pemerintah. Terima pembayaran ganti untung Rp 2.500.000.',
     'type' => 'receive_money',
     'amount' => 2500000,
   ),
   2 => 
   array (
     'id' => 'cc3',
-    'title' => 'Kartu Sakti Ordal Pembebasan Bersyarat Siluman',
-    'description' => 'Surat remisi khusus berkop dinas dari kenalan pejabat bintang tiga! Simpan kartu ini buat bebas seketika dari sel tahanan tanpa bayar denda.',
+    'title' => 'Surat Pembebasan Bersyarat',
+    'description' => 'Mendapat rekomendasi penjaminan hukum dari tokoh masyarakat. Simpan kartu ini untuk bebas dari sel penjara.',
     'type' => 'jail_card',
   ),
   3 => 
   array (
     'id' => 'cc4',
-    'title' => 'Pungli Uang Retribusi PKL & Lapak Trotoar!',
-    'description' => 'Sebagai preman dinas berseragam, tagih uang kebersihan dan sewa trotoar jalan! Setiap pemain lawan wajib setor upeti Rp 100.000 ke lu.',
+    'title' => 'Retribusi Kebersihan Lingkungan',
+    'description' => 'Sebagai pengurus paguyuban warga, kumpulkan iuran kebersihan dari setiap pemain lawan sebesar Rp 100.000.',
     'type' => 'collect_all_players',
     'amount' => 100000,
   ),
   4 => 
   array (
     'id' => 'cc5',
-    'title' => 'Setoran Uang Pelicin Kebun Sawit di Hutan Lindung!',
-    'description' => 'Ribuan hektar sawit babat hutan konservasi aman tanpa digusur berkat izin siluman dinas kehutanan! Cairkan dividen setoran Rp 1.500.000!',
+    'title' => 'Bagi Hasil Kemitraan Kebun Sawit',
+    'description' => 'Perkebunan kelapa sawit memasuki masa panen raya dengan harga komoditas tinggi. Terima dividen Rp 1.500.000.',
     'type' => 'receive_money',
     'amount' => 1500000,
   ),
   5 => 
   array (
     'id' => 'cc6',
-    'title' => 'Uang Ketok Palu Pengesahan Raperda APBD!',
-    'description' => 'Sidang paripurna kilat ketok palu anggaran disetujui tanpa interupsi fraksi! Terima amplop cokelat uang ketok palu Rp 1.000.000!',
+    'title' => 'Honor Pembahasan Anggaran Daerah',
+    'description' => 'Sidang paripurna persetujuan rancangan perda berjalan lancar sesuai jadwal. Terima uang sidang Rp 1.000.000.',
     'type' => 'receive_money',
     'amount' => 1000000,
   ),
   6 => 
   array (
     'id' => 'cc7',
-    'title' => 'Kunjungan Kerja (Kunker) Fiktif Antar Provinsi!',
-    'description' => 'Stempel SPPD beres padahal cuma rebahan di hotel bintang lima! Meluncur langsung ke petak Mulai dan sikat uang saku dinas Rp 2.000.000!',
+    'title' => 'Perjalanan Dinas Luar Kota',
+    'description' => 'Menyelesaikan tugas kunjungan kerja resmi ke pusat. Meluncur langsung ke petak Mulai dan ambil gaji Rp 2.000.000.',
     'type' => 'move_to',
     'target' => 0,
     'collectGo' => true,
@@ -566,72 +566,72 @@ class CardsData {
   7 => 
   array (
     'id' => 'cc8',
-    'title' => 'Klaim Fiktif BPJS Kesehatan Pasien Siluman!',
-    'description' => 'Bikin rekam medis diagnosis operasi amandel fiktif ratusan pasien bodong, klaim BPJS auto cair! Terima pencairan dana Rp 800.000!',
+    'title' => 'Klaim Asuransi Kesehatan',
+    'description' => 'Klaim penggantian biaya rawat inap dan pengobatan disetujui penuh oleh asuransi. Ambil pencairan dana Rp 800.000.',
     'type' => 'receive_money',
     'amount' => 800000,
   ),
   8 => 
   array (
     'id' => 'cc9',
-    'title' => 'Markup Anggaran Nasi Kotak Rapat Pleno Dinas!',
-    'description' => 'Menu nasi bungkus karet dua di-SPJ-kan seharga prasmanan hotel bintang lima! Sikat selisih dana makan minum Rp 750.000!',
+    'title' => 'Penghematan Anggaran Konsumsi Rapat',
+    'description' => 'Pengadaan konsumsi rapat dinas berjalan efisien di bawah pagu anggaran. Simpan selisih dana Rp 750.000.',
     'type' => 'receive_money',
     'amount' => 750000,
   ),
   9 => 
   array (
     'id' => 'cc10',
-    'title' => 'Monopoli Distribusi Pupuk Bersubsidi & Benih Bantuan!',
-    'description' => 'Pupuk subsidi petani dialihkan ke gudang penimbun rahasia berharga non-subsidi! Sikat laba gelap distribusi Rp 2.000.000!',
+    'title' => 'Distribusi Pupuk & Benih Bersubsidi',
+    'description' => 'Penyaluran pasokan pupuk dan benih tani berjalan lancar ke seluruh kelompok tani. Terima bagi hasil Rp 2.000.000.',
     'type' => 'receive_money',
     'amount' => 2000000,
   ),
   10 => 
   array (
     'id' => 'cc11',
-    'title' => 'Jual Beli Sertifikat Keahlian & Ijazah Aspal!',
-    'description' => 'Buka jasa kilat cetak sertifikat keahlian dan ijazah kampus tanpa kuliah buat syarat naik jabatan! Terima transferan ordal Rp 600.000!',
+    'title' => 'Insentif Sertifikasi Kompetensi',
+    'description' => 'Lulus uji sertifikasi keahlian profesi dan mendapat kenaikan grade tunjangan. Terima bonus Rp 600.000.',
     'type' => 'receive_money',
     'amount' => 600000,
   ),
   11 => 
   array (
     'id' => 'cc12',
-    'title' => 'Sunat Anggaran Perbaikan Pipa PDAM Bocor!',
-    'description' => 'Laporan pipa saluran air selesai diremajakan, padahal cuma dililit lakban hitam! Kantongi sisa anggaran pemeliharaan Rp 400.000!',
+    'title' => 'Efisiensi Pemeliharaan Jaringan Air',
+    'description' => 'Pekerjaan perbaikan saluran pipa PDAM selesai lebih cepat dari target. Ambil sisa anggaran Rp 400.000.',
     'type' => 'receive_money',
     'amount' => 400000,
   ),
   12 => 
   array (
     'id' => 'cc13',
-    'title' => 'Fee Proyek Pengaspalan Jalan Desa Tipis 1 Cm!',
-    'description' => 'Aspal tipis kayak martabak baru seminggu udah bolong kena hujan, komisi kontraktor cair mulus! Sikat fee proyek Rp 1.200.000!',
+    'title' => 'Penyelesaian Proyek Pengaspalan Jalan',
+    'description' => 'Pekerjaan pengaspalan jalan desa selesai diaudit dan termin pembayaran cair. Terima pembayaran termin Rp 1.200.000.',
     'type' => 'receive_money',
     'amount' => 1200000,
   ),
   13 => 
   array (
     'id' => 'cc14',
-    'title' => 'Uang Pelicin Pemenang Tender Renovasi Gedung DPRD!',
-    'description' => 'Spesifikasi dokumen lelang diatur khusus biar cuma perusahaan boneka lu yang lolos! Terima fee commitment lelang Rp 1.800.000!',
+    'title' => 'Menang Tender Renovasi Gedung Dinas',
+    'description' => 'Proposal penawaran renovasi gedung instansi lolos evaluasi lelang. Terima uang muka proyek Rp 1.800.000.',
     'type' => 'receive_money',
     'amount' => 1800000,
   ),
   14 => 
   array (
     'id' => 'cc15',
-    'title' => 'Begal Kuota Beasiswa Afirmatif Anak Pejabat Mampu!',
-    'description' => 'Anak orang kaya berharta miliaran dapet jatah beasiswa miskin berkat ordal orang tua di kementerian! Terima tunjangan negara Rp 1.500.000!',
+    'title' => 'Tunjangan Program Beasiswa Unggulan',
+    'description' => 'Lolos seleksi beasiswa pendidikan tingkat lanjut yang didanai penuh pemerintah. Terima tunjangan riset Rp 1.500.000.',
     'type' => 'receive_money',
     'amount' => 1500000,
   ),
   15 => 
   array (
     'id' => 'cc16',
-    'title' => 'Studi Banding Fiktif ke Gedung Sate Bandung!',
-    'description' => 'Rombongan dinas jalan-jalan kulineran berkedok studi banding tata ruang! Maju langsung ke Gedung Sate, lewatin Mulai comot Rp 2.000.000!',
+    'title' => 'Studi Banding Tata Kota Bandung',
+    'description' => 'Menghadiri forum koordinasi perencanaan wilayah di Gedung Sate. Maju langsung ke Gedung Sate, lewat Mulai ambil Rp 2.000.000.',
     'type' => 'move_to',
     'target' => 6,
     'collectGo' => true,
@@ -639,80 +639,80 @@ class CardsData {
   16 => 
   array (
     'id' => 'cc17',
-    'title' => 'Pungli Retribusi Kontainer Pelabuhan Ekspor-Impor!',
-    'description' => 'Kontainer tertahan di pelabuhan auto jalan cepat kalo pelicin diselipkan di bawah map! Ambil setoran pungli logistik Rp 1.100.000!',
+    'title' => 'Insentif Efisiensi Logistik Pelabuhan',
+    'description' => 'Waktu bongkar muat peti kemas di dermaga ekspor berjalan lebih cepat. Ambil bonus kelancaran Rp 1.100.000.',
     'type' => 'receive_money',
     'amount' => 1100000,
   ),
   17 => 
   array (
     'id' => 'cc18',
-    'title' => 'Bagi-Bagi Dana Pokir (Pokok Pikiran) Dewan!',
-    'description' => 'Dana aspirasi pokok pikiran dewan dialokasikan ke proyek fiktif kelompok ternak bodong! Bawa pulang pencairan pokok pikiran Rp 1.000.000!',
+    'title' => 'Pencairan Dana Aspirasi Pembangunan',
+    'description' => 'Program bantuan sarana kelompok masyarakat terealisasi tepat sasaran. Terima pencairan dana program Rp 1.000.000.',
     'type' => 'receive_money',
     'amount' => 1000000,
   ),
   18 => 
   array (
     'id' => 'cc19',
-    'title' => 'Tilep Hadiah Utama Undian Door Prize Dinas!',
-    'description' => 'Nomor kupon pemenang mobil & motor jalan santai HUT kantor udah diatur jatuh ke adik kandung sendiri! Dicairkan tunai Rp 900.000!',
+    'title' => 'Hadiah Utama Acara Hari Jadi Kota',
+    'description' => 'Kupon undian jalan sehat peringatan hari jadi kota keluar sebagai pemenang. Ambil hadiah tunai Rp 900.000.',
     'type' => 'receive_money',
     'amount' => 900000,
   ),
   19 => 
   array (
     'id' => 'cc20',
-    'title' => 'Gratifikasi Liburan Mewah dari Vendor Server BUMN!',
-    'description' => 'Vendor IT kasih hadiah tiket helikopter dan bonus rekening gendut usai proyek lolos audit BPK! Terima gratifikasi Rp 1.400.000!',
+    'title' => 'Bonus Tahunan Kinerja Instansi',
+    'description' => 'Target kinerja tahunan tercapai melampaui rencana kerja. Terima bonus pencapaian Rp 1.400.000.',
     'type' => 'receive_money',
     'amount' => 1400000,
   ),
   20 => 
   array (
     'id' => 'cc21',
-    'title' => 'Markup Pengadaan Laptop Rakitan Spek Rendah!',
-    'description' => 'Beli laptop spek kentang buatan lokal harga Rp 3 juta, ditagihkan ke kas negara Rp 15 juta! Ambil margin markup proyek Rp 1.700.000!',
+    'title' => 'Pengadaan Perangkat Komputer Kantor',
+    'description' => 'Kontrak pengadaan unit komputer instansi selesai diverifikasi tanpa kendala. Ambil keuntungan Rp 1.700.000.',
     'type' => 'receive_money',
     'amount' => 1700000,
   ),
   21 => 
   array (
     'id' => 'cc22',
-    'title' => 'Jatah Kupon BBM Subsidi Mobil Dinas Buat Mobil Pribadi!',
-    'description' => 'Mobil pribadi sekeluarga diisi bensin pertamax pake kupon anggaran operasional dinas! Hemat pengeluaran BBM dinas Rp 500.000!',
+    'title' => 'Kompensasi Operasional Kendaraan Dinas',
+    'description' => 'Klaim penggantian biaya bahan bakar dan servis rutin kendaraan dinas disetujui. Ambil Rp 500.000.',
     'type' => 'receive_money',
     'amount' => 500000,
   ),
   22 => 
   array (
     'id' => 'cc23',
-    'title' => 'Kongkalikong Mafia Timbun Minyak Goreng & Beras!',
-    'description' => 'Timbun sembako di gudang rahasia sampai pasar panik dan harga meroket tajam! Sikat cuan manipulasi pasar Rp 1.200.000!',
+    'title' => 'Keuntungan Distribusi Komoditas Pangan',
+    'description' => 'Pasokan bahan pokok dari sentra produksi tersalurkan lancar ke pasar induk. Ambil keuntungan Rp 1.200.000.',
     'type' => 'receive_money',
     'amount' => 1200000,
   ),
   23 => 
   array (
     'id' => 'cc24',
-    'title' => 'Gratifikasi Paket Umroh & Wisata Religi Pejabat Pengadaan!',
-    'description' => 'Kontraktor pemenang lelang menanggung seluruh paket ziarah & tour mewah hotel bintang lima buat pejabat dinas! Dicairkan tunai Rp 2.000.000!',
+    'title' => 'Penghargaan Pelayanan Publik Terbaik',
+    'description' => 'Unit kerja dinobatkan sebagai pelaksana layanan terbaik tingkat nasional. Bawa pulang dana penghargaan Rp 2.000.000.',
     'type' => 'receive_money',
     'amount' => 2000000,
   ),
   24 => 
   array (
     'id' => 'cc25',
-    'title' => 'Sisa Anggaran Dana Desa Akhir Tahun',
-    'description' => 'Ada sisa kelebihan dana pembangunan gapura dan pos ronda desa yang belum terpakai:',
+    'title' => 'Sisa Anggaran Dana Pembangunan',
+    'description' => 'Pembangunan pos keamanan lingkungan selesai dan masih menyisakan saldo kas:',
     'type' => 'choice',
     'choices' => 
     array (
       0 => 
       array (
         'id' => 'pocket',
-        'title' => 'Selipin ke Kantong Sendiri (+Rp 600.000)',
-        'desc' => 'Ambil sisa anggaran diam-diam buat ganti HP baru.',
+        'title' => 'Simpan untuk Kas Pengurus (+Rp 600.000)',
+        'desc' => 'Alokasikan sisa dana pembangunan untuk kas operasional pengurus.',
         'action' => 'receive_money',
         'amount' => 600000,
         'icon' => '💼',
@@ -722,8 +722,8 @@ class CardsData {
       1 => 
       array (
         'id' => 'share',
-        'title' => 'Bagi Rata ke Seluruh Pemain (Warga)',
-        'desc' => 'Bagi rezeki Rp 100.000 ke setiap pemain demi pencitraan warga.',
+        'title' => 'Bagi Rata ke Seluruh Warga',
+        'desc' => 'Bagi saldo sisa Rp 100.000 ke setiap warga pemain sebagai transparansi.',
         'action' => 'pay_all_players',
         'amount' => 100000,
         'icon' => '🎁',
@@ -735,16 +735,16 @@ class CardsData {
   25 => 
   array (
     'id' => 'cc26',
-    'title' => 'Cieee Kena OTT KPK! Kemaren Sombong Flexing!',
-    'description' => 'Rekaman telepon lu minta fee proyek bansos bocor ke penyidik KPK. Wartawan udah nunggu di lobi mau wawancara:',
+    'title' => 'Pemeriksaan Khusus Inspektorat',
+    'description' => 'Ada laporan dugaan ketidaksesuaian administrasi proyek yang sedang diselidiki petugas:',
     'type' => 'choice',
     'choices' => 
     array (
       0 => 
       array (
         'id' => 'lawyer',
-        'title' => 'Sewa Pengacara Top & Buzzer (Rp 400.000)',
-        'desc' => 'Bayar pengacara mahal buat ngarang cerita pura-pura sakit amnesia.',
+        'title' => 'Tunjuk Kuasa Hukum (Rp 400.000)',
+        'desc' => 'Gunakan bantuan kantor pengacara profesional untuk mendampingi klarifikasi berkas.',
         'action' => 'pay_money',
         'amount' => 400000,
         'icon' => '👨‍💼',
@@ -754,8 +754,8 @@ class CardsData {
       1 => 
       array (
         'id' => 'jail',
-        'title' => 'Fitting Rompi Oranye (Masuk Penjara)',
-        'desc' => 'Pasrah digiring ke rutan KPK sambil nutupin muka pake map.',
+        'title' => 'Ikuti Proses Penahanan',
+        'desc' => 'Kooperatif menjalani proses penyelidikan langsung di sel penahanan sementara.',
         'action' => 'go_to_jail',
         'icon' => '🏛️',
         'badge' => 'Masuk Penjara',
@@ -766,16 +766,16 @@ class CardsData {
   26 => 
   array (
     'id' => 'cc27',
-    'title' => 'Kena Pungli Calo Sertifikat Tanah Kelurahan!',
-    'description' => 'Katanya program pemerintah gratis, tapi oknum calo nyindir "Kalo ga ada uang rokok, berkas lu masuk lemari arsip 5 tahun":',
+    'title' => 'Pengurusan Sertifikat Tanah',
+    'description' => 'Berkas pendaftaran tanah sudah masuk ke loket pelayanan kelurahan:',
     'type' => 'choice',
     'choices' => 
     array (
       0 => 
       array (
         'id' => 'bribe',
-        'title' => 'Kasih Uang Rokok Calo (Rp 150.000)',
-        'desc' => 'Kalah sama sistem, bayar calo biar sertifikat tanah beres 3 hari.',
+        'title' => 'Biaya Jalur Cepat (Rp 150.000)',
+        'desc' => 'Gunakan layanan prioritas ekspres agar sertifikat segera selesai diverifikasi.',
         'action' => 'pay_money',
         'amount' => 150000,
         'icon' => '☕',
@@ -785,8 +785,8 @@ class CardsData {
       1 => 
       array (
         'id' => 'wait',
-        'title' => 'Ngeyel Ikut Prosedur Normal (Mundur 2)',
-        'desc' => 'Sok idealis, berkas lu ditimbun di tumpukan kardus berdebu. Mundur 2 petak!',
+        'title' => 'Antre Jalur Biasa (Mundur 2)',
+        'desc' => 'Menunggu verifikasi sesuai nomor urut antrean standar. Mundur 2 petak.',
         'action' => 'move_steps',
         'steps' => -2,
         'icon' => '🐢',
@@ -798,176 +798,176 @@ class CardsData {
   27 => 
   array (
     'id' => 'cc28',
-    'title' => 'Kena Jebakan Batman Tukang Parkir Ninja!',
-    'description' => 'Parkir cuma 10 detik beli permen, pas mau jalan tiba-tiba muncul dari balik pohon sambil niup peluit "Prit-prit!". Bayar pajak siluman Rp 200.000!',
+    'title' => 'Tarif Parkir Liar Tak Resmi',
+    'description' => 'Parkir sebentar di bahu jalan, juru parkir tanpa seragam resmi langsung menagih. Bayar Rp 200.000.',
     'type' => 'pay_money',
     'amount' => 200000,
   ),
   28 => 
   array (
     'id' => 'cc29',
-    'title' => 'Dipalak Iuran Nobar & Genset Pak RT!',
-    'description' => 'Pak RT nongkrong depan teras bawa speaker toa nagih iuran sewa proyektor layar tancap. Gak bisa ngeles lagi lu, bayar Rp 250.000!',
+    'title' => 'Iuran Kegiatan Perayaan Komplek',
+    'description' => 'Pengurus RT mengumpulkan sumbangan untuk acara perlombaan warga. Bayar iuran Rp 250.000.',
     'type' => 'pay_money',
     'amount' => 250000,
   ),
   29 => 
   array (
     'id' => 'cc30',
-    'title' => 'Gaya Elit BPJS Nunggak Setahun Pas Mau Rawat Inap!',
-    'description' => 'Pas sehat sombong gak mau bayar iuran, pas masuk IGD status kartu non-aktif! Wajib lunasin denda tunggakan Rp 600.000, makanya jangan pelit!',
+    'title' => 'Denda Keterlambatan Iuran BPJS',
+    'description' => 'Status kepesertaan nonaktif saat pemeriksaan di klinik karena telat bayar iuran. Lunasi denda Rp 600.000.',
     'type' => 'pay_money',
     'amount' => 600000,
   ),
   30 => 
   array (
     'id' => 'cc31',
-    'title' => 'Pusing Pala Barbie! Tagihan PBB Rumah Lu Naik Drastis!',
-    'description' => 'Kiraian NJOP naik bikin bangga, taunya tagihan pajak tanah ikutan meroket gila-gilaan! Bayar kas negara Rp 700.000, nangis lu!',
+    'title' => 'Penyesuaian Nilai Jual Objek Pajak',
+    'description' => 'NJOP di kawasan tempat tinggalmu naik sehingga tagihan PBB ikut bertambah. Bayar kewajiban pajak Rp 700.000.',
     'type' => 'pay_money',
     'amount' => 700000,
   ),
   31 => 
   array (
     'id' => 'cc32',
-    'title' => 'Hahaha Mampus! KTP Lu Dipake Pinjol Ilegal Orang Lain!',
-    'description' => 'Asal sembarangan upload foto KTP di internet, sekarang nomor lu diteror ratusan debt collector galak! Bayar jasa mediasi Rp 800.000!',
+    'title' => 'Penyalahgunaan Data Pribadi',
+    'description' => 'Data identitas terdaftar pada layanan pinjaman online tanpa persetujuan. Bayar jasa mediasi Rp 800.000.',
     'type' => 'pay_money',
     'amount' => 800000,
   ),
   32 => 
   array (
     'id' => 'cc33',
-    'title' => 'Ketipu Arisan Bodong Mama Muda Untung 50%!',
-    'description' => 'Tergiur janji manis admin arisan glowing di Facebook, taunya duit lu dibawa kabur liburan ke Bali! Rugi setoran modal Rp 1.000.000, kapok!',
+    'title' => 'Kerugian Investasi Tanpa Izin',
+    'description' => 'Mengikuti program tabungan bersama yang ternyata tidak berizin resmi. Tanggung kerugian modal Rp 1.000.000.',
     'type' => 'pay_money',
     'amount' => 1000000,
   ),
   33 => 
   array (
     'id' => 'cc34',
-    'title' => 'Malu-Maluin! Buang Sampah di Kali Terekam CCTV 4K!',
-    'description' => 'Ngelempar sampah ke sungai pas malem-malem, muka lu kejepret jelas banget di CCTV pemda sampe viral di medsos. Bayar denda Rp 300.000!',
+    'title' => 'Sanksi Buang Sampah Sembarangan',
+    'description' => 'Terekam kamera pengawas membuang kantong sampah di luar tempat penampungan resmi. Bayar denda Rp 300.000.',
     'type' => 'pay_money',
     'amount' => 300000,
   ),
   34 => 
   array (
     'id' => 'cc35',
-    'title' => 'Rasain Tuh! Tagihan Listrik Bengkak AC Nyala 24 Jam Nonstop!',
-    'description' => 'Kamar serasa kutub utara AC nyala terus dari pagi ketemu pagi, pas meteran dicek tagihan PLN jebol! Bayar listrik Rp 500.000!',
+    'title' => 'Tagihan Listrik Rumah Tangga',
+    'description' => 'Penggunaan pendingin ruangan nonstop selama cuaca panas membuat tagihan listrik melonjak. Bayar Rp 500.000.',
     'type' => 'pay_money',
     'amount' => 500000,
   ),
   35 => 
   array (
     'id' => 'cc36',
-    'title' => 'Air PDAM Keruh Bau Karat, Beli Air Tangki!',
-    'description' => 'Mandi pake air kran malah gatel-gatel satu badan, terpaksa beli air bersih truk tangki keliling. Bayar biaya air darurat Rp 350.000!',
+    'title' => 'Beli Air Bersih Truk Tangki',
+    'description' => 'Pasokan air PDAM sempat terhenti karena perbaikan pipa utama. Beli air tangki darurat Rp 350.000.',
     'type' => 'pay_money',
     'amount' => 350000,
   ),
   36 => 
   array (
     'id' => 'cc37',
-    'title' => 'Kena Denda Telat Lapor SPT Pajak Gara-Gara Ketiduran!',
-    'description' => 'Nunggu deadline menit terakhir server down terus lu malah ketiduran di depan laptop. Surat denda pajak mendarat manis, bayar Rp 400.000!',
+    'title' => 'Denda Telat Lapor SPT Tahunan',
+    'description' => 'Melewati batas akhir pelaporan surat pemberitahuan pajak tahunan. Bayar denda keterlambatan Rp 400.000.',
     'type' => 'pay_money',
     'amount' => 400000,
   ),
   37 => 
   array (
     'id' => 'cc38',
-    'title' => 'Bego Banget! Motor Masuk Tol Gara-Gara Buta Rute Maps!',
-    'description' => 'Lupa ganti mode motor di Google Maps, lu nyelonong masuk gerbang tol Jagorawi sampe dicegat sekuriti. Bayar tilang kebodohan Rp 500.000!',
+    'title' => 'Salah Masuk Gerbang Tol',
+    'description' => 'Sepeda motor salah membaca rute navigasi dan masuk akses gerbang tol. Bayar denda penanganan Rp 500.000.',
     'type' => 'pay_money',
     'amount' => 500000,
   ),
   38 => 
   array (
     'id' => 'cc39',
-    'title' => 'Jadwal KRS Diblokir Gara-Gara Nunggak UKT Kuliah!',
-    'description' => 'Duit kuliah dari ortu dipake nongkrong hedon, pas mau ngisi krs portal kampus terkunci rapat. Bayar uang kuliah Rp 1.200.000 sekarang juga!',
+    'title' => 'Pembayaran Uang Kuliah Semester',
+    'description' => 'Waktunya melunasi biaya kuliah dan administrasi akademik semester baru. Bayar Rp 1.200.000.',
     'type' => 'pay_money',
     'amount' => 1200000,
   ),
   39 => 
   array (
     'id' => 'cc40',
-    'title' => 'Spion Mobil Lu Diembat Maling Pas Lampu Merah!',
-    'description' => 'Lagi asik nyanyi di dalem mobil, tangan copet gesit langsung nilep dua spion mobil lu. Beli spion baru Rp 450.000, apes tiada tara!',
+    'title' => 'Kehilangan Kaca Spion Mobil',
+    'description' => 'Kaca spion kendaraan hilang saat parkir di tepi jalan umum. Beli suku cadang pengganti Rp 450.000.',
     'type' => 'pay_money',
     'amount' => 450000,
   ),
   40 => 
   array (
     'id' => 'cc41',
-    'title' => 'Argo Parkir Inap Bandara Jebol Lupa Ditinggal Seminggu!',
-    'description' => 'Sok kaya tinggalin mobil di terminal 3 bandara pas liburan luar negeri, pas keluar kaget argo parkir tembus jutaan! Bayar tiket Rp 650.000!',
+    'title' => 'Biaya Parkir Inap Bandara',
+    'description' => 'Meninggalkan mobil di area parkir terminal bandara selama perjalanan dinas. Bayar karcis parkir inap Rp 650.000.',
     'type' => 'pay_money',
     'amount' => 650000,
   ),
   41 => 
   array (
     'id' => 'cc42',
-    'title' => 'Pajak Progresif Numpuk Gara-Gara Minjemin Nama ke Saudara!',
-    'description' => 'Niat nolong minjemin KTP ke om buat beli mobil, giliran tagihan pajak progresif dateng om lu pura-pura amnesia. Bayar Rp 750.000!',
+    'title' => 'Pajak Progresif Kendaraan',
+    'description' => 'Nama terdaftar pada kepemilikan lebih dari satu kendaraan bermotor. Bayar pajak progresif Rp 750.000.',
     'type' => 'pay_money',
     'amount' => 750000,
   ),
   42 => 
   array (
     'id' => 'cc43',
-    'title' => 'Ketipu Jasa Tukar Uang Baru Diselipin Uang Robek!',
-    'description' => 'Nuker uang THR recehan di pinggir jalan, pas diitung di rumah tengahnya diselipin kertas koran sama uang palsu robek. Rugi Rp 300.000!',
+    'title' => 'Selisih Penukaran Uang Pecahan',
+    'description' => 'Jasa penukaran uang baru di pinggir jalan mengenakan biaya administrasi ekstra. Bayar selisih Rp 300.000.',
     'type' => 'pay_money',
     'amount' => 300000,
   ),
   43 => 
   array (
     'id' => 'cc44',
-    'title' => 'Ditagih Iuran Sampah & Satpam 1 Tahun Sekaligus!',
-    'description' => 'Pak bendahara RT bawa kwitansi panjang nagih tunggakan kebersihan komplek satu tahun di muka. Bayar Rp 350.000, jangan ngumpet di kamar!',
+    'title' => 'Iuran Kebersihan & Keamanan Komplek',
+    'description' => 'Pengurus lingkungan menagih iuran keamanan dan pengangkutan sampah tahunan. Bayar Rp 350.000.',
     'type' => 'pay_money',
     'amount' => 350000,
   ),
   44 => 
   array (
     'id' => 'cc45',
-    'title' => 'Kasian! Saldo e-Toll Nol Bikin Heboh Pintu Tol Otomatis!',
-    'description' => 'Palang tol gak kebuka, mobil belakang ratusan klaksonin lu sampe gemeteran keringat dingin. Kena penalti tarif terjauh Rp 250.000!',
+    'title' => 'Saldo Uang Elektronik Kurang',
+    'description' => 'Saldo kartu elektronik tidak mencukupi saat di gardu tol otomatis. Kena tarif penyesuaian Rp 250.000.',
     'type' => 'pay_money',
     'amount' => 250000,
   ),
   45 => 
   array (
     'id' => 'cc46',
-    'title' => 'Kena Todong Iuran Fogging Nyamuk & Konsumsi RT!',
-    'description' => 'Gara-gara kebon lu gak pernah dibersihin jadi sarang nyamuk, warga sepakat nagih biaya fogging ke lu. Bayar iuran Rp 300.000!',
+    'title' => 'Biaya Fogging Nyamuk Lingkungan',
+    'description' => 'Kegiatan penyemprotan sarang nyamuk serentak di lingkungan RT. Bayar iuran kegiatan Rp 300.000.',
     'type' => 'pay_money',
     'amount' => 300000,
   ),
   46 => 
   array (
     'id' => 'cc47',
-    'title' => 'Ngebut Nabrak Palang Otomatis Cluster Sampe Patah!',
-    'description' => 'Gak sabaran nunggu sensor kebuka, palang besi cluster lu hantam sampe patah dua. Ganti rugi servis palang gerbang Rp 400.000!',
+    'title' => 'Perbaikan Portal Gerbang Otomatis',
+    'description' => 'Kendaraan menyenggol palang portal otomatis perumahan. Bayar biaya perbaikan sensor gerbang Rp 400.000.',
     'type' => 'pay_money',
     'amount' => 400000,
   ),
   47 => 
   array (
     'id' => 'cc48',
-    'title' => 'Kena Palak Traktir Bakso & Es Teler Tetangga Satu Gang!',
-    'description' => 'Ketahuan dapet bonus kerjaan, tetangga satu gang langsung nagih traktiran makan bakso urat. Bagi Rp 100.000 ke setiap pemain lain!',
+    'title' => 'Syukuran Naik Pangkat',
+    'description' => 'Dapat promosi jabatan baru di kantor, traktir makan siang bersama untuk setiap pemain lain sebesar Rp 100.000.',
     'type' => 'pay_all_players',
     'amount' => 100000,
   ),
   48 => 
   array (
     'id' => 'cc49',
-    'title' => 'Banjir Rob Pasang Laut Rendam Semua Properti Lu!',
-    'description' => 'Lantai dasar properti lu kerendem air asin setinggi dengkul, keramik ngelupas cat ancur! Bayar renovasi Rp 200.000 per Rumah dan Rp 800.000 per Hotel!',
+    'title' => 'Perbaikan Saluran Sanitasi Properti',
+    'description' => 'Saluran pembuangan air dan keramik lantai dasar membutuhkan peremajaan. Bayar Rp 200.000 per Rumah dan Rp 800.000 per Hotel.',
     'type' => 'repairs',
     'perHouse' => 200000,
     'perHotel' => 800000,
@@ -975,8 +975,8 @@ class CardsData {
   49 => 
   array (
     'id' => 'cc50',
-    'title' => 'Mampus! Terciduk Kasus Mafia Tanah Sertifikat Ganda!',
-    'description' => 'Beli tanah murah dari makelar bodong ternyata sertifikat aspal! Satgas mafia tanah langsung ngegeret lu ke sel penjara!',
+    'title' => 'Sengketa Kepemilikan Lahan Bermasalah',
+    'description' => 'Dokumen tanah yang dibeli ternyata memiliki sengketa batas wilayah. Masuk ke sel penjara untuk proses mediasi.',
     'type' => 'go_to_jail',
   ),
 );

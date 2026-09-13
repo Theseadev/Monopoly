@@ -1203,6 +1203,9 @@ function triggerJailSiren() {
   setTimeout(() => overlay.remove(), 1600);
 }
 
+let processedLogSet = new Set();
+let isInitialLogLoad = true;
+
 function showFloatingCash(amount, isPositive = true, label = '', startPosElement = null) {
   if (!amount || isNaN(amount)) return;
   const rawAmt = Math.abs(amount);
@@ -1217,15 +1220,20 @@ function showFloatingCash(amount, isPositive = true, label = '', startPosElement
       <span class="text-xl sm:text-2xl">${iconEmoji}</span>
       <span class="text-base sm:text-lg font-black font-outfit tracking-tight">${prefix}${formatCurrency(rawAmt)}</span>
     </div>
-    ${label ? `<div class="text-[9.5px] sm:text-[10.5px] font-bold text-white/90 tracking-wide uppercase font-outfit mt-0.5">${escapeHtml(label)}</div>` : ''}
+    ${label ? `<div class="text-[9.5px] sm:text-[10.5px] font-bold text-white/95 tracking-wide uppercase font-outfit mt-0.5">${escapeHtml(label)}</div>` : ''}
   `;
 
   // Posisikan tepat di tengah papan permainan (Center Hub)
   const boardEl = document.getElementById('monopolyBoard');
   if (boardEl) {
     const rect = boardEl.getBoundingClientRect();
-    bubble.style.left = `${rect.left + rect.width / 2}px`;
-    bubble.style.top = `${rect.top + rect.height / 2}px`;
+    if (rect.width > 0 && rect.height > 0) {
+      bubble.style.left = `${rect.left + rect.width / 2}px`;
+      bubble.style.top = `${rect.top + rect.height / 2}px`;
+    } else {
+      bubble.style.left = `${window.innerWidth / 2}px`;
+      bubble.style.top = `${window.innerHeight / 2}px`;
+    }
   } else {
     bubble.style.left = `${window.innerWidth / 2}px`;
     bubble.style.top = `${window.innerHeight / 2}px`;
@@ -1233,6 +1241,156 @@ function showFloatingCash(amount, isPositive = true, label = '', startPosElement
 
   document.body.appendChild(bubble);
   setTimeout(() => bubble.remove(), 2100);
+}
+
+function processFinancialLogs(logs) {
+  if (!logs || !Array.isArray(logs) || logs.length === 0) return;
+
+  // On initial page load, record all existing logs without popping historical notifications
+  if (isInitialLogLoad) {
+    logs.forEach(l => {
+      processedLogSet.add(`${l.time}_${l.message}`);
+    });
+    isInitialLogLoad = false;
+    return;
+  }
+
+  // Gather new logs that haven't been processed yet
+  const newLogs = [];
+  for (let i = 0; i < Math.min(logs.length, 15); i++) {
+    const log = logs[i];
+    const key = `${log.time}_${log.message}`;
+    if (processedLogSet.has(key)) break;
+    newLogs.unshift(log); // Keep chronological order (oldest to newest among new)
+    processedLogSet.add(key);
+  }
+
+  if (processedLogSet.size > 200) {
+    const arr = Array.from(processedLogSet);
+    processedLogSet = new Set(arr.slice(arr.length - 100));
+  }
+
+  newLogs.forEach((log, index) => {
+    const msg = log.message || '';
+    const delay = index * 350;
+
+    setTimeout(() => {
+      // 1. Lewat Mulai (GO) (+2 Jt)
+      if (msg.includes('melewati Mulai')) {
+        sound.playCash();
+        showFloatingCash(2000000, true, 'Lewat Mulai (+2 Jt)');
+        triggerConfetti({ particleCount: 35 });
+        return;
+      }
+
+      // 2. Bayar Sewa Properti
+      if (msg.includes('membayar sewa')) {
+        sound.playPayCash();
+        const match = msg.match(/Rp\s*([\d\.]+)/);
+        const amt = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+        if (amt > 0) showFloatingCash(amt, false, 'Bayar Sewa Properti');
+        return;
+      }
+
+      // 3. Bayar Pajak
+      if (msg.includes('membayar Pajak') || msg.includes('Pajak Penghasilan') || msg.includes('Pajak Istimewa')) {
+        sound.playPayCash();
+        const match = msg.match(/Rp\s*([\d\.]+)/);
+        const amt = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+        if (amt > 0) showFloatingCash(amt, false, 'Bayar Pajak');
+        return;
+      }
+
+      // 4. Beli Properti
+      if (msg.includes('membeli ') && msg.includes('seharga Rp')) {
+        const match = msg.match(/Rp\s*([\d\.]+)/);
+        const amt = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+        if (amt > 0) showFloatingCash(amt, false, 'Beli Properti');
+        return;
+      }
+
+      // 5. Bangun Rumah / Hotel
+      if (msg.includes('membangun Rumah') || msg.includes('meng-upgrade ke HOTEL')) {
+        const isHotel = msg.includes('HOTEL');
+        const match = msg.match(/Rp\s*([\d\.]+)/);
+        const amt = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+        if (amt > 0) showFloatingCash(amt, false, isHotel ? 'Bangun Hotel Megah' : 'Bangun Rumah');
+        return;
+      }
+
+      // 6. Jual Properti
+      if (msg.includes('menjual ') && msg.includes('seharga Rp')) {
+        sound.playCash();
+        const match = msg.match(/Rp\s*([\d\.]+)/);
+        const amt = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+        if (amt > 0) showFloatingCash(amt, true, 'Jual Aset (+50%)');
+        return;
+      }
+
+      // 7. Denda Penjara
+      if (msg.includes('membayar denda Rp 1.500.000')) {
+        sound.playPayCash();
+        showFloatingCash(1500000, false, 'Denda Bebas Penjara');
+        return;
+      }
+
+      // 8. Cuan / Hadiah Kartu
+      if (msg.includes('menang jackpot')) {
+        sound.playCash();
+        const match = msg.match(/Rp\s*([\d\.]+)/);
+        const amt = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+        if (amt > 0) {
+          showFloatingCash(amt, true, '🎉 Cuan Jackpot!');
+          triggerConfetti({ particleCount: 50 });
+        }
+        return;
+      }
+
+      if (msg.includes('memperoleh Rp') || msg.includes('mengambil Rp') || msg.includes('mengumpulkan Rp')) {
+        sound.playCash();
+        const match = msg.match(/Rp\s*([\d\.]+)/);
+        const amt = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+        if (amt > 0) {
+          showFloatingCash(amt, true, 'Hadiah Kartu');
+          triggerConfetti({ particleCount: 30 });
+        }
+        return;
+      }
+
+      // 9. Denda / Rugi / Biaya Kartu
+      if (msg.includes('kehilangan modal') || msg.includes('RUG PULL')) {
+        sound.playPayCash();
+        const match = msg.match(/Rp\s*([\d\.]+)/);
+        const amt = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+        if (amt > 0) showFloatingCash(amt, false, '💥 Rug Pull / Scam');
+        return;
+      }
+
+      if (msg.includes('biaya perbaikan') || msg.includes('renovasi total')) {
+        sound.playPayCash();
+        const match = msg.match(/Rp\s*([\d\.]+)/);
+        const amt = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+        if (amt > 0) showFloatingCash(amt, false, 'Biaya Renovasi');
+        return;
+      }
+
+      if (msg.includes('membagikan Rp')) {
+        sound.playPayCash();
+        const match = msg.match(/Rp\s*([\d\.]+)/);
+        const amt = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+        if (amt > 0) showFloatingCash(amt, false, 'Bagi-bagi THR');
+        return;
+      }
+
+      if (msg.includes('membayar Rp') && !msg.includes('membeli')) {
+        sound.playPayCash();
+        const match = msg.match(/Rp\s*([\d\.]+)/);
+        const amt = match ? parseInt(match[1].replace(/\./g, '')) : 0;
+        if (amt > 0) showFloatingCash(amt, false, 'Pembayaran Denda');
+        return;
+      }
+    }, delay);
+  });
 }
 
 // Animasi Langkah Bidak Per Petak (Hopping Arc + Glow + Audio Step)
@@ -1469,6 +1627,7 @@ function updateHUD() {
 
   try { updatePlayersList(); } catch (e) { console.error('updatePlayersList error:', e); }
   try { renderLogs(); } catch (e) { console.error('renderLogs error:', e); }
+  try { processFinancialLogs(state.logs); } catch (e) { console.error('processFinancialLogs error:', e); }
   try { updatePortfolio(); } catch (e) { console.error('updatePortfolio error:', e); }
   try { updateTradingWidget(); } catch (e) { console.error('updateTradingWidget error:', e); }
   try { syncChatsFromState(); } catch (e) { console.error('syncChatsFromState error:', e); }
@@ -1526,6 +1685,20 @@ function renderLogs() {
   }
   if (!gameLogsList || !state || !state.logs) return;
   gameLogsList.innerHTML = '';
+
+  if (state.logs.length === 0) {
+    gameLogsList.innerHTML = `
+      <div class="text-zinc-500 text-center py-6 text-xs flex flex-col items-center justify-center gap-1.5">
+        <svg class="w-6 h-6 text-zinc-600 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 14 14"></polyline>
+        </svg>
+        <span>Belum ada catatan aktivitas permainan.</span>
+      </div>
+    `;
+    return;
+  }
+
   state.logs.forEach(log => {
     const item = document.createElement('div');
     let colorClass = 'text-zinc-100 bg-[#1e2029] border-zinc-700';
@@ -4611,6 +4784,8 @@ function renderLobbyUI() {
 function launchOnlineGame(gameState) {
   state = gameState;
   isGameOverModalShown = false;
+  processedLogSet.clear();
+  isInitialLogLoad = true;
   processedChatIds.clear();
   localChats = [];
   if (gameState && gameState.chats && Array.isArray(gameState.chats)) {
@@ -4638,6 +4813,8 @@ function launchOnlineGame(gameState) {
 async function startConfiguredGame(mode) {
   requestGameFullscreen();
   stopAllPolling();
+  processedLogSet.clear();
+  isInitialLogLoad = true;
   currentOnlineRoom = null;
   currentOnlinePlayer = null;
   isGameOverModalShown = false;
@@ -5020,6 +5197,9 @@ btnLogsDropdown?.addEventListener('click', (e) => {
   e.stopPropagation();
   if (logsDropdownMenu) {
     const isHidden = logsDropdownMenu.classList.toggle('hidden');
+    if (!isHidden) {
+      renderLogs();
+    }
     if (logsDropdownArrow) {
       logsDropdownArrow.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
     }

@@ -737,8 +737,7 @@
   <!-- ========================================== -->
   <section id="inGameBoardScreen" class="hidden w-full h-screen max-h-screen flex flex-col bg-zinc-950/85 overflow-hidden">
     <!-- Top In-Game Header Bar -->
-    <!-- Top In-Game Header Bar -->
-    <header class="h-11 sm:h-12 border-b border-red-950/70 bg-zinc-900/95 backdrop-blur px-2 sm:px-3 flex items-center justify-between shadow-lg sticky top-0 z-30 overflow-x-hidden">
+    <header class="h-11 sm:h-12 border-b border-red-950/70 bg-zinc-900/95 backdrop-blur px-2 sm:px-3 flex items-center justify-between shadow-lg sticky top-0 z-40">
       <div class="flex items-center gap-1.5 sm:gap-2 shrink min-w-0">
         <button id="btnInGameBackHome" class="btn-home-pill p-1.5 sm:px-2.5 sm:py-1 rounded-lg flex items-center justify-center gap-1.5 text-rose-200 font-bold text-xs cursor-pointer shrink-0 active:scale-95" title="Kembali ke Menu Utama">
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -769,7 +768,7 @@
           </button>
 
           <!-- Dropdown Popup Card (Solid Opaque 100% Contrast & Centered on Mobile) -->
-          <div id="logsDropdownMenu" class="hidden fixed inset-x-3 top-14 sm:absolute sm:right-0 sm:top-full sm:mt-2 sm:inset-x-auto w-auto sm:w-80 bg-[#190407] border-2 border-red-500/70 rounded-2xl p-3 shadow-[0_20px_60px_rgba(0,0,0,0.95)] z-50 animate-fadeIn">
+          <div id="logsDropdownMenu" class="hidden fixed inset-x-3 top-14 sm:absolute sm:right-0 sm:top-full sm:mt-2 sm:inset-x-auto w-auto sm:w-88 bg-[#190407] border-2 border-red-500/70 rounded-2xl p-3 shadow-[0_20px_60px_rgba(0,0,0,0.95)] z-[60] animate-fadeIn">
             <div class="flex items-center justify-between pb-2 border-b border-zinc-800 mb-2">
               <div class="flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5 fill-current text-red-400" viewBox="0 0 24 24">

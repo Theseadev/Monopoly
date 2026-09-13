@@ -2371,33 +2371,36 @@ input[type="number"] {
    FLOATING CASH OUTFLOW & INFLOW NOTIFICATIONS
    =================================================== */
 .floating-cash-notification {
-  position: fixed;
-  z-index: 10000;
+  position: fixed !important;
+  z-index: 10000 !important;
   pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 22px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 24px;
+  min-width: 150px;
   border-radius: 9999px;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.88);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.92);
   animation: floatingCashFloat 2.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  user-select: none;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
 }
 
 .floating-cash-notification.floating-cash-negative {
-  background: linear-gradient(135deg, rgba(225, 29, 72, 0.96), rgba(159, 18, 57, 0.96));
-  border: 2px solid #fda4af;
-  color: #ffffff;
-  box-shadow: 0 10px 35px rgba(225, 29, 72, 0.6), 0 0 20px rgba(244, 63, 94, 0.45);
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.98), rgba(159, 18, 57, 0.98)) !important;
+  border: 2.5px solid #fecdd3 !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 35px rgba(225, 29, 72, 0.65), 0 0 25px rgba(244, 63, 94, 0.5) !important;
 }
 
 .floating-cash-notification.floating-cash-positive {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.96), rgba(5, 150, 105, 0.96));
-  border: 2px solid #6ee7b7;
-  color: #ffffff;
-  box-shadow: 0 10px 35px rgba(16, 185, 129, 0.6), 0 0 20px rgba(52, 211, 153, 0.45);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.98), rgba(5, 150, 105, 0.98)) !important;
+  border: 2.5px solid #a7f3d0 !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 35px rgba(16, 185, 129, 0.65), 0 0 25px rgba(52, 211, 153, 0.5) !important;
 }
 
 @keyframes floatingCashFloat {

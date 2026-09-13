@@ -1045,80 +1045,6 @@ function renderBoard() {
 
   boardElement.appendChild(centerArea);
 
-  // State indeks pengujian kartu deck
-  let activeTestCard = null;
-  let activeTestCardType = null;
-  let testChanceIndex = 0;
-  let testChestIndex = 0;
-
-  function drawTestCard(type) {
-    const isChance = (type === 'chance');
-    const cards = isChance 
-      ? (window.CHANCE_CARDS || state?.chanceDeck || [])
-      : (window.COMMUNITY_CHEST_CARDS || state?.communityChestDeck || []);
-    
-    if (!cards || cards.length === 0) return;
-
-    const idx = isChance ? testChanceIndex : testChestIndex;
-    const card = { ...cards[idx % cards.length] };
-    const total = cards.length;
-    const currentNum = (idx % cards.length) + 1;
-    
-    if (isChance) testChanceIndex = (testChanceIndex + 1) % cards.length;
-    else testChestIndex = (testChestIndex + 1) % cards.length;
-
-    activeTestCard = card;
-    activeTestCardType = isChance ? 'Kesempatan' : 'Dana Umum';
-    window._activeTestCard = activeTestCard;
-    window._activeTestCardType = activeTestCardType;
-
-    const humanPlayer = getCurrentHumanPlayer();
-
-    // Pastikan modal state bersih
-    closeModal();
-    forceCloseAllModals();
-    isModalOpen = false;
-    isProcessingAction = false;
-
-    if (state) {
-      state.phase = 'ACTION_REQUIRED';
-      state.currentAction = {
-        type: 'CARD_DRAWN',
-        cardType: activeTestCardType,
-        card: card
-      };
-    }
-
-    showCardDrawn({
-      cardType: activeTestCardType,
-      card: card,
-      testIndex: currentNum,
-      testTotal: total
-    }, humanPlayer);
-  }
-
-  const deckChance = centerArea.querySelector('#boardDeckChance');
-  if (deckChance) {
-    deckChance.style.cursor = 'pointer';
-    deckChance.setAttribute('title', '🧪 Klik untuk menguji Kartu Kesempatan');
-    deckChance.addEventListener('click', (e) => {
-      e.stopPropagation();
-      sound.playCardFlip();
-      drawTestCard('chance');
-    });
-  }
-
-  const deckChest = centerArea.querySelector('#boardDeckChest');
-  if (deckChest) {
-    deckChest.style.cursor = 'pointer';
-    deckChest.setAttribute('title', '🧪 Klik untuk menguji Kartu Dana Umum');
-    deckChest.addEventListener('click', (e) => {
-      e.stopPropagation();
-      sound.playCardFlip();
-      drawTestCard('chest');
-    });
-  }
-
   const btnCenterTap = centerArea.querySelector('#btnCenterTapDice');
   if (btnCenterTap) {
     btnCenterTap.addEventListener('click', (e) => {
@@ -1365,14 +1291,6 @@ function updateBoardUI() {
       house.title = `${prop.houses} Rumah`;
       container.appendChild(house);
     }
-
-    // Mortgage Badge
-    if (prop.isMortgaged) {
-      const mort = document.createElement('div');
-      mort.className = 'bg-stone-900 border border-amber-500 text-amber-300 text-[7.5px] font-black px-1 rounded shadow';
-      mort.innerHTML = 'GADAI';
-      container.appendChild(mort);
-    }
   });
 
   if (state.dice) {
@@ -1614,7 +1532,7 @@ function isColorGroupMonopoly(groupKey, playerId) {
 
 // Helper Menghitung Nilai Sewa Cepat untuk Kartu Portofolio
 function getQuickRent(space, prop) {
-  if (!space || !prop || prop.isMortgaged) return 0;
+  if (!space || !prop || prop.ownerId === null || prop.ownerId === undefined) return 0;
   if (space.type === 'property') {
     if (prop.isHotel) return (space.rent && space.rent[5] !== undefined) ? space.rent[5] : Math.round((space.price || 0) * 6.0);
     if (prop.houses > 0) return (space.rent && space.rent[prop.houses] !== undefined) ? space.rent[prop.houses] : Math.round((space.price || 0) * 1.5);
@@ -1729,9 +1647,8 @@ function updatePortfolio() {
   portfolioList.innerHTML = '';
   ownedProps.forEach(space => {
     const prop = state.properties[space.id];
-    const isMortgaged = Boolean(prop.isMortgaged);
     const card = document.createElement('div');
-    card.className = `group relative rounded-xl overflow-hidden bg-[#faf8f4] border-2 ${isMortgaged ? 'border-red-400/80 opacity-75' : 'border-[#d5cbbe]'} shadow-sm hover:shadow-md hover:-translate-y-0.5 transition duration-150 cursor-pointer flex flex-col justify-between active:scale-95 select-none text-center h-[74px] min-h-[74px]`;
+    card.className = `group relative rounded-xl overflow-hidden bg-[#faf8f4] border-2 border-[#d5cbbe] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition duration-150 cursor-pointer flex flex-col justify-between active:scale-95 select-none text-center h-[74px] min-h-[74px]`;
     card.title = `Klik untuk kelola ${space.name}`;
 
     card.innerHTML = `
@@ -1758,14 +1675,10 @@ function updatePortfolio() {
         </div>
       </div>
 
-      <!-- Bottom Rent / Mortgage Status -->
+      <!-- Bottom Rent Status -->
       <div class="px-1.5 py-0.5 bg-[#ebe3d3] border-t border-[#d8cdb8] flex items-center justify-between text-[7.5px] shrink-0 font-outfit">
-        ${isMortgaged ? `
-          <span class="text-red-700 font-extrabold w-full text-center bg-red-100/90 py-0.2 rounded">TERGADAI</span>
-        ` : `
-          <span class="text-zinc-600 font-semibold truncate">Sewa:</span>
-          <span class="text-emerald-800 font-black">${formatCurrency(getQuickRent(space, prop))}</span>
-        `}
+        <span class="text-zinc-600 font-semibold truncate">Sewa:</span>
+        <span class="text-emerald-800 font-black">${formatCurrency(getQuickRent(space, prop))}</span>
       </div>
     `;
 
@@ -2346,8 +2259,6 @@ function evaluateAndPickBotTrade(botPlayer, humanPlayer, offer, state) {
     const space = BOARD_SPACES.find(s => s.id === pid);
     if (!space) return;
     let val = space.price || 1000000;
-    const prop = state.properties[pid];
-    if (prop?.isMortgaged) val *= 0.5;
 
     // Bonus jika melengkapi komplek monopoli bagi Bot
     const groupSpaces = BOARD_SPACES.filter(s => s.group === space.group && s.type === space.type);
@@ -3186,15 +3097,15 @@ function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = fals
           </div>
         </div>
 
-        <!-- Level upgrade & Mortgage -->
+        <!-- Level upgrade & Jual Tanah -->
         <div class="px-3.5 py-2.5 bg-zinc-50 border-t border-zinc-200 text-[11px] text-zinc-600 space-y-1">
           <div class="flex justify-between items-center">
             <span>Biaya Bangun Rumah/Hotel:</span>
             <span class="font-bold text-zinc-900">${formatCurrency(houseCost)}</span>
           </div>
           <div class="flex justify-between items-center">
-            <span>Nilai Gadai (Hipotek):</span>
-            <span class="font-bold text-zinc-900">${formatCurrency(mortgageVal)}</span>
+            <span>Nilai Jual ke Bank (50%):</span>
+            <span class="font-bold text-emerald-700">${formatCurrency(Math.round(space.price * 0.5))}</span>
           </div>
         </div>
 
@@ -3222,8 +3133,8 @@ function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = fals
           <div class="flex justify-between px-2 py-1 bg-amber-50 text-amber-900 border border-amber-300 rounded-lg font-bold"><span>Sewa 4 Stasiun</span><span class="font-black">Rp 2.000.000</span></div>
         </div>
         <div class="px-4 py-2 bg-zinc-50 border-t border-zinc-200 text-[11px] flex justify-between text-zinc-600">
-          <span>Nilai Gadai:</span>
-          <span class="font-bold text-zinc-900">${formatCurrency(space.mortgage || 1000000)}</span>
+          <span>Nilai Jual ke Bank (50%):</span>
+          <span class="font-bold text-emerald-700">${formatCurrency(Math.round(space.price * 0.5))}</span>
         </div>
         <div class="py-2.5 bg-zinc-900 text-center text-white">
           <div class="text-[9px] uppercase tracking-wider text-amber-400 font-bold">HARGA BELI STASIUN</div>
@@ -3251,8 +3162,8 @@ function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = fals
           </div>
         </div>
         <div class="px-4 py-2 bg-zinc-50 border-t border-zinc-200 text-[11px] flex justify-between text-zinc-600">
-          <span>Nilai Gadai:</span>
-          <span class="font-bold text-zinc-900">${formatCurrency(space.mortgage || 750000)}</span>
+          <span>Nilai Jual ke Bank (50%):</span>
+          <span class="font-bold text-emerald-700">${formatCurrency(Math.round(space.price * 0.5))}</span>
         </div>
         <div class="py-2.5 bg-zinc-900 text-center text-white">
           <div class="text-[9px] uppercase tracking-wider text-amber-400 font-bold">HARGA BELI UTILITAS</div>
@@ -3754,6 +3665,10 @@ function showTitleDeed(space) {
   const current = state.players[state.currentPlayerIndex];
   const isOwnerAndTurn = owner && current && owner.id === current.id && !current.isAI && state.phase !== 'GAME_OVER';
 
+  const sellPrice = Math.round((space.price || 0) * 0.5);
+  const housesRefund = prop ? ((prop.houses || 0) * Math.round((space.housePrice || 0) * 0.5) + (prop.isHotel ? 5 * Math.round((space.housePrice || 0) * 0.5) : 0)) : 0;
+  const totalSellPrice = sellPrice + housesRefund;
+
   const extraFooterHtml = `
     <!-- Ownership Status -->
     <div class="p-3 bg-zinc-950 text-white border-t border-zinc-800 text-xs space-y-1.5">
@@ -3763,25 +3678,18 @@ function showTitleDeed(space) {
       </div>
       ${prop?.houses > 0 && !prop?.isHotel ? `<div class="text-emerald-400 font-semibold flex items-center gap-1.5"><span class="w-3.5 h-3.5 inline-block">${GameIcons.house}</span> <span>Terbangun ${prop.houses} Rumah</span></div>` : ''}
       ${prop?.isHotel ? `<div class="text-red-400 font-semibold flex items-center gap-1.5"><span class="w-3.5 h-3.5 inline-block">${GameIcons.hotel}</span> <span>Terbangun Hotel Megah</span></div>` : ''}
-      ${prop?.isMortgaged ? `<div class="text-amber-400 font-semibold flex items-center gap-1.5"><span class="w-3.5 h-3.5 inline-block">${GameIcons.warning}</span> <span>Sedang Digadaikan ke Bank</span></div>` : ''}
     </div>
 
     ${isOwnerAndTurn ? `
       <div class="p-2.5 bg-zinc-900 border-t border-zinc-800 flex flex-col gap-2 font-outfit">
-        ${space.type === 'property' && !prop.isHotel && !prop.isMortgaged ? `
+        ${space.type === 'property' && !prop.isHotel ? `
           <div class="p-2 bg-zinc-950/80 rounded-xl text-zinc-400 text-[11px] text-center border border-zinc-800/80 font-medium">
             Pembangunan rumah dilakukan saat bidak Anda mendarat kembali di petak ini (maksimal 1 per pendaratan).
           </div>
         ` : ''}
-        ${!prop.isMortgaged ? `
-          <button id="btnMortgageDeed" class="w-full py-2 px-3 rounded-xl text-xs font-semibold bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-amber-500/30 transition cursor-pointer active:scale-95">
-            Gadaikan (+${formatCurrency(space.mortgage)})
-          </button>
-        ` : `
-          <button id="btnUnmortgageDeed" class="w-full py-2 px-3 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white transition cursor-pointer active:scale-95">
-            Tebus Gadai (${formatCurrency(Math.round((space.mortgage || 0) * 1.1))})
-          </button>
-        `}
+        <button id="btnSellPropertyDeed" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold bg-rose-950/90 hover:bg-rose-900 text-rose-200 border border-rose-500/50 shadow transition cursor-pointer active:scale-95 flex items-center justify-center gap-1.5">
+          <span>🏷️ Jual ke Bank (+${formatCurrency(totalSellPrice)})</span>
+        </button>
       </div>
     ` : ''}
 
@@ -3805,75 +3713,35 @@ function showTitleDeed(space) {
 
   document.getElementById('btnCloseDeed')?.addEventListener('click', closeModal);
 
-  // Konfirmasi Gadai Properti dengan SweetAlert
-  document.getElementById('btnMortgageDeed')?.addEventListener('click', async () => {
+  // Konfirmasi Jual Properti ke Bank dengan SweetAlert
+  document.getElementById('btnSellPropertyDeed')?.addEventListener('click', async () => {
     closeModal();
     if (isModalOpen || isProcessingAction) return;
     isModalOpen = true;
     isProcessingAction = true;
     try {
       const result = await Swal.fire({
-        title: `<span class="swal2-monopoly-title">Gadaikan Properti</span>`,
+        title: `<span class="swal2-monopoly-title">Jual Properti ke Bank</span>`,
         html: `
           <div class="text-left text-xs text-zinc-300 font-sans">
-            <p class="mb-3 text-sm">Gadaikan sertifikat <b class="text-amber-300">${space.name}</b> ke Bank untuk menerima dana talangan darurat?</p>
-            <div class="bg-zinc-950 p-3.5 rounded-xl border border-zinc-800 space-y-1.5">
-              <div class="flex justify-between"><span>Dana Diterima:</span><span class="text-emerald-400 font-bold text-sm">+${formatCurrency(space.mortgage)}</span></div>
-              <div class="text-[10.5px] text-zinc-400 mt-1 leading-normal">Properti yang digadaikan tidak dapat menarik sewa jika ada lawan yang mendarat.</div>
-            </div>
-          </div>
-        `,
-        showCancelButton: true,
-        confirmButtonText: 'Gadaikan Sekarang',
-        cancelButtonText: 'Batal',
-        customClass: {
-          popup: 'swal2-monopoly-popup',
-          confirmButton: 'swal2-monopoly-confirm',
-          cancelButton: 'swal2-monopoly-cancel'
-        },
-        buttonsStyling: false
-      });
-
-      forceCloseAllModals();
-
-      if (result.isConfirmed) {
-        sound.playCash();
-        showFloatingCash(space.mortgage, true);
-        const newState = await apiCall('/api/game/mortgage', { spaceId: space.id, playerId: current.id });
-        if (newState) {
-          state = newState;
-          updateBoardUI();
-        }
-      }
-    } finally {
-      isProcessingAction = false;
-      isModalOpen = false;
-      forceCloseAllModals();
-      updateHUD();
-    }
-  });
-
-  // Konfirmasi Tebus Gadai dengan SweetAlert
-  document.getElementById('btnUnmortgageDeed')?.addEventListener('click', async () => {
-    closeModal();
-    if (isModalOpen || isProcessingAction) return;
-    isModalOpen = true;
-    isProcessingAction = true;
-    const cost = Math.round((space.mortgage || 0) * 1.1);
-    try {
-      const result = await Swal.fire({
-        title: `<span class="swal2-monopoly-title">Tebus Sertifikat</span>`,
-        html: `
-          <div class="text-left text-xs text-zinc-300 font-sans">
-            <p class="mb-3 text-sm">Tebus kembali sertifikat <b class="text-amber-300">${space.name}</b> dari Bank?</p>
+            <p class="mb-3 text-sm">Apakah Anda yakin ingin menjual sertifikat <b class="text-amber-300">${space.name}</b> ke Bank?</p>
             <div class="bg-zinc-950 p-3.5 rounded-xl border border-zinc-800 space-y-2">
-              <div class="flex justify-between"><span>Biaya Penebusan (+10% Bunga):</span><span class="text-amber-400 font-bold">${formatCurrency(cost)}</span></div>
-              <div class="flex justify-between"><span>Saldo Anda:</span><span class="text-white font-bold">${formatCurrency(current.money)}</span></div>
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-zinc-400">Harga Beli:</span>
+                <span class="font-bold text-white">${formatCurrency(space.price)}</span>
+              </div>
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-zinc-400">Nilai Jual (50%):</span>
+                <span class="text-emerald-400 font-black text-sm">+${formatCurrency(totalSellPrice)}</span>
+              </div>
+              <div class="text-[11px] text-rose-300 bg-rose-950/40 border border-rose-500/30 p-2 rounded-lg leading-relaxed mt-1">
+                ⚠️ Tanah ini akan kembali <b>BEBAS tanpa pemilik</b>. Siapapun yang mendarat di petak ini nantinya bisa membelinya kembali dari Bank.
+              </div>
             </div>
           </div>
         `,
         showCancelButton: true,
-        confirmButtonText: 'Tebus Sertifikat',
+        confirmButtonText: 'Ya, Jual Sekarang',
         cancelButtonText: 'Batal',
         customClass: {
           popup: 'swal2-monopoly-popup',
@@ -3887,8 +3755,8 @@ function showTitleDeed(space) {
 
       if (result.isConfirmed) {
         sound.playCash();
-        showFloatingCash(cost, false);
-        const newState = await apiCall('/api/game/unmortgage', { spaceId: space.id, playerId: current.id });
+        showFloatingCash(totalSellPrice, true);
+        const newState = await apiCall('/api/game/sell-property', { spaceId: space.id, playerId: current.id });
         if (newState) {
           state = newState;
           updateBoardUI();

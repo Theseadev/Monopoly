@@ -113,6 +113,7 @@ Flight::route('POST|GET /api/game/roll', ['App\Controllers\GameController', 'rol
 Flight::route('POST|GET /api/game/buy', ['App\Controllers\GameController', 'buy']);
 Flight::route('POST|GET /api/game/pass', ['App\Controllers\GameController', 'pass']);
 Flight::route('POST|GET /api/game/build', ['App\Controllers\GameController', 'build']);
+Flight::route('POST|GET /api/game/sell-property', ['App\Controllers\GameController', 'sellProperty']);
 Flight::route('POST|GET /api/game/mortgage', ['App\Controllers\GameController', 'mortgage']);
 Flight::route('POST|GET /api/game/unmortgage', ['App\Controllers\GameController', 'unmortgage']);
 Flight::route('POST|GET /api/game/jail-fine', ['App\Controllers\GameController', 'payJailFine']);

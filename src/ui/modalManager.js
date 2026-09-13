@@ -41,7 +41,7 @@ export class ModalManager {
       <div class="text-[11px] text-gray-500 dark:text-gray-400 mt-2 space-y-0.5">
         <div>Biaya Bangun Rumah: <span class="font-semibold text-gray-700 dark:text-gray-200">Rp ${space.housePrice?.toLocaleString('id-ID')}</span></div>
         <div>Biaya Bangun Hotel: <span class="font-semibold text-gray-700 dark:text-gray-200">Rp ${space.housePrice?.toLocaleString('id-ID')}</span> (+ 4 rumah)</div>
-        <div>Nilai Gadai (Hipotek): <span class="font-semibold text-gray-700 dark:text-gray-200">Rp ${space.mortgage?.toLocaleString('id-ID')}</span></div>
+        <div>Nilai Jual ke Bank (50%): <span class="font-semibold text-emerald-600 dark:text-emerald-400">Rp ${(Math.round((space.price || 0) * 0.5)).toLocaleString('id-ID')}</span></div>
       </div>
     ` : (space.type === 'railroad' ? `
       <div class="space-y-1 text-xs text-gray-700 dark:text-gray-200 mt-3 border-t border-b border-gray-200 dark:border-gray-700 py-2">
@@ -51,7 +51,7 @@ export class ModalManager {
         <div class="flex justify-between font-bold text-amber-500"><span>Sewa 4 Stasiun:</span><span>Rp 2.000.000</span></div>
       </div>
       <div class="text-[11px] text-gray-500 dark:text-gray-400 mt-2">
-        Nilai Gadai: <span class="font-semibold text-gray-700 dark:text-gray-200">Rp ${space.mortgage?.toLocaleString('id-ID')}</span>
+        Nilai Jual ke Bank (50%): <span class="font-semibold text-emerald-600 dark:text-emerald-400">Rp ${(Math.round((space.price || 0) * 0.5)).toLocaleString('id-ID')}</span>
       </div>
     ` : `
       <div class="text-xs text-gray-700 dark:text-gray-200 mt-3 border-t border-b border-gray-200 dark:border-gray-700 py-2">
@@ -59,9 +59,11 @@ export class ModalManager {
         <div>Jika memiliki 2 Utilitas: <b>10x</b> angka dadu yang dilempar</div>
       </div>
       <div class="text-[11px] text-gray-500 dark:text-gray-400 mt-2">
-        Nilai Gadai: <span class="font-semibold text-gray-700 dark:text-gray-200">Rp ${space.mortgage?.toLocaleString('id-ID')}</span>
+        Nilai Jual ke Bank (50%): <span class="font-semibold text-emerald-600 dark:text-emerald-400">Rp ${(Math.round((space.price || 0) * 0.5)).toLocaleString('id-ID')}</span>
       </div>
     `);
+
+    const sellPrice = Math.round((space.price || 0) * 0.5) + ((prop?.houses || 0) * Math.round((space.housePrice || 0) * 0.5)) + (prop?.isHotel ? 5 * Math.round((space.housePrice || 0) * 0.5) : 0);
 
     this.container.innerHTML = `
       <div class="fixed inset-0 bg-black/35 flex items-center justify-center p-4 z-50">
@@ -86,7 +88,6 @@ export class ModalManager {
 
             ${prop?.houses > 0 ? `<div class="mt-2 text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Terdapat: ${prop.houses} Rumah</div>` : ''}
             ${prop?.isHotel ? `<div class="mt-2 text-xs text-red-600 dark:text-red-400 font-semibold">Terdapat: 1 Hotel Megah</div>` : ''}
-            ${prop?.isMortgaged ? `<div class="mt-2 text-xs text-amber-600 font-semibold">⚠️ Sedang Digadaikan ke Bank</div>` : ''}
 
             ${rentRows}
 
@@ -100,15 +101,9 @@ export class ModalManager {
                   ${!canBuild ? `<p class="text-[10px] text-amber-500 text-center">${buildReason}</p>` : ''}
                 ` : ''}
 
-                ${!prop.isMortgaged ? `
-                  <button id="btnMortgageDeed" class="w-full py-1.5 px-3 rounded-lg text-xs font-semibold bg-amber-600/20 text-amber-300 hover:bg-amber-600/30 transition">
-                    Gadaikan (+Rp ${space.mortgage?.toLocaleString('id-ID')})
-                  </button>
-                ` : `
-                  <button id="btnUnmortgageDeed" class="w-full py-1.5 px-3 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white transition">
-                    Tebus Gadai (Rp ${Math.round(space.mortgage * 1.1).toLocaleString('id-ID')})
-                  </button>
-                `}
+                <button id="btnSellPropertyDeed" class="w-full py-1.5 px-3 rounded-lg text-xs font-bold bg-rose-600/20 text-rose-300 hover:bg-rose-600/30 border border-rose-500/40 transition">
+                  🏷️ Jual ke Bank (+Rp ${sellPrice.toLocaleString('id-ID')})
+                </button>
               </div>
             ` : ''}
 
@@ -127,12 +122,12 @@ export class ModalManager {
       gameState.buildHouse(activePlayer.id, space.id);
       this.close();
     });
-    document.getElementById('btnMortgageDeed')?.addEventListener('click', () => {
-      gameState.mortgageProperty(activePlayer.id, space.id);
-      this.close();
-    });
-    document.getElementById('btnUnmortgageDeed')?.addEventListener('click', () => {
-      gameState.unmortgageProperty(activePlayer.id, space.id);
+    document.getElementById('btnSellPropertyDeed')?.addEventListener('click', () => {
+      if (typeof gameState.sellProperty === 'function') {
+        gameState.sellProperty(activePlayer.id, space.id);
+      } else if (typeof gameState.mortgageProperty === 'function') {
+        gameState.mortgageProperty(activePlayer.id, space.id);
+      }
       this.close();
     });
   }

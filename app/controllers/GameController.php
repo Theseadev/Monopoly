@@ -69,9 +69,7 @@ class GameController {
 
         $options = $data['options'] ?? [];
         $state = GameState::initGame($players, $options);
-        if ($roomCode) {
-            GameState::save($state, $roomCode);
-        }
+        GameState::save($state, $roomCode);
         Flight::json($state);
     }
 
@@ -107,23 +105,29 @@ class GameController {
         Flight::json($state);
     }
 
+    public static function sellProperty(): void {
+        self::initRequestContext();
+        $data = self::getRequestData();
+        $spaceId = (int)($data['spaceId'] ?? 0);
+        $playerId = (int)($data['playerId'] ?? 0);
+
+        $state = GameState::sellProperty($playerId, $spaceId);
+        Flight::json($state);
+    }
+
     public static function mortgage(): void {
         self::initRequestContext();
         $data = self::getRequestData();
         $spaceId = (int)($data['spaceId'] ?? 0);
         $playerId = (int)($data['playerId'] ?? 0);
 
-        $state = GameState::mortgageProperty($playerId, $spaceId);
+        $state = GameState::sellProperty($playerId, $spaceId);
         Flight::json($state);
     }
 
     public static function unmortgage(): void {
         self::initRequestContext();
-        $data = self::getRequestData();
-        $spaceId = (int)($data['spaceId'] ?? 0);
-        $playerId = (int)($data['playerId'] ?? 0);
-
-        $state = GameState::unmortgageProperty($playerId, $spaceId);
+        $state = GameState::load();
         Flight::json($state);
     }
 

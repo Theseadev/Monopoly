@@ -414,36 +414,49 @@ class GameState {
         return $state;
     }
 
-    public static function mortgageProperty(int $playerId, int $spaceId): array {
+    public static function sellProperty(int $playerId, int $spaceId): array {
         $state = self::load();
         $player = &$state['players'][$playerId];
         $space = BoardData::getSpace($spaceId);
         $prop = &$state['properties'][$spaceId];
 
-        if ($prop['ownerId'] === $playerId && empty($prop['isMortgaged']) && empty($prop['houses']) && empty($prop['isHotel'])) {
-            $prop['isMortgaged'] = true;
-            $player['money'] += $space['mortgage'];
-            self::addLog($state, "{$player['name']} menggadaikan {$space['name']} (+Rp " . number_format($space['mortgage'], 0, ',', '.') . ").", 'warning');
+        if ($prop && ($prop['ownerId'] ?? null) === $playerId) {
+            // Nilai jual tanah adalah 50% dari harga beli
+            $sellPrice = (int)round(($space['price'] ?? 0) * 0.5);
+
+            // Jika ada rumah / hotel, kembalikan juga 50% biaya bangun
+            $housesRefund = 0;
+            if (!empty($prop['isHotel'])) {
+                $housesRefund = 5 * (int)round(($space['housePrice'] ?? 0) * 0.5);
+            } elseif (!empty($prop['houses'])) {
+                $housesRefund = (int)$prop['houses'] * (int)round(($space['housePrice'] ?? 0) * 0.5);
+            }
+
+            $totalRefund = $sellPrice + $housesRefund;
+
+            // Lepaskan kepemilikan tanah sepenuhnya
+            $prop['ownerId'] = null;
+            $prop['houses'] = 0;
+            $prop['isHotel'] = false;
+            $prop['isMortgaged'] = false;
+
+            // Tambahkan uang penjualan ke kas pemain
+            $player['money'] += $totalRefund;
+
+            self::addLog($state, "{$player['name']} menjual {$space['name']} ke Bank seharga Rp " . number_format($totalRefund, 0, ',', '.') . " (50% dari harga beli). Tanah kini kembali BEBAS tanpa pemilik!", 'info');
         }
 
         self::save($state);
         return $state;
     }
 
+    public static function mortgageProperty(int $playerId, int $spaceId): array {
+        // Forward ke sistem jual (50% harga beli)
+        return self::sellProperty($playerId, $spaceId);
+    }
+
     public static function unmortgageProperty(int $playerId, int $spaceId): array {
         $state = self::load();
-        $player = &$state['players'][$playerId];
-        $space = BoardData::getSpace($spaceId);
-        $prop = &$state['properties'][$spaceId];
-
-        $cost = (int)round($space['mortgage'] * 1.1);
-        if ($prop['ownerId'] === $playerId && !empty($prop['isMortgaged']) && $player['money'] >= $cost) {
-            $prop['isMortgaged'] = false;
-            $player['money'] -= $cost;
-            self::addLog($state, "{$player['name']} menebus gadai {$space['name']} seharga Rp " . number_format($cost, 0, ',', '.') . ".", 'success');
-        }
-
-        self::save($state);
         return $state;
     }
 

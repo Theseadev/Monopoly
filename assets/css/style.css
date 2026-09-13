@@ -1327,6 +1327,88 @@ body.fullscreen-active .board-center > .text-center:last-child {
 }
 
 /* ==========================================================
+   FULLSCREEN MODE: DELUXE TOP HEADER BAR & CONTROLS
+   ========================================================== */
+:fullscreen #inGameBoardScreen header,
+#inGameBoardScreen:fullscreen header,
+body.fullscreen-active #inGameBoardScreen header {
+  height: clamp(52px, 5.8vh, 66px) !important;
+  padding-left: clamp(14px, 1.5vw, 24px) !important;
+  padding-right: clamp(14px, 1.5vw, 24px) !important;
+  gap: 12px !important;
+}
+
+:fullscreen #btnInGameBackHome,
+body.fullscreen-active #btnInGameBackHome {
+  padding: clamp(6px, 0.8vh, 9px) clamp(12px, 1.1vw, 16px) !important;
+  font-size: clamp(12px, 1.1vw, 15px) !important;
+  border-radius: 12px !important;
+  gap: 8px !important;
+}
+
+:fullscreen #btnInGameBackHome svg,
+body.fullscreen-active #btnInGameBackHome svg {
+  width: 17px !important;
+  height: 17px !important;
+}
+
+:fullscreen #inGameBoardScreen header span.bg-clip-text,
+body.fullscreen-active #inGameBoardScreen header span.bg-clip-text {
+  font-size: clamp(15px, 1.4vw, 21px) !important;
+  letter-spacing: 0.08em !important;
+}
+
+:fullscreen #inGameModeBadge,
+body.fullscreen-active #inGameModeBadge {
+  font-size: clamp(10.5px, 0.95vw, 13px) !important;
+  padding: 3px 12px !important;
+  border-radius: 9999px !important;
+}
+
+:fullscreen #btnLogsDropdown,
+:fullscreen #btnFullscreenToggle,
+:fullscreen #btnSoundToggle,
+:fullscreen #btnGameRules,
+:fullscreen #btnNewGame,
+body.fullscreen-active #btnLogsDropdown,
+body.fullscreen-active #btnFullscreenToggle,
+body.fullscreen-active #btnSoundToggle,
+body.fullscreen-active #btnGameRules,
+body.fullscreen-active #btnNewGame {
+  padding: clamp(6px, 0.8vh, 9px) clamp(10px, 1vw, 15px) !important;
+  font-size: clamp(12px, 1.05vw, 14.5px) !important;
+  border-radius: 12px !important;
+  gap: 6px !important;
+}
+
+:fullscreen #btnLogsDropdown svg,
+:fullscreen #btnFullscreenToggle svg,
+:fullscreen #btnSoundToggle svg,
+:fullscreen #btnGameRules svg,
+:fullscreen #btnNewGame svg,
+body.fullscreen-active #btnLogsDropdown svg,
+body.fullscreen-active #btnFullscreenToggle svg,
+body.fullscreen-active #btnSoundToggle svg,
+body.fullscreen-active #btnGameRules svg,
+body.fullscreen-active #btnNewGame svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+:fullscreen #logsBadgeCount,
+body.fullscreen-active #logsBadgeCount {
+  font-size: clamp(10px, 0.9vw, 12px) !important;
+  padding: 2px 7px !important;
+}
+
+:fullscreen #fullscreenLabel,
+:fullscreen #soundLabel,
+body.fullscreen-active #fullscreenLabel,
+body.fullscreen-active #soundLabel {
+  font-size: clamp(12px, 1.05vw, 14.5px) !important;
+}
+
+/* ==========================================================
    FULLSCREEN MODE: EXPANDED SIDEBAR PANELS (CHAT, ASSETS & PLAYERS)
    ========================================================== */
 

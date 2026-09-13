@@ -1085,29 +1085,35 @@
 
     <!-- Mobile Bottom Navigation Bar (Khusus Smartphone Layout < 1024px) -->
     <nav id="mobileBottomNav" class="flex lg:hidden items-center justify-around">
-      <button type="button" class="mobile-tab-btn flex-1 py-1 px-1 rounded-xl text-xs font-bold font-outfit flex flex-col items-center justify-center gap-0.5 cursor-pointer active:scale-95 transition text-white" data-target="playerInfoCard">
-        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24">
+      <button type="button" class="mobile-tab-btn flex-1 py-1 px-1 rounded-xl text-xs font-bold font-outfit flex flex-col items-center justify-center gap-0.5 cursor-pointer active:scale-95 transition text-rose-200" data-target="playerInfoCard">
+        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
           <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
         </svg>
-        <span class="text-[8.5px] tracking-wide text-white">Pemain</span>
+        <span class="text-[9px] tracking-wider uppercase font-extrabold">Pemain</span>
       </button>
-      <button type="button" class="mobile-tab-btn flex-1 py-1 px-1 rounded-xl text-xs font-bold font-outfit flex flex-col items-center justify-center gap-0.5 cursor-pointer active:scale-95 transition text-white" data-target="portfolioCard">
-        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24">
+
+      <button type="button" class="mobile-tab-btn flex-1 py-1 px-1 rounded-xl text-xs font-bold font-outfit flex flex-col items-center justify-center gap-0.5 cursor-pointer active:scale-95 transition text-rose-200 relative" data-target="portfolioCard">
+        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
           <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
         </svg>
-        <span class="text-[8.5px] tracking-wide text-white">Aset</span>
+        <span class="text-[9px] tracking-wider uppercase font-extrabold">Aset</span>
+        <span id="mobilePortfolioBadge" class="hidden absolute top-0.5 right-3.5 bg-rose-600 text-white text-[7.5px] font-black px-1 rounded-full border border-white/40 shadow-sm">0</span>
       </button>
-      <button type="button" id="btnMobileBottomTrade" class="mobile-tab-btn flex-1 py-1 px-1 rounded-xl text-xs font-bold font-outfit flex flex-col items-center justify-center gap-0.5 cursor-pointer active:scale-95 transition text-white">
-        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24">
+
+      <button type="button" id="btnMobileBottomTrade" class="mobile-tab-btn flex-1 py-1 px-1 rounded-xl text-xs font-bold font-outfit flex flex-col items-center justify-center gap-0.5 cursor-pointer active:scale-95 transition text-rose-200 relative">
+        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
           <path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
         </svg>
-        <span class="text-[8.5px] tracking-wide text-white">Trading</span>
+        <span class="text-[9px] tracking-wider uppercase font-extrabold">Trading</span>
+        <span id="mobileTradeBadge" class="hidden absolute top-0.5 right-3.5 bg-amber-500 text-black text-[7.5px] font-black px-1 rounded-full border border-amber-300 shadow-sm animate-pulse">!</span>
       </button>
-      <button type="button" class="mobile-tab-btn flex-1 py-1 px-1 rounded-xl text-xs font-bold font-outfit flex flex-col items-center justify-center gap-0.5 cursor-pointer active:scale-95 transition text-white" data-target="playerChatCard">
-        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24">
+
+      <button type="button" class="mobile-tab-btn flex-1 py-1 px-1 rounded-xl text-xs font-bold font-outfit flex flex-col items-center justify-center gap-0.5 cursor-pointer active:scale-95 transition text-rose-200 relative" data-target="playerChatCard">
+        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
           <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
         </svg>
-        <span class="text-[8.5px] tracking-wide text-white">Obrolan</span>
+        <span class="text-[9px] tracking-wider uppercase font-extrabold">Obrolan</span>
+        <span id="mobileChatBadge" class="hidden absolute top-0.5 right-3.5 bg-rose-500 text-white text-[7.5px] font-black px-1 rounded-full border border-white/40 shadow-sm">0</span>
       </button>
     </nav>
   </section>

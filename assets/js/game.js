@@ -1665,16 +1665,23 @@ function updateMobileTopStrip() {
     const isHumanSelf = humanPlayer && p.id === humanPlayer.id;
 
     return `
-      <div class="flex-1 min-w-0 px-1.5 py-1 rounded-xl flex items-center gap-1 border transition-all ${isCurrent ? 'bg-amber-950/80 border-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.4)] scale-[1.02]' : 'bg-zinc-900/80 border-zinc-800'} ${isBankrupt ? 'opacity-30 grayscale' : ''}">
-        <div class="w-5 h-5 rounded-lg bg-zinc-950 border border-zinc-700/80 flex items-center justify-center shrink-0">
+      <div class="flex-1 min-w-0 px-1.5 py-1 rounded-xl flex items-center gap-1 border transition-all duration-300 ${
+        isCurrent 
+          ? 'bg-gradient-to-r from-amber-950/90 to-rose-950/90 border-amber-400 shadow-[0_0_12px_rgba(245,158,11,0.5)] scale-[1.02]' 
+          : 'bg-zinc-900/85 border-zinc-800/90 hover:border-zinc-700'
+      } ${isBankrupt ? 'opacity-25 grayscale' : ''}">
+        <div class="w-5.5 h-5.5 rounded-lg bg-zinc-950/90 border flex items-center justify-center shrink-0 shadow-inner relative" style="border-color: ${p.color}">
           ${getChessPawnSVG(p.color, p.id)}
+          ${isCurrent ? '<span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>' : ''}
         </div>
-        <div class="min-w-0 flex-1 leading-tight">
+        <div class="min-w-0 flex-1 leading-none">
           <div class="text-[8.5px] font-bold text-white flex items-center gap-0.5 truncate">
-            <span class="truncate">${p.name}</span>
-            ${isHumanSelf ? '<span class="text-[7px] bg-amber-500 text-black px-0.5 rounded font-black shrink-0">Anda</span>' : ''}
+            <span class="truncate">${p.name.split(' ')[0]}</span>
+            ${isHumanSelf ? '<span class="text-[6.5px] bg-amber-500 text-zinc-950 px-0.5 rounded font-black shrink-0">Anda</span>' : ''}
+            ${p.inJail ? '<span class="text-[7.5px]" title="Di Penjara">⛓️</span>' : ''}
+            ${isBankrupt ? '<span class="text-[7.5px]" title="Bangkrut">💀</span>' : ''}
           </div>
-          <div class="text-[8px] font-bold text-emerald-400 truncate font-mono">
+          <div class="text-[8px] font-extrabold text-emerald-400 truncate font-mono mt-0.5">
             ${formatShortPrice(p.money)}
           </div>
         </div>
@@ -1689,19 +1696,20 @@ function updateMobileBottomTicker() {
   if (!container || !state) return;
   
   const lastLog = (state.logs && state.logs.length > 0) ? state.logs[state.logs.length - 1] : null;
-  const rawMsg = lastLog ? (lastLog.message || lastLog.text || '') : 'Permainan dimulai. Lempar dadu untuk jalan!';
+  const rawMsg = lastLog ? (lastLog.message || lastLog.text || '') : 'Permainan dimulai. Lempar dadu untuk memulai!';
   const cleanMsg = typeof rawMsg === 'string' ? rawMsg.replace(/<[^>]+>/g, '') : '';
 
   container.innerHTML = `
-    <div class="flex-1 bg-zinc-900/90 border border-red-950/70 rounded-xl px-2.5 py-1 flex items-center gap-1.5 shadow-sm min-w-0">
-      <span class="text-[8.5px] bg-red-950 text-rose-300 font-black px-1.5 py-0.2 rounded border border-red-500/30 shrink-0 font-outfit uppercase tracking-wider">
+    <div class="flex-1 bg-gradient-to-r from-zinc-900/95 via-rose-950/50 to-zinc-900/95 border border-red-900/50 rounded-xl px-2.5 py-1 flex items-center gap-1.5 shadow-sm min-w-0 cursor-pointer active:scale-[0.98] transition" onclick="document.getElementById('btnLogsDropdown') && document.getElementById('btnLogsDropdown').click()" title="Klik untuk melihat riwayat lengkap">
+      <span class="text-[8px] bg-red-950 text-rose-300 font-black px-1.5 py-0.2 rounded-md border border-red-500/40 shrink-0 font-outfit uppercase tracking-wider flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
         LIVE
       </span>
-      <span class="text-[9.5px] text-zinc-300 font-medium truncate flex-1">
+      <span class="text-[9.5px] text-zinc-200 font-semibold truncate flex-1 font-sans">
         ${cleanMsg}
       </span>
     </div>
-    <button type="button" class="h-7 px-2.5 rounded-xl bg-zinc-900 border border-zinc-700/80 text-rose-300 hover:text-white flex items-center justify-center gap-1 shrink-0 text-[10px] font-bold cursor-pointer active:scale-95 shadow-sm font-outfit" onclick="openMobileDrawer('playerChatCard')" title="Buka Obrolan & Reaksi">
+    <button type="button" class="h-7 px-2.5 rounded-xl bg-zinc-900/90 border border-zinc-700/80 hover:border-rose-500 text-rose-200 hover:text-white flex items-center justify-center gap-1 shrink-0 text-[10px] font-bold cursor-pointer active:scale-95 shadow-sm font-outfit transition" onclick="openMobileDrawer('playerChatCard')" title="Buka Obrolan & Reaksi">
       <span>💬</span>
       <span class="text-[9px]">Chat</span>
     </button>
@@ -2075,6 +2083,18 @@ function updatePortfolio() {
       }
     } else {
       portfolioScrollHint.classList.add('hidden');
+    }
+  }
+
+  // Update Mobile Portfolio Badge Counter
+  const myTotalProps = BOARD_SPACES.filter(s => state.properties[s.id] && state.properties[s.id].ownerId === (currentHuman ? currentHuman.id : current.id));
+  const mobPortBadge = document.getElementById('mobilePortfolioBadge');
+  if (mobPortBadge) {
+    if (myTotalProps.length > 0) {
+      mobPortBadge.textContent = myTotalProps.length;
+      mobPortBadge.classList.remove('hidden');
+    } else {
+      mobPortBadge.classList.add('hidden');
     }
   }
 
@@ -2983,6 +3003,17 @@ function renderChats() {
   });
 
   chatMessagesList.scrollTop = chatMessagesList.scrollHeight;
+
+  // Update Mobile Chat Badge
+  const mobChatBadge = document.getElementById('mobileChatBadge');
+  if (mobChatBadge) {
+    if (textChats.length > 0) {
+      mobChatBadge.textContent = textChats.length;
+      mobChatBadge.classList.remove('hidden');
+    } else {
+      mobChatBadge.classList.add('hidden');
+    }
+  }
 }
 
 function syncChatsFromState(chatsList) {

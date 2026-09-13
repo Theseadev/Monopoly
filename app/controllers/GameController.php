@@ -129,8 +129,17 @@ class GameController {
 
     public static function resolveCard(): void {
         self::initRequestContext();
-        $choice = Flight::request()->data->choice ?? (Flight::request()->query->choice ?? null);
-        $state = GameState::resolveCardAction($choice ? (string)$choice : null);
+        $rawBody = Flight::request()->getBody();
+        $json = json_decode($rawBody, true);
+        $choice = null;
+        if (is_array($json) && isset($json['choice'])) {
+            $choice = (string)$json['choice'];
+        } elseif (isset(Flight::request()->data->choice)) {
+            $choice = (string)Flight::request()->data->choice;
+        } elseif (isset(Flight::request()->query->choice)) {
+            $choice = (string)Flight::request()->query->choice;
+        }
+        $state = GameState::resolveCardAction($choice);
         Flight::json($state);
     }
 

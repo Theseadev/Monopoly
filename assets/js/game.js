@@ -3500,9 +3500,9 @@ async function showCardDrawn(action, player) {
 
                 ${hasChoices ? `
                   <!-- Pilihan Keputusan Interaktif -->
-                  <div class="w-full space-y-2 my-1 shrink-0 text-left">
+                  <div class="w-full space-y-2 my-1 shrink-0 text-left relative z-30">
                     ${card.choices.map((c, idx) => `
-                      <button onclick="handleCardChoiceSelect('${c.id}')" class="card-choice-btn w-full p-2.5 rounded-xl border text-left flex items-center justify-between gap-2 shadow-sm transition transform active:scale-[0.97] cursor-pointer ${
+                      <button type="button" data-choice-id="${c.id}" onclick="event.stopPropagation(); window.handleCardChoiceSelect('${c.id}');" class="card-choice-btn w-full p-2.5 rounded-xl border text-left flex items-center justify-between gap-2 shadow-sm transition transform active:scale-[0.97] cursor-pointer select-none ${
                         c.theme === 'emerald' ? 'bg-emerald-50 hover:bg-emerald-100/90 border-emerald-500/50 text-emerald-950' :
                         c.theme === 'rose' ? 'bg-rose-50 hover:bg-rose-100/90 border-rose-500/50 text-rose-950' :
                         c.theme === 'amber' ? 'bg-amber-50 hover:bg-amber-100/90 border-amber-500/50 text-amber-950' :
@@ -3510,14 +3510,14 @@ async function showCardDrawn(action, player) {
                         c.theme === 'blue' ? 'bg-blue-50 hover:bg-blue-100/90 border-blue-500/50 text-blue-950' :
                         'bg-zinc-100 hover:bg-zinc-200 border-zinc-300 text-zinc-900'
                       }">
-                        <div class="flex items-center gap-2 min-w-0">
+                        <div class="flex items-center gap-2 min-w-0 pointer-events-none">
                           <span class="text-xl shrink-0">${c.icon || '👉'}</span>
                           <div class="min-w-0">
                             <div class="text-xs font-black font-outfit leading-snug tracking-tight">${escapeHtml(c.title)}</div>
                             <div class="text-[10px] text-zinc-600 font-medium leading-tight truncate">${escapeHtml(c.desc)}</div>
                           </div>
                         </div>
-                        ${c.badge ? `<span class="shrink-0 text-[9.5px] font-black px-2 py-0.5 rounded-full font-mono shadow-xs ${
+                        ${c.badge ? `<span class="shrink-0 text-[9.5px] font-black px-2 py-0.5 rounded-full font-mono shadow-xs pointer-events-none ${
                           c.theme === 'rose' ? 'bg-rose-500 text-white' :
                           c.theme === 'emerald' ? 'bg-emerald-600 text-white' :
                           c.theme === 'purple' ? 'bg-purple-600 text-white' :
@@ -3585,9 +3585,24 @@ async function showCardDrawn(action, player) {
     };
 
     flipCardEl.addEventListener('click', (e) => {
-      if (!isFlipped && !e.target.closest('.card-choice-btn')) {
+      if (e.target.closest('.card-choice-btn') || e.target.closest('#btnConfirmCardFlip')) {
+        return;
+      }
+      if (!isFlipped) {
         doFlip();
       }
+    });
+
+    // Pasang direct event listener ke semua tombol pilihan kartu
+    modalContainer.querySelectorAll('.card-choice-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const choiceId = btn.getAttribute('data-choice-id');
+        if (choiceId) {
+          window.handleCardChoiceSelect(choiceId);
+        }
+      });
     });
 
     btnConfirmEl?.addEventListener('click', async (e) => {

@@ -1691,19 +1691,29 @@ body.fullscreen-active .corner-go-arrow {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: opacity 0.3s ease;
 }
 
 /* BACK OF CARD (Closed / Face-down) */
 .flip-card-back {
-  transform: rotateY(0deg);
+  transform: rotateY(0deg) translateZ(2px);
   border: 4px solid #f59e0b;
   box-shadow: 0 0 25px rgba(245, 158, 11, 0.4), 0 20px 40px rgba(0, 0, 0, 0.7);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 10;
+  pointer-events: auto;
 }
 
-.flip-card-back:hover {
-  transform: translateY(-4px) scale(1.02);
+.flip-card:not(.is-flipped) .flip-card-back:hover {
+  transform: translateY(-4px) scale(1.02) translateZ(2px);
   box-shadow: 0 0 35px rgba(245, 158, 11, 0.6), 0 25px 45px rgba(0, 0, 0, 0.8);
+}
+
+.flip-card.is-flipped .flip-card-back {
+  pointer-events: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  z-index: 0 !important;
 }
 
 .card-pattern-chance {
@@ -1724,16 +1734,39 @@ body.fullscreen-active .corner-go-arrow {
   box-shadow: 0 0 25px rgba(56, 189, 248, 0.4), 0 20px 40px rgba(0, 0, 0, 0.7);
 }
 
-.card-pattern-chest.flip-card-back:hover {
+.flip-card:not(.is-flipped) .card-pattern-chest.flip-card-back:hover {
   box-shadow: 0 0 35px rgba(56, 189, 248, 0.6), 0 25px 45px rgba(0, 0, 0, 0.8);
 }
 
 /* FRONT OF CARD (Revealed / Face-up - Matching Mockup) */
 .flip-card-front {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(2px);
   background-color: #fdfbf7;
   border: 4px solid #0f172a;
   color: #1c1917;
+  z-index: 5;
+}
+
+.flip-card:not(.is-flipped) .flip-card-front {
+  pointer-events: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  z-index: 0 !important;
+}
+
+.flip-card.is-flipped .flip-card-front {
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 20 !important;
+}
+
+.card-choice-btn {
+  position: relative !important;
+  z-index: 50 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  user-select: none;
 }
 
 .flip-card-header-chest {

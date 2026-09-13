@@ -278,17 +278,79 @@
       background: #ffffff;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 255, 255, 0.9);
     }
+
+    /* ======================================================== */
+    /* STRICT SCREEN ISOLATION & NO-SCROLL ENGINE               */
+    /* ======================================================== */
+    html, body {
+      height: 100% !important;
+      height: 100dvh !important;
+      max-height: 100dvh !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
+
+    /* Screen display control: hidden means totally hidden */
+    .hidden,
+    section.hidden,
+    div.hidden,
+    aside.hidden,
+    nav.hidden,
+    #inGameBoardScreen.hidden,
+    #homeMenuScreen.hidden,
+    #settingsAiScreen.hidden,
+    #settingsPvpScreen.hidden,
+    #settingsOnlineScreen.hidden,
+    #onlineLobbyScreen.hidden,
+    #inGameBoardScreen.hidden #mobileBottomNav,
+    #inGameBoardScreen.hidden header {
+      display: none !important;
+    }
+
+    #homeMenuScreen:not(.hidden),
+    #settingsAiScreen:not(.hidden),
+    #settingsPvpScreen:not(.hidden),
+    #settingsOnlineScreen:not(.hidden),
+    #onlineLobbyScreen:not(.hidden) {
+      height: 100% !important;
+      height: 100dvh !important;
+      max-height: 100dvh !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
+
+    #inGameBoardScreen:not(.hidden) {
+      height: 100% !important;
+      height: 100dvh !important;
+      max-height: 100dvh !important;
+      overflow: hidden !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    /* Desktop hides mobile navigation bar completely */
+    @media (min-width: 1024px) {
+      #mobileBottomNav {
+        display: none !important;
+      }
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-center items-center text-slate-100">
+<body class="h-screen max-h-screen h-[100dvh] flex flex-col justify-center items-center text-slate-100 overflow-hidden">
 
   <!-- ========================================== -->
   <!-- 1. LAYAR MENU UTAMA (HOME / MENU UTAMA)    -->
   <!-- ========================================== -->
-  <section id="homeMenuScreen" class="w-full max-w-lg min-h-screen flex flex-col items-center justify-center p-6 mx-auto">
+  <section id="homeMenuScreen" class="w-full max-w-lg h-full max-h-screen flex flex-col items-center justify-center p-4 sm:p-6 mx-auto overflow-hidden">
     <!-- 3D Dice Logo -->
-    <div class="mb-3 transform hover:rotate-6 transition-transform duration-300 drop-shadow-2xl">
-      <svg width="88" height="88" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="mb-2 sm:mb-3 transform hover:rotate-6 transition-transform duration-300 drop-shadow-2xl">
+      <svg class="w-16 h-16 sm:w-20 sm:h-20" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <polygon points="50,12 86,30 50,48 14,30" fill="#ffffff" stroke="#dcdcdc" stroke-width="2" stroke-linejoin="round" />
         <polygon points="14,30 50,48 50,88 14,70" fill="#eceff1" stroke="#cfd8dc" stroke-width="2" stroke-linejoin="round" />
         <polygon points="50,48 86,30 86,70 50,88" fill="#cfd8dc" stroke="#b0bec5" stroke-width="2" stroke-linejoin="round" />
@@ -302,36 +364,36 @@
     </div>
 
     <!-- Title & Subtitle -->
-    <div class="text-center mb-8">
-      <h1 class="text-gold-3d text-5xl md:text-6xl font-black uppercase tracking-wider">
+    <div class="text-center mb-4 sm:mb-7">
+      <h1 class="text-gold-3d text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-wider">
         MONOPOLI
       </h1>
-      <p class="text-gold-subtitle text-xs md:text-sm font-bold uppercase tracking-widest mt-1">
+      <p class="text-gold-subtitle text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-widest mt-0.5">
         GAME PAPAN KLASIK
       </p>
     </div>
 
     <!-- Main Menu Buttons Stack -->
-    <div class="w-full max-w-[340px] space-y-4">
+    <div class="w-full max-w-[320px] sm:max-w-[340px] space-y-3 sm:space-y-4">
       <!-- 1. Play vs AI -->
-      <button id="btnMenuAi" class="btn-menu-orange w-full py-3.5 px-6 rounded-2xl flex items-center justify-center gap-3 text-white font-extrabold text-base md:text-lg cursor-pointer">
-        <svg class="w-6 h-6 fill-current text-white" viewBox="0 0 24 24">
+      <button id="btnMenuAi" class="btn-menu-orange w-full py-3 sm:py-3.5 px-5 sm:px-6 rounded-2xl flex items-center justify-center gap-3 text-white font-extrabold text-sm sm:text-base md:text-lg cursor-pointer active:scale-95 transition">
+        <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current text-white shrink-0" viewBox="0 0 24 24">
           <path d="M12 2a2 2 0 0 1 2 2v1h1a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-1v1a2 2 0 0 1-4 0v-1H9a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h1V4a2 2 0 0 1 2-2zm-3 8a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
         </svg>
         <span class="text-white tracking-wide">Main vs Bot AI</span>
       </button>
 
       <!-- 2. Player vs Player -->
-      <button id="btnMenuPvp" class="btn-menu-green w-full py-3.5 px-6 rounded-2xl flex items-center justify-center gap-3 text-white font-extrabold text-base md:text-lg cursor-pointer">
-        <svg class="w-6 h-6 fill-current text-white" viewBox="0 0 24 24">
+      <button id="btnMenuPvp" class="btn-menu-green w-full py-3 sm:py-3.5 px-5 sm:px-6 rounded-2xl flex items-center justify-center gap-3 text-white font-extrabold text-sm sm:text-base md:text-lg cursor-pointer active:scale-95 transition">
+        <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current text-white shrink-0" viewBox="0 0 24 24">
           <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
         </svg>
         <span class="text-white tracking-wide">Pemain vs Pemain</span>
       </button>
 
       <!-- 3. Online Multiplayer -->
-      <button id="btnMenuOnline" class="btn-menu-blue w-full py-3.5 px-6 rounded-2xl flex items-center justify-center gap-3 text-white font-extrabold text-base md:text-lg cursor-pointer">
-        <svg class="w-6 h-6 fill-current text-white" viewBox="0 0 24 24">
+      <button id="btnMenuOnline" class="btn-menu-blue w-full py-3 sm:py-3.5 px-5 sm:px-6 rounded-2xl flex items-center justify-center gap-3 text-white font-extrabold text-sm sm:text-base md:text-lg cursor-pointer active:scale-95 transition">
+        <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current text-white shrink-0" viewBox="0 0 24 24">
           <path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4zm0 4.5c3.34 0 6.4 1.25 8.74 3.32L12 19.34 3.26 11.82A13.2 13.2 0 0 1 12 8.5z"/>
         </svg>
         <span class="text-white tracking-wide">Multiplayer Online</span>
@@ -339,9 +401,9 @@
     </div>
 
     <!-- Home Pill Button -->
-    <div class="mt-7">
-      <button id="btnMenuHomeReset" class="btn-home-pill px-5 py-2 rounded-xl flex items-center gap-2 text-rose-200 font-bold text-xs cursor-pointer">
-        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+    <div class="mt-4 sm:mt-6">
+      <button id="btnMenuHomeReset" class="btn-home-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-xl flex items-center gap-2 text-rose-200 font-bold text-xs cursor-pointer active:scale-95 transition">
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
           <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
         </svg>
         <span>Beranda</span>

@@ -17,9 +17,9 @@ export class GameState {
     this.logs = [];
     this.listeners = [];
 
-    // Tumpukan kartu (deck)
-    this.chanceDeck = this.shuffle([...CHANCE_CARDS]);
-    this.communityChestDeck = this.shuffle([...COMMUNITY_CHEST_CARDS]);
+    // Tumpukan kartu (deck) berimbang ritmis
+    this.chanceDeck = this.createBalancedDeck([...CHANCE_CARDS]);
+    this.communityChestDeck = this.createBalancedDeck([...COMMUNITY_CHEST_CARDS]);
   }
 
   subscribe(listener) {
@@ -40,6 +40,42 @@ export class GameState {
     this.logs.unshift({ message, type, time: timestamp });
     if (this.logs.length > 80) this.logs.pop();
     this.notify('log_added', { message, type });
+  }
+
+  createBalancedDeck(cards) {
+    const gains = [];
+    const choices = [];
+    const penalties = [];
+
+    cards.forEach(card => {
+      const type = card.type || '';
+      if (type === 'choice') {
+        choices.push(card);
+      } else if (['receive_money', 'collect_all_players', 'jail_card'].includes(type) || type === 'move_to' || (type === 'move_steps' && (card.steps || 0) > 0)) {
+        gains.push(card);
+      } else {
+        penalties.push(card);
+      }
+    });
+
+    this.shuffle(gains);
+    this.shuffle(choices);
+    this.shuffle(penalties);
+
+    const balanced = [];
+    while (gains.length > 0 || choices.length > 0 || penalties.length > 0) {
+      if (gains.length > 0) balanced.push(gains.shift());
+      if (choices.length > 0 && (balanced.length % 4 === 1 || penalties.length === 0)) {
+        balanced.push(choices.shift());
+      }
+      if (gains.length > 0) balanced.push(gains.shift());
+      if (penalties.length > 0) balanced.push(penalties.shift());
+      if (choices.length > 0 && balanced.length % 3 === 0) {
+        balanced.push(choices.shift());
+      }
+    }
+
+    return balanced;
   }
 
   shuffle(array) {

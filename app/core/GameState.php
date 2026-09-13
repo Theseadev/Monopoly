@@ -96,11 +96,8 @@ class GameState {
             }
         }
 
-        $chanceDeck = CardsData::CHANCE_CARDS;
-        shuffle($chanceDeck);
-
-        $communityChestDeck = CardsData::COMMUNITY_CHEST_CARDS;
-        shuffle($communityChestDeck);
+        $chanceDeck = self::createBalancedDeck(CardsData::CHANCE_CARDS);
+        $communityChestDeck = self::createBalancedDeck(CardsData::COMMUNITY_CHEST_CARDS);
 
         $startingIndex = count($players) > 0 ? mt_rand(0, count($players) - 1) : 0;
         $startingPlayerName = $players[$startingIndex]['name'] ?? 'Pemain 1';
@@ -521,6 +518,57 @@ class GameState {
 
         self::save($state);
         return $state;
+    }
+
+    /**
+     * Menyusun urutan tumpukan kartu yang seimbang, seru, dan adil.
+     * Menjamin awal permainan tidak dibanjiri denda/kerugian berturut-turut,
+     * serta mendistribusikan kartu keuntungan, pilihan interaktif, dan denda secara ritmis.
+     */
+    private static function createBalancedDeck(array $cards): array {
+        $gains = [];
+        $choices = [];
+        $penalties = [];
+
+        foreach ($cards as $card) {
+            $type = $card['type'] ?? '';
+            if ($type === 'choice') {
+                $choices[] = $card;
+            } elseif (in_array($type, ['receive_money', 'collect_all_players', 'jail_card'])) {
+                $gains[] = $card;
+            } elseif ($type === 'move_to' || ($type === 'move_steps' && ($card['steps'] ?? 0) > 0)) {
+                $gains[] = $card;
+            } else {
+                $penalties[] = $card;
+            }
+        }
+
+        shuffle($gains);
+        shuffle($choices);
+        shuffle($penalties);
+
+        $balanced = [];
+
+        // Pola distribusi ritmis berimbang (Gain, Gain, Choice/Gain, Penalty, Gain...)
+        while (!empty($gains) || !empty($choices) || !empty($penalties)) {
+            if (!empty($gains)) {
+                $balanced[] = array_shift($gains);
+            }
+            if (!empty($choices) && (count($balanced) % 4 === 1 || empty($penalties))) {
+                $balanced[] = array_shift($choices);
+            }
+            if (!empty($gains)) {
+                $balanced[] = array_shift($gains);
+            }
+            if (!empty($penalties)) {
+                $balanced[] = array_shift($penalties);
+            }
+            if (!empty($choices) && count($balanced) % 3 === 0) {
+                $balanced[] = array_shift($choices);
+            }
+        }
+
+        return $balanced;
     }
 
     private static function executeCardEffect(array &$state, array &$player, array $effect, string $cardTitle): void {

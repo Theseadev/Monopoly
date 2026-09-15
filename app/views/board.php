@@ -668,7 +668,16 @@
           <input type="range" id="onlineMaxPlayersSlider" min="2" max="4" value="4" step="1" class="monopoly-slider" />
         </div>
 
-        <!-- 3. Tarik Sewa di Penjara -->
+        <!-- 3. Modal Awal Uang -->
+        <div class="form-setting-row space-y-1.5 sm:space-y-2">
+          <div class="flex justify-between items-center text-xs font-bold text-white font-outfit">
+            <span class="flex items-center gap-1.5"><span>💰</span> <span>Modal Awal Uang</span></span>
+            <span id="onlineMoneyVal" class="px-2.5 py-0.5 rounded-full bg-rose-950/80 text-rose-200 border border-rose-500/40 font-extrabold text-xs">Rp 15.000.000</span>
+          </div>
+          <input type="range" id="onlineMoneySlider" min="5000000" max="25000000" value="15000000" step="2500000" class="monopoly-slider" />
+        </div>
+
+        <!-- 4. Tarik Sewa di Penjara -->
         <div class="form-setting-row flex items-center justify-between gap-3">
           <div class="flex-1 min-w-0">
             <div class="text-xs font-extrabold text-white font-outfit flex items-center gap-1.5">

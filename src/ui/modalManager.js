@@ -65,13 +65,23 @@ export class ModalManager {
     const sellPrice = Math.round((space.price || 0) * 0.5) + ((prop?.houses || 0) * Math.round((space.housePrice || 0) * 0.5)) + (prop?.isHotel ? 5 * Math.round((space.housePrice || 0) * 0.5) : 0);
 
     this.container.innerHTML = `
-      <div class="fixed inset-0 bg-black/35 flex items-center justify-center p-4 z-50">
+      <div class="fixed inset-0 bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-4 z-50 animate-fade-in">
         <div class="bg-white dark:bg-zinc-900 border-2 border-amber-500/50 rounded-2xl max-w-sm w-full shadow-2xl overflow-hidden animate-scale-up">
-          <!-- Card Header -->
-          <div class="p-4 text-center text-white" style="background-color: ${space.color || '#475569'}">
-            <div class="text-[10px] tracking-widest uppercase font-bold opacity-80">SERTIFIKAT KEPEMILIKAN TANAH</div>
-            <div class="text-xl font-black mt-1">${space.name}</div>
-            ${space.city ? `<div class="text-xs opacity-90">${space.city}</div>` : ''}
+          <!-- Card Header with Scenic Landmark Background Image -->
+          <div class="relative p-5 text-center text-white overflow-hidden min-h-[125px] flex flex-col justify-end shadow-inner" style="background-color: ${space.color || '#334155'}">
+            ${space.image ? `
+              <img src="${space.image}" alt="${space.name}" class="absolute inset-0 w-full h-full object-cover brightness-[0.65] transform hover:scale-105 transition duration-700" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/40 to-black/20"></div>
+            ` : ''}
+            
+            <div class="relative z-10">
+              <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] tracking-widest uppercase font-black shadow-md mb-1.5 border border-white/20 backdrop-blur-sm" style="background-color: ${space.color || '#f59e0b'}; color: #fff;">
+                <span>🏛️</span>
+                <span>SERTIFIKAT KEPEMILIKAN</span>
+              </div>
+              <div class="text-2xl font-black drop-shadow-md text-white tracking-wide uppercase leading-tight">${space.name}</div>
+              ${space.city ? `<div class="text-xs font-bold text-amber-300 drop-shadow flex items-center justify-center gap-1 mt-0.5"><span>📍</span> ${space.city}</div>` : ''}
+            </div>
           </div>
 
           <!-- Body -->
@@ -106,7 +116,7 @@ export class ModalManager {
               </div>
             ` : ''}
 
-            <button id="btnCloseDeed" class="mt-4 w-full py-2 bg-gray-200 dark:bg-zinc-800 hover:bg-gray-300 dark:hover:bg-zinc-700 text-gray-800 dark:text-gray-200 rounded-xl text-xs font-bold transition">
+            <button id="btnCloseDeed" class="mt-4 w-full py-2 bg-gray-200 dark:bg-zinc-800 hover:bg-gray-300 dark:hover:bg-zinc-700 text-gray-800 dark:text-gray-200 rounded-xl text-xs font-bold transition cursor-pointer">
               Tutup
             </button>
           </div>
@@ -137,17 +147,27 @@ export class ModalManager {
     const canAfford = player.money >= action.price;
 
     this.container.innerHTML = `
-      <div class="fixed inset-0 bg-black/35 flex items-center justify-center p-4 z-50 animate-fade-in">
+      <div class="fixed inset-0 bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-4 z-50 animate-fade-in">
         <div class="bg-zinc-900 border-2 border-emerald-500/50 rounded-2xl max-w-sm w-full shadow-2xl overflow-hidden p-5 text-center">
-          <div class="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center text-3xl shadow-inner" style="background-color: ${space.color ? space.color + '33' : '#05966933'}">
-            ${space.icon === 'train' ? '🚂' : (space.icon === 'zap' ? '⚡' : (space.icon === 'droplet' ? '💧' : '🏡'))}
+          
+          <!-- Header Card Image -->
+          <div class="relative -mx-5 -mt-5 p-5 text-center text-white overflow-hidden min-h-[135px] flex flex-col justify-end mb-4 border-b border-zinc-700/60" style="background-color: ${space.color || '#059669'}">
+            ${space.image ? `
+              <img src="${space.image}" alt="${space.name}" class="absolute inset-0 w-full h-full object-cover brightness-[0.65]" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/50 to-black/30"></div>
+            ` : ''}
+            
+            <div class="relative z-10">
+              <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] tracking-widest uppercase font-black shadow mb-1.5 border border-white/20" style="background-color: ${space.color || '#059669'}; color: #fff;">
+                <span>${space.icon === 'train' ? '🚂' : (space.icon === 'zap' ? '⚡' : (space.icon === 'droplet' ? '💧' : '🏡'))}</span>
+                <span>PELUANG INVESTASI PROPERTI</span>
+              </div>
+              <h2 class="text-2xl font-black text-white drop-shadow-md uppercase leading-tight">${space.name}</h2>
+              ${space.city ? `<p class="text-xs font-bold text-amber-300 drop-shadow flex items-center justify-center gap-1 mt-0.5"><span>📍</span> ${space.city}</p>` : ''}
+            </div>
           </div>
 
-          <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Peluang Investasi Properti</h3>
-          <h2 class="text-2xl font-black text-white mt-1">${space.name}</h2>
-          ${space.city ? `<p class="text-xs text-gray-400">${space.city}</p>` : ''}
-
-          <div class="bg-zinc-800/80 rounded-xl p-3 my-4 border border-zinc-700/60">
+          <div class="bg-zinc-800/80 rounded-xl p-3 my-3 border border-zinc-700/60">
             <div class="flex justify-between items-center text-sm">
               <span class="text-gray-400">Harga Beli:</span>
               <span class="text-amber-400 font-extrabold text-base">Rp ${action.price.toLocaleString('id-ID')}</span>
@@ -159,10 +179,10 @@ export class ModalManager {
           </div>
 
           <div class="flex gap-3 mt-4">
-            <button id="btnPassBuy" class="flex-1 py-2.5 px-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-gray-300 text-sm font-semibold transition">
+            <button id="btnPassBuy" class="flex-1 py-2.5 px-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-gray-300 text-sm font-semibold transition cursor-pointer">
               Lewati
             </button>
-            <button id="btnConfirmBuy" class="flex-1 py-2.5 px-3 rounded-xl font-bold text-sm transition shadow-lg flex items-center justify-center gap-1.5 ${canAfford ? 'bg-emerald-600 hover:bg-emerald-500 text-white' : 'bg-zinc-700 text-gray-500 cursor-not-allowed'}" ${!canAfford ? 'disabled' : ''}>
+            <button id="btnConfirmBuy" class="flex-1 py-2.5 px-3 rounded-xl font-bold text-sm transition shadow-lg flex items-center justify-center gap-1.5 cursor-pointer ${canAfford ? 'bg-emerald-600 hover:bg-emerald-500 text-white' : 'bg-zinc-700 text-gray-500 cursor-not-allowed'}" ${!canAfford ? 'disabled' : ''}>
               <span>💰</span> Beli Properti
             </button>
           </div>

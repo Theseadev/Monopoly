@@ -269,9 +269,10 @@ function updatePortfolio() {
     else if (prop.houses > 0) statusText = `🏠 ${prop.houses} Rumah`;
 
     item.innerHTML = `
-      <div class="mini-deed-color-bar" style="background-color: ${headerColor};">
-        <span>${topTag}</span>
-        <span>Rp ${(space.price / 1000).toLocaleString('id-ID')}rb</span>
+      <div class="mini-deed-color-bar relative overflow-hidden" style="background-color: ${headerColor};">
+        ${space.image ? `<img src="${space.image}" alt="" class="absolute inset-0 w-full h-full object-cover brightness-[0.4] opacity-70" />` : ''}
+        <span class="relative z-10 font-bold">${topTag}</span>
+        <span class="relative z-10 font-bold">Rp ${(space.price / 1000).toLocaleString('id-ID')}rb</span>
       </div>
       <div class="mini-deed-body">
         <div>

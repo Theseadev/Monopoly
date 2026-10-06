@@ -23,7 +23,8 @@ export const BOARD_SPACES = [
     rent: [20000, 100000, 300000, 900000, 1600000, 2500000],
     housePrice: 500000,
     mortgage: 300000,
-    color: "#8B4513"
+    color: "#8B4513",
+    image: "https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 2,
@@ -45,7 +46,8 @@ export const BOARD_SPACES = [
     rent: [40000, 200000, 600000, 1800000, 3200000, 4500000],
     housePrice: 500000,
     mortgage: 300000,
-    color: "#8B4513"
+    color: "#8B4513",
+    image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 4,
@@ -66,7 +68,9 @@ export const BOARD_SPACES = [
     price: 2000000,
     rent: [250000, 500000, 1000000, 2000000],
     mortgage: 1000000,
-    icon: "train"
+    icon: "train",
+    color: "#1e293b",
+    image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 6,
@@ -79,7 +83,8 @@ export const BOARD_SPACES = [
     rent: [60000, 300000, 900000, 2700000, 4000000, 5500000],
     housePrice: 500000,
     mortgage: 500000,
-    color: "#38bdf8"
+    color: "#38bdf8",
+    image: "https://images.unsplash.com/photo-1578469645742-46cae010e5d4?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 7,
@@ -101,7 +106,8 @@ export const BOARD_SPACES = [
     rent: [60000, 300000, 900000, 2700000, 4000000, 5500000],
     housePrice: 500000,
     mortgage: 500000,
-    color: "#38bdf8"
+    color: "#38bdf8",
+    image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 9,
@@ -114,7 +120,8 @@ export const BOARD_SPACES = [
     rent: [80000, 400000, 1000000, 3000000, 4500000, 6000000],
     housePrice: 500000,
     mortgage: 600000,
-    color: "#38bdf8"
+    color: "#38bdf8",
+    image: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 10,
@@ -138,7 +145,8 @@ export const BOARD_SPACES = [
     rent: [100000, 500000, 1500000, 4500000, 6250000, 7500000],
     housePrice: 1000000,
     mortgage: 700000,
-    color: "#ec4899"
+    color: "#ec4899",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 12,
@@ -150,7 +158,9 @@ export const BOARD_SPACES = [
     price: 1500000,
     mortgage: 750000,
     description: "Sewa: 4x dadu (1 utilitas) / 10x dadu (2 utilitas)",
-    icon: "zap"
+    icon: "zap",
+    color: "#0f766e",
+    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 13,
@@ -163,7 +173,8 @@ export const BOARD_SPACES = [
     rent: [100000, 500000, 1500000, 4500000, 6250000, 7500000],
     housePrice: 1000000,
     mortgage: 700000,
-    color: "#ec4899"
+    color: "#ec4899",
+    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 14,
@@ -176,7 +187,8 @@ export const BOARD_SPACES = [
     rent: [120000, 600000, 1800000, 5000000, 7000000, 9000000],
     housePrice: 1000000,
     mortgage: 800000,
-    color: "#ec4899"
+    color: "#ec4899",
+    image: "https://images.unsplash.com/photo-1555899434-94d1368aa7af?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 15,
@@ -188,7 +200,9 @@ export const BOARD_SPACES = [
     price: 2000000,
     rent: [250000, 500000, 1000000, 2000000],
     mortgage: 1000000,
-    icon: "train"
+    icon: "train",
+    color: "#1e293b",
+    image: "https://images.unsplash.com/photo-1532103054090-a33923a7821c?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 16,
@@ -201,7 +215,8 @@ export const BOARD_SPACES = [
     rent: [140000, 700000, 2000000, 5500000, 7500000, 9500000],
     housePrice: 1000000,
     mortgage: 900000,
-    color: "#f97316"
+    color: "#f97316",
+    image: "https://images.unsplash.com/photo-1601625463687-25541fb72f62?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 17,
@@ -223,7 +238,8 @@ export const BOARD_SPACES = [
     rent: [140000, 700000, 2000000, 5500000, 7500000, 9500000],
     housePrice: 1000000,
     mortgage: 900000,
-    color: "#f97316"
+    color: "#f97316",
+    image: "https://images.unsplash.com/photo-1589802829985-817e51171b92?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 19,
@@ -236,7 +252,8 @@ export const BOARD_SPACES = [
     rent: [160000, 800000, 2200000, 6000000, 8000000, 10000000],
     housePrice: 1000000,
     mortgage: 1000000,
-    color: "#f97316"
+    color: "#f97316",
+    image: "https://images.unsplash.com/photo-1584810359583-96fc3448beaa?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 20,
@@ -260,7 +277,8 @@ export const BOARD_SPACES = [
     rent: [180000, 900000, 2500000, 7000000, 8750000, 10500000],
     housePrice: 1500000,
     mortgage: 1100000,
-    color: "#ef4444"
+    color: "#ef4444",
+    image: "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 22,
@@ -282,7 +300,8 @@ export const BOARD_SPACES = [
     rent: [180000, 900000, 2500000, 7000000, 8750000, 10500000],
     housePrice: 1500000,
     mortgage: 1100000,
-    color: "#ef4444"
+    color: "#ef4444",
+    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 24,
@@ -295,7 +314,8 @@ export const BOARD_SPACES = [
     rent: [200000, 1000000, 3000000, 7500000, 9250000, 11000000],
     housePrice: 1500000,
     mortgage: 1200000,
-    color: "#ef4444"
+    color: "#ef4444",
+    image: "https://images.unsplash.com/photo-1570789210967-2cac24afeb00?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 25,
@@ -307,7 +327,9 @@ export const BOARD_SPACES = [
     price: 2000000,
     rent: [250000, 500000, 1000000, 2000000],
     mortgage: 1000000,
-    icon: "train"
+    icon: "train",
+    color: "#1e293b",
+    image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 26,
@@ -320,7 +342,8 @@ export const BOARD_SPACES = [
     rent: [220000, 1100000, 3300000, 8000000, 9750000, 11500000],
     housePrice: 1500000,
     mortgage: 1300000,
-    color: "#eab308"
+    color: "#eab308",
+    image: "https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 27,
@@ -333,7 +356,8 @@ export const BOARD_SPACES = [
     rent: [220000, 1100000, 3300000, 8000000, 9750000, 11500000],
     housePrice: 1500000,
     mortgage: 1300000,
-    color: "#eab308"
+    color: "#eab308",
+    image: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 28,
@@ -345,7 +369,9 @@ export const BOARD_SPACES = [
     price: 1500000,
     mortgage: 750000,
     description: "Sewa: 4x dadu (1 utilitas) / 10x dadu (2 utilitas)",
-    icon: "droplet"
+    icon: "droplet",
+    color: "#0f766e",
+    image: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 29,
@@ -358,7 +384,8 @@ export const BOARD_SPACES = [
     rent: [240000, 1200000, 3600000, 8500000, 10250000, 12000000],
     housePrice: 1500000,
     mortgage: 1400000,
-    color: "#eab308"
+    color: "#eab308",
+    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 30,
@@ -382,7 +409,8 @@ export const BOARD_SPACES = [
     rent: [260000, 1300000, 3900000, 9000000, 11000000, 12750000],
     housePrice: 2000000,
     mortgage: 1500000,
-    color: "#22c55e"
+    color: "#22c55e",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 32,
@@ -395,7 +423,8 @@ export const BOARD_SPACES = [
     rent: [260000, 1300000, 3900000, 9000000, 11000000, 12750000],
     housePrice: 2000000,
     mortgage: 1500000,
-    color: "#22c55e"
+    color: "#22c55e",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 33,
@@ -417,7 +446,8 @@ export const BOARD_SPACES = [
     rent: [280000, 1500000, 4500000, 10000000, 12000000, 14000000],
     housePrice: 2000000,
     mortgage: 1600000,
-    color: "#22c55e"
+    color: "#22c55e",
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 35,
@@ -429,7 +459,9 @@ export const BOARD_SPACES = [
     price: 2000000,
     rent: [250000, 500000, 1000000, 2000000],
     mortgage: 1000000,
-    icon: "train"
+    icon: "train",
+    color: "#1e293b",
+    image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 36,
@@ -451,7 +483,8 @@ export const BOARD_SPACES = [
     rent: [350000, 1750000, 5000000, 11000000, 13000000, 15000000],
     housePrice: 2000000,
     mortgage: 1750000,
-    color: "#1e3a8a"
+    color: "#1e3a8a",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 38,
@@ -474,7 +507,8 @@ export const BOARD_SPACES = [
     rent: [500000, 2000000, 6000000, 14000000, 17000000, 20000000],
     housePrice: 2000000,
     mortgage: 2000000,
-    color: "#1e3a8a"
+    color: "#1e3a8a",
+    image: "https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80"
   }
 ];
 

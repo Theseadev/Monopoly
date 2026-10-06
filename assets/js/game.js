@@ -3820,15 +3820,14 @@ function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = fals
     return `
       <div class="title-deed-card-container mx-auto bg-white rounded-3xl border-4 border-zinc-900 overflow-hidden text-zinc-900 shadow-2xl max-w-[340px] w-full select-none text-left">
         <!-- Colored Scenic Header with Landscape Image -->
-        <div class="relative p-4 text-center text-white overflow-hidden min-h-[115px] flex flex-col justify-end shadow-inner" style="background-color: ${headerColor};">
+        <div class="relative p-5 text-center text-white overflow-hidden min-h-[125px] flex flex-col justify-end shadow-inner" style="background-color: ${headerColor};">
           ${spaceImg ? `
             <img src="${spaceImg}" alt="${space.name}" class="absolute inset-0 w-full h-full object-cover brightness-[0.62] transform hover:scale-105 transition duration-700" loading="lazy" />
             <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-black/20"></div>
           ` : ''}
-          <div class="relative z-10">
-            <div class="inline-block px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-black font-outfit shadow-md mb-1 border border-white/20 backdrop-blur-sm" style="background-color: ${headerColor};">SERTIFIKAT KEPEMILIKAN</div>
-            <div class="text-base md:text-lg font-black uppercase font-outfit leading-tight drop-shadow-md text-white">${space.name}</div>
-            ${space.city ? `<div class="text-[11px] font-bold text-amber-300 drop-shadow flex items-center justify-center gap-1 mt-0.5"><span>📍</span> ${space.city}</div>` : ''}
+          <div class="relative z-10 pb-1">
+            <div class="text-xl md:text-2xl font-black uppercase font-outfit leading-tight drop-shadow-md text-white tracking-wide">${space.name}</div>
+            ${space.city ? `<div class="text-xs font-bold text-amber-300 drop-shadow flex items-center justify-center gap-1 mt-1"><span>📍</span> ${space.city}</div>` : ''}
           </div>
         </div>
 
@@ -3885,14 +3884,14 @@ function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = fals
   } else if (space.type === 'railroad') {
     return `
       <div class="title-deed-card-container mx-auto bg-white rounded-3xl border-4 border-zinc-900 overflow-hidden text-zinc-900 shadow-2xl max-w-[340px] w-full select-none text-left">
-        <div class="relative p-4 text-center bg-zinc-800 text-white overflow-hidden min-h-[115px] flex flex-col justify-end shadow-inner">
+        <div class="relative p-5 text-center bg-zinc-800 text-white overflow-hidden min-h-[125px] flex flex-col justify-end shadow-inner">
           ${spaceImg ? `
             <img src="${spaceImg}" alt="${space.name}" class="absolute inset-0 w-full h-full object-cover brightness-[0.55] transform hover:scale-105 transition duration-700" loading="lazy" />
             <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-black/30"></div>
           ` : ''}
-          <div class="relative z-10">
-            <div class="inline-block px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-black font-outfit bg-slate-700/80 shadow mb-1 border border-white/20">STASIUN KERETA NUSANTARA</div>
-            <div class="text-base md:text-lg font-black uppercase font-outfit leading-tight mt-0.5 drop-shadow-md">${space.name}</div>
+          <div class="relative z-10 pb-1">
+            <div class="text-xl md:text-2xl font-black uppercase font-outfit leading-tight mt-0.5 drop-shadow-md">${space.name}</div>
+            <div class="text-xs font-semibold text-slate-300 drop-shadow mt-1">🚂 Stasiun Kereta Api</div>
           </div>
         </div>
         <div class="p-3.5 space-y-2 text-xs font-semibold text-zinc-700">
@@ -3917,14 +3916,14 @@ function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = fals
     const isZap = space.icon === 'zap';
     return `
       <div class="title-deed-card-container mx-auto bg-white rounded-3xl border-4 border-zinc-900 overflow-hidden text-zinc-900 shadow-2xl max-w-[340px] w-full select-none text-left">
-        <div class="relative p-4 text-center bg-zinc-800 text-white overflow-hidden min-h-[115px] flex flex-col justify-end shadow-inner">
+        <div class="relative p-5 text-center bg-zinc-800 text-white overflow-hidden min-h-[125px] flex flex-col justify-end shadow-inner">
           ${spaceImg ? `
             <img src="${spaceImg}" alt="${space.name}" class="absolute inset-0 w-full h-full object-cover brightness-[0.55] transform hover:scale-105 transition duration-700" loading="lazy" />
             <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-black/30"></div>
           ` : ''}
-          <div class="relative z-10">
-            <div class="inline-block px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-black font-outfit bg-teal-800/80 shadow mb-1 border border-white/20">PERUSAHAAN PUBLIK</div>
-            <div class="text-base md:text-lg font-black uppercase font-outfit leading-tight mt-0.5 drop-shadow-md">${space.name}</div>
+          <div class="relative z-10 pb-1">
+            <div class="text-xl md:text-2xl font-black uppercase font-outfit leading-tight mt-0.5 drop-shadow-md">${space.name}</div>
+            <div class="text-xs font-semibold text-teal-300 drop-shadow mt-1">${isZap ? '⚡ Pembangkit Listrik' : '💧 Perusahaan Air Minum'}</div>
           </div>
         </div>
         <div class="p-4 space-y-2.5 text-xs text-zinc-700 leading-relaxed">

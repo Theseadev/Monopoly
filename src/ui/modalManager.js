@@ -74,13 +74,9 @@ export class ModalManager {
               <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/40 to-black/20"></div>
             ` : ''}
             
-            <div class="relative z-10">
-              <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] tracking-widest uppercase font-black shadow-md mb-1.5 border border-white/20 backdrop-blur-sm" style="background-color: ${space.color || '#f59e0b'}; color: #fff;">
-                <span>🏛️</span>
-                <span>SERTIFIKAT KEPEMILIKAN</span>
-              </div>
-              <div class="text-2xl font-black drop-shadow-md text-white tracking-wide uppercase leading-tight">${space.name}</div>
-              ${space.city ? `<div class="text-xs font-bold text-amber-300 drop-shadow flex items-center justify-center gap-1 mt-0.5"><span>📍</span> ${space.city}</div>` : ''}
+            <div class="relative z-10 pb-1">
+              <div class="text-2xl md:text-3xl font-black drop-shadow-md text-white tracking-wide uppercase leading-tight">${space.name}</div>
+              ${space.city ? `<div class="text-xs font-bold text-amber-300 drop-shadow flex items-center justify-center gap-1 mt-1"><span>📍</span> ${space.city}</div>` : ''}
             </div>
           </div>
 

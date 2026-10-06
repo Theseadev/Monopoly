@@ -3762,34 +3762,34 @@ function closeModal() {
 // ==============================================
 
 const SPACE_LANDMARK_IMAGES = {
-  1: 'https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=800&q=80', // Aceh (Baiturrahman)
-  3: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80', // Sumut (Danau Toba)
-  5: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80', // Stasiun Gambir
-  6: 'https://images.unsplash.com/photo-1578469645742-46cae010e5d4?auto=format&fit=crop&w=800&q=80', // Sumbar (Rumah Gadang)
-  8: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80', // Riau (Jembatan Siak)
-  9: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80', // Sumsel (Jembatan Ampera)
-  11: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', // Lampung
-  12: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80', // PLN Listrik
-  13: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80', // Banten
-  14: 'https://images.unsplash.com/photo-1555899434-94d1368aa7af?auto=format&fit=crop&w=800&q=80', // DKI Jakarta (Bundaran HI)
-  15: 'https://images.unsplash.com/photo-1532103054090-a33923a7821c?auto=format&fit=crop&w=800&q=80', // Stasiun Bandung
-  16: 'https://images.unsplash.com/photo-1601625463687-25541fb72f62?auto=format&fit=crop&w=800&q=80', // Jawa Barat (Kawah Putih)
-  18: 'https://images.unsplash.com/photo-1589802829985-817e51171b92?auto=format&fit=crop&w=800&q=80', // Jawa Tengah (Borobudur)
-  19: 'https://images.unsplash.com/photo-1584810359583-96fc3448beaa?auto=format&fit=crop&w=800&q=80', // D.I. Yogyakarta (Prambanan)
-  21: 'https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80', // Jawa Timur (Bromo)
-  23: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80', // Bali (Ulun Danu Beratan)
-  24: 'https://images.unsplash.com/photo-1570789210967-2cac24afeb00?auto=format&fit=crop&w=800&q=80', // Nusa Tenggara Barat (Lombok Rinjani)
-  25: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80', // Stasiun Ps Turi
-  26: 'https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80', // NTT (Padar Island Labuan Bajo)
-  27: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80', // Kalbar (Sungai Kapuas)
-  28: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=800&q=80', // PDAM Air
-  29: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80', // Kaltim (Mahakam / IKN)
-  31: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', // Kalsel (Pasar Terapung)
-  32: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', // Sulsel (Pantai Losari)
-  34: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80', // Sulut (Bunaken)
-  35: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80', // Stasiun Medan
-  37: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', // Maluku (Pantai Ora)
-  39: 'https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80'  // Papua (Raja Ampat)
+  1: '/assets/img/landmarks/space_1.jpg',   // Aceh (Masjid Raya Baiturrahman Banda Aceh)
+  3: '/assets/img/landmarks/space_3.jpg',   // Sumut (Danau Toba Medan)
+  5: '/assets/img/landmarks/space_5.jpg',   // Stasiun Gambir (Jakarta)
+  6: '/assets/img/landmarks/space_6.jpg',   // Sumbar (Rumah Gadang Minangkabau Padang)
+  8: '/assets/img/landmarks/space_8.jpg',   // Riau (Istana Siak Sri Indrapura Pekanbaru)
+  9: '/assets/img/landmarks/space_9.jpg',   // Sumsel (Jembatan Ampera Palembang)
+  11: '/assets/img/landmarks/space_11.jpg', // Lampung (Menara Siger Bandar Lampung)
+  12: '/assets/img/landmarks/space_12.jpg', // PLN Listrik (Transmisi Listrik)
+  13: '/assets/img/landmarks/space_13.jpg', // Banten (Menara Masjid Agung Banten Serang)
+  14: '/assets/img/landmarks/space_14.jpg', // DKI Jakarta (Monumen Nasional / Monas)
+  15: '/assets/img/landmarks/space_15.jpg', // Stasiun Bandung (Bandung Hall)
+  16: '/assets/img/landmarks/space_16.jpg', // Jawa Barat (Gedung Sate Bandung)
+  18: '/assets/img/landmarks/space_18.jpg', // Jawa Tengah (Candi Borobudur Semarang)
+  19: '/assets/img/landmarks/space_19.jpg', // D.I. Yogyakarta (Candi Prambanan)
+  21: '/assets/img/landmarks/space_21.jpg', // Jawa Timur (Gunung Bromo Surabaya)
+  23: '/assets/img/landmarks/space_23.jpg', // Bali (Pura Ulun Danu Beratan Bedugul)
+  24: '/assets/img/landmarks/space_24.jpg', // NTB (Gunung Rinjani Lombok)
+  25: '/assets/img/landmarks/space_25.jpg', // Stasiun Surabaya Pasar Turi
+  26: '/assets/img/landmarks/space_26.jpg', // NTT (Pulau Padar Labuan Bajo Kupang)
+  27: '/assets/img/landmarks/space_27.jpg', // Kalbar (Tugu Khatulistiwa Pontianak)
+  28: '/assets/img/landmarks/space_28.jpg', // PDAM Air (PDAM Air Bersih)
+  29: '/assets/img/landmarks/space_29.jpg', // Kaltim (Jembatan Mahakam Ulu Samarinda)
+  31: '/assets/img/landmarks/space_31.jpg', // Kalsel (Pasar Terapung Lok Baintan Banjarmasin)
+  32: '/assets/img/landmarks/space_32.jpg', // Sulsel (Pantai Losari Makassar)
+  34: '/assets/img/landmarks/space_34.jpg', // Sulut (Taman Laut Bunaken Manado)
+  35: '/assets/img/landmarks/space_35.jpg', // Stasiun Medan (Sumut)
+  37: '/assets/img/landmarks/space_37.jpg', // Maluku (Jembatan Merah Putih Teluk Ambon)
+  39: '/assets/img/landmarks/space_39.jpg'  // Papua (Kepulauan Raja Ampat Jayapura)
 };
 
 function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = false, extraFooterHtml = '') {

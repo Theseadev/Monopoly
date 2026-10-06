@@ -24,7 +24,7 @@ export const BOARD_SPACES = [
     housePrice: 500000,
     mortgage: 300000,
     color: "#8B4513",
-    image: "https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_1.jpg"
   },
   {
     id: 2,
@@ -47,7 +47,7 @@ export const BOARD_SPACES = [
     housePrice: 500000,
     mortgage: 300000,
     color: "#8B4513",
-    image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_3.jpg"
   },
   {
     id: 4,
@@ -70,7 +70,7 @@ export const BOARD_SPACES = [
     mortgage: 1000000,
     icon: "train",
     color: "#1e293b",
-    image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_5.jpg"
   },
   {
     id: 6,
@@ -84,7 +84,7 @@ export const BOARD_SPACES = [
     housePrice: 500000,
     mortgage: 500000,
     color: "#38bdf8",
-    image: "https://images.unsplash.com/photo-1578469645742-46cae010e5d4?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_6.jpg"
   },
   {
     id: 7,
@@ -107,7 +107,7 @@ export const BOARD_SPACES = [
     housePrice: 500000,
     mortgage: 500000,
     color: "#38bdf8",
-    image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_8.jpg"
   },
   {
     id: 9,
@@ -121,7 +121,7 @@ export const BOARD_SPACES = [
     housePrice: 500000,
     mortgage: 600000,
     color: "#38bdf8",
-    image: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_9.jpg"
   },
   {
     id: 10,
@@ -146,7 +146,7 @@ export const BOARD_SPACES = [
     housePrice: 1000000,
     mortgage: 700000,
     color: "#ec4899",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_11.jpg"
   },
   {
     id: 12,
@@ -160,7 +160,7 @@ export const BOARD_SPACES = [
     description: "Sewa: 4x dadu (1 utilitas) / 10x dadu (2 utilitas)",
     icon: "zap",
     color: "#0f766e",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_12.jpg"
   },
   {
     id: 13,
@@ -174,7 +174,7 @@ export const BOARD_SPACES = [
     housePrice: 1000000,
     mortgage: 700000,
     color: "#ec4899",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_13.jpg"
   },
   {
     id: 14,
@@ -188,7 +188,7 @@ export const BOARD_SPACES = [
     housePrice: 1000000,
     mortgage: 800000,
     color: "#ec4899",
-    image: "https://images.unsplash.com/photo-1555899434-94d1368aa7af?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_14.jpg"
   },
   {
     id: 15,
@@ -202,7 +202,7 @@ export const BOARD_SPACES = [
     mortgage: 1000000,
     icon: "train",
     color: "#1e293b",
-    image: "https://images.unsplash.com/photo-1532103054090-a33923a7821c?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_15.jpg"
   },
   {
     id: 16,
@@ -216,7 +216,7 @@ export const BOARD_SPACES = [
     housePrice: 1000000,
     mortgage: 900000,
     color: "#f97316",
-    image: "https://images.unsplash.com/photo-1601625463687-25541fb72f62?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_16.jpg"
   },
   {
     id: 17,
@@ -239,7 +239,7 @@ export const BOARD_SPACES = [
     housePrice: 1000000,
     mortgage: 900000,
     color: "#f97316",
-    image: "https://images.unsplash.com/photo-1589802829985-817e51171b92?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_18.jpg"
   },
   {
     id: 19,
@@ -253,7 +253,7 @@ export const BOARD_SPACES = [
     housePrice: 1000000,
     mortgage: 1000000,
     color: "#f97316",
-    image: "https://images.unsplash.com/photo-1584810359583-96fc3448beaa?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_19.jpg"
   },
   {
     id: 20,
@@ -278,7 +278,7 @@ export const BOARD_SPACES = [
     housePrice: 1500000,
     mortgage: 1100000,
     color: "#ef4444",
-    image: "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_21.jpg"
   },
   {
     id: 22,
@@ -301,7 +301,7 @@ export const BOARD_SPACES = [
     housePrice: 1500000,
     mortgage: 1100000,
     color: "#ef4444",
-    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_23.jpg"
   },
   {
     id: 24,
@@ -315,7 +315,7 @@ export const BOARD_SPACES = [
     housePrice: 1500000,
     mortgage: 1200000,
     color: "#ef4444",
-    image: "https://images.unsplash.com/photo-1570789210967-2cac24afeb00?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_24.jpg"
   },
   {
     id: 25,
@@ -329,7 +329,7 @@ export const BOARD_SPACES = [
     mortgage: 1000000,
     icon: "train",
     color: "#1e293b",
-    image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_25.jpg"
   },
   {
     id: 26,
@@ -343,7 +343,7 @@ export const BOARD_SPACES = [
     housePrice: 1500000,
     mortgage: 1300000,
     color: "#eab308",
-    image: "https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_26.jpg"
   },
   {
     id: 27,
@@ -357,7 +357,7 @@ export const BOARD_SPACES = [
     housePrice: 1500000,
     mortgage: 1300000,
     color: "#eab308",
-    image: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_27.jpg"
   },
   {
     id: 28,
@@ -371,7 +371,7 @@ export const BOARD_SPACES = [
     description: "Sewa: 4x dadu (1 utilitas) / 10x dadu (2 utilitas)",
     icon: "droplet",
     color: "#0f766e",
-    image: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_28.jpg"
   },
   {
     id: 29,
@@ -385,7 +385,7 @@ export const BOARD_SPACES = [
     housePrice: 1500000,
     mortgage: 1400000,
     color: "#eab308",
-    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_29.jpg"
   },
   {
     id: 30,
@@ -410,7 +410,7 @@ export const BOARD_SPACES = [
     housePrice: 2000000,
     mortgage: 1500000,
     color: "#22c55e",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_31.jpg"
   },
   {
     id: 32,
@@ -424,7 +424,7 @@ export const BOARD_SPACES = [
     housePrice: 2000000,
     mortgage: 1500000,
     color: "#22c55e",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_32.jpg"
   },
   {
     id: 33,
@@ -447,7 +447,7 @@ export const BOARD_SPACES = [
     housePrice: 2000000,
     mortgage: 1600000,
     color: "#22c55e",
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_34.jpg"
   },
   {
     id: 35,
@@ -461,7 +461,7 @@ export const BOARD_SPACES = [
     mortgage: 1000000,
     icon: "train",
     color: "#1e293b",
-    image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_35.jpg"
   },
   {
     id: 36,
@@ -484,7 +484,7 @@ export const BOARD_SPACES = [
     housePrice: 2000000,
     mortgage: 1750000,
     color: "#1e3a8a",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_37.jpg"
   },
   {
     id: 38,
@@ -508,7 +508,7 @@ export const BOARD_SPACES = [
     housePrice: 2000000,
     mortgage: 2000000,
     color: "#1e3a8a",
-    image: "https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80"
+    image: "/assets/img/landmarks/space_39.jpg"
   }
 ];
 

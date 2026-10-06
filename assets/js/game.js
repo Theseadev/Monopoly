@@ -5,6 +5,16 @@ class SoundEngine {
   constructor() {
     this.ctx = null;
     this.enabled = true;
+    this.bgmEnabled = true;
+    this.bgmPlaying = false;
+    this.bgmVolume = 0.15;
+    this.bgmGainNode = null;
+    this.bgmInterval = null;
+    this.bgmNextNoteTime = 0;
+    this.bgmStep = 0;
+    this.bpm = 104;
+    this.stepDuration = 60 / this.bpm / 4;
+    this._userGestureAttached = false;
   }
 
   init() {
@@ -13,13 +23,301 @@ class SoundEngine {
       if (AudioCtx) this.ctx = new AudioCtx();
     }
     if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume();
+      this.ctx.resume().catch(() => {});
+    }
+    if (this.ctx && !this.bgmGainNode) {
+      this.bgmGainNode = this.ctx.createGain();
+      const currentGain = this.enabled && this.bgmEnabled ? this.bgmVolume : 0.0001;
+      this.bgmGainNode.gain.setValueAtTime(currentGain, this.ctx.currentTime);
+      this.bgmGainNode.connect(this.ctx.destination);
     }
   }
 
   toggle() {
     this.enabled = !this.enabled;
+    if (this.bgmGainNode && this.ctx) {
+      const targetGain = this.enabled && this.bgmEnabled ? this.bgmVolume : 0.0001;
+      this.bgmGainNode.gain.setValueAtTime(this.bgmGainNode.gain.value, this.ctx.currentTime);
+      this.bgmGainNode.gain.linearRampToValueAtTime(targetGain, this.ctx.currentTime + 0.15);
+    }
     return this.enabled;
+  }
+
+  startBGM() {
+    this.init();
+    if (!this._userGestureAttached && typeof window !== 'undefined') {
+      this._userGestureAttached = true;
+      const resumeAudioAndPlayBGM = () => {
+        this.init();
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+        if (this.enabled && this.bgmEnabled && !this.bgmPlaying) {
+          this._startBGMScheduler();
+        }
+      };
+      ['click', 'touchstart', 'pointerdown', 'keydown'].forEach(evt => {
+        window.addEventListener(evt, resumeAudioAndPlayBGM, { once: true, passive: true });
+      });
+    }
+
+    if (this.bgmPlaying) return;
+    this._startBGMScheduler();
+  }
+
+  _startBGMScheduler() {
+    if (!this.ctx) return;
+    this.bgmPlaying = true;
+    if (this.bgmGainNode) {
+      const targetGain = this.enabled && this.bgmEnabled ? this.bgmVolume : 0.0001;
+      this.bgmGainNode.gain.setValueAtTime(0.0001, this.ctx.currentTime);
+      this.bgmGainNode.gain.linearRampToValueAtTime(targetGain, this.ctx.currentTime + 0.4);
+    }
+
+    this.bgmNextNoteTime = this.ctx.currentTime + 0.05;
+    this.bgmStep = 0;
+
+    if (this.bgmInterval) clearInterval(this.bgmInterval);
+    this.bgmInterval = setInterval(() => {
+      this._schedulerBGM();
+    }, 30);
+  }
+
+  stopBGM() {
+    if (!this.bgmPlaying) return;
+    this.bgmPlaying = false;
+    if (this.bgmInterval) {
+      clearInterval(this.bgmInterval);
+      this.bgmInterval = null;
+    }
+    if (this.bgmGainNode && this.ctx) {
+      this.bgmGainNode.gain.setValueAtTime(this.bgmGainNode.gain.value, this.ctx.currentTime);
+      this.bgmGainNode.gain.linearRampToValueAtTime(0.0001, this.ctx.currentTime + 0.3);
+    }
+  }
+
+  toggleBGM() {
+    this.bgmEnabled = !this.bgmEnabled;
+    if (this.bgmGainNode && this.ctx) {
+      const targetGain = this.enabled && this.bgmEnabled ? this.bgmVolume : 0.0001;
+      this.bgmGainNode.gain.setValueAtTime(this.bgmGainNode.gain.value, this.ctx.currentTime);
+      this.bgmGainNode.gain.linearRampToValueAtTime(targetGain, this.ctx.currentTime + 0.15);
+    }
+    return this.bgmEnabled;
+  }
+
+  _schedulerBGM() {
+    if (!this.ctx || !this.bgmPlaying) return;
+    while (this.bgmNextNoteTime < this.ctx.currentTime + 0.15) {
+      this._playBGMStep(this.bgmStep, this.bgmNextNoteTime);
+      this.bgmNextNoteTime += this.stepDuration;
+      this.bgmStep = (this.bgmStep + 1) % 64;
+    }
+  }
+
+  _playGamelanBell(freq, time, duration = 0.45, vol = 0.22) {
+    if (!this.ctx || !this.bgmGainNode) return;
+    try {
+      const osc1 = this.ctx.createOscillator();
+      const oscGain1 = this.ctx.createGain();
+      osc1.type = 'triangle';
+      osc1.frequency.setValueAtTime(freq, time);
+
+      oscGain1.gain.setValueAtTime(0.0001, time);
+      oscGain1.gain.linearRampToValueAtTime(vol, time + 0.006);
+      oscGain1.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+
+      const osc2 = this.ctx.createOscillator();
+      const oscGain2 = this.ctx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(freq * 2.756, time);
+
+      oscGain2.gain.setValueAtTime(0.0001, time);
+      oscGain2.gain.linearRampToValueAtTime(vol * 0.45, time + 0.004);
+      oscGain2.gain.exponentialRampToValueAtTime(0.0001, time + duration * 0.6);
+
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(3200, time);
+
+      osc1.connect(oscGain1);
+      osc2.connect(oscGain2);
+      oscGain1.connect(filter);
+      oscGain2.connect(filter);
+      filter.connect(this.bgmGainNode);
+
+      osc1.start(time);
+      osc2.start(time);
+      osc1.stop(time + duration);
+      osc2.stop(time + duration);
+    } catch (e) {}
+  }
+
+  _playWarmPad(freqs, time, duration = 2.2, vol = 0.09) {
+    if (!this.ctx || !this.bgmGainNode) return;
+    try {
+      const padGain = this.ctx.createGain();
+      padGain.gain.setValueAtTime(0.0001, time);
+      padGain.gain.linearRampToValueAtTime(vol, time + 0.35);
+      padGain.gain.setValueAtTime(vol, time + duration - 0.4);
+      padGain.gain.linearRampToValueAtTime(0.0001, time + duration);
+
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(950, time);
+
+      padGain.connect(filter);
+      filter.connect(this.bgmGainNode);
+
+      freqs.forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        osc.type = 'sine';
+        const detune = (idx % 2 === 0 ? 1 : -1) * 3;
+        osc.frequency.setValueAtTime(freq, time);
+        osc.detune.setValueAtTime(detune, time);
+        osc.connect(padGain);
+        osc.start(time);
+        osc.stop(time + duration);
+      });
+    } catch (e) {}
+  }
+
+  _playKendang(type, time, vol = 0.25) {
+    if (!this.ctx || !this.bgmGainNode) return;
+    try {
+      if (type === 'gong') {
+        const osc = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(110, time);
+        osc.frequency.exponentialRampToValueAtTime(82.4, time + 1.8);
+
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(164.8, time);
+        osc2.frequency.exponentialRampToValueAtTime(123.4, time + 1.2);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(450, time);
+
+        gain.gain.setValueAtTime(0.0001, time);
+        gain.gain.linearRampToValueAtTime(vol * 1.2, time + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + 2.0);
+
+        osc.connect(gain);
+        osc2.connect(gain);
+        gain.connect(filter);
+        filter.connect(this.bgmGainNode);
+
+        osc.start(time);
+        osc2.start(time);
+        osc.stop(time + 2.0);
+        osc2.stop(time + 2.0);
+      } else if (type === 'ageng') {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(120, time);
+        osc.frequency.exponentialRampToValueAtTime(55, time + 0.22);
+
+        gain.gain.setValueAtTime(0.0001, time);
+        gain.gain.linearRampToValueAtTime(vol * 0.9, time + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.24);
+
+        osc.connect(gain);
+        gain.connect(this.bgmGainNode);
+
+        osc.start(time);
+        osc.stop(time + 0.24);
+      } else if (type === 'kethuk') {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(380, time);
+        osc.frequency.exponentialRampToValueAtTime(150, time + 0.05);
+
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(850, time);
+        filter.Q.setValueAtTime(3.0, time);
+
+        gain.gain.setValueAtTime(0.0001, time);
+        gain.gain.linearRampToValueAtTime(vol * 0.45, time + 0.004);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.06);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.bgmGainNode);
+
+        osc.start(time);
+        osc.stop(time + 0.06);
+      }
+    } catch (e) {}
+  }
+
+  _playBass(freq, time, duration = 0.32, vol = 0.2) {
+    if (!this.ctx || !this.bgmGainNode) return;
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      const filter = this.ctx.createBiquadFilter();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, time);
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(320, time);
+
+      gain.gain.setValueAtTime(0.0001, time);
+      gain.gain.linearRampToValueAtTime(vol, time + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.bgmGainNode);
+
+      osc.start(time);
+      osc.stop(time + duration);
+    } catch (e) {}
+  }
+
+  _playBGMStep(step, time) {
+    if (step === 0) {
+      this._playWarmPad([261.63, 329.63, 392.00, 493.88], time, 2.3, 0.09);
+      this._playKendang('gong', time, 0.3);
+    } else if (step === 16) {
+      this._playWarmPad([220.00, 261.63, 329.63, 392.00], time, 2.3, 0.09);
+    } else if (step === 32) {
+      this._playWarmPad([174.61, 220.00, 261.63, 329.63], time, 2.3, 0.09);
+      this._playKendang('gong', time, 0.28);
+    } else if (step === 48) {
+      this._playWarmPad([196.00, 246.94, 293.66, 349.23], time, 2.3, 0.09);
+    }
+
+    if (step === 0 || step === 8) this._playBass(130.81, time, 0.35, 0.22);
+    else if (step === 16 || step === 24) this._playBass(110.00, time, 0.35, 0.22);
+    else if (step === 32 || step === 40) this._playBass(87.31, time, 0.35, 0.22);
+    else if (step === 48 || step === 56) this._playBass(98.00, time, 0.35, 0.22);
+
+    if ([0, 16, 32, 48].includes(step)) {
+      this._playKendang('ageng', time, 0.26);
+    } else if ([6, 12, 22, 28, 38, 44, 54, 60].includes(step)) {
+      this._playKendang('kethuk', time, 0.18);
+    }
+
+    const melodyMap = {
+      0: 783.99, 2: 659.25, 4: 587.33, 6: 523.25, 8: 659.25, 10: 783.99, 12: 880.00, 14: 783.99,
+      16: 659.25, 18: 523.25, 20: 440.00, 22: 523.25, 24: 659.25, 26: 587.33, 28: 523.25, 30: 587.33,
+      32: 880.00, 34: 783.99, 36: 698.46, 38: 659.25, 40: 587.33, 42: 698.46, 44: 880.00, 46: 1046.50,
+      48: 987.77, 50: 783.99, 52: 880.00, 54: 783.99, 56: 659.25, 58: 587.33, 60: 659.25, 62: 587.33
+    };
+
+    if (melodyMap[step]) {
+      this._playGamelanBell(melodyMap[step], time, 0.42, 0.2);
+    }
   }
 
   playClick() {
@@ -3463,10 +3761,42 @@ function closeModal() {
 // DELUXE TITLE DEED CARD GENERATOR
 // ==============================================
 
+const SPACE_LANDMARK_IMAGES = {
+  1: 'https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=800&q=80', // Aceh (Baiturrahman)
+  3: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80', // Sumut (Danau Toba)
+  5: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80', // Stasiun Gambir
+  6: 'https://images.unsplash.com/photo-1578469645742-46cae010e5d4?auto=format&fit=crop&w=800&q=80', // Sumbar (Rumah Gadang)
+  8: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80', // Riau (Jembatan Siak)
+  9: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80', // Sumsel (Jembatan Ampera)
+  11: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', // Lampung
+  12: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80', // PLN Listrik
+  13: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80', // Banten
+  14: 'https://images.unsplash.com/photo-1555899434-94d1368aa7af?auto=format&fit=crop&w=800&q=80', // DKI Jakarta (Bundaran HI)
+  15: 'https://images.unsplash.com/photo-1532103054090-a33923a7821c?auto=format&fit=crop&w=800&q=80', // Stasiun Bandung
+  16: 'https://images.unsplash.com/photo-1601625463687-25541fb72f62?auto=format&fit=crop&w=800&q=80', // Jawa Barat (Kawah Putih)
+  18: 'https://images.unsplash.com/photo-1589802829985-817e51171b92?auto=format&fit=crop&w=800&q=80', // Jawa Tengah (Borobudur)
+  19: 'https://images.unsplash.com/photo-1584810359583-96fc3448beaa?auto=format&fit=crop&w=800&q=80', // D.I. Yogyakarta (Prambanan)
+  21: 'https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80', // Jawa Timur (Bromo)
+  23: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80', // Bali (Ulun Danu Beratan)
+  24: 'https://images.unsplash.com/photo-1570789210967-2cac24afeb00?auto=format&fit=crop&w=800&q=80', // Nusa Tenggara Barat (Lombok Rinjani)
+  25: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80', // Stasiun Ps Turi
+  26: 'https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80', // NTT (Padar Island Labuan Bajo)
+  27: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80', // Kalbar (Sungai Kapuas)
+  28: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=800&q=80', // PDAM Air
+  29: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80', // Kaltim (Mahakam / IKN)
+  31: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', // Kalsel (Pasar Terapung)
+  32: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', // Sulsel (Pantai Losari)
+  34: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80', // Sulut (Bunaken)
+  35: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80', // Stasiun Medan
+  37: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', // Maluku (Pantai Ora)
+  39: 'https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80'  // Papua (Raja Ampat)
+};
+
 function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = false, extraFooterHtml = '') {
   if (!space) return '';
   const currentHouses = prop ? (prop.houses || 0) : 0;
   const isHotel = prop ? !!prop.isHotel : false;
+  const spaceImg = space.image || SPACE_LANDMARK_IMAGES[space.id] || '';
 
   const houseIconHtml = (count) => {
     let icons = '';
@@ -3489,11 +3819,17 @@ function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = fals
 
     return `
       <div class="title-deed-card-container mx-auto bg-white rounded-3xl border-4 border-zinc-900 overflow-hidden text-zinc-900 shadow-2xl max-w-[340px] w-full select-none text-left">
-        <!-- Colored Header -->
-        <div class="p-3.5 text-center text-white" style="background-color: ${headerColor};">
-          <div class="text-[9px] uppercase tracking-widest opacity-80 font-bold font-outfit">SERTIFIKAT KEPEMILIKAN</div>
-          <div class="text-base md:text-lg font-black uppercase font-outfit leading-tight mt-0.5 drop-shadow-sm">${space.name}</div>
-          ${space.city ? `<div class="text-[10px] font-semibold opacity-90">${space.city}</div>` : ''}
+        <!-- Colored Scenic Header with Landscape Image -->
+        <div class="relative p-4 text-center text-white overflow-hidden min-h-[115px] flex flex-col justify-end shadow-inner" style="background-color: ${headerColor};">
+          ${spaceImg ? `
+            <img src="${spaceImg}" alt="${space.name}" class="absolute inset-0 w-full h-full object-cover brightness-[0.62] transform hover:scale-105 transition duration-700" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-black/20"></div>
+          ` : ''}
+          <div class="relative z-10">
+            <div class="inline-block px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-black font-outfit shadow-md mb-1 border border-white/20 backdrop-blur-sm" style="background-color: ${headerColor};">SERTIFIKAT KEPEMILIKAN</div>
+            <div class="text-base md:text-lg font-black uppercase font-outfit leading-tight drop-shadow-md text-white">${space.name}</div>
+            ${space.city ? `<div class="text-[11px] font-bold text-amber-300 drop-shadow flex items-center justify-center gap-1 mt-0.5"><span>📍</span> ${space.city}</div>` : ''}
+          </div>
         </div>
 
         <!-- Rent Base -->
@@ -3549,10 +3885,15 @@ function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = fals
   } else if (space.type === 'railroad') {
     return `
       <div class="title-deed-card-container mx-auto bg-white rounded-3xl border-4 border-zinc-900 overflow-hidden text-zinc-900 shadow-2xl max-w-[340px] w-full select-none text-left">
-        <div class="p-4 text-center bg-zinc-800 text-white">
-          <div class="w-10 h-10 mx-auto text-amber-300 mb-1">${GameIcons.train}</div>
-          <div class="text-[9px] uppercase tracking-widest opacity-80 font-outfit">STASIUN KERETA NUSANTARA</div>
-          <div class="text-base md:text-lg font-black uppercase font-outfit leading-tight mt-0.5">${space.name}</div>
+        <div class="relative p-4 text-center bg-zinc-800 text-white overflow-hidden min-h-[115px] flex flex-col justify-end shadow-inner">
+          ${spaceImg ? `
+            <img src="${spaceImg}" alt="${space.name}" class="absolute inset-0 w-full h-full object-cover brightness-[0.55] transform hover:scale-105 transition duration-700" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-black/30"></div>
+          ` : ''}
+          <div class="relative z-10">
+            <div class="inline-block px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-black font-outfit bg-slate-700/80 shadow mb-1 border border-white/20">STASIUN KERETA NUSANTARA</div>
+            <div class="text-base md:text-lg font-black uppercase font-outfit leading-tight mt-0.5 drop-shadow-md">${space.name}</div>
+          </div>
         </div>
         <div class="p-3.5 space-y-2 text-xs font-semibold text-zinc-700">
           <div class="flex justify-between px-2 py-1 bg-zinc-50 rounded-lg"><span>Sewa 1 Stasiun</span><span class="font-bold">Rp 250.000</span></div>
@@ -3576,10 +3917,15 @@ function generateTitleDeedCardHTML(space, prop = null, highlightNextLevel = fals
     const isZap = space.icon === 'zap';
     return `
       <div class="title-deed-card-container mx-auto bg-white rounded-3xl border-4 border-zinc-900 overflow-hidden text-zinc-900 shadow-2xl max-w-[340px] w-full select-none text-left">
-        <div class="p-4 text-center bg-zinc-800 text-white">
-          <div class="w-10 h-10 mx-auto ${isZap ? 'text-amber-400' : 'text-blue-400'} mb-1">${isZap ? GameIcons.zap : GameIcons.water}</div>
-          <div class="text-[9px] uppercase tracking-widest opacity-80 font-outfit">PERUSAHAAN PUBLIK</div>
-          <div class="text-base md:text-lg font-black uppercase font-outfit leading-tight mt-0.5">${space.name}</div>
+        <div class="relative p-4 text-center bg-zinc-800 text-white overflow-hidden min-h-[115px] flex flex-col justify-end shadow-inner">
+          ${spaceImg ? `
+            <img src="${spaceImg}" alt="${space.name}" class="absolute inset-0 w-full h-full object-cover brightness-[0.55] transform hover:scale-105 transition duration-700" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-black/30"></div>
+          ` : ''}
+          <div class="relative z-10">
+            <div class="inline-block px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-black font-outfit bg-teal-800/80 shadow mb-1 border border-white/20">PERUSAHAAN PUBLIK</div>
+            <div class="text-base md:text-lg font-black uppercase font-outfit leading-tight mt-0.5 drop-shadow-md">${space.name}</div>
+          </div>
         </div>
         <div class="p-4 space-y-2.5 text-xs text-zinc-700 leading-relaxed">
           <div class="p-2.5 bg-zinc-50 rounded-xl border border-zinc-200">
@@ -5737,4 +6083,5 @@ window.addEventListener('DOMContentLoaded', () => {
   renderChats();
   showScreen('homeMenuScreen');
   updateFullscreenUI();
+  sound.startBGM();
 });

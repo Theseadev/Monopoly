@@ -64,7 +64,7 @@ class RoomManager {
 
     public static function saveRoom(string $code, array $data): void {
         $data['lastActivity'] = time();
-        @file_put_contents(self::getRoomFile($code), json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        @file_put_contents(self::getRoomFile($code), json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
     }
 
     public static function joinRoom(string $code, string $playerName): array {

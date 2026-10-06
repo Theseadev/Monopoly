@@ -1,0 +1,31 @@
+﻿Respondent_ID,Background,Age,Device_Tested,Session_Duration_Minutes,Q1_Frequent_Use,Q2_Complexity_Low,Q3_Ease_of_Use,Q4_Need_Tech_Support,Q5_Well_Integrated,Q6_Inconsistency_Low,Q7_Quick_Learnability,Q8_Cumbersome_Low,Q9_Decision_Confidence,Q10_Need_Prior_Knowledge,Odd_Items_Contribution,Even_Items_Contribution,Total_Contribution_Score,SUS_Final_Score,SUS_Grade,Adjective_Rating
+R01,Mahasiswa S1 Informatika / Sistem Informasi,19,"Smartphone (Android 14, Chrome Mobile)",21.7,5,1,4,1,5,2,5,2,4,2,18,17,35,87.5,A,Best Imaginable
+R02,Mahasiswa S1 Informatika / Sistem Informasi,19,"Smartphone (iOS 17, Safari Mobile)",16.6,5,1,5,1,4,2,5,1,5,1,19,19,38,95.0,A,Best Imaginable
+R03,Mahasiswa S1 Informatika / Sistem Informasi,19,"Smartphone (iOS 17, Safari Mobile)",17.1,5,2,5,2,5,1,5,1,4,1,19,18,37,92.5,A,Best Imaginable
+R04,Pemain Umum Board Game,19,"Smartphone (Android 14, Chrome Mobile)",16.3,3,2,5,2,4,1,5,2,5,2,17,16,33,82.5,A,Best Imaginable
+R05,Mahasiswa S1 Informatika / Sistem Informasi,26,"Smartphone (iOS 17, Safari Mobile)",16.5,5,1,4,2,4,2,5,2,4,2,17,16,33,82.5,A,Excellent
+R06,Pemain Umum Board Game,21,"Laptop (Windows 10, Microsoft Edge)",25.6,5,1,5,1,5,1,5,1,4,1,19,20,39,97.5,A,Best Imaginable
+R07,Mahasiswa S1 Informatika / Sistem Informasi,25,"PC Desktop (Windows 11, Google Chrome)",19.7,5,1,5,1,4,1,4,1,4,2,17,19,36,90.0,A,Best Imaginable
+R08,Mahasiswa S1 Informatika / Sistem Informasi,26,"Smartphone (iOS 17, Safari Mobile)",15.5,5,2,5,2,5,1,4,1,5,1,19,18,37,92.5,A,Best Imaginable
+R09,Mahasiswa S1 Informatika / Sistem Informasi,19,"PC Desktop (Windows 11, Google Chrome)",16.5,4,2,5,1,4,2,5,1,5,1,18,18,36,90.0,A,Best Imaginable
+R10,Mahasiswa S1 Informatika / Sistem Informasi,19,"Smartphone (Android 14, Chrome Mobile)",18.1,4,2,4,2,4,2,4,2,4,1,15,16,31,77.5,B,Excellent
+R11,Pemain Umum Board Game,21,"PC Desktop (Windows 11, Google Chrome)",12.0,4,2,4,2,3,2,4,2,4,2,14,15,29,72.5,B,Excellent
+R12,Pemain Umum Board Game,20,"Smartphone (iOS 17, Safari Mobile)",21.5,3,2,4,2,5,1,4,2,4,1,15,17,32,80.0,A,Excellent
+R13,Pemain Umum Board Game,22,"Laptop (Windows 10, Microsoft Edge)",20.7,4,2,4,2,4,2,4,1,4,2,15,16,31,77.5,B,Excellent
+R14,Mahasiswa S1 Informatika / Sistem Informasi,23,"Smartphone (Android 14, Chrome Mobile)",15.9,3,2,4,2,4,2,4,2,4,2,14,15,29,72.5,B,Excellent
+R15,Pemain Umum Board Game,21,"Smartphone (Android 14, Chrome Mobile)",20.3,5,2,4,2,5,1,5,1,4,2,18,17,35,87.5,A,Best Imaginable
+R16,Mahasiswa S1 Informatika / Sistem Informasi,22,"Smartphone (Android 14, Chrome Mobile)",26.2,5,1,4,2,4,1,4,1,4,1,16,19,35,87.5,A,Best Imaginable
+R17,Pemain Umum Board Game,25,"Laptop (Windows 10, Microsoft Edge)",25.7,4,2,4,2,4,2,4,2,4,2,15,15,30,75.0,B,Excellent
+R18,Pemain Umum Board Game,19,"Laptop (macOS Sonoma, Safari)",24.1,5,2,4,2,5,2,4,2,4,2,17,15,32,80.0,B,Excellent
+R19,Mahasiswa S1 Informatika / Sistem Informasi,22,"Laptop (macOS Sonoma, Safari)",21.9,5,2,4,2,5,1,5,2,5,1,19,17,36,90.0,A,Best Imaginable
+R20,Pemain Umum Board Game,27,"Laptop (Windows 10, Microsoft Edge)",23.3,4,1,5,1,5,1,4,1,4,2,17,19,36,90.0,A,Best Imaginable
+R21,Mahasiswa S1 Informatika / Sistem Informasi,20,"PC Desktop (Windows 11, Google Chrome)",21.0,4,1,5,2,5,1,5,2,4,2,18,17,35,87.5,A,Best Imaginable
+R22,Mahasiswa S1 Informatika / Sistem Informasi,19,"Smartphone (Android 14, Chrome Mobile)",23.0,4,2,5,1,5,1,5,2,5,2,19,17,36,90.0,A,Best Imaginable
+R23,Pemain Umum Board Game,22,"PC Desktop (Windows 11, Google Chrome)",17.8,4,2,4,2,4,2,5,2,4,2,16,15,31,77.5,B,Excellent
+R24,Mahasiswa S1 Informatika / Sistem Informasi,22,"Smartphone (Android 14, Chrome Mobile)",20.0,4,1,4,2,4,2,4,2,4,1,15,17,32,80.0,B,Excellent
+R25,Pemain Umum Board Game,25,"PC Desktop (Windows 11, Google Chrome)",15.0,3,2,4,2,4,3,4,2,4,2,14,14,28,70.0,B,Good
+R26,Mahasiswa S1 Informatika / Sistem Informasi,25,"PC Desktop (Windows 11, Google Chrome)",17.2,4,2,4,2,4,2,4,1,5,1,16,17,33,82.5,A,Excellent
+R27,Pemain Umum Board Game,20,"PC Desktop (Windows 11, Google Chrome)",13.4,5,1,5,1,5,1,4,1,4,2,18,19,37,92.5,A,Best Imaginable
+R28,Mahasiswa S1 Informatika / Sistem Informasi,20,"Laptop (macOS Sonoma, Safari)",23.8,4,1,5,2,5,1,4,1,5,2,18,18,36,90.0,A,Best Imaginable
+R29,Mahasiswa S1 Informatika / Sistem Informasi,21,"Smartphone (Android 14, Chrome Mobile)",15.0,4,2,5,2,4,1,4,2,4,2,16,16,32,80.0,B,Excellent
+R30,Mahasiswa S1 Informatika / Sistem Informasi,19,"Laptop (Windows 10, Microsoft Edge)",25.2,4,1,4,2,4,1,4,2,5,1,16,18,34,85.0,A,Best Imaginable

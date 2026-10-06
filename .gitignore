@@ -6,3 +6,5 @@ storage/rooms/*.json
 *.zip
 .gemini/
 scratch/
+~$*
+*.tmp

@@ -229,6 +229,59 @@ export const CHANCE_CARDS = [
         "description": "Sertifikat Tax Amnesty Eksklusif! Simpan kartu ini di inventori untuk membebaskan 100% biaya saat Anda menginjak petak Pajak Istimewa atau Pajak Jalan. (Hanya bisa dipakai 1x & masuk kembali ke dek saat dipakai).",
         "category": "special",
         "type": "tax_free_card"
+    },
+    {
+        "id": "c_gain_7",
+        "title": "Ekspor Kopi Gayo Tembus Pasar Eropa",
+        "description": "Komoditas kopi arabika Gayo binaan Anda sukses meraih kontrak ekspor bernilai tinggi ke Uni Eropa. Cairkan dividen Rp 1.500.000 dari Bank.",
+        "category": "profit",
+        "type": "receive_money",
+        "amount": 1500000
+    },
+    {
+        "id": "c_gacha_7",
+        "title": "Investasi Energi Terbarukan IKN Nusantara",
+        "description": "Tanamkan modal pada konsorsium solar panel ramah lingkungan di IKN (Modal Rp 1.000.000). Peluang 50% Dividen Hijau Rp 3.000.000 atau 50% Gagal Uji Emisi Modal Hangus!",
+        "category": "gacha",
+        "type": "gamble",
+        "cost": 1000000,
+        "reward": 3000000
+    },
+    {
+        "id": "c_special_monas",
+        "title": "Wisata Sejarah Monas & Kota Tua",
+        "description": "Perjalanan dinas mempromosikan pariwisata nasional. Maju langsung ke DKI Jakarta (Petak 14). Jika melewati Mulai, ambil jatah Rp 2.000.000.",
+        "category": "special",
+        "type": "move_to",
+        "target": 14,
+        "collectGo": true
+    },
+    {
+        "id": "c_special_borobudur",
+        "title": "Kunjungan Cagar Budaya Candi Borobudur",
+        "description": "Menghadiri festival lampion waisak internasional di Magelang. Maju langsung ke Jawa Tengah (Petak 18). Jika melewati Mulai, ambil jatah Rp 2.000.000.",
+        "category": "special",
+        "type": "move_to",
+        "target": 18,
+        "collectGo": true
+    },
+    {
+        "id": "c_special_stasiun",
+        "title": "Tiket Terusan Kereta Cepat Whoosh",
+        "description": "Nikmati perjalanan ekspres Jakarta-Bandung dengan Whoosh! Meluncur langsung ke Stasiun Bandung (Petak 15). Jika melewati Mulai, ambil Rp 2.000.000.",
+        "category": "special",
+        "type": "move_to",
+        "target": 15,
+        "collectGo": true
+    },
+    {
+        "id": "c_special_maritim",
+        "title": "Ekspedisi Maritim Tol Laut Nusantara",
+        "description": "Armada kargo perintis sandar di dermaga pelabuhan transit. Maju langsung ke Stasiun Pasar Turi (Petak 25). Jika melewati Mulai, ambil Rp 2.000.000.",
+        "category": "special",
+        "type": "move_to",
+        "target": 25,
+        "collectGo": true
     }
 ];
 
@@ -437,5 +490,41 @@ export const COMMUNITY_CHEST_CARDS = [
         "description": "Sertifikat Pembebasan Pajak Resmi! Simpan kartu ini di inventori untuk membebaskan 100% biaya saat Anda menginjak petak Pajak Istimewa atau Pajak Jalan. (Hanya bisa dipakai 1x & masuk kembali ke dek saat dipakai).",
         "category": "special",
         "type": "tax_free_card"
+    },
+    {
+        "id": "cc_special_go",
+        "title": "Pemberdayaan UMKM Mandiri Lintas Daerah",
+        "description": "Program pembinaan wirausaha muda berhasil meluluskan ribuan unit usaha. Maju langsung ke petak Mulai dan cairkan insentif Rp 2.000.000.",
+        "category": "special",
+        "type": "move_to",
+        "target": 0,
+        "collectGo": true
+    },
+    {
+        "id": "cc_special_free_parking",
+        "title": "Rest Area & Posko Mudik Gratis Nusantara",
+        "description": "Fasilitas istirahat dan posko mudik Lebaran terpadu. Maju langsung ke petak Parkir Bebas tanpa dipungut biaya apapun.",
+        "category": "special",
+        "type": "move_to",
+        "target": 20,
+        "collectGo": false
+    },
+    {
+        "id": "cc_special_pln",
+        "title": "Modernisasi Jaringan Listrik Pintar (Smart Grid)",
+        "description": "Inspeksi gardu transmisi listrik interkoneksi Jawa-Bali. Maju langsung ke petak Perusahaan Listrik Negara (PLN, Petak 12).",
+        "category": "special",
+        "type": "move_to",
+        "target": 12,
+        "collectGo": false
+    },
+    {
+        "id": "cc_special_pdam",
+        "title": "Revitalisasi Saluran Air Bersih PDAM",
+        "description": "Penyediaan infrastruktur air minum perpipaan layak konsumsi. Maju langsung ke petak Perusahaan Daerah Air Minum (PDAM, Petak 28).",
+        "category": "special",
+        "type": "move_to",
+        "target": 28,
+        "collectGo": false
     }
 ];

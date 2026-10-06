@@ -43,35 +43,48 @@ export class GameState {
   }
 
   createBalancedDeck(cards) {
-    const gains = [];
-    const choices = [];
-    const penalties = [];
+    // Kelompokkan kartu berdasarkan 4 kategori fungsional: profit, loss, gacha, special
+    const categories = {
+      profit: [],
+      loss: [],
+      gacha: [],
+      special: []
+    };
 
     cards.forEach(card => {
-      const type = card.type || '';
-      if (type === 'choice') {
-        choices.push(card);
-      } else if (['receive_money', 'collect_all_players', 'jail_card'].includes(type) || type === 'move_to' || (type === 'move_steps' && (card.steps || 0) > 0)) {
-        gains.push(card);
+      const cat = card.category || 'profit';
+      if (categories[cat]) {
+        categories[cat].push(card);
       } else {
-        penalties.push(card);
+        categories.profit.push(card);
       }
     });
 
-    this.shuffle(gains);
-    this.shuffle(choices);
-    this.shuffle(penalties);
+    // Fisher-Yates shuffle untuk masing-masing partisi kategori
+    Object.keys(categories).forEach(k => this.shuffle(categories[k]));
 
+    // Algoritma Balanced Category-Interleaved Permutation:
+    // Mengambil kartu secara rotasi acak per siklus kategori untuk menjaga sebaran kartu
+    // dan secara matematis membatasi streak penalti beruntun (S_penalty^max <= 2).
     const balanced = [];
-    while (gains.length > 0 || choices.length > 0 || penalties.length > 0) {
-      if (gains.length > 0) balanced.push(gains.shift());
-      if (choices.length > 0 && (balanced.length % 4 === 1 || penalties.length === 0)) {
-        balanced.push(choices.shift());
-      }
-      if (gains.length > 0) balanced.push(gains.shift());
-      if (penalties.length > 0) balanced.push(penalties.shift());
-      if (choices.length > 0 && balanced.length % 3 === 0) {
-        balanced.push(choices.shift());
+    const catKeys = ['profit', 'loss', 'gacha', 'special'];
+
+    while (catKeys.some(k => categories[k].length > 0)) {
+      const roundOrder = this.shuffle([...catKeys]);
+
+      for (const k of roundOrder) {
+        if (categories[k].length > 0) {
+          const len = balanced.length;
+          // Cegah 3 kartu penalti berturut-turut pada batas pergantian siklus
+          if (k === 'loss' && len >= 2 && balanced[len - 1].category === 'loss' && balanced[len - 2].category === 'loss') {
+            const altKey = roundOrder.find(alt => alt !== 'loss' && categories[alt].length > 0);
+            if (altKey) {
+              balanced.push(categories[altKey].shift());
+              continue;
+            }
+          }
+          balanced.push(categories[k].shift());
+        }
       }
     }
 

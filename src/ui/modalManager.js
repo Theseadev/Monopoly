@@ -1,7 +1,6 @@
-// Modal Manager untuk Menampilkan Dialog Interaktif Permainan
-
 import confetti from 'canvas-confetti';
 import { GameRules } from '../core/gameRules.js';
+import { sound } from '../core/sound.js';
 
 export class ModalManager {
   constructor(containerElement) {
@@ -363,6 +362,7 @@ export class ModalManager {
     this.container.classList.remove('hidden');
 
     document.getElementById('btnStartGameNow')?.addEventListener('click', () => {
+      sound.startBGM();
       const p1Name = document.getElementById('p1Name')?.value || 'Pemain 1';
       const p2Name = document.getElementById('p2Name')?.value || 'Bot Budi';
       const p3Name = document.getElementById('p3Name')?.value || 'Bot Siti';

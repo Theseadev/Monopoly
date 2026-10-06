@@ -1,0 +1,401 @@
+﻿Match_ID,Random_Seed,Seat_Offset,Seat_1,Seat_2,Seat_3,Seat_4,Winner_Strategy,Winner_Seat,Rounds_Played,Heuristic_Bankrupt,Static_Bankrupt,Greedy_Bankrupt,Random_Bankrupt,Heuristic_Final_Assets_IDR,Static_Final_Assets_IDR,Greedy_Final_Assets_IDR,Random_Final_Assets_IDR,Total_Bankruptcies
+M001,1001,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,57,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,39995703,0,0,3
+M002,1002,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,61,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,5578041,34738691,0,2
+M003,1003,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,65,WINNER,SURVIVED,BANKRUPT,BANKRUPT,43986964,3691145,0,0,2
+M004,1004,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,61,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,34312022,0,0,3
+M005,1005,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,74,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,34547262,0,0,0,3
+M006,1006,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,56,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,33897753,0,0,0,3
+M007,1007,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,60,SURVIVED,BANKRUPT,WINNER,BANKRUPT,3609742,0,34841975,0,2
+M008,1008,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,63,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,35980369,0,0,0,3
+M009,1009,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,68,SURVIVED,BANKRUPT,WINNER,BANKRUPT,4320967,0,35579225,0,2
+M010,1010,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,64,WINNER,BANKRUPT,SURVIVED,BANKRUPT,46601629,0,3618597,0,2
+M011,1011,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,77,WINNER,SURVIVED,BANKRUPT,BANKRUPT,31173920,5143455,0,0,2
+M012,1012,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Seat 1,59,SURVIVED,BANKRUPT,BANKRUPT,WINNER,3577093,0,0,39645915,2
+M013,1013,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,66,WINNER,SURVIVED,BANKRUPT,SURVIVED,34334383,1659308,0,4169928,1
+M014,1014,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,63,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,36508161,0,0,0,3
+M015,1015,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,68,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,45200941,0,0,0,3
+M016,1016,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,65,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,39054957,0,0,0,3
+M017,1017,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,63,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,41775961,0,3
+M018,1018,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,66,BANKRUPT,BANKRUPT,SURVIVED,WINNER,0,0,5923658,44640305,2
+M019,1019,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,63,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,35280669,0,0,3
+M020,1020,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Seat 1,65,SURVIVED,BANKRUPT,BANKRUPT,WINNER,6504363,0,0,38756420,2
+M021,1021,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,70,WINNER,SURVIVED,BANKRUPT,BANKRUPT,33489613,3497873,0,0,2
+M022,1022,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,57,WINNER,BANKRUPT,SURVIVED,BANKRUPT,30796779,0,4965449,0,2
+M023,1023,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,58,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,42035951,3
+M024,1024,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,51,BANKRUPT,BANKRUPT,WINNER,SURVIVED,0,0,43497152,3328199,2
+M025,1025,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,52,WINNER,SURVIVED,BANKRUPT,BANKRUPT,32789069,7726920,0,0,2
+M026,1026,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,61,BANKRUPT,SURVIVED,BANKRUPT,WINNER,0,5594153,0,35672487,2
+M027,1027,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,61,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,34223539,0,0,0,3
+M028,1028,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,62,BANKRUPT,WINNER,BANKRUPT,SURVIVED,0,38725699,0,7317458,2
+M029,1029,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,47,BANKRUPT,BANKRUPT,WINNER,SURVIVED,0,0,43748691,5591940,2
+M030,1030,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,59,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,34035244,0,0,0,3
+M031,1031,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,70,BANKRUPT,BANKRUPT,SURVIVED,WINNER,0,0,5143467,29596706,2
+M032,1032,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,64,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,41649671,0,0,3
+M033,1033,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,68,SURVIVED,BANKRUPT,WINNER,SURVIVED,3859713,0,30460967,4311040,1
+M034,1034,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,88,WINNER,SURVIVED,BANKRUPT,BANKRUPT,29547504,3535897,0,0,2
+M035,1035,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,65,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,35939636,0,0,3
+M036,1036,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,60,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,45611244,0,0,0,3
+M037,1037,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,55,WINNER,BANKRUPT,SURVIVED,SURVIVED,36435737,0,5102861,3592894,1
+M038,1038,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,50,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,37711929,0,3
+M039,1039,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,76,SURVIVED,WINNER,SURVIVED,BANKRUPT,5406874,36905326,4924095,0,1
+M040,1040,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,59,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,41825670,0,0,3
+M041,1041,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Naive Random AI,Seat 4,57,SURVIVED,BANKRUPT,SURVIVED,WINNER,2764821,0,2427519,36855540,1
+M042,1042,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,70,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,37568683,0,0,0,3
+M043,1043,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,59,WINNER,BANKRUPT,SURVIVED,SURVIVED,38562985,0,5079318,6039285,1
+M044,1044,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,72,WINNER,SURVIVED,BANKRUPT,BANKRUPT,32205244,1290605,0,0,2
+M045,1045,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,59,WINNER,SURVIVED,SURVIVED,BANKRUPT,31912963,6047937,3713499,0,1
+M046,1046,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,46,BANKRUPT,BANKRUPT,SURVIVED,WINNER,0,0,3938697,29786115,2
+M047,1047,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,74,SURVIVED,WINNER,BANKRUPT,BANKRUPT,5507462,39414011,0,0,2
+M048,1048,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,66,BANKRUPT,WINNER,BANKRUPT,SURVIVED,0,40280770,0,6500013,2
+M049,1049,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,57,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,30110172,0,0,0,3
+M050,1050,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,55,SURVIVED,WINNER,BANKRUPT,BANKRUPT,4732125,24960461,0,0,2
+M051,1051,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,71,WINNER,SURVIVED,BANKRUPT,BANKRUPT,27964637,5698639,0,0,2
+M052,1052,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,60,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,37783288,0,3
+M053,1053,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,58,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,37477429,0,3
+M054,1054,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,58,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,33997184,0,0,0,3
+M055,1055,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,54,BANKRUPT,SURVIVED,SURVIVED,WINNER,0,7088744,5350364,37442735,1
+M056,1056,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,54,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,35443182,0,0,0,3
+M057,1057,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,54,BANKRUPT,WINNER,BANKRUPT,SURVIVED,0,34289764,0,2986316,2
+M058,1058,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,74,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,33093922,0,0,3
+M059,1059,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,54,WINNER,SURVIVED,BANKRUPT,BANKRUPT,30534753,3643191,0,0,2
+M060,1060,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,58,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,36277342,0,0,3
+M061,1061,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,56,WINNER,SURVIVED,BANKRUPT,SURVIVED,29297250,2528137,0,5819489,1
+M062,1062,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,61,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,39420019,0,3
+M063,1063,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,68,SURVIVED,BANKRUPT,WINNER,BANKRUPT,5026619,0,30957211,0,2
+M064,1064,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,63,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,42798184,0,0,0,3
+M065,1065,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,58,WINNER,BANKRUPT,SURVIVED,BANKRUPT,38032768,0,4779333,0,2
+M066,1066,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,72,WINNER,SURVIVED,BANKRUPT,BANKRUPT,33449962,6530297,0,0,2
+M067,1067,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,58,SURVIVED,SURVIVED,SURVIVED,WINNER,3758781,4964790,5313685,45101883,0
+M068,1068,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,64,SURVIVED,SURVIVED,WINNER,BANKRUPT,5089917,7194214,39204742,0,1
+M069,1069,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Naive Random AI,Seat 4,56,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,42601866,3
+M070,1070,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,56,WINNER,BANKRUPT,BANKRUPT,SURVIVED,33578387,0,0,3527218,2
+M071,1071,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,54,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,5299759,35339440,0,2
+M072,1072,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,42,BANKRUPT,WINNER,SURVIVED,SURVIVED,0,35292816,4023131,6139238,1
+M073,1073,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,57,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,47926660,0,0,0,3
+M074,1074,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,73,WINNER,BANKRUPT,SURVIVED,BANKRUPT,34745403,0,6524434,0,2
+M075,1075,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,66,BANKRUPT,SURVIVED,BANKRUPT,WINNER,0,5150198,0,40111935,2
+M076,1076,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,62,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,37581580,0,0,3
+M077,1077,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,68,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,45736037,5176792,0,2
+M078,1078,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,58,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,27368461,3
+M079,1079,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,77,BANKRUPT,WINNER,BANKRUPT,SURVIVED,0,35315412,0,5602213,2
+M080,1080,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,77,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,37524210,0,3
+M081,1081,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,60,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,42888528,0,0,0,3
+M082,1082,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,65,WINNER,SURVIVED,BANKRUPT,BANKRUPT,39137475,2515258,0,0,2
+M083,1083,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,71,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,38190146,0,0,3
+M084,1084,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,51,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,38682923,0,0,3
+M085,1085,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,45,BANKRUPT,BANKRUPT,WINNER,SURVIVED,0,0,47038888,3147217,2
+M086,1086,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,74,WINNER,SURVIVED,BANKRUPT,BANKRUPT,32841700,5640338,0,0,2
+M087,1087,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,54,BANKRUPT,WINNER,SURVIVED,SURVIVED,0,40987018,4447021,5501669,1
+M088,1088,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,62,SURVIVED,BANKRUPT,WINNER,BANKRUPT,2751502,0,38768480,0,2
+M089,1089,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,57,WINNER,SURVIVED,BANKRUPT,BANKRUPT,41203907,4446210,0,0,2
+M090,1090,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,61,WINNER,SURVIVED,BANKRUPT,BANKRUPT,44073169,8372455,0,0,2
+M091,1091,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,68,SURVIVED,WINNER,BANKRUPT,BANKRUPT,4369289,34814024,0,0,2
+M092,1092,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,55,SURVIVED,BANKRUPT,WINNER,BANKRUPT,3862142,0,35268756,0,2
+M093,1093,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,77,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,35612502,0,0,0,3
+M094,1094,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,52,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,36687493,0,0,3
+M095,1095,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,63,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,36660359,0,0,3
+M096,1096,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,68,SURVIVED,SURVIVED,WINNER,BANKRUPT,4903508,5953091,32988454,0,1
+M097,1097,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Naive Random AI,Seat 4,76,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,37636159,3
+M098,1098,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,65,SURVIVED,BANKRUPT,BANKRUPT,WINNER,3623232,0,0,38623221,2
+M099,1099,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,67,SURVIVED,WINNER,BANKRUPT,BANKRUPT,3045347,29034087,0,0,2
+M100,1100,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,64,WINNER,BANKRUPT,BANKRUPT,SURVIVED,34300535,0,0,5189882,2
+M101,1101,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,51,SURVIVED,WINNER,BANKRUPT,BANKRUPT,2459241,37430102,0,0,2
+M102,1102,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,59,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,27001852,0,0,0,3
+M103,1103,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,72,WINNER,BANKRUPT,SURVIVED,BANKRUPT,30615543,0,8659987,0,2
+M104,1104,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,57,WINNER,SURVIVED,SURVIVED,BANKRUPT,38307022,7270423,7019150,0,1
+M105,1105,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,77,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,29646156,0,0,3
+M106,1106,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,52,WINNER,SURVIVED,BANKRUPT,BANKRUPT,37516987,6059621,0,0,2
+M107,1107,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,61,WINNER,BANKRUPT,SURVIVED,BANKRUPT,29129026,0,5544867,0,2
+M108,1108,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,60,WINNER,SURVIVED,SURVIVED,SURVIVED,35571924,1383074,5996226,5017806,0
+M109,1109,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Naive Random AI,Seat 4,76,BANKRUPT,SURVIVED,BANKRUPT,WINNER,0,4688238,0,39048530,2
+M110,1110,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,68,SURVIVED,SURVIVED,WINNER,BANKRUPT,2180757,8725049,34561434,0,1
+M111,1111,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,65,WINNER,SURVIVED,BANKRUPT,BANKRUPT,39382619,3577823,0,0,2
+M112,1112,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Seat 1,76,BANKRUPT,SURVIVED,SURVIVED,WINNER,0,5198932,4479791,37123285,1
+M113,1113,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,68,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,4816197,40468684,0,2
+M114,1114,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,48,BANKRUPT,SURVIVED,BANKRUPT,WINNER,0,3678045,0,26875398,2
+M115,1115,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,77,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,45427964,0,3
+M116,1116,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,67,WINNER,SURVIVED,SURVIVED,BANKRUPT,31943218,8384817,3893378,0,1
+M117,1117,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,60,WINNER,BANKRUPT,BANKRUPT,SURVIVED,37217900,0,0,5477273,2
+M118,1118,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,67,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,5825942,35849641,0,2
+M119,1119,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,67,SURVIVED,BANKRUPT,WINNER,SURVIVED,4516188,0,39106865,5545937,1
+M120,1120,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,68,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,39370850,0,3
+M121,1121,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,58,SURVIVED,WINNER,BANKRUPT,BANKRUPT,5488065,39440298,0,0,2
+M122,1122,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,51,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,35266800,0,0,0,3
+M123,1123,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,66,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,44191816,0,0,0,3
+M124,1124,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,68,SURVIVED,BANKRUPT,WINNER,BANKRUPT,7458566,0,34707319,0,2
+M125,1125,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,64,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,40125808,0,0,0,3
+M126,1126,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,43,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,43298614,0,0,3
+M127,1127,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,47,BANKRUPT,SURVIVED,BANKRUPT,WINNER,0,6295410,0,39590743,2
+M128,1128,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,43,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,26199224,0,3
+M129,1129,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,73,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,41966249,0,0,3
+M130,1130,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,54,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,32531544,5568907,0,2
+M131,1131,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,61,SURVIVED,BANKRUPT,WINNER,BANKRUPT,6381592,0,38658114,0,2
+M132,1132,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,74,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,40865350,0,0,3
+M133,1133,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,67,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,34915438,0,3
+M134,1134,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,58,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,36267084,0,0,3
+M135,1135,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,76,WINNER,BANKRUPT,SURVIVED,BANKRUPT,34671763,0,5190793,0,2
+M136,1136,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,44,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,39541139,0,0,3
+M137,1137,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,80,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,32298628,0,0,3
+M138,1138,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,87,SURVIVED,BANKRUPT,WINNER,BANKRUPT,5073360,0,24921809,0,2
+M139,1139,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,58,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,42486973,0,0,3
+M140,1140,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,77,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,5877147,43554174,0,2
+M141,1141,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,52,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,33438822,0,0,0,3
+M142,1142,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,48,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,33777216,0,0,0,3
+M143,1143,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,68,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,37456950,0,3
+M144,1144,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,68,SURVIVED,WINNER,BANKRUPT,BANKRUPT,3395228,32560137,0,0,2
+M145,1145,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,63,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,33788084,6752773,0,2
+M146,1146,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,56,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,34270748,0,3
+M147,1147,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,65,WINNER,BANKRUPT,SURVIVED,BANKRUPT,34748203,0,2947583,0,2
+M148,1148,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,53,WINNER,SURVIVED,BANKRUPT,SURVIVED,38919946,2761932,0,6895746,1
+M149,1149,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,56,SURVIVED,WINNER,BANKRUPT,BANKRUPT,5724323,33663143,0,0,2
+M150,1150,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,54,BANKRUPT,SURVIVED,BANKRUPT,WINNER,0,5169155,0,41233025,2
+M151,1151,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,60,WINNER,SURVIVED,SURVIVED,BANKRUPT,36205351,6011126,6060790,0,1
+M152,1152,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,61,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,34504340,0,3
+M153,1153,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,62,SURVIVED,BANKRUPT,WINNER,BANKRUPT,4513632,0,37908383,0,2
+M154,1154,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,52,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,37747317,0,0,3
+M155,1155,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,56,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,40576494,0,0,0,3
+M156,1156,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,56,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,33552006,0,0,3
+M157,1157,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,65,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,36563953,0,0,0,3
+M158,1158,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,80,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,29168138,0,0,0,3
+M159,1159,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,62,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,6494474,33897587,0,2
+M160,1160,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Seat 1,54,BANKRUPT,SURVIVED,SURVIVED,WINNER,0,3493703,2382058,42573670,1
+M161,1161,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Naive Random AI,Seat 4,59,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,34483877,3
+M162,1162,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,45,SURVIVED,WINNER,SURVIVED,SURVIVED,2649437,43094253,5254658,6549751,0
+M163,1163,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,70,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,31997208,0,3
+M164,1164,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,81,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,45273796,0,0,3
+M165,1165,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Naive Random AI,Seat 4,57,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,20443076,3
+M166,1166,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,59,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,37572333,0,0,0,3
+M167,1167,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,57,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,35503150,3
+M168,1168,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,55,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,40647356,0,0,3
+M169,1169,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,62,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,40781813,0,0,3
+M170,1170,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,71,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,26715543,0,0,3
+M171,1171,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,55,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,33691868,0,0,0,3
+M172,1172,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,82,WINNER,BANKRUPT,SURVIVED,BANKRUPT,37170524,0,6018840,0,2
+M173,1173,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,46,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,37144469,0,0,0,3
+M174,1174,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,69,WINNER,BANKRUPT,SURVIVED,BANKRUPT,40378842,0,5735099,0,2
+M175,1175,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,62,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,36777058,2260100,0,2
+M176,1176,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,54,SURVIVED,SURVIVED,WINNER,BANKRUPT,5146415,3726036,39599772,0,1
+M177,1177,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,65,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,42653166,0,0,0,3
+M178,1178,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,69,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,37522676,0,0,3
+M179,1179,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,67,WINNER,BANKRUPT,SURVIVED,BANKRUPT,41022959,0,4038844,0,2
+M180,1180,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,59,WINNER,BANKRUPT,SURVIVED,BANKRUPT,36064282,0,4086704,0,2
+M181,1181,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,70,WINNER,SURVIVED,SURVIVED,BANKRUPT,33677102,6677477,4249540,0,1
+M182,1182,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,65,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,37248868,0,0,3
+M183,1183,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,54,WINNER,SURVIVED,BANKRUPT,BANKRUPT,36410496,5300465,0,0,2
+M184,1184,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,61,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,30457820,0,0,3
+M185,1185,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,75,WINNER,BANKRUPT,SURVIVED,BANKRUPT,36894647,0,3608546,0,2
+M186,1186,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,74,BANKRUPT,WINNER,BANKRUPT,SURVIVED,0,39278254,0,2999745,2
+M187,1187,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,53,SURVIVED,BANKRUPT,WINNER,BANKRUPT,4466407,0,37837881,0,2
+M188,1188,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,66,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,40775803,0,0,3
+M189,1189,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,66,SURVIVED,SURVIVED,WINNER,BANKRUPT,6820118,4990189,33081622,0,1
+M190,1190,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,61,SURVIVED,WINNER,BANKRUPT,BANKRUPT,4696529,24898030,0,0,2
+M191,1191,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,57,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,37913916,0,0,0,3
+M192,1192,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,58,SURVIVED,WINNER,BANKRUPT,BANKRUPT,3830685,40601192,0,0,2
+M193,1193,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Naive Random AI,Seat 4,54,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,39702301,3
+M194,1194,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,51,WINNER,BANKRUPT,BANKRUPT,SURVIVED,48923428,0,0,4476471,2
+M195,1195,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,59,SURVIVED,BANKRUPT,WINNER,SURVIVED,6514598,0,34615828,6982391,1
+M196,1196,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,64,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,35967209,0,3
+M197,1197,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,60,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,41934164,0,3
+M198,1198,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,63,BANKRUPT,BANKRUPT,SURVIVED,WINNER,0,0,5448463,38934508,2
+M199,1199,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,63,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,5579808,35967544,0,2
+M200,1200,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,61,BANKRUPT,BANKRUPT,WINNER,SURVIVED,0,0,31463982,5246640,2
+M201,1201,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,48,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,37776011,0,0,3
+M202,1202,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,59,SURVIVED,WINNER,BANKRUPT,BANKRUPT,5361877,31780272,0,0,2
+M203,1203,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,45,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,4273702,31793392,0,2
+M204,1204,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,47,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,39955924,0,0,3
+M205,1205,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,74,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,32913718,0,3
+M206,1206,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,61,WINNER,BANKRUPT,SURVIVED,BANKRUPT,35114964,0,3811652,0,2
+M207,1207,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,67,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,41045636,0,0,0,3
+M208,1208,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,55,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,36701450,0,0,0,3
+M209,1209,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,72,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,5833554,40269638,0,2
+M210,1210,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,72,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,42596803,0,0,3
+M211,1211,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,70,SURVIVED,WINNER,BANKRUPT,BANKRUPT,5017406,34778826,0,0,2
+M212,1212,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,62,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,34095169,0,0,0,3
+M213,1213,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,46,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,35242254,0,0,3
+M214,1214,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,64,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,3919095,35632490,0,2
+M215,1215,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,60,SURVIVED,BANKRUPT,WINNER,SURVIVED,6835285,0,34882532,6834950,1
+M216,1216,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,42,WINNER,BANKRUPT,SURVIVED,BANKRUPT,42565351,0,6746109,0,2
+M217,1217,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Naive Random AI,Seat 4,69,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,27446368,3
+M218,1218,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,70,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,4724821,25117981,0,2
+M219,1219,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,72,SURVIVED,BANKRUPT,BANKRUPT,WINNER,6966259,0,0,27929695,2
+M220,1220,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,63,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,42748660,0,3
+M221,1221,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Naive Random AI,Seat 4,71,BANKRUPT,BANKRUPT,SURVIVED,WINNER,0,0,6054091,24587362,2
+M222,1222,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,67,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,35518532,6293786,0,2
+M223,1223,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,64,SURVIVED,WINNER,BANKRUPT,BANKRUPT,4770177,39384067,0,0,2
+M224,1224,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,60,WINNER,BANKRUPT,BANKRUPT,SURVIVED,36390752,0,0,3967164,2
+M225,1225,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,49,SURVIVED,WINNER,BANKRUPT,BANKRUPT,5651780,32872863,0,0,2
+M226,1226,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,60,BANKRUPT,WINNER,SURVIVED,SURVIVED,0,37791382,1672173,2007976,1
+M227,1227,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,59,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,38545535,0,0,3
+M228,1228,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Seat 1,67,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,29339084,3
+M229,1229,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,67,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,35397186,0,0,0,3
+M230,1230,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,54,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,33581516,0,0,3
+M231,1231,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,68,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,37733026,0,0,0,3
+M232,1232,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,62,SURVIVED,WINNER,SURVIVED,BANKRUPT,5165243,40676439,4654350,0,1
+M233,1233,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,62,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,41621768,4302620,0,2
+M234,1234,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,66,WINNER,BANKRUPT,BANKRUPT,SURVIVED,34233329,0,0,4176198,2
+M235,1235,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,61,WINNER,SURVIVED,BANKRUPT,BANKRUPT,38818727,6591272,0,0,2
+M236,1236,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Seat 1,62,BANKRUPT,SURVIVED,BANKRUPT,WINNER,0,2550244,0,39341508,2
+M237,1237,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,81,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,36989009,0,0,3
+M238,1238,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,48,SURVIVED,SURVIVED,BANKRUPT,WINNER,5054479,4795481,0,36108010,1
+M239,1239,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,69,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,42702236,3
+M240,1240,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Seat 1,67,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,35901238,3
+M241,1241,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Naive Random AI,Seat 4,71,BANKRUPT,SURVIVED,SURVIVED,WINNER,0,2559255,3725915,33779174,1
+M242,1242,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,61,WINNER,BANKRUPT,SURVIVED,SURVIVED,38780305,0,4498930,3440946,1
+M243,1243,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,69,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,35440444,0,0,0,3
+M244,1244,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,62,SURVIVED,BANKRUPT,WINNER,BANKRUPT,5626601,0,36674949,0,2
+M245,1245,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,62,WINNER,SURVIVED,BANKRUPT,BANKRUPT,41137130,5027054,0,0,2
+M246,1246,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,68,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,38951003,0,0,0,3
+M247,1247,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,78,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,38342360,3
+M248,1248,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,67,WINNER,SURVIVED,BANKRUPT,BANKRUPT,41457455,4895426,0,0,2
+M249,1249,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,56,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,34366344,4103239,0,2
+M250,1250,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,54,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,37930123,0,3
+M251,1251,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,56,WINNER,BANKRUPT,SURVIVED,BANKRUPT,37376837,0,4561988,0,2
+M252,1252,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,61,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,39002254,3987151,0,2
+M253,1253,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,67,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,43552885,0,0,3
+M254,1254,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,64,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,32980569,0,3
+M255,1255,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,57,WINNER,SURVIVED,BANKRUPT,BANKRUPT,35382816,3907664,0,0,2
+M256,1256,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Seat 1,54,SURVIVED,BANKRUPT,BANKRUPT,WINNER,5031610,0,0,35504612,2
+M257,1257,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,63,WINNER,BANKRUPT,SURVIVED,BANKRUPT,41838743,0,4445470,0,2
+M258,1258,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,52,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,34704983,0,0,0,3
+M259,1259,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,68,BANKRUPT,WINNER,BANKRUPT,SURVIVED,0,39545466,0,5577959,2
+M260,1260,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,57,SURVIVED,WINNER,BANKRUPT,BANKRUPT,5927853,40896045,0,0,2
+M261,1261,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,56,SURVIVED,WINNER,BANKRUPT,BANKRUPT,4737644,45591808,0,0,2
+M262,1262,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,56,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,28827109,0,0,0,3
+M263,1263,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,73,WINNER,SURVIVED,BANKRUPT,BANKRUPT,41614721,4114549,0,0,2
+M264,1264,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,61,WINNER,BANKRUPT,SURVIVED,BANKRUPT,30987792,0,4933428,0,2
+M265,1265,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,71,SURVIVED,WINNER,SURVIVED,BANKRUPT,3986092,40446958,5495585,0,1
+M266,1266,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,66,SURVIVED,WINNER,BANKRUPT,SURVIVED,4073536,34904191,0,2029841,1
+M267,1267,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,57,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,6545228,32318005,0,2
+M268,1268,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,55,BANKRUPT,BANKRUPT,WINNER,SURVIVED,0,0,39380854,5404152,2
+M269,1269,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,67,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,31265507,0,0,3
+M270,1270,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,82,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,31029109,0,0,0,3
+M271,1271,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,63,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,35786050,0,0,0,3
+M272,1272,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,52,SURVIVED,WINNER,BANKRUPT,BANKRUPT,4244685,36604884,0,0,2
+M273,1273,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,56,SURVIVED,BANKRUPT,WINNER,BANKRUPT,6205835,0,35772684,0,2
+M274,1274,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,51,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,2660811,39227742,0,2
+M275,1275,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,50,BANKRUPT,WINNER,SURVIVED,SURVIVED,0,37923917,5466982,3306966,1
+M276,1276,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,69,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,28769928,0,0,0,3
+M277,1277,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,64,BANKRUPT,SURVIVED,WINNER,SURVIVED,0,4738713,35964509,3033155,1
+M278,1278,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,54,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,43784609,0,0,3
+M279,1279,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,71,SURVIVED,BANKRUPT,WINNER,BANKRUPT,5913126,0,40729316,0,2
+M280,1280,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,68,BANKRUPT,BANKRUPT,WINNER,SURVIVED,0,0,35044897,4871405,2
+M281,1281,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,50,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,36096369,0,0,0,3
+M282,1282,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,71,SURVIVED,SURVIVED,WINNER,BANKRUPT,3808939,6334711,36912135,0,1
+M283,1283,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,50,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,31517062,3
+M284,1284,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,69,WINNER,BANKRUPT,SURVIVED,BANKRUPT,38986358,0,4952646,0,2
+M285,1285,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,59,BANKRUPT,WINNER,BANKRUPT,SURVIVED,0,37447555,0,6120444,2
+M286,1286,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,73,SURVIVED,BANKRUPT,WINNER,BANKRUPT,7085526,0,38173819,0,2
+M287,1287,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,60,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,37158116,0,0,3
+M288,1288,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,66,BANKRUPT,WINNER,BANKRUPT,SURVIVED,0,38831301,0,6761979,2
+M289,1289,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,78,WINNER,BANKRUPT,SURVIVED,BANKRUPT,35576354,0,8033827,0,2
+M290,1290,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,71,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,36046296,0,0,3
+M291,1291,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,73,WINNER,BANKRUPT,SURVIVED,BANKRUPT,44085417,0,4109556,0,2
+M292,1292,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,75,WINNER,BANKRUPT,SURVIVED,BANKRUPT,41337872,0,8352838,0,2
+M293,1293,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,58,WINNER,BANKRUPT,SURVIVED,BANKRUPT,34909579,0,1760006,0,2
+M294,1294,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,66,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,38188630,0,3
+M295,1295,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,57,BANKRUPT,WINNER,SURVIVED,SURVIVED,0,36131671,2833168,6597667,1
+M296,1296,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Seat 1,58,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,50423220,3
+M297,1297,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,60,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,33081715,0,0,0,3
+M298,1298,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,58,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,30146175,0,3
+M299,1299,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,65,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,34610451,0,0,3
+M300,1300,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,71,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,35263636,0,3
+M301,1301,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,73,SURVIVED,BANKRUPT,WINNER,SURVIVED,5936183,0,36628685,7170348,1
+M302,1302,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,69,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,49757957,0,0,3
+M303,1303,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,58,SURVIVED,SURVIVED,BANKRUPT,WINNER,4914924,7153063,0,29554079,1
+M304,1304,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,72,WINNER,BANKRUPT,BANKRUPT,SURVIVED,38476862,0,0,3467683,2
+M305,1305,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,51,WINNER,BANKRUPT,SURVIVED,BANKRUPT,33473797,0,1372770,0,2
+M306,1306,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,58,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,39301503,0,0,0,3
+M307,1307,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,58,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,42747407,0,0,0,3
+M308,1308,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,75,WINNER,SURVIVED,BANKRUPT,BANKRUPT,42240400,5145961,0,0,2
+M309,1309,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,43,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,33333361,0,0,0,3
+M310,1310,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,60,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,32477595,0,3
+M311,1311,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,60,WINNER,BANKRUPT,SURVIVED,BANKRUPT,43745303,0,2331335,0,2
+M312,1312,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,76,BANKRUPT,WINNER,BANKRUPT,SURVIVED,0,40481268,0,5202325,2
+M313,1313,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,56,WINNER,BANKRUPT,SURVIVED,BANKRUPT,32567223,0,2360673,0,2
+M314,1314,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,75,BANKRUPT,SURVIVED,BANKRUPT,WINNER,0,7106417,0,30171719,2
+M315,1315,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,57,SURVIVED,SURVIVED,WINNER,BANKRUPT,5449717,4350736,27865963,0,1
+M316,1316,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,56,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,45279654,3915032,0,2
+M317,1317,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,60,SURVIVED,SURVIVED,WINNER,BANKRUPT,3082233,5681644,37018183,0,1
+M318,1318,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,56,SURVIVED,SURVIVED,WINNER,BANKRUPT,2843016,6906815,29275054,0,1
+M319,1319,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,66,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,26807543,5860817,0,2
+M320,1320,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,69,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,41426526,0,0,3
+M321,1321,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,60,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,43628016,0,0,3
+M322,1322,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,80,SURVIVED,BANKRUPT,WINNER,BANKRUPT,4317565,0,34470477,0,2
+M323,1323,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,63,BANKRUPT,SURVIVED,BANKRUPT,WINNER,0,4083479,0,33692584,2
+M324,1324,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,57,SURVIVED,WINNER,BANKRUPT,BANKRUPT,7373634,39973468,0,0,2
+M325,1325,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Naive Random AI,Seat 4,58,SURVIVED,SURVIVED,BANKRUPT,WINNER,1117312,2483303,0,38765430,1
+M326,1326,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,45,BANKRUPT,BANKRUPT,SURVIVED,WINNER,0,0,5239490,31704963,2
+M327,1327,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,62,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,36787353,0,3
+M328,1328,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,62,SURVIVED,BANKRUPT,WINNER,BANKRUPT,4208367,0,34577214,0,2
+M329,1329,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,56,BANKRUPT,WINNER,BANKRUPT,SURVIVED,0,38677515,0,6007789,2
+M330,1330,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,52,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,36267671,0,0,3
+M331,1331,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,63,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,37326970,0,0,0,3
+M332,1332,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,63,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,34690843,5218545,0,2
+M333,1333,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,66,BANKRUPT,WINNER,BANKRUPT,SURVIVED,0,37134664,0,5558909,2
+M334,1334,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,69,SURVIVED,BANKRUPT,WINNER,BANKRUPT,2023589,0,40745587,0,2
+M335,1335,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,64,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,3132562,40111118,0,2
+M336,1336,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,58,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,35321151,0,0,0,3
+M337,1337,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,57,WINNER,SURVIVED,BANKRUPT,BANKRUPT,37860794,3621970,0,0,2
+M338,1338,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,69,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,35875118,0,0,0,3
+M339,1339,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,59,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,39887940,0,0,0,3
+M340,1340,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,59,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,40766795,0,0,0,3
+M341,1341,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,69,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,30493382,0,0,3
+M342,1342,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,70,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,29920838,0,0,0,3
+M343,1343,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,71,BANKRUPT,SURVIVED,WINNER,BANKRUPT,0,7842535,40436754,0,2
+M344,1344,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,44,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,41286045,0,0,0,3
+M345,1345,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,79,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,35136357,0,3
+M346,1346,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,61,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,31151809,0,0,0,3
+M347,1347,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,64,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,42211297,0,3
+M348,1348,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,67,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,50638851,0,3
+M349,1349,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,62,SURVIVED,WINNER,BANKRUPT,BANKRUPT,2353989,37269369,0,0,2
+M350,1350,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,42,WINNER,BANKRUPT,SURVIVED,BANKRUPT,34101032,0,7236573,0,2
+M351,1351,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,64,SURVIVED,SURVIVED,WINNER,BANKRUPT,5069125,7531170,35282300,0,1
+M352,1352,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,72,WINNER,BANKRUPT,SURVIVED,BANKRUPT,37081881,0,5370071,0,2
+M353,1353,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,52,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,34330789,0,3
+M354,1354,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,50,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,36071397,5385603,0,2
+M355,1355,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,53,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,45721305,0,3
+M356,1356,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Seat 1,64,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,36760080,3
+M357,1357,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,68,WINNER,BANKRUPT,SURVIVED,BANKRUPT,32769823,0,5045216,0,2
+M358,1358,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,56,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,43514059,0,3
+M359,1359,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Naive Random AI,Seat 2,53,SURVIVED,SURVIVED,BANKRUPT,WINNER,4894748,5293973,0,38276715,1
+M360,1360,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,57,SURVIVED,BANKRUPT,WINNER,BANKRUPT,3456735,0,33949421,0,2
+M361,1361,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,66,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,35852694,0,0,3
+M362,1362,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,68,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,38646516,0,0,0,3
+M363,1363,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,43,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,37613740,0,0,0,3
+M364,1364,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,80,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,42463710,5433019,0,2
+M365,1365,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,53,SURVIVED,WINNER,BANKRUPT,BANKRUPT,5516330,39828874,0,0,2
+M366,1366,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,59,SURVIVED,SURVIVED,BANKRUPT,WINNER,5275113,7064493,0,32642265,1
+M367,1367,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,53,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,39617146,0,0,3
+M368,1368,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,65,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,41129772,0,0,3
+M369,1369,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,66,WINNER,BANKRUPT,SURVIVED,BANKRUPT,33945102,0,5448288,0,2
+M370,1370,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,52,WINNER,SURVIVED,BANKRUPT,BANKRUPT,35373565,5554198,0,0,2
+M371,1371,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,59,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,47606234,0,3
+M372,1372,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,46,BANKRUPT,WINNER,BANKRUPT,SURVIVED,0,34036293,0,3393330,2
+M373,1373,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,56,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,33606507,0,0,3
+M374,1374,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,51,WINNER,BANKRUPT,SURVIVED,SURVIVED,39887159,0,3979357,5045360,1
+M375,1375,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,58,SURVIVED,BANKRUPT,WINNER,BANKRUPT,3763679,0,44025256,0,2
+M376,1376,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Static Threshold AI,Seat 3,69,BANKRUPT,WINNER,SURVIVED,BANKRUPT,0,28093098,1838793,0,2
+M377,1377,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,70,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,34160659,0,3
+M378,1378,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Seat 1,48,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,41205808,0,0,3
+M379,1379,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,63,SURVIVED,BANKRUPT,WINNER,BANKRUPT,5177356,0,40142926,0,2
+M380,1380,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Greedy AI,Seat 4,51,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,29158246,0,3
+M381,1381,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Greedy AI,Seat 3,74,SURVIVED,BANKRUPT,WINNER,BANKRUPT,2644249,0,30999929,0,2
+M382,1382,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,53,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,45859756,0,3
+M383,1383,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,65,SURVIVED,WINNER,BANKRUPT,BANKRUPT,6248111,37382753,0,0,2
+M384,1384,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,57,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,39340810,0,0,0,3
+M385,1385,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Static Threshold AI,Seat 2,49,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,31571224,0,0,3
+M386,1386,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Naive Random AI,Seat 3,67,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,30392351,3
+M387,1387,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Proposed Heuristic AI,Seat 3,60,WINNER,SURVIVED,BANKRUPT,BANKRUPT,35854194,4007006,0,0,2
+M388,1388,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Seat 1,46,BANKRUPT,BANKRUPT,BANKRUPT,WINNER,0,0,0,33669819,3
+M389,1389,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,55,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,37226479,0,0,0,3
+M390,1390,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,62,BANKRUPT,BANKRUPT,WINNER,BANKRUPT,0,0,38200826,0,3
+M391,1391,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,56,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,38852500,0,0,3
+M392,1392,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,49,WINNER,BANKRUPT,BANKRUPT,SURVIVED,28301428,0,0,1296640,2
+M393,1393,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Naive Random AI,Seat 4,58,BANKRUPT,BANKRUPT,SURVIVED,WINNER,0,0,3670052,40051920,2
+M394,1394,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Proposed Heuristic AI,Seat 4,56,WINNER,SURVIVED,SURVIVED,SURVIVED,37730193,6019944,3770521,5247078,0
+M395,1395,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Static Threshold AI,Seat 4,70,BANKRUPT,WINNER,BANKRUPT,BANKRUPT,0,30928267,0,0,3
+M396,1396,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,62,WINNER,BANKRUPT,BANKRUPT,SURVIVED,33430845,0,0,3038265,2
+M397,1397,0,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Seat 1,49,WINNER,SURVIVED,BANKRUPT,BANKRUPT,31142081,4890043,0,0,2
+M398,1398,1,Static Threshold AI,Greedy AI,Naive Random AI,Proposed Heuristic AI,Greedy AI,Seat 2,49,SURVIVED,BANKRUPT,WINNER,BANKRUPT,3973909,0,40159374,0,2
+M399,1399,2,Greedy AI,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Seat 1,65,SURVIVED,SURVIVED,WINNER,BANKRUPT,4004238,7334535,45018663,0,1
+M400,1400,3,Naive Random AI,Proposed Heuristic AI,Static Threshold AI,Greedy AI,Proposed Heuristic AI,Seat 2,62,WINNER,BANKRUPT,BANKRUPT,BANKRUPT,25391556,0,0,0,3

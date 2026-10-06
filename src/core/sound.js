@@ -5,6 +5,16 @@ class SoundEngine {
   constructor() {
     this.ctx = null;
     this.enabled = true;
+    this.bgmEnabled = true;
+    this.bgmPlaying = false;
+    this.bgmVolume = 0.15; // Pleasant ambient volume
+    this.bgmGainNode = null;
+    this.bgmInterval = null;
+    this.bgmNextNoteTime = 0;
+    this.bgmStep = 0;
+    this.bpm = 104;
+    this.stepDuration = 60 / this.bpm / 4; // 16th note in seconds (~0.144s)
+    this._userGestureAttached = false;
   }
 
   init() {
@@ -15,13 +25,368 @@ class SoundEngine {
       }
     }
     if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume();
+      this.ctx.resume().catch(() => {});
+    }
+    if (this.ctx && !this.bgmGainNode) {
+      this.bgmGainNode = this.ctx.createGain();
+      const currentGain = this.enabled && this.bgmEnabled ? this.bgmVolume : 0.0001;
+      this.bgmGainNode.gain.setValueAtTime(currentGain, this.ctx.currentTime);
+      this.bgmGainNode.connect(this.ctx.destination);
     }
   }
 
+  // Toggle master sound on/off
   toggle() {
     this.enabled = !this.enabled;
+    if (this.bgmGainNode && this.ctx) {
+      const targetGain = this.enabled && this.bgmEnabled ? this.bgmVolume : 0.0001;
+      this.bgmGainNode.gain.setValueAtTime(this.bgmGainNode.gain.value, this.ctx.currentTime);
+      this.bgmGainNode.gain.linearRampToValueAtTime(targetGain, this.ctx.currentTime + 0.15);
+    }
     return this.enabled;
+  }
+
+  // Start background music loop (with auto-resume on first user gesture)
+  startBGM() {
+    this.init();
+    
+    // Auto-bind user gesture if AudioContext is blocked/suspended
+    if (!this._userGestureAttached && typeof window !== 'undefined') {
+      this._userGestureAttached = true;
+      const resumeAudioAndPlayBGM = () => {
+        this.init();
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+        if (this.enabled && this.bgmEnabled && !this.bgmPlaying) {
+          this._startBGMScheduler();
+        }
+      };
+      ['click', 'touchstart', 'pointerdown', 'keydown'].forEach(evt => {
+        window.addEventListener(evt, resumeAudioAndPlayBGM, { once: true, passive: true });
+      });
+    }
+
+    if (this.bgmPlaying) return;
+    this._startBGMScheduler();
+  }
+
+  _startBGMScheduler() {
+    if (!this.ctx) return;
+    this.bgmPlaying = true;
+    if (this.bgmGainNode) {
+      const targetGain = this.enabled && this.bgmEnabled ? this.bgmVolume : 0.0001;
+      this.bgmGainNode.gain.setValueAtTime(0.0001, this.ctx.currentTime);
+      this.bgmGainNode.gain.linearRampToValueAtTime(targetGain, this.ctx.currentTime + 0.4);
+    }
+
+    this.bgmNextNoteTime = this.ctx.currentTime + 0.05;
+    this.bgmStep = 0;
+
+    if (this.bgmInterval) clearInterval(this.bgmInterval);
+    this.bgmInterval = setInterval(() => {
+      this._schedulerBGM();
+    }, 30);
+  }
+
+  stopBGM() {
+    if (!this.bgmPlaying) return;
+    this.bgmPlaying = false;
+    if (this.bgmInterval) {
+      clearInterval(this.bgmInterval);
+      this.bgmInterval = null;
+    }
+    if (this.bgmGainNode && this.ctx) {
+      this.bgmGainNode.gain.setValueAtTime(this.bgmGainNode.gain.value, this.ctx.currentTime);
+      this.bgmGainNode.gain.linearRampToValueAtTime(0.0001, this.ctx.currentTime + 0.3);
+    }
+  }
+
+  toggleBGM() {
+    this.bgmEnabled = !this.bgmEnabled;
+    if (this.bgmGainNode && this.ctx) {
+      const targetGain = this.enabled && this.bgmEnabled ? this.bgmVolume : 0.0001;
+      this.bgmGainNode.gain.setValueAtTime(this.bgmGainNode.gain.value, this.ctx.currentTime);
+      this.bgmGainNode.gain.linearRampToValueAtTime(targetGain, this.ctx.currentTime + 0.15);
+    }
+    return this.bgmEnabled;
+  }
+
+  setBGMVolume(vol) {
+    this.bgmVolume = Math.max(0, Math.min(1, vol));
+    if (this.bgmGainNode && this.ctx && this.enabled && this.bgmEnabled) {
+      this.bgmGainNode.gain.setValueAtTime(this.bgmGainNode.gain.value, this.ctx.currentTime);
+      this.bgmGainNode.gain.linearRampToValueAtTime(this.bgmVolume, this.ctx.currentTime + 0.05);
+    }
+  }
+
+  _schedulerBGM() {
+    if (!this.ctx || !this.bgmPlaying) return;
+    // Lookahead: schedule notes up to 0.15 seconds in advance
+    while (this.bgmNextNoteTime < this.ctx.currentTime + 0.15) {
+      this._playBGMStep(this.bgmStep, this.bgmNextNoteTime);
+      this.bgmNextNoteTime += this.stepDuration;
+      this.bgmStep = (this.bgmStep + 1) % 64; // 64 steps = 4 bars
+    }
+  }
+
+  // Sintesis Instrumen Gamelan / Metallophone Bell Chime
+  _playGamelanBell(freq, time, duration = 0.45, vol = 0.22) {
+    if (!this.ctx || !this.bgmGainNode) return;
+    try {
+      // Fundamental oscillator
+      const osc1 = this.ctx.createOscillator();
+      const oscGain1 = this.ctx.createGain();
+      osc1.type = 'triangle';
+      osc1.frequency.setValueAtTime(freq, time);
+
+      oscGain1.gain.setValueAtTime(0.0001, time);
+      oscGain1.gain.linearRampToValueAtTime(vol, time + 0.006);
+      oscGain1.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+
+      // Metallic overtone oscillator (harmonic shimmer 2.756x)
+      const osc2 = this.ctx.createOscillator();
+      const oscGain2 = this.ctx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(freq * 2.756, time);
+
+      oscGain2.gain.setValueAtTime(0.0001, time);
+      oscGain2.gain.linearRampToValueAtTime(vol * 0.45, time + 0.004);
+      oscGain2.gain.exponentialRampToValueAtTime(0.0001, time + duration * 0.6);
+
+      // Lowpass / Bandpass tone filter
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(3200, time);
+
+      osc1.connect(oscGain1);
+      osc2.connect(oscGain2);
+      oscGain1.connect(filter);
+      oscGain2.connect(filter);
+      filter.connect(this.bgmGainNode);
+
+      osc1.start(time);
+      osc2.start(time);
+      osc1.stop(time + duration);
+      osc2.stop(time + duration);
+    } catch (e) {}
+  }
+
+  // Sintesis Ambient Pad Chords (Suasana Nusantara Mewah & Tenang)
+  _playWarmPad(freqs, time, duration = 2.2, vol = 0.09) {
+    if (!this.ctx || !this.bgmGainNode) return;
+    try {
+      const padGain = this.ctx.createGain();
+      padGain.gain.setValueAtTime(0.0001, time);
+      padGain.gain.linearRampToValueAtTime(vol, time + 0.35); // Slow gentle attack
+      padGain.gain.setValueAtTime(vol, time + duration - 0.4);
+      padGain.gain.linearRampToValueAtTime(0.0001, time + duration); // Smooth release
+
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(950, time);
+
+      padGain.connect(filter);
+      filter.connect(this.bgmGainNode);
+
+      freqs.forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        osc.type = 'sine';
+        const detune = (idx % 2 === 0 ? 1 : -1) * 3; // Subtle stereo-like detune
+        osc.frequency.setValueAtTime(freq, time);
+        osc.detune.setValueAtTime(detune, time);
+        osc.connect(padGain);
+        osc.start(time);
+        osc.stop(time + duration);
+      });
+    } catch (e) {}
+  }
+
+  // Sintesis Perkusi Tradisional (Kendang / Gong Ageng / Kethuk)
+  _playKendang(type, time, vol = 0.25) {
+    if (!this.ctx || !this.bgmGainNode) return;
+    try {
+      if (type === 'gong') {
+        // Resonant Grand Gong Ageng
+        const osc = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(110, time);
+        osc.frequency.exponentialRampToValueAtTime(82.4, time + 1.8);
+
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(164.8, time);
+        osc2.frequency.exponentialRampToValueAtTime(123.4, time + 1.2);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(450, time);
+
+        gain.gain.setValueAtTime(0.0001, time);
+        gain.gain.linearRampToValueAtTime(vol * 1.2, time + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + 2.0);
+
+        osc.connect(gain);
+        osc2.connect(gain);
+        gain.connect(filter);
+        filter.connect(this.bgmGainNode);
+
+        osc.start(time);
+        osc2.start(time);
+        osc.stop(time + 2.0);
+        osc2.stop(time + 2.0);
+      } else if (type === 'ageng') {
+        // Low warm kendang thump
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(120, time);
+        osc.frequency.exponentialRampToValueAtTime(55, time + 0.22);
+
+        gain.gain.setValueAtTime(0.0001, time);
+        gain.gain.linearRampToValueAtTime(vol * 0.9, time + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.24);
+
+        osc.connect(gain);
+        gain.connect(this.bgmGainNode);
+
+        osc.start(time);
+        osc.stop(time + 0.24);
+      } else if (type === 'kethuk') {
+        // Syncopated light woody percussion
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(380, time);
+        osc.frequency.exponentialRampToValueAtTime(150, time + 0.05);
+
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(850, time);
+        filter.Q.setValueAtTime(3.0, time);
+
+        gain.gain.setValueAtTime(0.0001, time);
+        gain.gain.linearRampToValueAtTime(vol * 0.45, time + 0.004);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.06);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.bgmGainNode);
+
+        osc.start(time);
+        osc.stop(time + 0.06);
+      }
+    } catch (e) {}
+  }
+
+  // Sintesis Bassline Lembut Penyeimbang Ritme
+  _playBass(freq, time, duration = 0.32, vol = 0.2) {
+    if (!this.ctx || !this.bgmGainNode) return;
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      const filter = this.ctx.createBiquadFilter();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, time);
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(320, time);
+
+      gain.gain.setValueAtTime(0.0001, time);
+      gain.gain.linearRampToValueAtTime(vol, time + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.bgmGainNode);
+
+      osc.start(time);
+      osc.stop(time + duration);
+    } catch (e) {}
+  }
+
+  // Scheduler 64-Step Loop Musik Latar (Monopoli Nusantara Theme)
+  _playBGMStep(step, time) {
+    // 1. Pad Chords (Harmoni Tiap Bar - 16 Steps per Bar)
+    if (step === 0) {
+      // Bar 1: C Major (C4, E4, G4, B4)
+      this._playWarmPad([261.63, 329.63, 392.00, 493.88], time, 2.3, 0.09);
+      this._playKendang('gong', time, 0.3);
+    } else if (step === 16) {
+      // Bar 2: A Minor (A3, C4, E4, G4)
+      this._playWarmPad([220.00, 261.63, 329.63, 392.00], time, 2.3, 0.09);
+    } else if (step === 32) {
+      // Bar 3: F Major (F3, A3, C4, E4)
+      this._playWarmPad([174.61, 220.00, 261.63, 329.63], time, 2.3, 0.09);
+      this._playKendang('gong', time, 0.28);
+    } else if (step === 48) {
+      // Bar 4: G Dominant (G3, B3, D4, F4)
+      this._playWarmPad([196.00, 246.94, 293.66, 349.23], time, 2.3, 0.09);
+    }
+
+    // 2. Bassline Groove
+    if (step === 0 || step === 8) this._playBass(130.81, time, 0.35, 0.22); // C3
+    else if (step === 16 || step === 24) this._playBass(110.00, time, 0.35, 0.22); // A2
+    else if (step === 32 || step === 40) this._playBass(87.31, time, 0.35, 0.22); // F2
+    else if (step === 48 || step === 56) this._playBass(98.00, time, 0.35, 0.22); // G2
+
+    // 3. Kendang & Perkusi Ritme
+    if ([0, 16, 32, 48].includes(step)) {
+      this._playKendang('ageng', time, 0.26);
+    } else if ([6, 12, 22, 28, 38, 44, 54, 60].includes(step)) {
+      this._playKendang('kethuk', time, 0.18);
+    }
+
+    // 4. Melodi Gamelan Pentatonik Nusantara (Slendro & Pelog Balinese/Javanese chime)
+    const melodyMap = {
+      // Bar 1
+      0: 783.99,  // G5
+      2: 659.25,  // E5
+      4: 587.33,  // D5
+      6: 523.25,  // C5
+      8: 659.25,  // E5
+      10: 783.99, // G5
+      12: 880.00, // A5
+      14: 783.99, // G5
+
+      // Bar 2
+      16: 659.25, // E5
+      18: 523.25, // C5
+      20: 440.00, // A4
+      22: 523.25, // C5
+      24: 659.25, // E5
+      26: 587.33, // D5
+      28: 523.25, // C5
+      30: 587.33, // D5
+
+      // Bar 3
+      32: 880.00,  // A5
+      34: 783.99,  // G5
+      36: 698.46,  // F5
+      38: 659.25,  // E5
+      40: 587.33,  // D5
+      42: 698.46,  // F5
+      44: 880.00,  // A5
+      46: 1046.50, // C6
+
+      // Bar 4
+      48: 987.77, // B5
+      50: 783.99, // G5
+      52: 880.00, // A5
+      54: 783.99, // G5
+      56: 659.25, // E5
+      58: 587.33, // D5
+      60: 659.25, // E5
+      62: 587.33  // D5
+    };
+
+    if (melodyMap[step]) {
+      this._playGamelanBell(melodyMap[step], time, 0.42, 0.2);
+    }
   }
 
   // Efek langkah pion

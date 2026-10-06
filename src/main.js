@@ -61,6 +61,7 @@ function refreshIcons() {
 
 // Inisialisasi Permainan
 function startNewGameSession(playersConfig) {
+  sound.startBGM();
   gameState.initGame(playersConfig);
   aiController = new AIPlayer(gameState);
 
@@ -433,4 +434,5 @@ btnNewGame?.addEventListener('click', () => {
 // Tampilkan Setup Modal Saat Halaman Dibuka Pertama Kali
 window.addEventListener('DOMContentLoaded', () => {
   modalManager.showSetupModal(startNewGameSession);
+  sound.startBGM();
 });
